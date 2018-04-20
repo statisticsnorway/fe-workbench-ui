@@ -38,6 +38,3 @@ In the example-frontend directory run
 
 You might have to install the appropriate versions of npm or mvn.
 
-As of writing this tutorial, I am using npm 4.6.1 and I am using maven 3.3.9 with JDK version 1.8.0_92 for building
-ReactJS and Java code respectively.
-
