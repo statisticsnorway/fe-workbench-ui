@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../css/App.css';
 import axios from 'axios';
 
 class Main extends Component {
