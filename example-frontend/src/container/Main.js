@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import axios from 'axios';
+import RegisterAgent from "../components/agent/RegisterAgent";
 
 class Main extends Component {
 
@@ -33,6 +34,7 @@ class Main extends Component {
             <div>Registered: {this.state.registered}</div>
           </div>
         </p>
+        <RegisterAgent />
       </div>
     );
   }
