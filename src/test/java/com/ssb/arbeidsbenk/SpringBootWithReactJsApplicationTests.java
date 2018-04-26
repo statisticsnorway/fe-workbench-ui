@@ -1,4 +1,4 @@
-package com.example.springbootwithreactjs;
+package com.ssb.arbeidsbenk;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

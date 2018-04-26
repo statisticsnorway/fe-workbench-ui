@@ -1,5 +1,5 @@
 import React from 'react';
-import {Segment, Image, Grid, Button, Responsive} from "semantic-ui-react";
+import {Segment, Image, Grid, Button} from "semantic-ui-react";
 import ssb_logo from '../../assets/SSB_logo.png';
 
 var centerAlign = {

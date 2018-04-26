@@ -1,4 +1,4 @@
-package com.example.springbootwithreactjs;
+package com.ssb.arbeidsbenk;
 
 public class LoginResponse {
     private String errors;

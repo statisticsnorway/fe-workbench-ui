@@ -36,7 +36,7 @@ class LoginForm extends React.Component {
             this.props
                 .submit(this.state.data)
                 .catch(
-                    err => this.setState({errors: err.response.data, loading: false}))
+                    err => this.setState({errors: err.response.data.errors, loading: false}))
         }
     };
 
@@ -48,16 +48,17 @@ class LoginForm extends React.Component {
     };
 
     render() {
-        const {activeItem} = this.state
         const {data, errors, loading} = this.state;
         return (
 
             <Form onSubmit={this.onSubmit} loading={loading}>
-                {errors.errors && (<Message negative>
+
+                {errors.global && (<Message negative>
                         <Message.Header>Something went wrong</Message.Header>
-                        <p>{errors.errors}</p>
+                        <p>{errors.global}</p>
                     </Message>
                 )}
+
                 <div>
                     <Segment>
                         <Header as="h3">Login</Header>
