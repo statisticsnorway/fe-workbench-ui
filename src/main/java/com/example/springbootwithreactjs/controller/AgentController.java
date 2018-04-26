@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AgentController {
 
-    private static final Logger logger = LoggerFactory.getLogger(AgentController.class);
+  private static final Logger logger = LoggerFactory.getLogger(AgentController.class);
 
-    @RequestMapping(value = "/registerAgent", method = RequestMethod.POST)
-    @CrossOrigin(origins = "http://localhost:3000")
-    public String registerAgents(@RequestBody String payload) {
-        logger.debug(payload);
-        return "Registered Agent";
-    }
+  @RequestMapping(value = "/registerAgent", method = RequestMethod.POST)
+  @CrossOrigin(origins = "http://localhost:3000")
+  public String registerAgent(@RequestBody String payload) {
+    logger.debug(payload);
+    return "Registered Agent";
+  }
 }
