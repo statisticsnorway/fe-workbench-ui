@@ -3,6 +3,8 @@ import axios from 'axios';
 
 class RegisterAgent extends Component {
   registerAgent (e) {
+    e.preventDefault();
+
     axios.post('http://localhost:8080/registerAgent', {
       kontaktperson: this.refs.kontaktperson.value,
       epost: this.refs.epost.value,
@@ -14,8 +16,6 @@ class RegisterAgent extends Component {
       .catch(function (error) {
         console.log(error);
       })
-
-    e.preventDefault();
   }
 
   render () {
@@ -37,7 +37,7 @@ class RegisterAgent extends Component {
             <input type="text" ref="telefon"/>
           </div>
           <br/>
-          <input type="submit" value="Submit"/>
+          <input type="submit" value="Lagre"/>
         </form>
       </div>
     );
