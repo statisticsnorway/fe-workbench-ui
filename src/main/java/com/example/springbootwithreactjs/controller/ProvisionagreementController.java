@@ -5,14 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class AgentController {
+public class ProvisionagreementController {
 
-    private static final Logger logger = LoggerFactory.getLogger(AgentController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProvisionagreementController.class);
 
-    @RequestMapping(value = "/registerAgent", method = RequestMethod.POST)
+    @RequestMapping(value = "/registerProvisionagreement", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders="*")
     public String registerAgents(@RequestBody String payload) {
         logger.debug(payload);
-        return "Registered Agent";
+        return "Registered provisionagreement";
     }
 }
