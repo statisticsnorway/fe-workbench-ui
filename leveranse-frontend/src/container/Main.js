@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import RegisterAgent from "../components/agent/RegisterAgent";
-import RegisterProvisionagreement from "../components/provisionagreement/RegisterProvisionagreement";
-import RegisterAdminDetails from "../components/adminDetails/RegisterAdminDetails";
-import RegisterRole from '../components/role/RegisterRole'
+import RegisterAgent from "../components/pages/agent/RegisterAgent";
+import RegisterProvisionagreement from "../components/pages/provisionagreement/RegisterProvisionagreement";
+import RegisterAdminDetails from "../components/pages/adminDetails/RegisterAdminDetails";
+import RegisterRole from '../components/pages/role/RegisterRole'
 
 class Main extends Component {
 

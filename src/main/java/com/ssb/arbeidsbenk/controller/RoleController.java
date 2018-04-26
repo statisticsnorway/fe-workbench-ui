@@ -1,4 +1,4 @@
-package com.example.springbootwithreactjs.controller;
+package com.ssb.arbeidsbenk.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

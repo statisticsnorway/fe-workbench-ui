@@ -1,5 +1,10 @@
 import React from 'react';
 import {Form, Menu, Grid, Segment, Icon, Sidebar, Image} from "semantic-ui-react";
+import RegisterAgent from "./agent/RegisterAgent";
+import RegisterProvisionagreement from "./provisionagreement/RegisterProvisionagreement";
+import RegisterAdminDetails from "./adminDetails/RegisterAdminDetails";
+import RegisterRole from './role/RegisterRole'
+
 
 class LevranseAvtale extends React.Component {
     state = {
@@ -28,12 +33,12 @@ class LevranseAvtale extends React.Component {
                             <Grid columns='equal'>
                                 <Grid.Row stretched>
                                     <Grid.Column>
-                                        <Segment>1</Segment>
+                                        <Segment><RegisterProvisionagreement /></Segment>
                                         <Segment>2</Segment>
                                     </Grid.Column>
                                     <Grid.Column width={6}>
                                         <Segment>
-                                            <Image src='/assets/images/wireframe/paragraph.png' />
+                                            <RegisterAgent/>
                                         </Segment>
                                     </Grid.Column>
                                     <Grid.Column>
@@ -48,7 +53,7 @@ class LevranseAvtale extends React.Component {
                                     </Grid.Column>
                                     <Grid.Column width={6}>
                                         <Segment>
-                                            <Image src='/assets/images/wireframe/paragraph.png' />
+                                            <RegisterRole/>
                                         </Segment>
                                     </Grid.Column>
                                     <Grid.Column>
