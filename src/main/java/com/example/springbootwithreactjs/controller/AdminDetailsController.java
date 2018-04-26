@@ -10,7 +10,7 @@ public class AdminDetailsController {
     private static final Logger logger = LoggerFactory.getLogger(AdminDetailsController.class);
 
     @RequestMapping(value = "/registerAdminDetails", method = RequestMethod.POST)
-    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders="*")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String registerAdminDetails(@RequestBody String payload) {
         logger.debug(payload);
         return "Registered admin details";

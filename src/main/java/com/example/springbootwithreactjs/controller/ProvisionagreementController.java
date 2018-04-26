@@ -10,7 +10,7 @@ public class ProvisionagreementController {
     private static final Logger logger = LoggerFactory.getLogger(ProvisionagreementController.class);
 
     @RequestMapping(value = "/registerProvisionagreement", method = RequestMethod.POST)
-    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders="*")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String registerAgents(@RequestBody String payload) {
         logger.debug(payload);
         return "Registered provisionagreement";
