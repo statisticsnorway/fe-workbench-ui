@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import '../css/App.css';
 import axios from 'axios';
 import RegisterAgent from "../components/agent/RegisterAgent";
+import RegisterProvisionagreement from "../components/provisionagreement/RegisterProvisionagreement";
+import RegisterAdminDetails from "../components/adminDetails/RegisterAdminDetails";
 import RegisterRole from '../components/role/RegisterRole'
 
 class Main extends Component {
@@ -35,6 +37,7 @@ class Main extends Component {
             <div>Registered: {this.state.registered}</div>
           </div>
         </p>
+        <RegisterProvisionagreement />
         <RegisterAgent/>
         <RegisterRole/>
       </div>
