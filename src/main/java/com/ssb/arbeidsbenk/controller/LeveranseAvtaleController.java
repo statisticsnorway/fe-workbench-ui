@@ -1,6 +1,5 @@
 package com.ssb.arbeidsbenk.controller;
 
-import com.ssb.arbeidsbenk.LoginResponse;
 import com.ssb.arbeidsbenk.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
