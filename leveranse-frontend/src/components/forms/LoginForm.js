@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import {Form, Button, Message, Divider, Header, Segment, Grid, Image} from "semantic-ui-react";
+import {Form, Button, Message, Header, Segment, Grid} from "semantic-ui-react";
 import Validator from 'validator';
 import InlineError from "../messages/InlineError";
 

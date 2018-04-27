@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Form, Button} from "semantic-ui-react";
 
 class RegisterAgent extends Component {
   registerAgent (e) {
@@ -22,23 +23,22 @@ class RegisterAgent extends Component {
     return (
       <div>
         <h3>Ny Aktør</h3>
+          <Form onSubmit={this.registerAgent.bind(this)}>
+              <Form.Field>
+                  <label>Kontaktperson</label>
+                  <input placeholder='Navn på avtale..' ref="kontaktperson"/>
+              </Form.Field>
+              <Form.Field>
+                  <label>E-post</label>
+                  <input placeholder='Varighet..' ref="epost"/>
+              </Form.Field>
+              <Form.Field>
+                  <label>Telefon</label>
+                  <input placeholder='Telefon..' ref="telefon"/>
+              </Form.Field>
+              <Form.Field control={Button}>Submit</Form.Field>
+          </Form>
 
-        <form onSubmit={this.registerAgent.bind(this)}>
-          <div>
-            <label>Kontaktperson:</label><br/>
-            <input type="text" ref="kontaktperson"/>
-          </div>
-          <div>
-            <label>E-post:</label><br/>
-            <input type="text" ref="epost"/>
-          </div>
-          <div>
-            <label>Telefon:</label><br/>
-            <input type="text" ref="telefon"/>
-          </div>
-          <br/>
-          <input type="submit" value="Lagre"/>
-        </form>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Form, Button} from "semantic-ui-react";
 import axios from 'axios';
 
 class RegisterRole extends Component {
@@ -23,7 +24,7 @@ class RegisterRole extends Component {
     e.preventDefault();
 
     let role = this.state.newRole
-    axios.post('http://localhost:8080/api/v1/role', {
+    axios.post('http://localhost:8080/registerRole', {
       role
     })
       .then(function (response) {
@@ -38,23 +39,21 @@ class RegisterRole extends Component {
     return (
       <div>
         <h3>Ny Rolle</h3>
-
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <div>
-            <label>Kontaktperson:</label><br/>
-            <input onChange={this.handleChange.bind(this)} type="text" ref="kontaktperson"/>
-          </div>
-          <div>
-            <label>E-post:</label><br/>
-            <input onChange={this.handleChange.bind(this)} type="text" ref="epost"/>
-          </div>
-          <div>
-            <label>Telefon:</label><br/>
-            <input onChange={this.handleChange.bind(this)} type="text" ref="telefon"/>
-          </div>
-          <br/>
-          <input type="submit" value="Lagre"/>
-        </form>
+          <Form onSubmit={this.handleSubmit.bind(this)}>
+              <Form.Field>
+                  <label>Kontaktperson</label>
+                  <input placeholder='Navn..' ref="avtalenavn"/>
+              </Form.Field>
+              <Form.Field>
+                  <label>E-post:</label>
+                  <input placeholder='E-post..' ref="epost"/>
+              </Form.Field>
+              <Form.Field>
+                  <label>Telefon:</label>
+                  <input placeholder='telefon..' ref="telefon"/>
+              </Form.Field>
+              <Form.Field control={Button}>Submit</Form.Field>
+          </Form>
       </div>
     );
   }
