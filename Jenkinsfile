@@ -30,16 +30,18 @@ pipeline {
             }
         }
         stage('Build image') {
-//            steps {
+            steps {
+                echo 'Build image....'
 //                sh "docker build -t ${env.DOCKER_REPO}/${env.DOCKER_IMAGE}:${env.BUILD_NUMBER} ."
-//            }
+            }
         }
         stage('Push image') {
-//            steps {
+            steps {
+                echo 'Push image....'
 //                withDockerRegistry([credentialsId: 'gcr:P2 utvikling', url: 'https://eu.gcr.io']){
 //                    sh "docker push ${env.DOCKER_REPO}/${env.DOCKER_IMAGE}:${env.BUILD_NUMBER}"
 //                }
-//            }
+            }
         }
         stage('Release') {
             steps {
