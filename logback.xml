@@ -3,6 +3,6 @@
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <logger name="org.springframework" level="INFO"/>
     <appender-ref ref="CONSOLE"/>
-    <logger name="com.example.springbootwithreactjs" level="DEBUG"/>
+    <logger name="com.ssb.arbeidsbenk" level="DEBUG"/>
     <appender-ref ref="CONSOLE"/>
 </configuration>
