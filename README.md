@@ -7,7 +7,7 @@ creates a simple spring-boot application that has a react front end as well.
 
 ### Running ###
 
-To run the front end, cd into ./example-frontend -> install yarn and run it
+To run the front end, cd into ./leveranse-frontend -> install yarn and run it
 
 ```yarn install```
 
@@ -32,7 +32,7 @@ In the source directory, run
 
 ```mvn install -DskipTests```
 
-In the example-frontend directory run
+In the leveranse-frontend directory run
 
 ``` yarn install```
 
