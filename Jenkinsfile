@@ -31,14 +31,14 @@ pipeline {
         }
         stage('Build image') {
             steps {
-                #sh "docker build -t ${env.DOCKER_REPO}/${env.DOCKER_IMAGE}:${env.BUILD_NUMBER} ."
+                //sh "docker build -t ${env.DOCKER_REPO}/${env.DOCKER_IMAGE}:${env.BUILD_NUMBER} ."
             }
         }
         stage('Push image') {
             steps {
-                #withDockerRegistry([credentialsId: 'gcr:P2 utvikling', url: 'https://eu.gcr.io']){
-                #    sh "docker push ${env.DOCKER_REPO}/${env.DOCKER_IMAGE}:${env.BUILD_NUMBER}"
-                #}
+                //withDockerRegistry([credentialsId: 'gcr:P2 utvikling', url: 'https://eu.gcr.io']){
+                //    sh "docker push ${env.DOCKER_REPO}/${env.DOCKER_IMAGE}:${env.BUILD_NUMBER}"
+                //}
             }
         }
         stage('Release') {
