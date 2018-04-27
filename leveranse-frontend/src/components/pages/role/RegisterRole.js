@@ -23,7 +23,7 @@ class RegisterRole extends Component {
     e.preventDefault();
 
     let role = this.state.newRole
-    axios.post('http://localhost:8080/registerRole', {
+    axios.post('http://localhost:8080/api/v1/role', {
       role
     })
       .then(function (response) {
