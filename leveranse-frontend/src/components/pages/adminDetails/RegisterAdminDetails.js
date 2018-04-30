@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import {Form, Button} from "semantic-ui-react";
 import axios from 'axios';
 
 class RegisterAdminDetails extends Component {
@@ -22,23 +24,21 @@ class RegisterAdminDetails extends Component {
     return (
       <div>
         <h3>Administrative detaljer</h3>
-
-        <form onSubmit={this.registerAdminDetails.bind(this)}>
-          <div>
-            <label>Avtale-ID:</label><br/>
-            <input type="text" ref="avtaleid"/>
-          </div>
-          <div>
-            <label>Dato opprettet:</label><br/>
-            <input type="text" ref="datoOpprettet"/>
-          </div>
-          <div>
-            <label>Opprettet av:</label><br/>
-            <input type="text" ref="opprettetAv"/>
-          </div>
-          <br/>
-          <input type="submit" value="Lagre"/>
-        </form>
+          <Form onSubmit={this.registerAdminDetails.bind(this)}>
+              <Form.Field>
+                  <label>Avtale-ID</label>
+                  <input placeholder='Avtale ID:..' ref="avtaleid"/>
+              </Form.Field>
+              <Form.Field>
+                  <label>Dato opprettet</label>
+                  <input placeholder='Dato opprettet..' ref="datoOpprettet"/>
+              </Form.Field>
+              <Form.Field>
+                  <label>Opprettet av</label>
+                  <input placeholder='Opprettet av..' ref="opprettetAv"/>
+              </Form.Field>
+              <Form.Field control={Button}>Submit</Form.Field>
+          </Form>
       </div>
     );
   }

@@ -1,102 +1,94 @@
 import React from 'react';
-import {Form, Menu, Grid, Segment, Icon, Sidebar, Image} from "semantic-ui-react";
+import {Menu, Grid, Segment, Icon, Input, Dropdown} from "semantic-ui-react";
 import RegisterAgent from "./agent/RegisterAgent";
 import RegisterProvisionagreement from "./provisionagreement/RegisterProvisionagreement";
 import RegisterAdminDetails from "./adminDetails/RegisterAdminDetails";
 import RegisterRole from './role/RegisterRole'
 
-
 class LevranseAvtale extends React.Component {
-    state = {
-        activeItem: 'home'
-    };
+
+    state = {}
+
+    handleItemClick = (e, {name}) => this.setState({activeItem: name})
+
 
     render() {
-         return (
 
-            <Form onSubmit={this.onSubmit}>
+        const {activeItem} = this.state
 
-                <div>
-                    <Menu secondary attached="top">
-                        <Menu.Item onClick={() => this.setState({ menuVisible: !this.state.menuVisible })} >
-                            <Icon name="sidebar" />Menu
-                        </Menu.Item>
-                    </Menu>
-                    <Sidebar.Pushable as={Segment} attached="bottom" >
-                        <Sidebar as={Menu} animation="uncover" visible={this.state.menuVisible} icon="labeled" vertical inverted>
-                            <Menu.Item><Icon name="search" />Finn Avtale</Menu.Item>
-                            <Menu.Item><Icon name="add" />Opprett ny Avtale</Menu.Item>
-                            <Menu.Item><Icon name="copy" />Kopier Avtale</Menu.Item>
-                            <Menu.Item><Icon name="delete" />Slett Avtale</Menu.Item>
-                        </Sidebar>
-                        <Sidebar.Pusher>
-                            <Grid columns='equal'>
-                                <Grid.Row stretched>
-                                    <Grid.Column>
-                                        <Segment><RegisterProvisionagreement /></Segment>
-                                        <Segment>2</Segment>
-                                    </Grid.Column>
-                                    <Grid.Column width={6}>
-                                        <Segment>
-                                            <RegisterAgent/>
-                                        </Segment>
-                                    </Grid.Column>
-                                    <Grid.Column>
-                                        <Segment>1</Segment>
-                                        <Segment>2</Segment>
-                                    </Grid.Column>
-                                </Grid.Row>
-                                <Grid.Row>
-                                    <Grid.Column>
-                                        <Segment>1</Segment>
-                                        <Segment>2</Segment>
-                                    </Grid.Column>
-                                    <Grid.Column width={6}>
-                                        <Segment>
-                                            <RegisterRole/>
-                                        </Segment>
-                                    </Grid.Column>
-                                    <Grid.Column>
-                                        <Segment>1</Segment>
-                                        <Segment>2</Segment>
-                                    </Grid.Column>
-                                </Grid.Row>
-                                <Grid.Row stretched>
-                                    <Grid.Column>
-                                        <Segment>1</Segment>
-                                        <Segment>2</Segment>
-                                    </Grid.Column>
-                                    <Grid.Column width={6}>
-                                        <Segment>
-                                            <Image src='/assets/images/wireframe/paragraph.png' />
-                                        </Segment>
-                                    </Grid.Column>
-                                    <Grid.Column>
-                                        <Segment>1</Segment>
-                                        <Segment>2</Segment>
-                                    </Grid.Column>
-                                </Grid.Row>
-                                <Grid.Row>
-                                    <Grid.Column>
-                                        <Segment>1</Segment>
-                                        <Segment>2</Segment>
-                                    </Grid.Column>
-                                    <Grid.Column width={6}>
-                                        <Segment>
-                                            <Image src='/assets/images/wireframe/paragraph.png' />
-                                        </Segment>
-                                    </Grid.Column>
-                                    <Grid.Column>
-                                        <Segment>1</Segment>
-                                        <Segment>2</Segment>
-                                    </Grid.Column>
-                                </Grid.Row>
-                            </Grid>
-                        </Sidebar.Pusher>
-                    </Sidebar.Pushable>
-                </div>
+        return (
+            <div>
+                <Grid>
+                    <Grid.Column width={3}>
+                        <Menu vertical>
+                            <Menu.Item>
+                                <Input placeholder='Finn avtale'/>
+                            </Menu.Item>
 
-            </Form>
+                            <Menu.Item name='opprettAvtale' active={activeItem === 'opprettAvtale'}
+                                       onClick={this.handleItemClick}>
+                                <Icon name="add square"/>
+                                Opprett ny avtale
+                            </Menu.Item>
+
+                            <Menu.Item name='kopierAvtale' active={activeItem === 'kopierAvtale'}
+                                       onClick={this.handleItemClick}>
+                                <Icon name='grid layout'/>
+                                Kopier avtale
+                            </Menu.Item>
+                            <Menu.Item name='slettAvtale' active={activeItem === 'slettAvtale'}
+                                       onClick={this.handleItemClick}>
+                                Slett avtale
+                            </Menu.Item>
+
+                            <Dropdown item text='More'>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item icon='edit' text='Edit Profile'/>
+                                    <Dropdown.Item icon='globe' text='Choose Language'/>
+                                    <Dropdown.Item icon='settings' text='Account Settings'/>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Menu>
+                    </Grid.Column>
+                    <Grid.Column width={13}>
+                        <Grid celled container stackable>
+                            <Grid.Row columns={3}>
+                                <Grid.Column>
+                                    <Segment><RegisterProvisionagreement/></Segment>
+                                </Grid.Column>
+                                <Grid.Column>
+                                    <Segment><RegisterRole/></Segment>
+                                </Grid.Column>
+                                <Grid.Column>
+                                    <Segment><RegisterAdminDetails/></Segment>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row columns={3}>
+                                <Grid.Column>
+                                    <Segment></Segment>
+                                </Grid.Column>
+                                <Grid.Column>
+                                    <Segment><RegisterAgent/></Segment>
+                                </Grid.Column>
+                                <Grid.Column>
+                                    <Segment></Segment>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row columns={3}>
+                                <Grid.Column>
+                                    <Segment>Content</Segment>
+                                </Grid.Column>
+                                <Grid.Column>
+                                    <Segment>Content</Segment>
+                                </Grid.Column>
+                                <Grid.Column>
+                                    <Segment></Segment>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+                    </Grid.Column>
+                </Grid>
+            </div>
         );
     }
 }

@@ -32,7 +32,6 @@ class LoginPage extends React.Component{
                     </Grid.Row>
 
                 </Grid>
-                <h1 align="center">Arbeidsbenk</h1>
                 <LoginForm submit={this.submit}/>
             </div>
         )

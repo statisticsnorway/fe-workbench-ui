@@ -11,7 +11,7 @@ export default class TopNavigation extends Component {
 
         return (
             <div>
-                <Menu pointing>
+                <Menu pointing stackable>
                     <Menu.Item name='Leveranse Avatale' active={activeItem === 'leveranseAvatale'} onClick={this.handleItemClick} />
                     <Menu.Item name='Begrep' active={activeItem === 'begrep'} onClick={this.handleItemClick} />
                     <Menu.Item name='Rådatastruktur' active={activeItem === 'rådatastruktur'} onClick={this.handleItemClick} />
