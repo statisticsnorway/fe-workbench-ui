@@ -4,14 +4,19 @@ import {Form, Button} from "semantic-ui-react";
 
 class RegisterAgent extends Component {
   registerAgent (e) {
-    e.preventDefault();
+      e.preventDefault();
 
-    axios.post('http://localhost:8080/registerAgent', {
-      kontaktperson: this.refs.kontaktperson.value,
-      epost: this.refs.epost.value,
-      telefon: this.refs.telefon.value
-    })
-      .then(function (response) {
+      let data = JSON.stringify({
+          contactPerson: this.refs.kontaktperson.value,
+          email: this.refs.epost.value,
+          phoneNumber: this.refs.telefon.value,
+      })
+
+    axios.post('http://localhost:8080/api/v1/agent', data,  {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }).then(function (response) {
         console.log(response);
       })
       .catch(function (error) {
