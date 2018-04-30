@@ -22,7 +22,7 @@ class LevranseAvtale extends React.Component {
                     <Grid.Column width={3}>
                         <Menu vertical>
                             <Menu.Item>
-                                <Input placeholder='finn avtale'/>
+                                <Input placeholder='Finn avtale'/>
                             </Menu.Item>
 
                             <Menu.Item name='opprettAvtale' active={activeItem === 'opprettAvtale'}
