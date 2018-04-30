@@ -26,15 +26,15 @@ class RegisterAgent extends Component {
           <Form onSubmit={this.registerAgent.bind(this)}>
               <Form.Field>
                   <label>Kontaktperson</label>
-                  <input placeholder='Navn på avtale..' ref="kontaktperson"/>
+                  <input placeholder='Kontaktperson..' ref="kontaktperson"/>
               </Form.Field>
               <Form.Field>
                   <label>E-post</label>
-                  <input placeholder='Varighet..' ref="epost"/>
+                  <input placeholder='e-post..' ref="epost"/>
               </Form.Field>
               <Form.Field>
                   <label>Telefon</label>
-                  <input placeholder='Telefon..' ref="telefon"/>
+                  <input placeholder='telefon..' ref="telefon"/>
               </Form.Field>
               <Form.Field control={Button}>Submit</Form.Field>
           </Form>
