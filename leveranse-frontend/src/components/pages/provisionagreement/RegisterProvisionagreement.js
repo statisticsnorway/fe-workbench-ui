@@ -42,7 +42,7 @@ class RegisterProvisionagreement extends Component {
                 <Form onSubmit={this.registerProvisonagreement.bind(this)}>
                     <Form.Field>
                         <label>Navn på avtale</label>
-                        <input placeholder='vavn på avtale..' ref="avtalenavn"/>
+                        <input placeholder='navn på avtale..' ref="avtalenavn"/>
                     </Form.Field>
                     <Form.Field>
                         <label>Varighet</label>

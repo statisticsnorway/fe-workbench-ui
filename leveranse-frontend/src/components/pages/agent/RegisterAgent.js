@@ -4,8 +4,7 @@ import {Form, Button} from "semantic-ui-react";
 
 class RegisterAgent extends Component {
   registerAgent (e) {
-
-    e.preventDefault();
+      e.preventDefault();
 
       let data = JSON.stringify({
           contactPerson: this.refs.kontaktperson.value,
