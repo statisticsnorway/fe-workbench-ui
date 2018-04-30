@@ -1,31 +1,46 @@
 import React, { Component } from 'react';
-import {Form, Button} from "semantic-ui-react";
+import { Form, Input } from "semantic-ui-react";
 import axios from 'axios';
 
 class RegisterRole extends Component {
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
     this.state = {
-      newRole: {}
-    }
+      description: '',
+      id: '',
+      localeId: '',
+      name: '',
+      version: '',
+      versionDate: '',
+      versionRationale: '',
+      administrativeDetails: ''
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleChange () {
+  handleInputChange (event) {
     this.setState({
-      newRole: {
-        kontaktperson: this.refs.kontaktperson.value,
-        epost: this.refs.epost.value,
-        telefon: this.refs.telefon.value
-      }
+      [event.target.name]: event.target.value
     })
   }
 
-  handleSubmit (e) {
-    e.preventDefault();
+  postRoleToBackend () {
+    let data = JSON.stringify({
+      description: null,
+      id: this.state.id,
+      localeId: this.state.localeId,
+      name: this.state.name,
+      version: null,
+      versionDate: null,
+      versionRationale: null,
+      administrativeDetails: null
+    })
 
-    let role = this.state.newRole
-    axios.post('http://localhost:8080/registerRole', {
-      role
+    axios.post('http://localhost:8080/api/v1/role', data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
       .then(function (response) {
         console.log(response);
@@ -38,22 +53,19 @@ class RegisterRole extends Component {
   render () {
     return (
       <div>
-        <h3>Ny Rolle</h3>
-          <Form onSubmit={this.handleSubmit.bind(this)}>
-              <Form.Field>
-                  <label>Kontaktperson</label>
-                  <input placeholder='Navn..' ref="avtalenavn"/>
-              </Form.Field>
-              <Form.Field>
-                  <label>E-post:</label>
-                  <input placeholder='E-post..' ref="epost"/>
-              </Form.Field>
-              <Form.Field>
-                  <label>Telefon:</label>
-                  <input placeholder='telefon..' ref="telefon"/>
-              </Form.Field>
-              <Form.Field control={Button}>Submit</Form.Field>
-          </Form>
+        <h3>Rolle</h3>
+        <Form.Field>
+          <label>Navn:</label>
+          <Input placeholder='Navn' name="name" value={this.state.name} onChange={this.handleInputChange}/>
+        </Form.Field>
+        <Form.Field>
+          <label>Id:</label>
+          <Input placeholder='Id' name="id" value={this.state.id} onChange={this.handleInputChange}/>
+        </Form.Field>
+        <Form.Field>
+          <label>Lokal id:</label>
+          <Input placeholder='Lokal id' name="localeId" value={this.state.localeId} onChange={this.handleInputChange}/>
+        </Form.Field>
       </div>
     );
   }

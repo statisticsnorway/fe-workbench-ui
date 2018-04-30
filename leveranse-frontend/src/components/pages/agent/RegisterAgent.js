@@ -1,15 +1,52 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Form, Button} from "semantic-ui-react";
+import { Form, Input } from "semantic-ui-react";
 
 class RegisterAgent extends Component {
-  registerAgent (e) {
-    e.preventDefault();
+  constructor (props) {
+    super(props);
+    this.state = {
+      contactPerson: '',
+      email: '',
+      phoneNumber: '',
+      description: '',
+      id: '',
+      localeId: '',
+      name: '',
+      version: '',
+      versionDate: '',
+      versionRationale: '',
+      administrativeDetails: ''
+    };
 
-    axios.post('http://localhost:8080/registerAgent', {
-      kontaktperson: this.refs.kontaktperson.value,
-      epost: this.refs.epost.value,
-      telefon: this.refs.telefon.value
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange (event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  postAgentToBackend () {
+    let data = JSON.stringify({
+      contactPerson: this.state.contactPerson,
+      email: this.state.email,
+      phoneNumber: this.state.phoneNumber,
+      description: null,
+      id: null,
+      localeId: null,
+      name: null,
+      version: null,
+      versionDate: null,
+      versionRationale: null,
+      administrativeDetails: null
+    })
+
+    axios.post('http://localhost:8080/api/v1/agent', data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
       .then(function (response) {
         console.log(response);
@@ -22,23 +59,21 @@ class RegisterAgent extends Component {
   render () {
     return (
       <div>
-        <h3>Ny Aktør</h3>
-          <Form onSubmit={this.registerAgent.bind(this)}>
-              <Form.Field>
-                  <label>Kontaktperson</label>
-                  <input placeholder='Kontaktperson..' ref="kontaktperson"/>
-              </Form.Field>
-              <Form.Field>
-                  <label>E-post</label>
-                  <input placeholder='e-post..' ref="epost"/>
-              </Form.Field>
-              <Form.Field>
-                  <label>Telefon</label>
-                  <input placeholder='telefon..' ref="telefon"/>
-              </Form.Field>
-              <Form.Field control={Button}>Submit</Form.Field>
-          </Form>
-
+        <h3>Aktør</h3>
+        <Form.Field>
+          <label>Kontaktperson:</label>
+          <Input placeholder='Kontaktperson' name='contactPerson' value={this.state.contactPerson}
+                 onChange={this.handleInputChange}/>
+        </Form.Field>
+        <Form.Field>
+          <label>E-post:</label>
+          <Input placeholder='Epost' name='email' value={this.state.email} onChange={this.handleInputChange}/>
+        </Form.Field>
+        <Form.Field>
+          <label>Telefon:</label>
+          <Input placeholder='Telefon' name='phoneNumber' value={this.state.phoneNumber}
+                 onChange={this.handleInputChange}/>
+        </Form.Field>
       </div>
     );
   }
