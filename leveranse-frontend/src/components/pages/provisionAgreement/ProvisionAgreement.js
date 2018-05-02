@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Input } from "semantic-ui-react";
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
-
-import 'react-datepicker/dist/react-datepicker.css';
-
 import axios from 'axios';
+import { Form, Input } from "semantic-ui-react";
 
-class RegisterProvisionagreement extends Component {
+class ProvisionAgreement extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -34,7 +29,7 @@ class RegisterProvisionagreement extends Component {
     })
   }
 
-  postProvisionagreementToBackend () {
+  registerProvisionAgreement () {
     let data = JSON.stringify({
       duration: this.state.duration,
       frequency: this.state.frequency,
@@ -107,4 +102,4 @@ class RegisterProvisionagreement extends Component {
   }
 }
 
-export default RegisterProvisionagreement;
+export default ProvisionAgreement;

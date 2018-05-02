@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-
-import { Form, Input } from "semantic-ui-react";
 import axios from 'axios';
+import { Form, Input } from "semantic-ui-react";
 
-class RegisterAdminDetails extends Component {
+class AdministrativeDetails extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -32,7 +31,7 @@ class RegisterAdminDetails extends Component {
     })
   }
 
-  postAdminDetailToBackend () {
+  registerAdministrativeDetails () {
     let data = JSON.stringify({
       id: this.state.id,
       administrativeStatus: null,
@@ -84,4 +83,4 @@ class RegisterAdminDetails extends Component {
   }
 }
 
-export default RegisterAdminDetails;
+export default AdministrativeDetails;

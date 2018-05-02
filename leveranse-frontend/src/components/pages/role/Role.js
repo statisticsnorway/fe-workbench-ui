@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Form, Input } from "semantic-ui-react";
+import axios from 'axios';
 
-class RegisterAgent extends Component {
+class Role extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      contactPerson: '',
-      email: '',
-      phoneNumber: '',
       description: '',
       id: '',
       localeId: '',
@@ -28,22 +25,19 @@ class RegisterAgent extends Component {
     })
   }
 
-  postAgentToBackend () {
+  registerRole () {
     let data = JSON.stringify({
-      contactPerson: this.state.contactPerson,
-      email: this.state.email,
-      phoneNumber: this.state.phoneNumber,
       description: null,
-      id: null,
-      localeId: null,
-      name: null,
+      id: this.state.id,
+      localeId: this.state.localeId,
+      name: this.state.name,
       version: null,
       versionDate: null,
       versionRationale: null,
       administrativeDetails: null
     })
 
-    axios.post('http://localhost:8080/api/v1/agent', data, {
+    axios.post('http://localhost:8080/api/v1/role', data, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -59,24 +53,22 @@ class RegisterAgent extends Component {
   render () {
     return (
       <div>
-        <h3>Aktør</h3>
+        <h3>Rolle</h3>
         <Form.Field>
-          <label>Kontaktperson:</label>
-          <Input placeholder='Kontaktperson' name='contactPerson' value={this.state.contactPerson}
-                 onChange={this.handleInputChange}/>
+          <label>Navn:</label>
+          <Input placeholder='Navn' name="name" value={this.state.name} onChange={this.handleInputChange}/>
         </Form.Field>
         <Form.Field>
-          <label>E-post:</label>
-          <Input placeholder='Epost' name='email' value={this.state.email} onChange={this.handleInputChange}/>
+          <label>Id:</label>
+          <Input placeholder='Id' name="id" value={this.state.id} onChange={this.handleInputChange}/>
         </Form.Field>
         <Form.Field>
-          <label>Telefon:</label>
-          <Input placeholder='Telefon' name='phoneNumber' value={this.state.phoneNumber}
-                 onChange={this.handleInputChange}/>
+          <label>Lokal id:</label>
+          <Input placeholder='Lokal id' name="localeId" value={this.state.localeId} onChange={this.handleInputChange}/>
         </Form.Field>
       </div>
     );
   }
 }
 
-export default RegisterAgent;
+export default Role;
