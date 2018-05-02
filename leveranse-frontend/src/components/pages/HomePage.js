@@ -7,7 +7,7 @@ class HomePage extends React.Component {
   state = {
     loading: false,
     errors: {},
-    activeItem: 'home'
+    activeItem: 'hjem'
   };
 
   render () {
