@@ -1,25 +1,24 @@
 import React from 'react';
 import HeaderLogo from '../header/HeaderLogo';
 import TopNavigation from '../navigation/TopNavigation';
-import LeveranseAvtale from "./LeveranseAvtale";
-
+import ProvisionAgreementPage from "./ProvisionAgreementPage";
 
 class HomePage extends React.Component {
-    state = {
-        loading: false,
-        errors: {},
-        activeItem: 'home'
-    };
+  state = {
+    loading: false,
+    errors: {},
+    activeItem: 'home'
+  };
 
-    render() {
-        return (
-            <div>
-                <HeaderLogo/>
-                <TopNavigation/>
-                <LeveranseAvtale/>
-                </div>
-        );
-    }
+  render () {
+    return (
+      <div>
+        <HeaderLogo/>
+        <TopNavigation/>
+        <ProvisionAgreementPage/>
+      </div>
+    );
+  }
 }
 
 export default HomePage;

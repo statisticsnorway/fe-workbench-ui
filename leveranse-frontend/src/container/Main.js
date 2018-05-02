@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import RegisterAgent from "../components/pages/agent/RegisterAgent";
-import RegisterProvisionagreement from "../components/pages/provisionagreement/RegisterProvisionagreement";
-import RegisterAdminDetails from "../components/pages/adminDetails/RegisterAdminDetails";
-import RegisterRole from '../components/pages/role/RegisterRole'
+import Agent from "../components/pages/agent/Agent";
+import ProvisionAgreement from "../components/pages/provisionAgreement/ProvisionAgreement";
+import Role from '../components/pages/role/Role'
 
 class Main extends Component {
 
@@ -36,9 +35,9 @@ class Main extends Component {
             <div>Registered: {this.state.registered}</div>
           </div>
         </p>
-        <RegisterProvisionagreement />
-        <RegisterAgent/>
-        <RegisterRole/>
+        <ProvisionAgreement/>
+        <Agent/>
+        <Role/>
       </div>
     );
   }

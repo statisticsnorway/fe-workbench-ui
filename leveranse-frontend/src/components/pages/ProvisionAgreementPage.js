@@ -1,9 +1,9 @@
 import React from 'react';
 import { Dropdown, Form, Grid, Icon, Input, Menu, Segment } from "semantic-ui-react";
-import RegisterAgent from "./agent/RegisterAgent";
-import RegisterProvisionagreement from "./provisionagreement/RegisterProvisionagreement";
-import RegisterAdminDetails from "./adminDetails/RegisterAdminDetails";
-import RegisterRole from './role/RegisterRole'
+import Agent from "./agent/Agent";
+import ProvisionAgreement from "./provisionAgreement/ProvisionAgreement";
+import AdministrativeDetails from "./administrativeDetails/AdministrativeDetails";
+import Role from './role/Role'
 
 class LevranseAvtale extends React.Component {
 
@@ -16,15 +16,10 @@ class LevranseAvtale extends React.Component {
   }
 
   onClick = () => {
-    console.log(this.adminDetails.state)
-    console.log(this.agent.state)
-    console.log(this.provisionagreement.state)
-    console.log(this.role.state)
-
-    this.adminDetails.postAdminDetailToBackend()
-    this.agent.postAgentToBackend()
-    this.provisionagreement.postProvisionagreementToBackend()
-    this.role.postRoleToBackend()
+    this.administrativeDetails.registerAdministrativeDetails()
+    this.agent.registerAgent()
+    this.provisionAgreement.registerProvisionAgreement()
+    this.role.registerRole()
   }
 
   render () {
@@ -37,30 +32,31 @@ class LevranseAvtale extends React.Component {
           <Grid.Column width={3}>
             <Menu vertical>
               <Menu.Item>
-                <Input placeholder='Finn avtale'/>
+                <Input icon='search' placeholder='Finn avtale'/>
               </Menu.Item>
 
-              <Menu.Item name='opprettAvtale' active={activeItem === 'opprettAvtale'}
+              <Menu.Item name='newProvisionAgreement' active={activeItem === 'newProvisionAgreement'}
                          onClick={this.handleItemClick}>
-                <Icon name="add square"/>
+                <Icon name="compose"/>
                 Opprett ny avtale
               </Menu.Item>
 
-              <Menu.Item name='kopierAvtale' active={activeItem === 'kopierAvtale'}
+              <Menu.Item name='copyProvisionAgreement' active={activeItem === 'copyProvisionAgreement'}
                          onClick={this.handleItemClick}>
-                <Icon name='grid layout'/>
+                <Icon name='copy'/>
                 Kopier avtale
               </Menu.Item>
-              <Menu.Item name='slettAvtale' active={activeItem === 'slettAvtale'}
+              <Menu.Item name='deleteProvisionAgreement' active={activeItem === 'deleteProvisionAgreement'}
                          onClick={this.handleItemClick}>
+                <Icon name='trash'/>
                 Slett avtale
               </Menu.Item>
 
-              <Dropdown item text='More'>
+              <Dropdown item text='Annet'>
                 <Dropdown.Menu>
-                  <Dropdown.Item icon='edit' text='Edit Profile'/>
-                  <Dropdown.Item icon='globe' text='Choose Language'/>
-                  <Dropdown.Item icon='settings' text='Account Settings'/>
+                  <Dropdown.Item icon='edit' text='Endre profil'/>
+                  <Dropdown.Item icon='globe' text='Velg språk'/>
+                  <Dropdown.Item icon='settings' text='Kontoinstillinger'/>
                 </Dropdown.Menu>
               </Dropdown>
             </Menu>
@@ -70,15 +66,15 @@ class LevranseAvtale extends React.Component {
               <Grid celled container stackable>
                 <Grid.Row columns={3}>
                   <Grid.Column>
-                    <Segment><RegisterProvisionagreement
-                      ref={(provisionagreement => {this.provisionagreement = provisionagreement})}/></Segment>
+                    <Segment><ProvisionAgreement
+                      ref={(provisionAgreement => {this.provisionAgreement = provisionAgreement})}/></Segment>
                   </Grid.Column>
                   <Grid.Column>
-                    <Segment><RegisterRole ref={(role => {this.role = role})}/></Segment>
+                    <Segment><Role ref={(role => {this.role = role})}/></Segment>
                   </Grid.Column>
                   <Grid.Column>
-                    <Segment><RegisterAdminDetails
-                      ref={(adminDetails => {this.adminDetails = adminDetails})}/></Segment>
+                    <Segment><AdministrativeDetails
+                      ref={(administrativeDetails => {this.administrativeDetails = administrativeDetails})}/></Segment>
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row columns={3}>
@@ -86,7 +82,7 @@ class LevranseAvtale extends React.Component {
                     <Segment></Segment>
                   </Grid.Column>
                   <Grid.Column>
-                    <Segment><RegisterAgent ref={(agent => {this.agent = agent})}/></Segment>
+                    <Segment><Agent ref={(agent => {this.agent = agent})}/></Segment>
                   </Grid.Column>
                   <Grid.Column>
                     <Segment></Segment>
@@ -94,10 +90,10 @@ class LevranseAvtale extends React.Component {
                 </Grid.Row>
                 <Grid.Row columns={3}>
                   <Grid.Column>
-                    <Segment>Content</Segment>
+                    <Segment></Segment>
                   </Grid.Column>
                   <Grid.Column>
-                    <Segment>Content</Segment>
+                    <Segment></Segment>
                   </Grid.Column>
                   <Grid.Column>
                     <Segment></Segment>
@@ -105,7 +101,7 @@ class LevranseAvtale extends React.Component {
                 </Grid.Row>
               </Grid>
               <Form.Group>
-                <Form.Button onClick={this.onClick} content='Lagre'/>
+                <Form.Button primary icon='save' onClick={this.onClick} content='Lagre leveranseavtale'/>
               </Form.Group>
             </Form>
           </Grid.Column>
