@@ -7,7 +7,9 @@ import Role from './role/Role'
 
 class LevranseAvtale extends React.Component {
 
-    state = {}
+    state = {
+        formButtonLoading: false
+    }
 
     handleItemClick = (e, {name}) => this.setState({activeItem: name})
 
@@ -16,10 +18,19 @@ class LevranseAvtale extends React.Component {
     }
 
     onClick = () => {
+        this.setState({
+          formButtonLoading: true
+        })
         this.administrativeDetails.registerAdministrativeDetails()
         this.agent.registerAgent()
         this.provisionAgreement.registerProvisionAgreement()
         this.role.registerRole()
+
+      setTimeout(() => {
+        this.setState({
+            formButtonLoading: false
+        })
+      }, 8000);
     }
 
     render() {

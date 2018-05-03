@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
-import {Form, Input} from "semantic-ui-react";
+import {Form, Input, Header, Icon} from "semantic-ui-react";
 import axios from 'axios';
 
 class Role extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          response: {
+            color: 'black',
+            text: '',
+            icon: '',
+          },
+          role: {
             description: '',
             id: '',
             localeId: '',
@@ -14,6 +20,7 @@ class Role extends Component {
             versionDate: '',
             versionRationale: '',
             administrativeDetails: ''
+          }
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -26,11 +33,15 @@ class Role extends Component {
     }
 
     registerRole() {
+      let responseStatus
+      let errorMessage
+      let responseMessage
+
         let data = JSON.stringify({
             description: null,
-            id: this.state.id,
-            localeId: this.state.localeId,
-            name: this.state.name,
+            id: this.state.role.id,
+            localeId: this.state.role.localeId,
+            name: this.state.role.name,
             version: null,
             versionDate: null,
             versionRationale: null,
@@ -42,21 +53,72 @@ class Role extends Component {
                 'Content-Type': 'application/json'
             }
         })
-            .then(function (response) {
+            .then((response) => {
                 console.log(response);
+              this.setState({id: response.data.id});
+              console.log(this.state.id);
+              responseStatus = response.status
+              responseMessage = response.statusText
             })
             .catch(function (error) {
                 console.log(error);
+              responseStatus = 'Error'
+              errorMessage = error.message
             })
+          .then(() => {
+            if (responseStatus === 201) {
+              this.setState({
+                response: {
+                  color: 'green',
+                  text: '',
+                  icon: 'check'
+                }
+              })
+            } else if (responseStatus === 'Error') {
+              this.setState({
+                response: {
+                  color: 'red',
+                  text: [errorMessage],
+                  icon: 'close'
+                }
+              })
+            } else {
+              this.setState({
+                response: {
+                  color: 'yellow',
+                  text: [responseMessage],
+                  icon: 'warning'
+                }
+              })
+            }
+          })
+
+      setTimeout(() => {
+        this.setState({
+          response: {
+            color: 'black',
+            text: '',
+            icon: ''
+          }
+        })
+      }, 8000);
     }
 
     render() {
         return (
             <div>
-                <h3>Rolle</h3>
+              <Header as='h3' color={this.state.response.color}>
+                <Header.Content>
+                  Rolle {' '}
+                  <Icon name={this.state.response.icon}/>
+                </Header.Content>
+                <Header.Subheader>
+                  {this.state.response.text}
+                </Header.Subheader>
+              </Header>
                 <Form.Field>
                     <label>Navn</label>
-                    <Input placeholder='Navn' name="name" value={this.state.name} onChange={this.handleInputChange}/>
+                    <Input placeholder='Navn' name="name" value={this.state.role.name} onChange={this.handleInputChange}/>
                 </Form.Field>
             </div>
         );

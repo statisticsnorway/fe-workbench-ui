@@ -1,23 +1,30 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Form, Input} from "semantic-ui-react";
+import {Form, Input, Header, Icon} from "semantic-ui-react";
 
 class ProvisionAgreement extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            duration: '',
-            frequency: '',
-            pursuant: '',
-            provisionDate: '',
-            description: '',
-            id: '',
-            localeId: '',
-            name: '',
-            version: '',
-            versionDate: '',
-            versionRationale: '',
-            administrativeDetails: ''
+            response: {
+                color: 'black',
+              text: '',
+              icon: '',
+            },
+            provisionAgreement: {
+              duration: '',
+              frequency: '',
+              pursuant: '',
+              provisionDate: '',
+              description: '',
+              id: '',
+              localeId: '',
+              name: '',
+              version: '',
+              versionDate: '',
+              versionRationale: '',
+              administrativeDetails: ''
+            }
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -30,14 +37,17 @@ class ProvisionAgreement extends Component {
     }
 
     registerProvisionAgreement() {
-        const self = this;
+        let responseStatus
+      let errorMessage
+      let responseMessage
+
         let data = JSON.stringify({
-            duration: this.state.duration,
-            frequency: this.state.frequency,
-            pursuant: this.state.pursuant,
+            duration: this.state.provisionAgreement.duration,
+            frequency: this.state.provisionAgreement.frequency,
+            pursuant: this.state.provisionAgreement.pursuant,
             provisionDate: null,
             description: null,
-            id: this.state.id,
+            id: this.state.provisionAgreement.id,
             localeId: null,
             name: null,
             version: null,
@@ -64,37 +74,87 @@ class ProvisionAgreement extends Component {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(function (response) {
-            self.setState({id: response.data.id});
-           // console.log(self.state.id);
+        }).then((response) => {
+            console.log(response);
+            this.setState({id: response.data.id});
+            console.log(this.state.id);
+            responseStatus = response.status
+          responseMessage = response.statusText
         })
             .catch(function (error) {
                 console.log(error);
+                responseStatus = 'Error'
+              errorMessage = error.message
             })
+          .then(() => {
+            if (responseStatus === 201) {
+              this.setState({
+                response: {
+                  color: 'green',
+                  text: '',
+                  icon: 'check'
+                }
+              })
+            } else if (responseStatus === 'Error') {
+              this.setState({
+                response: {
+                  color: 'red',
+                  text: [errorMessage],
+                  icon: 'close'
+                }
+              })
+            } else {
+              this.setState({
+                response: {
+                  color: 'yellow',
+                  text: [responseMessage],
+                  icon: 'warning'
+                }
+              })
+            }
+          })
+
+      setTimeout(() => {
+          this.setState({
+            response: {
+                color: 'black',
+              text: '',
+                icon: ''
+            }
+          })
+      }, 8000);
     }
 
     render() {
         return (
             <div>
-                <h3>Leveranseavtale</h3>
+              <Header as='h3' color={this.state.response.color}>
+                  <Header.Content>
+                    Leveranseavtale {' '}
+                    <Icon name={this.state.response.icon}/>
+                  </Header.Content>
+                  <Header.Subheader>
+                    {this.state.response.text}
+                  </Header.Subheader>
+              </Header>
                 <Form.Field>
                     <label>Navn på avtale</label>
-                    <Input placeholder='navn' name='name' value={this.state.name}
+                    <Input placeholder='Navn' name='name' value={this.state.provisionAgreement.name}
                            onChange={this.handleInputChange}/>
                 </Form.Field>
                 <Form.Field>
                     <label>Varighet</label>
-                    <Input placeholder='Varighet' name='duration' value={this.state.duration}
+                    <Input placeholder='Varighet' name='duration' value={this.state.provisionAgreement.duration}
                            onChange={this.handleInputChange}/>
                 </Form.Field>
                 <Form.Field>
                     <label>Hyppighet</label>
-                    <Input placeholder='hyppighet' name='frequency' value={this.state.frequency}
+                    <Input placeholder='Hyppighet' name='frequency' value={this.state.provisionAgreement.frequency}
                            onChange={this.handleInputChange}/>
                 </Form.Field>
                 <Form.Field>
                     <label>Hjemmel</label>
-                    <Input placeholder='Hjemmel' name='pursuant' value={this.state.pursuant}
+                    <Input placeholder='Hjemmel' name='pursuant' value={this.state.provisionAgreement.pursuant}
                            onChange={this.handleInputChange}/>
                 </Form.Field>
             </div>
