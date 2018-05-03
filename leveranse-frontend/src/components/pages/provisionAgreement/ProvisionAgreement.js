@@ -43,7 +43,6 @@ class ProvisionAgreement extends Component {
     let responseStatus
     let errorMessage
     let responseMessage
-    let responseId
 
     let data = JSON.stringify({
       duration: this.state.provisionAgreement.duration,
@@ -81,9 +80,14 @@ class ProvisionAgreement extends Component {
     }).then((response) => {
       console.log(response);
       console.log(response.data.id);
-      responseId = response.data.id;
       responseStatus = response.status
       responseMessage = response.statusText
+      this.setState({
+        provisionAgreement: {
+          ...this.state.provisionAgreement,
+          id: [response.data.id]
+        }
+      })
     })
       .catch(function (error) {
         console.log(error);
@@ -117,16 +121,17 @@ class ProvisionAgreement extends Component {
           })
         }
       })
-
-    setTimeout(() => {
-      this.setState({
-        response: {
-          color: 'black',
-          text: '',
-          icon: ''
-        }
+      .then(() => {
+        setTimeout(() => {
+          this.setState({
+            response: {
+              color: 'black',
+              text: '',
+              icon: ''
+            }
+          })
+        }, 3000);
       })
-    }, 3000);
   }
 
   render () {

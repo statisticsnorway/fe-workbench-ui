@@ -105,16 +105,17 @@ class AdministrativeDetails extends Component {
           })
         }
       })
-
-    setTimeout(() => {
-      this.setState({
-        response: {
-          color: 'black',
-          text: '',
-          icon: ''
-        }
+      .then(() => {
+        setTimeout(() => {
+          this.setState({
+            response: {
+              color: 'black',
+              text: '',
+              icon: ''
+            }
+          })
+        }, 3000);
       })
-    }, 3000);
   }
 
   render () {
