@@ -31,7 +31,10 @@ class Agent extends Component {
 
   handleInputChange (event) {
     this.setState({
-      [event.target.name]: event.target.value
+      agent: {
+        ...this.state.agent,
+        [event.target.name]: event.target.value
+      }
     })
   }
 
@@ -105,7 +108,7 @@ class Agent extends Component {
           icon: ''
         }
       })
-    }, 8000);
+    }, 3000);
   }
 
   render () {

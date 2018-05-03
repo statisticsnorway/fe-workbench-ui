@@ -32,7 +32,10 @@ class ProvisionAgreement extends Component {
 
   handleInputChange (event) {
     this.setState({
-      [event.target.name]: event.target.value
+      provisionAgreement: {
+        ...this.state.provisionAgreement,
+        [event.target.name]: event.target.value
+      }
     })
   }
 
@@ -50,7 +53,7 @@ class ProvisionAgreement extends Component {
       description: null,
       id: null,
       localeId: null,
-      name: null,
+      name: this.state.provisionAgreement.name,
       version: null,
       versionDate: null,
       versionRationale: null,
@@ -123,7 +126,7 @@ class ProvisionAgreement extends Component {
           icon: ''
         }
       })
-    }, 8000);
+    }, 3000);
   }
 
   render () {

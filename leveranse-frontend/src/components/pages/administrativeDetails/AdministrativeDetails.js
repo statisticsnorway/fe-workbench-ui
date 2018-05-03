@@ -34,7 +34,10 @@ class AdministrativeDetails extends Component {
 
   handleInputChange (event) {
     this.setState({
-      [event.target.name]: event.target.value
+      administrativeDetails: {
+        ...this.state.administrativeDetails,
+        [event.target.name]: event.target.value
+      }
     })
   }
 
@@ -111,7 +114,7 @@ class AdministrativeDetails extends Component {
           icon: ''
         }
       })
-    }, 8000);
+    }, 3000);
   }
 
   render () {

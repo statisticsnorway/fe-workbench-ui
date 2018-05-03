@@ -28,7 +28,10 @@ class Role extends Component {
 
   handleInputChange (event) {
     this.setState({
-      [event.target.name]: event.target.value
+      role: {
+        ...this.state.role,
+        [event.target.name]: event.target.value
+      }
     })
   }
 
@@ -99,7 +102,7 @@ class Role extends Component {
           icon: ''
         }
       })
-    }, 8000);
+    }, 3000);
   }
 
   render () {
