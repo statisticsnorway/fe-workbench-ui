@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Form, Input, Header, Icon } from "semantic-ui-react";
+import { Form, Header, Icon, Input } from "semantic-ui-react";
 
 class AdministrativeDetails extends Component {
   constructor (props) {
@@ -67,8 +67,6 @@ class AdministrativeDetails extends Component {
     })
       .then((response) => {
         console.log(response)
-        this.setState({id: response.data.id});
-        console.log(this.state.id);
         responseStatus = response.status
         responseMessage = response.statusText
       })
@@ -130,15 +128,18 @@ class AdministrativeDetails extends Component {
         </Header>
         <Form.Field>
           <label>Id:</label>
-          <Input placeholder='Id' name='id' value={this.state.administrativeDetails.id} onChange={this.handleInputChange}/>
+          <Input placeholder='Id' name='id' value={this.state.administrativeDetails.id}
+                 onChange={this.handleInputChange}/>
         </Form.Field>
         <Form.Field>
           <label>Alias:</label>
-          <Input placeholder='Alias' name='alias' value={this.state.administrativeDetails.alias} onChange={this.handleInputChange}/>
+          <Input placeholder='Alias' name='alias' value={this.state.administrativeDetails.alias}
+                 onChange={this.handleInputChange}/>
         </Form.Field>
         <Form.Field>
           <label>Url:</label>
-          <Input placeholder='Url' name='url' value={this.state.administrativeDetails.url} onChange={this.handleInputChange}/>
+          <Input placeholder='Url' name='url' value={this.state.administrativeDetails.url}
+                 onChange={this.handleInputChange}/>
         </Form.Field>
       </div>
     );
