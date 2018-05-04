@@ -45,6 +45,7 @@ class AdministrativeDetails extends Component {
     let responseStatus
     let errorMessage
     let responseMessage
+    let url
 
     let data = JSON.stringify({
       id: this.state.administrativeDetails.id,
@@ -63,7 +64,9 @@ class AdministrativeDetails extends Component {
       version: null
     })
 
-    axios.post('http://localhost:8080/api/v1/administrativeDetail', data, {
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/administrativeDetail';
+
+    axios.post(url, data, {
       headers: {
         'Content-Type': 'application/json'
       }

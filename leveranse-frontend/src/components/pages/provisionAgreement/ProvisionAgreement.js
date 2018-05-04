@@ -43,6 +43,7 @@ class ProvisionAgreement extends Component {
     let responseStatus
     let errorMessage
     let responseMessage
+    let url
 
     let data = JSON.stringify({
       duration: this.state.provisionAgreement.duration,
@@ -73,7 +74,10 @@ class ProvisionAgreement extends Component {
         version: null
       }
     })
-    axios.post('http://localhost:8080/api/v1/provisionAgreement', data, {
+
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement';
+
+    axios.post(url, data, {
       headers: {
         'Content-Type': 'application/json'
       }

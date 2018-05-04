@@ -42,6 +42,7 @@ class Agent extends Component {
     let responseStatus
     let errorMessage
     let responseMessage
+    let url
 
     let data = JSON.stringify({
       contactPerson: this.state.agent.contactPerson,
@@ -57,7 +58,9 @@ class Agent extends Component {
       administrativeDetails: null
     })
 
-    axios.post('http://localhost:8080/api/v1/agent', data, {
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/agent';
+
+    axios.post(url, data, {
       headers: {
         'Content-Type': 'application/json'
       }

@@ -39,6 +39,7 @@ class Role extends Component {
     let responseStatus
     let errorMessage
     let responseMessage
+    let url
 
     let data = JSON.stringify({
       description: null,
@@ -51,7 +52,9 @@ class Role extends Component {
       administrativeDetails: null
     })
 
-    axios.post('http://localhost:8080/api/v1/role', data, {
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/role';
+
+    axios.post(url, data, {
       headers: {
         'Content-Type': 'application/json'
       }
