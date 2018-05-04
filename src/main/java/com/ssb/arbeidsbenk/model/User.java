@@ -1,7 +1,6 @@
 package com.ssb.arbeidsbenk.model;
 
-public class User
-{
+public class User {
     private String username;
     private String passowrdHash;
 

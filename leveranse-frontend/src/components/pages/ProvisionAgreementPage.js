@@ -6,7 +6,6 @@ import AdministrativeDetails from "./administrativeDetails/AdministrativeDetails
 import Role from './role/Role'
 
 class LevranseAvtale extends React.Component {
-
   state = {}
 
   handleItemClick = (e, {name}) => this.setState({activeItem: name})
@@ -23,7 +22,6 @@ class LevranseAvtale extends React.Component {
   }
 
   render () {
-
     const {activeItem} = this.state
 
     return (
@@ -34,13 +32,11 @@ class LevranseAvtale extends React.Component {
               <Menu.Item>
                 <Input icon='search' placeholder='Finn avtale'/>
               </Menu.Item>
-
               <Menu.Item name='newProvisionAgreement' active={activeItem === 'newProvisionAgreement'}
                          onClick={this.handleItemClick}>
                 <Icon name="compose"/>
                 Opprett ny avtale
               </Menu.Item>
-
               <Menu.Item name='copyProvisionAgreement' active={activeItem === 'copyProvisionAgreement'}
                          onClick={this.handleItemClick}>
                 <Icon name='copy'/>
@@ -52,7 +48,6 @@ class LevranseAvtale extends React.Component {
                 <Icon name='trash'/>
                 Slett avtale
               </Menu.Item>
-
               <Dropdown item text='Annet'>
                 <Dropdown.Menu>
                   <Dropdown.Item icon='edit' text='Endre profil'/>
@@ -84,7 +79,6 @@ class LevranseAvtale extends React.Component {
                         this.agent = agent
                       })}/>
                     </Segment>
-
                   </Grid.Column>
                   <Grid.Column>
                     <Segment><AdministrativeDetails

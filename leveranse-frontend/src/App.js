@@ -9,7 +9,7 @@ const App = () => (
     <Route path="/" exact component={WelcomePage}/>
     <Route path="/innlogging" exact component={LoginPage}/>
     <Route path="/hjem" exact component={HomePage}/>
- </div>
+  </div>
 );
 
 export default App;
