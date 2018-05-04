@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProvisionagreementController {
-
     private static final Logger logger = LoggerFactory.getLogger(ProvisionagreementController.class);
 
     @RequestMapping(value = "/registerProvisionagreement", method = RequestMethod.POST)

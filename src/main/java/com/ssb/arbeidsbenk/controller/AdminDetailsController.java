@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AdminDetailsController {
-
     private static final Logger logger = LoggerFactory.getLogger(AdminDetailsController.class);
 
     @RequestMapping(value = "/registerAdminDetails", method = RequestMethod.POST)
@@ -15,6 +14,7 @@ public class AdminDetailsController {
         logger.debug(payload);
         return "Registered admin details";
     }
+
 }
 
 
