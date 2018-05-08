@@ -1,24 +1,24 @@
-import React from 'react';
-import HeaderLogo from '../header/HeaderLogo';
-import TopNavigation from '../navigation/TopNavigation';
-import ProvisionAgreementPage from "./ProvisionAgreementPage";
+import React from 'react'
+import { Grid } from 'semantic-ui-react'
+import HeaderLogo from '../header/HeaderLogo'
+
+import ProvisionAgreementPage from './ProvisionAgreementPage'
 
 class HomePage extends React.Component {
   state = {
     loading: false,
     errors: {},
-    activeItem: 'hjem'
-  };
+    activeItem: 'home'
+  }
 
   render () {
     return (
       <div>
         <HeaderLogo/>
-        <TopNavigation/>
         <ProvisionAgreementPage/>
       </div>
-    );
+    )
   }
 }
 
-export default HomePage;
+export default HomePage

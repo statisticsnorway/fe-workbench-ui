@@ -8,7 +8,7 @@ let centerAlign = {
 
 class WelcomePage extends React.Component {
   handleClick = () => {
-    this.props.history.push("/innlogging");
+    this.props.history.push("/login");
   }
 
   render () {

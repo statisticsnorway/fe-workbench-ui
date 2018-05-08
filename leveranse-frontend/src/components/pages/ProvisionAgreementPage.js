@@ -1,8 +1,9 @@
-import React from 'react';
-import { Dropdown, Form, Grid, Icon, Input, Menu, Segment } from "semantic-ui-react";
-import Agent from "./agent/Agent";
-import ProvisionAgreement from "./provisionAgreement/ProvisionAgreement";
-import AdministrativeDetails from "./administrativeDetails/AdministrativeDetails";
+import React from 'react'
+import { Dropdown, Form, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
+import Agent from './agent/Agent'
+import ProvisionAgreement from './provisionAgreement/ProvisionAgreement'
+import AdministrativeDetails from './administrativeDetails/AdministrativeDetails'
+import TopNavigation from '../navigation/TopNavigation'
 import Role from './role/Role'
 
 class LevranseAvtale extends React.Component {
@@ -11,7 +12,7 @@ class LevranseAvtale extends React.Component {
   handleItemClick = (e, {name}) => this.setState({activeItem: name})
 
   handleSubmit (event) {
-    event.preventDefault();
+    event.preventDefault()
   }
 
   onClick = () => {
@@ -26,7 +27,13 @@ class LevranseAvtale extends React.Component {
 
     return (
       <div>
-        <Grid>
+        <Grid stackable>
+          <Grid.Column width={3} centered>
+            <Segment>Arbeidsbenk</Segment>
+          </Grid.Column>
+          <Grid.Column width={13}>
+            <TopNavigation/>
+          </Grid.Column>
           <Grid.Column width={3}>
             <Menu vertical>
               <Menu.Item>
@@ -58,47 +65,42 @@ class LevranseAvtale extends React.Component {
             </Menu>
           </Grid.Column>
           <Grid.Column width={13}>
-            <Form onSubmit={this.handleSubmit}>
-              <Grid celled container stackable>
-                <Grid.Row columns={3}>
-                  <Grid.Column>
-                    <Segment><ProvisionAgreement
-                      ref={(provisionAgreement => {
-                        this.provisionAgreement = provisionAgreement
-                      })}/>
-                    </Segment>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Segment>
-                      <Role ref={(role => {
-                        this.role = role
-                      })}/>
-                    </Segment>
-                    <Segment>
-                      <Agent ref={(agent => {
-                        this.agent = agent
-                      })}/>
-                    </Segment>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Segment><AdministrativeDetails
-                      ref={(administrativeDetails => {
-                        this.administrativeDetails = administrativeDetails
-                      })}/>
-                    </Segment>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-              <Form.Group>
-                <Form.Button primary icon='save' onClick={this.onClick}
-                             content='Lagre leveranseavtale'/>
-              </Form.Group>
-            </Form>
+            <Segment>
+             <Form onSubmit={this.handleSubmit}>
+                  <Grid container stackable>
+                    <Grid.Row columns={3}>
+                      <Grid.Column>
+                        <Segment>
+                          <ProvisionAgreement ref={(provisionAgreement => {this.provisionAgreement = provisionAgreement
+                          })}/>
+                        </Segment>
+                      </Grid.Column>
+                      <Grid.Column>
+                        <Segment>
+                          <Role ref={(role => {this.role = role})}/>
+                        </Segment>
+                        <Segment>
+                          <Agent ref={(agent => {this.agent = agent})}/>
+                        </Segment>
+                      </Grid.Column>
+                      <Grid.Column>
+                        <Segment><AdministrativeDetails
+                          ref={(administrativeDetails => {this.administrativeDetails = administrativeDetails})}/>
+                        </Segment>
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
+                  <Form.Group>
+                    <Form.Button primary icon='save' onClick={this.onClick} content='Lagre leveranseavtale'/>
+                  </Form.Group>
+             </Form></Segment>
+
+
           </Grid.Column>
         </Grid>
       </div>
-    );
+    )
   }
 }
 
-export default LevranseAvtale;
+export default LevranseAvtale

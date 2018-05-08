@@ -8,7 +8,7 @@ import ssb_logo from '../../assets/SSB_logo.png';
 
 class LoginPage extends React.Component {
   //If all ok, then send the user to the homepage ( if the credentials are fine )
-  submit = data => this.props.login(data).then(() => this.props.history.push("/hjem"));
+  submit = data => this.props.login(data).then(() => this.props.history.push("/home"));
 
   render () {
     return (
