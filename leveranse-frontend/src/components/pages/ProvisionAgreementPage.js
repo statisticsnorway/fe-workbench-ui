@@ -28,7 +28,7 @@ class LevranseAvtale extends React.Component {
     return (
       <div>
         <Grid stackable>
-          <Grid.Column width={3} centered>
+          <Grid.Column width={3}>
             <Segment size='large' textAlign='center'  color='blue' >Arbeidsbenk</Segment>
           </Grid.Column>
           <Grid.Column width={13}>
