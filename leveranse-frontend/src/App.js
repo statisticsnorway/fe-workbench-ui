@@ -7,8 +7,8 @@ import HomePage from "./components/pages/HomePage";
 const App = () => (
   <div className=" ui container">
     <Route path="/" exact component={WelcomePage}/>
-    <Route path="/innlogging" exact component={LoginPage}/>
-    <Route path="/hjem" exact component={HomePage}/>
+    <Route path="/login" exact component={LoginPage}/>
+    <Route path="/home" exact component={HomePage}/>
   </div>
 );
 

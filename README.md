@@ -1,9 +1,8 @@
-# Spring Boot with ReactJS using WebPack and Yarn. #
+# dc-worbench-ui:  React app med  Webpack og Yarn. #
 
 ### Summary ###
 
-This a simple skeleton project that I've found useful that just
-creates a simple spring-boot application that has a react front end as well.
+Skaper en enkel spring-boot applikasjon som også har en reagerende frontend med react.
 
 ### Running ###
 

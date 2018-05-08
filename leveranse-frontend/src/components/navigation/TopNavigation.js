@@ -12,15 +12,15 @@ export default class TopNavigation extends Component {
     return (
       <div>
         <Menu pointing stackable>
-          <Menu.Item name='Leveranseavtale' active={activeItem === 'provisionAgreement'}
+          <Menu.Item name='Leveransebeskrivelse' active={activeItem === 'provisionAgreement'}
                      onClick={this.handleItemClick}/>
-          <Menu.Item name='Begrep' active={activeItem === 'terms'} onClick={this.handleItemClick}/>
-          <Menu.Item name='Rådatastruktur' active={activeItem === 'rawDataStructure'} onClick={this.handleItemClick}/>
-          <Menu.Menu position='right'>
-            <Menu.Item>
-              <Input icon='search' placeholder='Søk...'/>
-            </Menu.Item>
-          </Menu.Menu>
+          <Menu.Item name='Kontaktpersoner' active={activeItem === 'terms'} onClick={this.handleItemClick}/>
+          <Menu.Item name='Levranseformat' active={activeItem === 'rawDataStructure'} onClick={this.handleItemClick}/>
+          <Menu.Item name='Dokumenter' active={activeItem === 'rawDataStructure'} onClick={this.handleItemClick}/>
+          <Menu.Item name='Forventede leveranser' active={activeItem === 'rawDataStructure'} onClick={this.handleItemClick}/>
+          <Menu.Item>
+              <Input size='mini' icon='search' placeholder='Søk...'/>
+          </Menu.Item>
         </Menu>
       </div>
     )
