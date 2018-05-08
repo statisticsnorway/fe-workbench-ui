@@ -29,7 +29,7 @@ class LevranseAvtale extends React.Component {
       <div>
         <Grid stackable>
           <Grid.Column width={3} centered>
-            <Segment>Arbeidsbenk</Segment>
+            <Segment size='large' textAlign='center'  color='blue' >Arbeidsbenk</Segment>
           </Grid.Column>
           <Grid.Column width={13}>
             <TopNavigation/>
