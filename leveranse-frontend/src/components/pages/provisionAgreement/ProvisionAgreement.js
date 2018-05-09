@@ -29,8 +29,8 @@ class ProvisionAgreement extends Component {
         versionRationale: '',
         administrativeDetails: ''
       },
-      fromDate: moment(),
-      toDate: moment()
+      durationFrom: moment(),
+      durationTo: moment()
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -52,7 +52,7 @@ class ProvisionAgreement extends Component {
     let url
 
     let data = JSON.stringify({
-      duration: this.state.fromDate,
+      duration: this.state.durationFrom,
       frequency: this.state.provisionAgreement.frequency,
       pursuant: this.state.provisionAgreement.pursuant,
       provisionDate: null,
@@ -166,10 +166,10 @@ class ProvisionAgreement extends Component {
           <label>Fom</label>
           <div>
           <SingleDatePicker
-            date={this.state.fromDate}
-            onDateChange={fromDate => this.setState({ fromDate })}
-            focused={this.state.fromDatefocused}
-            onFocusChange={({ focused: fromDatefocused }) => this.setState({ fromDatefocused })}
+            date={this.state.durationFrom}
+            onDateChange={durationFrom => this.setState({ durationFrom: durationFrom })}
+            focused={this.state.durationFromfocused}
+            onFocusChange={({ focused: durationFromfocused }) => this.setState({ durationFromfocused })}
             numberOfMonths={1}
             displayFormat="DD/MM/YYYY"
           />
@@ -177,10 +177,10 @@ class ProvisionAgreement extends Component {
           <label>Tom</label>
           <div>
             <SingleDatePicker
-              date={this.state.toDate}
-              onDateChange={toDate => this.setState({ toDate })}
-              focused={this.state.toDatefocused}
-              onFocusChange={({ focused: toDatefocused }) => this.setState({ toDatefocused })}
+              date={this.state.durationTo}
+              onDateChange={durationTo => this.setState({ durationTo: durationTo })}
+              focused={this.state.durationTofocused}
+              onFocusChange={({ focused: durationTofocused }) => this.setState({ durationTofocused })}
               numberOfMonths={1}
               displayFormat="DD/MM/YYYY"
             />
