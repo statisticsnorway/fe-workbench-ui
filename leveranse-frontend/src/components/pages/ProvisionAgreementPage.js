@@ -80,7 +80,7 @@ class LevranseAvtale extends React.Component {
             </Menu>
           </Grid.Column>
           <Grid.Column width={13}>
-            <Segment className='editModeBorder'>
+            <Segment>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group widths='equal'>
                   <Form.Field>
