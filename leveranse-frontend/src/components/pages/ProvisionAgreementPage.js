@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dropdown, Form, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
+import { Button, Dropdown, Form, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
 import Agent from './agent/Agent'
 import ProvisionAgreement from './provisionAgreement/ProvisionAgreement'
 import AdministrativeDetails from './administrativeDetails/AdministrativeDetails'
@@ -7,7 +7,9 @@ import TopNavigation from '../navigation/TopNavigation'
 import Role from './role/Role'
 
 class LevranseAvtale extends React.Component {
-  state = {}
+  state = {
+    readOnlyMode: true
+  }
 
   handleItemClick = (e, {name}) => this.setState({activeItem: name})
 
@@ -20,16 +22,29 @@ class LevranseAvtale extends React.Component {
     this.agent.registerAgent()
     this.provisionAgreement.registerProvisionAgreement()
     this.role.registerRole()
+    this.setState({
+      readOnlyMode: true
+    })
+  }
+
+  editModeHandleClick = () => {
+    this.setState({
+      readOnlyMode: !this.state.readOnlyMode
+    })
   }
 
   render () {
     const {activeItem} = this.state
 
+    const enableSubmitButton = this.state.readOnlyMode ?
+      <Form.Button disabled primary icon='save' onClick={this.onClick} content='Lagre leveranseavtale'/> :
+      <Form.Button primary icon='save' onClick={this.onClick} content='Lagre leveranseavtale'/>
+
     return (
       <div>
         <Grid stackable>
           <Grid.Column width={3}>
-            <Segment size='large' textAlign='center'  color='blue' >Arbeidsbenk</Segment>
+            <Segment size='large' textAlign='center' color='blue'>Arbeidsbenk</Segment>
           </Grid.Column>
           <Grid.Column width={13}>
             <TopNavigation/>
@@ -65,37 +80,50 @@ class LevranseAvtale extends React.Component {
             </Menu>
           </Grid.Column>
           <Grid.Column width={13}>
-            <Segment>
-             <Form onSubmit={this.handleSubmit}>
-                  <Grid container stackable>
-                    <Grid.Row columns={3}>
-                      <Grid.Column>
-                        <Segment>
-                          <ProvisionAgreement ref={(provisionAgreement => {this.provisionAgreement = provisionAgreement
-                          })}/>
-                        </Segment>
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Segment>
-                          <Role ref={(role => {this.role = role})}/>
-                        </Segment>
-                        <Segment>
-                          <Agent ref={(agent => {this.agent = agent})}/>
-                        </Segment>
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Segment><AdministrativeDetails
-                          ref={(administrativeDetails => {this.administrativeDetails = administrativeDetails})}/>
-                        </Segment>
-                      </Grid.Column>
-                    </Grid.Row>
-                  </Grid>
-                  <Form.Group>
-                    <Form.Button primary icon='save' onClick={this.onClick} content='Lagre leveranseavtale'/>
-                  </Form.Group>
-             </Form></Segment>
+            <Segment className='editModeBorder'>
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Group widths='equal'>
+                  <Form.Field>
 
+                  </Form.Field>
+                  <Form.Field>
 
+                  </Form.Field>
+                  <Form.Field>
+                    <Button toggle active={!this.state.readOnlyMode} onClick={this.editModeHandleClick} icon='edit'
+                            floated='right' content='Redigeringsmodus'/>
+                  </Form.Field>
+                </Form.Group>
+                <Grid container stackable>
+                  <Grid.Row columns={3}>
+                    <Grid.Column>
+                      <Segment>
+                        <ProvisionAgreement ref={(provisionAgreement => {
+                          this.provisionAgreement = provisionAgreement
+                        })} editMode={this.state.readOnlyMode}/>
+                      </Segment>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Segment>
+                        <Role ref={(role => {this.role = role})} editMode={this.state.readOnlyMode}/>
+                      </Segment>
+                      <Segment>
+                        <Agent ref={(agent => {this.agent = agent})} editMode={this.state.readOnlyMode}/>
+                      </Segment>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Segment><AdministrativeDetails
+                        ref={(administrativeDetails => {this.administrativeDetails = administrativeDetails})}
+                        editMode={this.state.readOnlyMode}/>
+                      </Segment>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+                <Form.Group>
+                  {enableSubmitButton}
+                </Form.Group>
+              </Form>
+            </Segment>
           </Grid.Column>
         </Grid>
       </div>

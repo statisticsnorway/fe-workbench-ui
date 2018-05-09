@@ -122,6 +122,8 @@ class AdministrativeDetails extends Component {
   }
 
   render () {
+    const editMode = this.props.editMode
+
     return (
       <div>
         <Header as='h3' color={this.state.response.color}>
@@ -136,17 +138,17 @@ class AdministrativeDetails extends Component {
         <Form.Field>
           <label>Id:</label>
           <Input placeholder='Id' name='id' value={this.state.administrativeDetails.id}
-                 onChange={this.handleInputChange}/>
+                 onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>Alias:</label>
           <Input placeholder='Alias' name='alias' value={this.state.administrativeDetails.alias}
-                 onChange={this.handleInputChange}/>
+                 onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>Url:</label>
           <Input placeholder='Url' name='url' value={this.state.administrativeDetails.url}
-                 onChange={this.handleInputChange}/>
+                 onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
       </div>
     );
