@@ -116,6 +116,8 @@ class Agent extends Component {
   }
 
   render () {
+    const editMode = this.props.editMode
+
     return (
       <div>
         <Header as='h3' color={this.state.response.color}>
@@ -130,16 +132,17 @@ class Agent extends Component {
         <Form.Field>
           <label>Kontaktperson</label>
           <Input placeholder='Kontaktperson' name='contactPerson' value={this.state.agent.contactPerson}
-                 onChange={this.handleInputChange}/>
+                 onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>E-post</label>
-          <Input placeholder='Epost' name='email' value={this.state.agent.email} onChange={this.handleInputChange}/>
+          <Input placeholder='Epost' name='email' value={this.state.agent.email} onChange={this.handleInputChange}
+                 readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>Telefon</label>
           <Input placeholder='Telefon' name='phoneNumber' value={this.state.agent.phoneNumber}
-                 onChange={this.handleInputChange}/>
+                 onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
       </div>
     );

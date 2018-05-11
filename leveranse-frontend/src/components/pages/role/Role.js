@@ -110,6 +110,8 @@ class Role extends Component {
   }
 
   render () {
+    const editMode = this.props.editMode
+
     return (
       <div>
         <Header as='h3' color={this.state.response.color}>
@@ -123,7 +125,8 @@ class Role extends Component {
         </Header>
         <Form.Field>
           <label>Navn</label>
-          <Input placeholder='Navn' name="name" value={this.state.role.name} onChange={this.handleInputChange}/>
+          <Input placeholder='Navn' name="name" value={this.state.role.name} onChange={this.handleInputChange}
+                 readOnly={editMode}/>
         </Form.Field>
       </div>
     );
