@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Dropdown, Form, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
+import { Checkbox, Dropdown, Form, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
 import Agent from './agent/Agent'
 import ProvisionAgreement from './provisionAgreement/ProvisionAgreement'
 import AdministrativeDetails from './administrativeDetails/AdministrativeDetails'
@@ -13,11 +13,18 @@ class LevranseAvtale extends React.Component {
 
   handleItemClick = (e, {name}) => this.setState({activeItem: name})
 
+  createNewProvisionAgreement = (e, {name}) => {
+    this.setState({
+      activeItem: name,
+      readOnlyMode: false
+    })
+  }
+
   handleSubmit (event) {
     event.preventDefault()
   }
 
-  onClick = () => {
+  saveProvisionAgreement = () => {
     this.administrativeDetails.registerAdministrativeDetails()
     this.agent.registerAgent()
     this.provisionAgreement.registerProvisionAgreement()
@@ -36,10 +43,6 @@ class LevranseAvtale extends React.Component {
   render () {
     const {activeItem} = this.state
 
-    const enableSubmitButton = this.state.readOnlyMode ?
-      <Form.Button disabled primary icon='save' onClick={this.onClick} content='Lagre leveranseavtale'/> :
-      <Form.Button primary icon='save' onClick={this.onClick} content='Lagre leveranseavtale'/>
-
     return (
       <div>
         <Grid stackable>
@@ -55,7 +58,7 @@ class LevranseAvtale extends React.Component {
                 <Input icon='search' placeholder='Finn avtale'/>
               </Menu.Item>
               <Menu.Item name='newProvisionAgreement' active={activeItem === 'newProvisionAgreement'}
-                         onClick={this.handleItemClick}>
+                         onClick={this.createNewProvisionAgreement}>
                 <Icon name="compose"/>
                 Opprett ny avtale
               </Menu.Item>
@@ -90,8 +93,8 @@ class LevranseAvtale extends React.Component {
 
                   </Form.Field>
                   <Form.Field>
-                    <Button toggle active={!this.state.readOnlyMode} onClick={this.editModeHandleClick} icon='edit'
-                            floated='right' content='Redigeringsmodus'/>
+                    <Checkbox slider checked={!this.state.readOnlyMode} onClick={this.editModeHandleClick} icon='edit'
+                              label='Redigeringsmodus' readOnly={!this.state.readOnlyMode}/>
                   </Form.Field>
                 </Form.Group>
                 <Grid container stackable>
@@ -120,7 +123,9 @@ class LevranseAvtale extends React.Component {
                   </Grid.Row>
                 </Grid>
                 <Form.Group>
-                  {enableSubmitButton}
+                  <Form.Button disabled={this.state.readOnlyMode} primary icon='save'
+                               onClick={this.saveProvisionAgreement}
+                               content='Lagre leveranseavtale'/>
                 </Form.Group>
               </Form>
             </Segment>
