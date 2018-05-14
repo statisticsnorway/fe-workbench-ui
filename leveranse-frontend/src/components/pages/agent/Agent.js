@@ -157,8 +157,8 @@ class Agent extends Component {
         </Form.Field>
         <Form.Field>
           <label>Beskrivelse</label>
-          <Input placeholder='Beskrivelse' name='description' value={this.state.agent.description} onChange={this.handleInputChange}
-                 readOnly={editMode}/>
+          <Input placeholder='Beskrivelse' name='description' value={this.state.agent.description}
+                 onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>Versjon</label>
