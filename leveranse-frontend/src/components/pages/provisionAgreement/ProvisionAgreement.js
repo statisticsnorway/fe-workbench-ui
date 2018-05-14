@@ -145,6 +145,8 @@ class ProvisionAgreement extends Component {
   }
 
   render () {
+    const editMode = this.props.editMode
+
     return (
       <div>
         <Header as='h3' color={this.state.response.color}>
@@ -159,10 +161,12 @@ class ProvisionAgreement extends Component {
         <Form.Field>
           <label>Navn på avtale</label>
           <Input placeholder='Navn' name='name' value={this.state.provisionAgreement.name}
-                 onChange={this.handleInputChange}/>
+                 onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>Varighet</label>
+          <Input placeholder='Varighet' name='duration' value={this.state.provisionAgreement.duration}
+                 onChange={this.handleInputChange} readOnly={editMode}/>
           <label>Fom</label>
           <div>
           <SingleDatePicker
@@ -189,12 +193,12 @@ class ProvisionAgreement extends Component {
         <Form.Field>
           <label>Hyppighet</label>
           <Input placeholder='Hyppighet' name='frequency' value={this.state.provisionAgreement.frequency}
-                 onChange={this.handleInputChange}/>
+                 onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>Hjemmel</label>
           <Input placeholder='Hjemmel' name='pursuant' value={this.state.provisionAgreement.pursuant}
-                 onChange={this.handleInputChange}/>
+                 onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
       </div>
     );
