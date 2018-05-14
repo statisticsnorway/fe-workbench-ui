@@ -151,17 +151,17 @@ class Agent extends Component {
           </Header.Subheader>
         </Header>
         <Form.Field>
-          <label>Kontaktperson</label>
+          <label>Navn</label>
           <Input placeholder='Navn' name='name' value={this.state.agent.name}
                  onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
-          <label>E-post</label>
+          <label>Beskrivelse</label>
           <Input placeholder='Beskrivelse' name='description' value={this.state.agent.description} onChange={this.handleInputChange}
                  readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
-          <label>Telefon</label>
+          <label>Versjon</label>
           <Input placeholder='Versjon' name='version' value={this.state.agent.version}
                  onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
