@@ -16,8 +16,6 @@ class ProvisionAgreement extends Component {
         icon: '',
       },
       provisionAgreement: {
-        durationFrom: moment(),
-        durationTo: moment(),
         frequency: '',
         pursuant: '',
         provisionDate: '',
@@ -29,7 +27,9 @@ class ProvisionAgreement extends Component {
         versionDate: '',
         versionRationale: '',
         administrativeDetails: ''
-      }
+      },
+      durationFrom: moment(),
+      durationTo: moment(),
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -51,8 +51,8 @@ class ProvisionAgreement extends Component {
     let url
 
     let data = JSON.stringify({
-      durationFrom: this.state.provisionAgreement.durationFrom,
-      durationTo: this.state.provisionAgreement.durationTo,
+      durationFrom: this.state.durationFrom,
+      durationTo: this.state.durationTo,
       frequency: this.state.provisionAgreement.frequency,
       pursuant: this.state.provisionAgreement.pursuant,
       provisionDate: null,
@@ -165,12 +165,10 @@ class ProvisionAgreement extends Component {
         </Form.Field>
         <Form.Field>
           <label>Varighet</label>
-          <Input placeholder='Varighet' name='duration' value={this.state.provisionAgreement.duration}
-                 onChange={this.handleInputChange} readOnly={editMode}/>
           <label>Fom</label>
           <div>
           <SingleDatePicker
-            date={this.state.provisionAgreement.durationFrom}
+            date={this.state.durationFrom}
             onDateChange={durationFrom => this.setState({ durationFrom: durationFrom })}
             focused={this.state.durationFromfocused}
             onFocusChange={({ focused: durationFromfocused }) => this.setState({ durationFromfocused })}
@@ -181,7 +179,7 @@ class ProvisionAgreement extends Component {
           <label>Tom</label>
           <div>
             <SingleDatePicker
-              date={this.state.provisionAgreement.durationTo}
+              date={this.state.durationTo}
               onDateChange={durationTo => this.setState({ durationTo: durationTo })}
               focused={this.state.durationTofocused}
               onFocusChange={({ focused: durationTofocused }) => this.setState({ durationTofocused })}
