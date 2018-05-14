@@ -12,7 +12,8 @@ class ProvisionAgreement extends Component {
         icon: '',
       },
       provisionAgreement: {
-        duration: '',
+        durationFrom: '',
+        durationTo: '',
         frequency: '',
         pursuant: '',
         provisionDate: '',
@@ -39,42 +40,28 @@ class ProvisionAgreement extends Component {
     })
   }
 
+  prepareDataForBackend () {
+    let data = {...this.state.provisionAgreement}
+
+    for (let attribute in data) {
+      if (data[attribute] === '') {
+        data[attribute] = null
+      }
+    }
+
+    JSON.stringify(data)
+
+    return data
+  }
+
   registerProvisionAgreement () {
     let responseStatus
     let errorMessage
     let responseMessage
     let url
+    let data
 
-    let data = JSON.stringify({
-      duration: this.state.provisionAgreement.duration,
-      frequency: this.state.provisionAgreement.frequency,
-      pursuant: this.state.provisionAgreement.pursuant,
-      provisionDate: null,
-      description: null,
-      id: null,
-      localeId: null,
-      name: this.state.provisionAgreement.name,
-      version: null,
-      versionDate: null,
-      versionRationale: null,
-      administrativeDetails: {
-        id: null,
-        administrativeStatus: null,
-        alias: null,
-        annotation: null,
-        documentation: null,
-        createDate: null,
-        createBy: null,
-        lastUpdateDate: null,
-        lifeCycleStatus: null,
-        ControlledVocabulary: null,
-        url: null,
-        validFrom: null,
-        validUntil: null,
-        version: null
-      }
-    })
-
+    data = this.prepareDataForBackend()
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement';
 
     axios.post(url, data, {
@@ -155,11 +142,6 @@ class ProvisionAgreement extends Component {
         <Form.Field>
           <label>Navn på avtale</label>
           <Input placeholder='Navn' name='name' value={this.state.provisionAgreement.name}
-                 onChange={this.handleInputChange} readOnly={editMode}/>
-        </Form.Field>
-        <Form.Field>
-          <label>Varighet</label>
-          <Input placeholder='Varighet' name='duration' value={this.state.provisionAgreement.duration}
                  onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>

@@ -20,6 +20,7 @@ class AdministrativeDetails extends Component {
         createDate: '',
         createBy: '',
         lastUpdateDate: '',
+        lastUpdateBy: '',
         lifeCycleStatus: '',
         ControlledVocabulary: '',
         url: '',
@@ -41,29 +42,28 @@ class AdministrativeDetails extends Component {
     })
   }
 
+  prepareDataForBackend () {
+    let data = {...this.state.administrativeDetails}
+
+    for (let attribute in data) {
+      if (data[attribute] === '') {
+        data[attribute] = null
+      }
+    }
+
+    JSON.stringify(data)
+
+    return data
+  }
+
   registerAdministrativeDetails () {
     let responseStatus
     let errorMessage
     let responseMessage
     let url
+    let data
 
-    let data = JSON.stringify({
-      id: this.state.administrativeDetails.id,
-      administrativeStatus: null,
-      alias: this.state.administrativeDetails.alias,
-      annotation: null,
-      documentation: null,
-      createDate: null,
-      createBy: null,
-      lastUpdateDate: null,
-      lifeCycleStatus: null,
-      ControlledVocabulary: null,
-      url: this.state.administrativeDetails.url,
-      validFrom: null,
-      validUntil: null,
-      version: null
-    })
-
+    data = this.prepareDataForBackend()
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/administrativeDetail';
 
     axios.post(url, data, {
