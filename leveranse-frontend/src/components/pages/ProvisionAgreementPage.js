@@ -25,7 +25,7 @@ class LevranseAvtale extends React.Component {
   }
 
   saveProvisionAgreement = () => {
-    this.administrativeDetails.registerAdministrativeDetails()
+//    this.administrativeDetails.registerAdministrativeDetails()
     this.agent.registerAgent()
     this.provisionAgreement.registerProvisionAgreement()
     this.role.registerRole()
