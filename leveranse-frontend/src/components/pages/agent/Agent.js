@@ -12,28 +12,9 @@ class Agent extends Component {
         icon: '',
       },
       agent: {
-        individual: {
-          email: null,
-          phoneNumber: null,
-          description: null,
-          id: null,
-          localeId: null,
-          name: null,
-          version: null,
-          versionDate: null,
-          versionRationale: null,
-          administrativeDetails: null
-        },
-        organization: {
-          description: null,
-          id: null,
-          localeId: null,
-          name: null,
-          version: null,
-          versionDate: null,
-          versionRationale: null,
-          administrativeDetails: null
-        },
+        individualId: '',
+        organizationId: '',
+        internalExternal: '',
         description: '',
         id: '',
         localeId: '',
