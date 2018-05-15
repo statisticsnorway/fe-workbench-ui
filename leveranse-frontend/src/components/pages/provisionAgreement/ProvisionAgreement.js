@@ -16,6 +16,8 @@ class ProvisionAgreement extends Component {
         icon: '',
       },
       provisionAgreement: {
+        durationFrom: moment(),
+        durationTo: moment(),
         frequency: '',
         pursuant: '',
         provisionDate: '',
@@ -27,9 +29,7 @@ class ProvisionAgreement extends Component {
         versionDate: '',
         versionRationale: '',
         administrativeDetails: ''
-      },
-      durationFrom: moment(),
-      durationTo: moment(),
+      }
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
