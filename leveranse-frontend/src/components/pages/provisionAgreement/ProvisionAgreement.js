@@ -63,9 +63,6 @@ class ProvisionAgreement extends Component {
       }
     }
 
-    console.log(this.state.durationFrom);
-    console.log(this.state.durationTo);
-
     JSON.stringify(data)
 
     return data
