@@ -44,43 +44,28 @@ class ProvisionAgreement extends Component {
     })
   }
 
+  prepareDataForBackend () {
+    let data = {...this.state.provisionAgreement}
+
+    for (let attribute in data) {
+      if (data[attribute] === '') {
+        data[attribute] = null
+      }
+    }
+
+    JSON.stringify(data)
+
+    return data
+  }
+
   registerProvisionAgreement () {
     let responseStatus
     let errorMessage
     let responseMessage
     let url
+    let data
 
-    let data = JSON.stringify({
-      durationFrom: this.state.durationFrom,
-      durationTo: this.state.durationTo,
-      frequency: this.state.provisionAgreement.frequency,
-      pursuant: this.state.provisionAgreement.pursuant,
-      provisionDate: null,
-      description: null,
-      id: null,
-      localeId: null,
-      name: this.state.provisionAgreement.name,
-      version: null,
-      versionDate: null,
-      versionRationale: null,
-      administrativeDetails: {
-        id: null,
-        administrativeStatus: null,
-        alias: null,
-        annotation: null,
-        documentation: null,
-        createDate: null,
-        createBy: null,
-        lastUpdateDate: null,
-        lifeCycleStatus: null,
-        ControlledVocabulary: null,
-        url: null,
-        validFrom: null,
-        validUntil: null,
-        version: null
-      }
-    })
-
+    data = this.prepareDataForBackend()
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement';
 
     axios.post(url, data, {
@@ -89,15 +74,8 @@ class ProvisionAgreement extends Component {
       }
     }).then((response) => {
       console.log(response);
-      console.log(response.data.id);
       responseStatus = response.status
       responseMessage = response.statusText
-      this.setState({
-        provisionAgreement: {
-          ...this.state.provisionAgreement,
-          id: [response.data.id]
-        }
-      })
     })
       .catch(function (error) {
         console.log(error);
