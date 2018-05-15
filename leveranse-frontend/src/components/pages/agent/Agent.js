@@ -12,9 +12,9 @@ class Agent extends Component {
         icon: '',
       },
       agent: {
-        contactPerson: '',
-        email: '',
-        phoneNumber: '',
+        individualId: '',
+        organizationId: '',
+        internalExternal: '',
         description: '',
         id: '',
         localeId: '',
@@ -38,26 +38,28 @@ class Agent extends Component {
     })
   }
 
+  prepareDataForBackend () {
+    let data = {...this.state.agent}
+
+    for (let attribute in data) {
+      if (data[attribute] === '') {
+        data[attribute] = null
+      }
+    }
+
+    JSON.stringify(data)
+
+    return data
+  }
+
   registerAgent () {
     let responseStatus
     let errorMessage
     let responseMessage
     let url
+    let data
 
-    let data = JSON.stringify({
-      contactPerson: this.state.agent.contactPerson,
-      email: this.state.agent.email,
-      phoneNumber: this.state.agent.phoneNumber,
-      description: null,
-      id: null,
-      localeId: null,
-      name: null,
-      version: null,
-      versionDate: null,
-      versionRationale: null,
-      administrativeDetails: null
-    })
-
+    data = this.prepareDataForBackend()
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/agent';
 
     axios.post(url, data, {
@@ -130,18 +132,18 @@ class Agent extends Component {
           </Header.Subheader>
         </Header>
         <Form.Field>
-          <label>Kontaktperson</label>
-          <Input placeholder='Kontaktperson' name='contactPerson' value={this.state.agent.contactPerson}
+          <label>Navn</label>
+          <Input placeholder='Navn' name='name' value={this.state.agent.name}
                  onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
-          <label>E-post</label>
-          <Input placeholder='Epost' name='email' value={this.state.agent.email} onChange={this.handleInputChange}
-                 readOnly={editMode}/>
+          <label>Beskrivelse</label>
+          <Input placeholder='Beskrivelse' name='description' value={this.state.agent.description}
+                 onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
-          <label>Telefon</label>
-          <Input placeholder='Telefon' name='phoneNumber' value={this.state.agent.phoneNumber}
+          <label>Versjon</label>
+          <Input placeholder='Versjon' name='version' value={this.state.agent.version}
                  onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
       </div>
