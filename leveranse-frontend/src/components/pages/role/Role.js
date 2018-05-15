@@ -19,7 +19,7 @@ class Role extends Component {
         version: '',
         versionDate: '',
         versionRationale: '',
-        administrativeDetails: ''
+        administrativeDetailsId: ''
       }
     };
 

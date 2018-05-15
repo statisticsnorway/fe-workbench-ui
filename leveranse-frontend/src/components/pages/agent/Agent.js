@@ -12,9 +12,6 @@ class Agent extends Component {
         icon: '',
       },
       agent: {
-        individualId: '',
-        organizationId: '',
-        internalExternal: '',
         description: '',
         id: '',
         localeId: '',
@@ -22,7 +19,10 @@ class Agent extends Component {
         version: '',
         versionDate: '',
         versionRationale: '',
-        administrativeDetails: ''
+        administrativeDetailsId: '',
+        individualId: '',
+        organizationId: '',
+        internalExternal: ''
       }
     };
 
