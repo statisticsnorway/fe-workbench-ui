@@ -70,15 +70,8 @@ class ProvisionAgreement extends Component {
       }
     }).then((response) => {
       console.log(response);
-      console.log(response.data.id);
       responseStatus = response.status
       responseMessage = response.statusText
-      this.setState({
-        provisionAgreement: {
-          ...this.state.provisionAgreement,
-          id: [response.data.id]
-        }
-      })
     })
       .catch(function (error) {
         console.log(error);
