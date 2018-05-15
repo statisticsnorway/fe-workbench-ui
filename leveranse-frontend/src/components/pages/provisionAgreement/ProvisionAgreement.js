@@ -16,11 +16,6 @@ class ProvisionAgreement extends Component {
         icon: '',
       },
       provisionAgreement: {
-        durationFrom: '',
-        durationTo: '',
-        frequency: '',
-        pursuant: '',
-        provisionDate: '',
         description: '',
         id: '',
         localeId: '',
@@ -28,7 +23,12 @@ class ProvisionAgreement extends Component {
         version: '',
         versionDate: '',
         versionRationale: '',
-        administrativeDetails: ''
+        administrativeDetailsId: '',
+        provisionDate: '',
+        durationFrom: '',
+        durationTo: '',
+        frequency: '',
+        pursuant: ''
       },
       durationFrom: moment(),
       durationTo: moment(),
