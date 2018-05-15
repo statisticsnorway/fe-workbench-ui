@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
-import { Form, Header, Icon, Input } from "semantic-ui-react";
+import moment from 'moment';
+import {Form, Header, Icon, Input} from "semantic-ui-react";
+import {SingleDatePicker} from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
+import 'react-dates/initialize';
 
 class ProvisionAgreement extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       response: {
@@ -25,13 +29,15 @@ class ProvisionAgreement extends Component {
         versionDate: '',
         versionRationale: '',
         administrativeDetails: ''
-      }
+      },
+      durationFrom: moment(),
+      durationTo: moment(),
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleInputChange (event) {
+  handleInputChange(event) {
     this.setState({
       provisionAgreement: {
         ...this.state.provisionAgreement,
@@ -40,12 +46,20 @@ class ProvisionAgreement extends Component {
     })
   }
 
-  prepareDataForBackend () {
+  prepareDataForBackend() {
     let data = {...this.state.provisionAgreement}
 
     for (let attribute in data) {
       if (data[attribute] === '') {
         data[attribute] = null
+      }
+
+      if (attribute === 'durationFrom') {
+        data[attribute] = this.state.durationFrom;
+      }
+
+      if (attribute === 'durationTo') {
+        data[attribute] = this.state.durationTo;
       }
     }
 
@@ -54,7 +68,7 @@ class ProvisionAgreement extends Component {
     return data
   }
 
-  registerProvisionAgreement () {
+  registerProvisionAgreement() {
     let responseStatus
     let errorMessage
     let responseMessage
@@ -118,7 +132,7 @@ class ProvisionAgreement extends Component {
       })
   }
 
-  render () {
+  render() {
     const editMode = this.props.editMode
 
     return (
@@ -136,6 +150,33 @@ class ProvisionAgreement extends Component {
           <label>Navn på avtale</label>
           <Input placeholder='Navn' name='name' value={this.state.provisionAgreement.name}
                  onChange={this.handleInputChange} readOnly={editMode}/>
+        </Form.Field>
+        <Form.Field>
+          <label>Varighet</label>
+          <label>Fom</label>
+          <div>
+            <SingleDatePicker
+              date={this.state.durationFrom}
+              onDateChange={durationFrom => this.setState({durationFrom: durationFrom})}
+              focused={this.state.durationFromfocused}
+              onFocusChange={({focused: durationFromfocused}) => this.setState({durationFromfocused})}
+              numberOfMonths={1}
+              displayFormat="DD/MM/YYYY"
+              disabled={editMode}
+            />
+          </div>
+          <label>Tom</label>
+          <div>
+            <SingleDatePicker
+              date={this.state.durationTo}
+              onDateChange={durationTo => this.setState({durationTo: durationTo})}
+              focused={this.state.durationTofocused}
+              onFocusChange={({focused: durationTofocused}) => this.setState({durationTofocused})}
+              numberOfMonths={1}
+              displayFormat="DD/MM/YYYY"
+              disabled={editMode}
+            />
+          </div>
         </Form.Field>
         <Form.Field>
           <label>Hyppighet</label>
