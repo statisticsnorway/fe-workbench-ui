@@ -6,6 +6,8 @@ import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
 
+moment.locale('nb')
+
 const statusOptions = [
   {key: '1', text: 'Påbegynt', value: 'Påbegynt'},
   {key: '2', text: 'Til intern godkjenning', value: 'Til intern godkjenning'},
@@ -17,7 +19,11 @@ const statusOptions = [
 const pursuantOptions = [
   {key: '1', text: 'Frivillig undersøkelse', value: 'Frivillig undersøkelse'},
   {key: '2', text: 'Oppgavepliktig undersøkelse', value: 'Oppgavepliktig undersøkelse'},
-  {key: '3', text: 'Oppgavepliktig rapportering fra administrativt register', value: 'Oppgavepliktig rapportering fra administrativt register'}
+  {
+    key: '3',
+    text: 'Oppgavepliktig rapportering fra administrativt register',
+    value: 'Oppgavepliktig rapportering fra administrativt register'
+  }
 ]
 
 const exchangeChannelOptions = [
@@ -43,6 +49,7 @@ const valuationOptions = [
 ]
 
 let subjectsOptions = []
+let organizedSubjects = []
 
 class ProvisionAgreement extends Component {
   constructor (props) {
@@ -79,7 +86,8 @@ class ProvisionAgreement extends Component {
   fetchSubjects () {
     let mainSubjects = ''
     let subSubjects = ''
-    let subjects = []
+    let organizedSubSubjects = ''
+    let allSubjects = []
 
     axios.get('https://data.ssb.no/api/v0/no/table/')
       .then((response) => {
@@ -93,19 +101,35 @@ class ProvisionAgreement extends Component {
           axios.get('https://data.ssb.no/api/v0/no/table/' + mainSubjects[mainSubjectsKey]['id'])
             .then((response) => {
               subSubjects = response.data
-              for(let subSubjectsKey in subSubjects) {
-                let key = mainSubjectsKey+subSubjectsKey
+
+              for (let subSubjectsKey in subSubjects) {
+                let key = mainSubjectsKey + subSubjectsKey
                 let text = mainSubjects[mainSubjectsKey]['text'] + ' - ' + subSubjects[subSubjectsKey]['text']
-                subjects.push({key: key, text: text, value: text})
+
+                allSubjects.push({key: key, text: text, value: text})
+
+                organizedSubSubjects = {
+                  ...organizedSubSubjects,
+                  [subSubjects[subSubjectsKey]['text']]: [subSubjects[subSubjectsKey]['text']]
+                }
               }
+
+              organizedSubjects.push({
+                mainSubject: mainSubjects[mainSubjectsKey]['text'], subSubjects: organizedSubSubjects
+              })
             })
             .catch((error) => {
               console.log(error)
-          })
+            })
         }
       })
       .then(() => {
-        subjectsOptions = subjects
+        subjectsOptions = allSubjects
+
+        // Organized all subsubjects per mainsubject (might be useful for a cleaner dropdown at a later stage
+        console.log(organizedSubjects)
+
+        console.log(moment.locale())
       })
   }
 
@@ -233,9 +257,10 @@ class ProvisionAgreement extends Component {
           <label>Status</label>
           <Dropdown placeholder='Status' selection options={statusOptions} disabled={editMode}/>
         </Form.Field>
-        <Form.Field>
-          <label>Varighet</label>
-          <label>Fom</label>
+        <Form.Group widths='equal'>
+          <Form.Field>
+            <label>Gyldighet</label>
+            Fra
           <div>
             <SingleDatePicker
               date={this.state.durationFrom}
@@ -247,7 +272,13 @@ class ProvisionAgreement extends Component {
               disabled={editMode}
             />
           </div>
-          <label>Tom</label>
+          </Form.Field>
+          <Form.Field>
+            <label>&nbsp;</label>
+          </Form.Field>
+          <Form.Field>
+            <label>&nbsp;</label>
+            Til
           <div>
             <SingleDatePicker
               date={this.state.durationTo}
@@ -259,7 +290,8 @@ class ProvisionAgreement extends Component {
               disabled={editMode}
             />
           </div>
-        </Form.Field>
+          </Form.Field>
+        </Form.Group>
         <Form.Field>
           <label>Hjemmelsgrunnlag</label>
           <Dropdown placeholder='Hjemmelsgrunnlag' selection options={pursuantOptions} name='pursuant'
