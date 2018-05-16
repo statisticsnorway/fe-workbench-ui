@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Form, Header, Icon, Input } from "semantic-ui-react";
+import { Header, Icon, Input, List, Form } from "semantic-ui-react";
 
 class AdministrativeDetails extends Component {
   constructor (props) {
     super(props);
+
+    let now = new Date()
+    now = now.getDate() + '/' + now.getMonth() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes()
+
     this.state = {
       response: {
         color: 'black',
@@ -17,16 +21,16 @@ class AdministrativeDetails extends Component {
         alias: '',
         annotation: '',
         documentation: '',
-        createDate: '',
-        createBy: '',
-        lastUpdateDate: '',
-        lastUpdateBy: '',
+        createDate: now,
+        createBy: 'Testbruker',
+        lastUpdateDate: now,
+        lastUpdateBy: 'Testbruker 2',
         lifeCycleStatus: '',
         ControlledVocabulary: '',
         url: '',
         validFrom: '',
         validUntil: '',
-        version: ''
+        version: '1.0'
       }
     };
 
@@ -135,7 +139,39 @@ class AdministrativeDetails extends Component {
             {this.state.response.text}
           </Header.Subheader>
         </Header>
-        <Form.Field>
+        <List>
+          <List.Item>
+            <List.Header>Dato opprettet</List.Header>
+            {this.state.administrativeDetails.createDate}
+          </List.Item>
+        </List>
+        <List>
+          <List.Item>
+            <List.Header>Opprettet av</List.Header>
+            {this.state.administrativeDetails.createBy}
+          </List.Item>
+        </List>
+        <hr/>
+        <List>
+          <List.Item>
+            <List.Header>Dato endret</List.Header>
+            {this.state.administrativeDetails.lastUpdateDate}
+          </List.Item>
+        </List>
+        <List>
+          <List.Item>
+            <List.Header>Endret av</List.Header>
+            {this.state.administrativeDetails.lastUpdateBy}
+          </List.Item>
+        </List>
+        <hr/>
+        <List>
+          <List.Item>
+            <List.Header>Versjon</List.Header>
+            {this.state.administrativeDetails.version}
+          </List.Item>
+        </List>
+{/*        <Form.Field>
           <label>Id</label>
           <Input placeholder='Id' name='id' value={this.state.administrativeDetails.id}
                  onChange={this.handleInputChange} readOnly={editMode}/>
@@ -149,7 +185,7 @@ class AdministrativeDetails extends Component {
           <label>Url</label>
           <Input placeholder='Url' name='url' value={this.state.administrativeDetails.url}
                  onChange={this.handleInputChange} readOnly={editMode}/>
-        </Form.Field>
+        </Form.Field>*/}
       </div>
     );
   }
