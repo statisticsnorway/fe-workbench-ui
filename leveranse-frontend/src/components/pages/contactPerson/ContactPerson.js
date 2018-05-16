@@ -4,7 +4,6 @@ import InternalAgent from './InternalAgent'
 import ExternalAgent from './ExternalAgent'
 
 class ContactPerson extends React.Component {
-
   render() {
 
     return (
@@ -22,5 +21,6 @@ class ContactPerson extends React.Component {
 
   }
 }
+export default ContactPerson;
 
-export  default ContactPerson;
+

@@ -56,12 +56,14 @@ class AgentRow extends React.Component {
 
     return (
       <tr className="eachRow">
-        <Dropdown placeholder='Velg rolle' fluid search selection options={roleOptions}
-                  onAgentTableUpdate={this.props.onAgentTableUpdate} cellData={{
-          "type": "role",
-          value: this.props.agent.role,
-          id: this.props.agent.id
-        }}/>
+        <td>
+          <Dropdown placeholder='Velg rolle' fluid search selection options={roleOptions}
+                    onAgentTableUpdate={this.props.onAgentTableUpdate} cellData={{
+            "type": "role",
+            value: this.props.agent.role,
+            id: this.props.agent.id
+          }}/>
+        </td>
         <EditableCell onAgentTableUpdate={this.props.onAgentTableUpdate} cellData={{
           type: "name",
           value: this.props.agent.name,
