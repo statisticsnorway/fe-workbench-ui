@@ -171,7 +171,7 @@ class AdministrativeDetails extends Component {
             {this.state.administrativeDetails.version}
           </List.Item>
         </List>
-        <Form.Field>
+{/*        <Form.Field>
           <label>Id</label>
           <Input placeholder='Id' name='id' value={this.state.administrativeDetails.id}
                  onChange={this.handleInputChange} readOnly={editMode}/>
@@ -185,7 +185,7 @@ class AdministrativeDetails extends Component {
           <label>Url</label>
           <Input placeholder='Url' name='url' value={this.state.administrativeDetails.url}
                  onChange={this.handleInputChange} readOnly={editMode}/>
-        </Form.Field>
+        </Form.Field>*/}
       </div>
     );
   }
