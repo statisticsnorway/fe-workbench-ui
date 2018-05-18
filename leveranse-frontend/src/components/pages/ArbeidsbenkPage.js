@@ -2,7 +2,6 @@ import React from 'react'
 import { Dropdown, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
 import { Route, NavLink, BrowserRouter } from "react-router-dom";
 import NewProvisionAgreement from './provisionalAgreement/NewProvisionAgreement'
-import { browserHistory } from 'react-router';
 
 class ArbeidsbenkPage extends React.Component {
   state = {}
