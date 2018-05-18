@@ -18,9 +18,6 @@ export default class TopNavigation extends Component {
           <Menu.Item name='Levranseformat' active={activeItem === 'rawDataStructure'} onClick={this.handleItemClick}/>
           <Menu.Item name='Dokumenter' active={activeItem === 'rawDataStructure'} onClick={this.handleItemClick}/>
           <Menu.Item name='Forventede leveranser' active={activeItem === 'rawDataStructure'} onClick={this.handleItemClick}/>
-          <Menu.Item>
-              <Input size='mini' icon='search' placeholder='Søk...'/>
-          </Menu.Item>
         </Menu>
       </div>
     )

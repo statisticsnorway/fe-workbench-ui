@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid } from 'semantic-ui-react'
 import HeaderLogo from '../header/HeaderLogo'
 
-import ProvisionAgreementPage from './ProvisionAgreementPage'
+import ArbeidsbenkPage from './ArbeidsbenkPage'
 
 class HomePage extends React.Component {
   state = {
@@ -15,7 +15,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <HeaderLogo/>
-        <ProvisionAgreementPage/>
+        <ArbeidsbenkPage/>
       </div>
     )
   }

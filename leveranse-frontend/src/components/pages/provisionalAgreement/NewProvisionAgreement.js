@@ -1,27 +1,20 @@
 import React from 'react'
 import { Checkbox, Dropdown, Form, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
-import Agent from './agent/Agent'
-import ProvisionAgreement from './provisionAgreement/ProvisionAgreement'
-import AdministrativeDetails from './administrativeDetails/AdministrativeDetails'
-import TopNavigation from '../navigation/TopNavigation'
-import Role from './role/Role'
+import Agent from '../agent/Agent'
+import ProvisionAgreement from './ProvisionAgreement'
+import AdministrativeDetails from '../administrativeDetails/AdministrativeDetails'
+import Role from '../role/Role'
+import TopNavigation from '../../navigation/TopNavigation'
 
-class LevranseAvtale extends React.Component {
+class NewProvisionAgreement extends React.Component {
   state = {
-    readOnlyMode: true
+    readOnlyMode: false
   }
-
-  handleItemClick = (e, {name}) => this.setState({activeItem: name})
-
   createNewProvisionAgreement = (e, {name}) => {
     this.setState({
       activeItem: name,
       readOnlyMode: false
     })
-  }
-
-  handleSubmit (event) {
-    event.preventDefault()
   }
 
   saveProvisionAgreement = () => {
@@ -40,49 +33,15 @@ class LevranseAvtale extends React.Component {
     })
   }
 
-  render () {
-    const {activeItem} = this.state
 
-    return (
+  render(){
+    return(
       <div>
         <Grid stackable>
-          <Grid.Column width={3}>
-            <Segment size='large' textAlign='center' color='blue'>Arbeidsbenk</Segment>
-          </Grid.Column>
           <Grid.Column width={13}>
             <TopNavigation/>
           </Grid.Column>
-          <Grid.Column width={3}>
-            <Menu vertical>
-              <Menu.Item>
-                <Input icon='search' placeholder='Finn avtale'/>
-              </Menu.Item>
-              <Menu.Item name='newProvisionAgreement' active={activeItem === 'newProvisionAgreement'}
-                         onClick={this.createNewProvisionAgreement}>
-                <Icon name="compose"/>
-                Opprett ny avtale
-              </Menu.Item>
-              <Menu.Item name='copyProvisionAgreement' active={activeItem === 'copyProvisionAgreement'}
-                         onClick={this.handleItemClick}>
-                <Icon name='copy'/>
-                Kopier avtale
-              </Menu.Item>
-              <Menu.Item name='deleteProvisionAgreement'
-                         active={activeItem === 'deleteProvisionAgreement'}
-                         onClick={this.handleItemClick}>
-                <Icon name='trash'/>
-                Slett avtale
-              </Menu.Item>
-              <Dropdown item text='Annet'>
-                <Dropdown.Menu>
-                  <Dropdown.Item icon='edit' text='Endre profil'/>
-                  <Dropdown.Item icon='globe' text='Velg språk'/>
-                  <Dropdown.Item icon='settings' text='Kontoinstillinger'/>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Menu>
-          </Grid.Column>
-          <Grid.Column width={13}>
+          <Grid.Column width={16}>
             <Segment>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group widths='equal'>
@@ -131,9 +90,10 @@ class LevranseAvtale extends React.Component {
             </Segment>
           </Grid.Column>
         </Grid>
+
       </div>
     )
   }
 }
 
-export default LevranseAvtale
+export default NewProvisionAgreement
