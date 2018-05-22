@@ -142,7 +142,7 @@ class ProvisionAgreement extends Component {
     })
   }
 
-  prepareDataForBackend () {
+  prepareDataForBackend (id) {
     let data = {...this.state.provisionAgreement}
 
     for (let attribute in data) {
@@ -158,20 +158,23 @@ class ProvisionAgreement extends Component {
         data[attribute] = this.state.durationTo;
       }
     }
-
+    data['id'] = id;
     JSON.stringify(data)
 
     return data
   }
 
-  registerProvisionAgreement () {
+  registerProvisionAgreement (id) {
     let responseStatus
     let errorMessage
     let responseMessage
     let url
     let data
 
-    data = this.prepareDataForBackend()
+    const uuidv1 = require('uuid/v1');
+    let provisionAgreement_uuid = uuidv1();
+
+    data = this.prepareDataForBackend(provisionAgreement_uuid)
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement';
 
     axios.post(url, data, {

@@ -35,7 +35,7 @@ class Role extends Component {
     })
   }
 
-  prepareDataForBackend () {
+  prepareDataForBackend (id) {
     let data = {...this.state.role}
 
     for (let attribute in data) {
@@ -44,6 +44,7 @@ class Role extends Component {
       }
     }
 
+    data['id'] = id;
     JSON.stringify(data)
 
     return data
@@ -56,7 +57,10 @@ class Role extends Component {
     let url
     let data
 
-    data = this.prepareDataForBackend()
+    const uuidv1 = require('uuid/v1');
+    let role_uuid = uuidv1();
+
+    data = this.prepareDataForBackend(role_uuid)
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/role';
 
     axios.post(url, data, {
