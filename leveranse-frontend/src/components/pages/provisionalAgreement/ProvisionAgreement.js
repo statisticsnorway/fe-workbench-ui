@@ -49,7 +49,6 @@ const valuationOptions = [
 ]
 
 let subjectsOptions = []
-let organizedSubjects = []
 
 class ProvisionAgreement extends Component {
   constructor (props) {
@@ -87,6 +86,7 @@ class ProvisionAgreement extends Component {
     let mainSubjects = ''
     let subSubjects = ''
     let organizedSubSubjects = ''
+    let organizedSubjects = []
     let allSubjects = []
 
     axios.get('https://data.ssb.no/api/v0/no/table/')
@@ -126,10 +126,8 @@ class ProvisionAgreement extends Component {
       .then(() => {
         subjectsOptions = allSubjects
 
-        // Organized all subsubjects per mainsubject (might be useful for a cleaner dropdown at a later stage
-        console.log(organizedSubjects)
-
-        console.log(moment.locale())
+//        Organized all subsubjects per mainsubject (might be useful for a cleaner dropdown at a later stage
+//        console.log(organizedSubjects)
       })
   }
 
