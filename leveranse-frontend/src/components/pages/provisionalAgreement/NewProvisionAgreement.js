@@ -1,6 +1,6 @@
 import React from 'react'
-import {  Menu, Grid, Segment } from 'semantic-ui-react'
-import { Route, NavLink, BrowserRouter } from 'react-router-dom'
+import { Grid, Tab } from 'semantic-ui-react'
+import { BrowserRouter } from 'react-router-dom'
 import LeveranseDescription from './LeveranseDescription'
 
 class NewProvisionAgreement extends React.Component {
@@ -11,34 +11,22 @@ class NewProvisionAgreement extends React.Component {
 
   render () {
     const {activeItem} = this.state
+    const panes = [
+      {
+        menuItem: 'Leveransebeskrivelse',
+        render: () => <Tab.Pane><LeveranseDescription></LeveranseDescription></Tab.Pane>
+      },
+      {menuItem: 'Kotaktpersoner', render: () => <Tab.Pane>Kotaktpersoner Content</Tab.Pane>},
+      {menuItem: 'Leveranseformat', render: () => <Tab.Pane>Leveranseformat Content</Tab.Pane>},
+      {menuItem: 'Documenter', render: () => <Tab.Pane>Documenter Content</Tab.Pane>},
+      {menuItem: 'Forventede leveranser', render: () => <Tab.Pane>Forventede leveranser Content</Tab.Pane>},
+    ]
     return (
       <BrowserRouter>
         <div>
           <Grid stackable>
-            <Grid.Column width={13}>
-              <Menu pointing stackable>
-                <Menu.Item name='Leveransebeskrivelse' active={activeItem === 'Leveransebeskrivelse'}
-                           onClick={this.handleItemClick}>
-                  <NavLink to="/leveranseDescription">
-                    Leveransebeskrivelse
-                  </NavLink>
-                </Menu.Item>
-                <Menu.Item name='Kontaktpersoner' active={activeItem === 'terms'} onClick={this.handleItemClick}>
-                  <NavLink to="/contactPerson">
-                    KontaktPerson
-                  </NavLink>
-                </Menu.Item>
-                <Menu.Item name='Levranseformat' active={activeItem === 'rawDataStructure'}
-                           onClick={this.handleItemClick}/>
-                <Menu.Item name='Dokumenter' active={activeItem === 'rawDataStructure'} onClick={this.handleItemClick}/>
-                <Menu.Item name='Forventede leveranser' active={activeItem === 'rawDataStructure'}
-                           onClick={this.handleItemClick}/>
-              </Menu>
-            </Grid.Column>
             <Grid.Column width={16}>
-              <Segment>
-                <Route path="/leveranseDescription" component={LeveranseDescription}/>
-              </Segment>
+              <Tab panes={panes}/>
             </Grid.Column>
           </Grid>
         </div>
