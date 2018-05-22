@@ -38,7 +38,7 @@ class Agent extends Component {
     })
   }
 
-  prepareDataForBackend () {
+  prepareDataForBackend (id) {
     let data = {...this.state.agent}
 
     for (let attribute in data) {
@@ -47,6 +47,7 @@ class Agent extends Component {
       }
     }
 
+    data['id'] = id; 
     JSON.stringify(data)
 
     return data
@@ -59,7 +60,10 @@ class Agent extends Component {
     let url
     let data
 
-    data = this.prepareDataForBackend()
+    const uuidv1 = require('uuid/v1');
+    let agent_uuid = uuidv1();
+    
+    data = this.prepareDataForBackend(agent_uuid)
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/agent';
 
     axios.post(url, data, {

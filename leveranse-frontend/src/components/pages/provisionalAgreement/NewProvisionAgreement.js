@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid, Tab } from 'semantic-ui-react'
 import { BrowserRouter } from 'react-router-dom'
 import LeveranseDescription from './LeveranseDescription'
+import '../../../assets/css/site.css'
 
 class NewProvisionAgreement extends React.Component {
 
@@ -21,7 +22,7 @@ class NewProvisionAgreement extends React.Component {
         <div>
           <Grid stackable>
             <Grid.Column width={16}>
-              <Tab panes={panes}/>
+              <Tab menu={{ className: 'wrapped' }} panes={panes}/>
             </Grid.Column>
           </Grid>
         </div>

@@ -4,6 +4,7 @@ import Agent from '../agent/Agent'
 import ProvisionAgreement from './ProvisionAgreement'
 import AdministrativeDetails from '../administrativeDetails/AdministrativeDetails'
 import Role from '../role/Role'
+import { v1 } from 'uuid';
 
 
 class LeveranseDesription extends React.Component {
