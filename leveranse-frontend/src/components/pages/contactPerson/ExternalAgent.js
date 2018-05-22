@@ -26,14 +26,14 @@ class ExternalAgent extends React.Component {
   };
 
   handleRowDel(agent) {
-    var index = this.state.agents.indexOf(agent);
+    let index = this.state.agents.indexOf(agent);
     this.state.agents.splice(index, 1);
     this.setState(this.state.agents);
   };
 
   handleAddEvent(evt) {
-    var id = (+ new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    var agent = {
+    let id = (+ new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    let agent = {
       id: id,
       role: "",
       name: "",
@@ -47,13 +47,13 @@ class ExternalAgent extends React.Component {
   }
 
   handleAgentTable(evt) {
-    var item = {
+    let item = {
       id: evt.target.id,
       name: evt.target.name,
       value: evt.target.value
     };
-    var agents = this.state.agents.slice();
-    var newAgents = agents.map(function(agent) {
+    let agents = this.state.agents.slice();
+    let newAgents = agents.map(function(agent) {
 
       for (var key in agent) {
         if (key == item.name && agent.id == item.id) {

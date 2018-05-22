@@ -1,7 +1,6 @@
 import React from 'react'
 import HeaderLogo from '../header/HeaderLogo'
 
-import ContactPerson from './contactPerson/ContactPerson'
 import ProvisionAgreementPage from './ProvisionAgreementPage'
 
 class HomePage extends React.Component {
@@ -15,7 +14,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <HeaderLogo/>
-        <ContactPerson/>
+        <ProvisionAgreementPage/>
       </div>
     )
   }

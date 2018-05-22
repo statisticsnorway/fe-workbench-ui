@@ -4,10 +4,10 @@ import { Table, Dropdown } from 'semantic-ui-react'
 class AgentTable extends React.Component {
 
   render() {
-    var onAgentTableUpdate = this.props.onAgentTableUpdate;
-    var rowDel = this.props.onRowDel;
-    var filterText = this.props.filterText;
-    var agent = this.props.agents.map(function(agent) {
+    let onAgentTableUpdate = this.props.onAgentTableUpdate;
+    let rowDel = this.props.onRowDel;
+    let filterText = this.props.filterText;
+    let agent = this.props.agents.map(function(agent) {
       if (agent.name.indexOf(filterText) === -1) {
         return;
       }
@@ -47,7 +47,7 @@ class AgentRow extends React.Component {
   }
 
   render() {
-    var roleOptions = [ { key: 'Kvalitetsansvar', value: 'Kvalitetsansvar', text: 'Kvalitetsansvar' },
+    let roleOptions = [ { key: 'Kvalitetsansvar', value: 'Kvalitetsansvar', text: 'Kvalitetsansvar' },
       { key: 'Planlegger', value: 'Planlegger', text: 'Planlegger' },
       { key: 'Ansvarligseksjon', value: 'Ansvarligseksjon', text: 'Ansvarligseksjon' },
       { key: 'Ansvarlig', value: 'Ansvarlig', text: 'Ansvarlig' },
@@ -56,34 +56,25 @@ class AgentRow extends React.Component {
 
     return (
       <tr className="eachRow">
-        <td>
-          <Dropdown placeholder='Velg rolle' fluid search selection options={roleOptions}
-                    onAgentTableUpdate={this.props.onAgentTableUpdate} cellData={{
-            "type": "role",
-            value: this.props.agent.role,
-            id: this.props.agent.id
-          }}/>
+       <td>
+        <Dropdown placeholder='Velg rolle' fluid search selection options={roleOptions} />
         </td>
-        <EditableCell onAgentTableUpdate={this.props.onAgentTableUpdate} cellData={{
-          type: "name",
-          value: this.props.agent.name,
-          id: this.props.agent.id
-        }}/>
-        <EditableCell onAgentTableUpdate={this.props.onAgentTableUpdate} cellData={{
-          type: "email",
-          value: this.props.agent.email,
-          id: this.props.agent.id
-        }}/>
-        <EditableCell onAgentTableUpdate={this.props.onAgentTableUpdate} cellData={{
-          type: "telephone",
-          value: this.props.agent.telephone,
-          id: this.props.agent.id
-        }}/>
-        <EditableCell onAgentTableUpdate={this.props.onAgentTableUpdate} cellData={{
-          type: "comment",
-          value: this.props.agent.comment,
-          id: this.props.agent.id
-        }}/>
+        <td>
+          <input type='text' name="name" id={this.props.agent.id} value={this.props.agent.name}
+                 onChange={this.props.onAgentTableUpdate}/>
+        </td>
+        <td>
+          <input type='text' name="email" id={this.props.agent.id} value={this.props.agent.email}
+                 onChange={this.props.onAgentTableUpdate}/>
+        </td>
+        <td>
+          <input type='text' name="telephone" id={this.props.agent.id} value={this.props.agent.telephone}
+                 onChange={this.props.onAgentTableUpdate}/>
+        </td>
+        <td>
+          <input type='text' name="comment" id={this.props.agent.id} value={this.props.agent.comment}
+                 onChange={this.props.onAgentTableUpdate}/>
+        </td>
         <td className="del-cell">
           <input type="button" onClick={this.onDelEvent.bind(this)} value="X" className="del-btn"/>
         </td>
@@ -92,17 +83,5 @@ class AgentRow extends React.Component {
   }
 }
 
-class EditableCell extends React.Component {
-
-  render() {
-    return (
-      <td>
-        <input type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value}
-               onChange={this.props.onAgentTableUpdate}/>
-      </td>
-    );
-  }
-
-}
 
 
