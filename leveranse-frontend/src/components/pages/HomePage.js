@@ -1,7 +1,7 @@
 import React from 'react'
 import HeaderLogo from '../header/HeaderLogo'
 
-import ArbeidsbenkPage from './ArbeidsbenkPage'
+import WorkbenchPage from './WorkbenchPage'
 
 class HomePage extends React.Component {
   state = {
@@ -14,7 +14,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <HeaderLogo/>
-        <ArbeidsbenkPage/>
+        <WorkbenchPage/>
       </div>
     )
   }

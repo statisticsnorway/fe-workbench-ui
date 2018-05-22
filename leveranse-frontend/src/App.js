@@ -11,7 +11,6 @@ const App = () => (
     <Route path="/" exact component={WelcomePage}/>
     <Route path="/login" exact component={LoginPage}/>
     <Route path="/home" exact component={HomePage}/>
-
   </div>
 );
 
