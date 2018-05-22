@@ -10,12 +10,6 @@ class LeveranseDesription extends React.Component {
   state = {
     readOnlyMode: false
   }
-  createNewProvisionAgreement = (e, {name}) => {
-    this.setState({
-      activeItem: name,
-      readOnlyMode: false
-    })
-  }
 
   saveProvisionAgreement = () => {
 //    this.administrativeDetails.registerAdministrativeDetails()

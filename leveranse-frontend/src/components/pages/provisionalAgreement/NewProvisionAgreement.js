@@ -5,12 +5,7 @@ import LeveranseDescription from './LeveranseDescription'
 
 class NewProvisionAgreement extends React.Component {
 
-  state = {activeItem: 'Leveransebeskrivelse'}
-
-  handleItemClick = (e, {name}) => this.setState({activeItem: name})
-
   render () {
-    const {activeItem} = this.state
     const panes = [
       {
         menuItem: 'Leveransebeskrivelse',

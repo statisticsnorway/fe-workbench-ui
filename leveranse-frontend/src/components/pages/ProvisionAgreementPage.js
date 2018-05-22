@@ -6,17 +6,9 @@ import NewProvisionAgreement from './provisionalAgreement/NewProvisionAgreement'
 class ProvisionAgreementPage extends React.Component {
   state = {}
 
-  handleItemClick = (e, {name}) => this.setState({activeItem: name})
-
   handleSubmit (event) {
     event.preventDefault()
   }
-
-  editModeHandleClick = () => {
-    this.setState({})
-  }
-
-  NewProvisionAgreement = data => this.props.login(data).then(() => this.props.history.push("/home"));
 
   render () {
     const {activeItem} = this.state
