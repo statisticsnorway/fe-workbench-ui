@@ -3,7 +3,7 @@ import { Dropdown, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
 import { Route, NavLink, BrowserRouter } from "react-router-dom";
 import NewProvisionAgreement from './provisionalAgreement/NewProvisionAgreement'
 
-class ArbeidsbenkPage extends React.Component {
+class ProvisionAgreementPage extends React.Component {
   state = {}
 
   handleItemClick = (e, {name}) => this.setState({activeItem: name})
@@ -70,4 +70,4 @@ class ArbeidsbenkPage extends React.Component {
   }
 }
 
-export default ArbeidsbenkPage
+export default ProvisionAgreementPage
