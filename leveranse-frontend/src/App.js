@@ -3,7 +3,6 @@ import { Route } from "react-router-dom";
 import WelcomePage from "./components/pages/WelcomePage";
 import LoginPage from "./components/pages/LoginPage";
 import HomePage from "./components/pages/HomePage";
-import NewProvisionAgreement from "./components/pages/provisionalAgreement/NewProvisionAgreement"
 import 'moment/locale/nb'
 
 const App = () => (
