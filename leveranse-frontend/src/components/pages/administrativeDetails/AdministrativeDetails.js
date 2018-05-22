@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Form, Header, Icon, Input } from "semantic-ui-react";
+import { Header, Icon, Input, List, Form } from "semantic-ui-react";
 
 class AdministrativeDetails extends Component {
   constructor (props) {
     super(props);
+
+    let now = new Date()
+    now = now.getDate() + '/' + now.getMonth() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes()
+
     this.state = {
       response: {
         color: 'black',
@@ -17,15 +21,16 @@ class AdministrativeDetails extends Component {
         alias: '',
         annotation: '',
         documentation: '',
-        createDate: '',
-        createBy: '',
-        lastUpdateDate: '',
+        createDate: now,
+        createBy: 'Testbruker',
+        lastUpdateDate: now,
+        lastUpdateBy: 'Testbruker 2',
         lifeCycleStatus: '',
         ControlledVocabulary: '',
         url: '',
         validFrom: '',
         validUntil: '',
-        version: ''
+        version: '1.0'
       }
     };
 
@@ -41,29 +46,28 @@ class AdministrativeDetails extends Component {
     })
   }
 
+  prepareDataForBackend () {
+    let data = {...this.state.administrativeDetails}
+
+    for (let attribute in data) {
+      if (data[attribute] === '') {
+        data[attribute] = null
+      }
+    }
+
+    JSON.stringify(data)
+
+    return data
+  }
+
   registerAdministrativeDetails () {
     let responseStatus
     let errorMessage
     let responseMessage
     let url
+    let data
 
-    let data = JSON.stringify({
-      id: this.state.administrativeDetails.id,
-      administrativeStatus: null,
-      alias: this.state.administrativeDetails.alias,
-      annotation: null,
-      documentation: null,
-      createDate: null,
-      createBy: null,
-      lastUpdateDate: null,
-      lifeCycleStatus: null,
-      ControlledVocabulary: null,
-      url: this.state.administrativeDetails.url,
-      validFrom: null,
-      validUntil: null,
-      version: null
-    })
-
+    data = this.prepareDataForBackend()
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/administrativeDetail';
 
     axios.post(url, data, {
@@ -122,6 +126,8 @@ class AdministrativeDetails extends Component {
   }
 
   render () {
+    const editMode = this.props.editMode
+
     return (
       <div>
         <Header as='h3' color={this.state.response.color}>
@@ -133,21 +139,53 @@ class AdministrativeDetails extends Component {
             {this.state.response.text}
           </Header.Subheader>
         </Header>
-        <Form.Field>
-          <label>Id:</label>
+        <List>
+          <List.Item>
+            <List.Header>Dato opprettet</List.Header>
+            {this.state.administrativeDetails.createDate}
+          </List.Item>
+        </List>
+        <List>
+          <List.Item>
+            <List.Header>Opprettet av</List.Header>
+            {this.state.administrativeDetails.createBy}
+          </List.Item>
+        </List>
+        <hr/>
+        <List>
+          <List.Item>
+            <List.Header>Dato endret</List.Header>
+            {this.state.administrativeDetails.lastUpdateDate}
+          </List.Item>
+        </List>
+        <List>
+          <List.Item>
+            <List.Header>Endret av</List.Header>
+            {this.state.administrativeDetails.lastUpdateBy}
+          </List.Item>
+        </List>
+        <hr/>
+        <List>
+          <List.Item>
+            <List.Header>Versjon</List.Header>
+            {this.state.administrativeDetails.version}
+          </List.Item>
+        </List>
+{/*        <Form.Field>
+          <label>Id</label>
           <Input placeholder='Id' name='id' value={this.state.administrativeDetails.id}
-                 onChange={this.handleInputChange}/>
+                 onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
-          <label>Alias:</label>
+          <label>Alias</label>
           <Input placeholder='Alias' name='alias' value={this.state.administrativeDetails.alias}
-                 onChange={this.handleInputChange}/>
+                 onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
-          <label>Url:</label>
+          <label>Url</label>
           <Input placeholder='Url' name='url' value={this.state.administrativeDetails.url}
-                 onChange={this.handleInputChange}/>
-        </Form.Field>
+                 onChange={this.handleInputChange} readOnly={editMode}/>
+        </Form.Field>*/}
       </div>
     );
   }

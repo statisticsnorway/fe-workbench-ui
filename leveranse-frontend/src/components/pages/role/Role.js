@@ -19,7 +19,7 @@ class Role extends Component {
         version: '',
         versionDate: '',
         versionRationale: '',
-        administrativeDetails: ''
+        administrativeDetailsId: ''
       }
     };
 
@@ -35,23 +35,28 @@ class Role extends Component {
     })
   }
 
+  prepareDataForBackend () {
+    let data = {...this.state.role}
+
+    for (let attribute in data) {
+      if (data[attribute] === '') {
+        data[attribute] = null
+      }
+    }
+
+    JSON.stringify(data)
+
+    return data
+  }
+
   registerRole () {
     let responseStatus
     let errorMessage
     let responseMessage
     let url
+    let data
 
-    let data = JSON.stringify({
-      description: null,
-      id: this.state.role.id,
-      localeId: this.state.role.localeId,
-      name: this.state.role.name,
-      version: null,
-      versionDate: null,
-      versionRationale: null,
-      administrativeDetails: null
-    })
-
+    data = this.prepareDataForBackend()
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/role';
 
     axios.post(url, data, {
@@ -110,6 +115,8 @@ class Role extends Component {
   }
 
   render () {
+    const editMode = this.props.editMode
+
     return (
       <div>
         <Header as='h3' color={this.state.response.color}>
@@ -123,7 +130,8 @@ class Role extends Component {
         </Header>
         <Form.Field>
           <label>Navn</label>
-          <Input placeholder='Navn' name="name" value={this.state.role.name} onChange={this.handleInputChange}/>
+          <Input placeholder='Navn' name="name" value={this.state.role.name} onChange={this.handleInputChange}
+                 readOnly={editMode}/>
         </Form.Field>
       </div>
     );
