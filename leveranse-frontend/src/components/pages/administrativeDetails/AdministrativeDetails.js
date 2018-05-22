@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Header, Icon, Input, List, Form } from "semantic-ui-react";
+import { Header, Icon,  List } from "semantic-ui-react";
 
 class AdministrativeDetails extends Component {
   constructor (props) {

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Grid } from 'semantic-ui-react'
 import HeaderLogo from '../header/HeaderLogo'
 
 import ContactPerson from './contactPerson/ContactPerson'
