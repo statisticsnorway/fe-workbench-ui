@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Input, Menu } from 'semantic-ui-react'
-import { Route, NavLink, BrowserRouter } from 'react-router-dom'
+import {  Menu } from 'semantic-ui-react'
+import { NavLink, BrowserRouter } from 'react-router-dom'
 
 export default class TopNavigation extends Component {
   state = {activeItem: 'Leveransebeskrivelse'}

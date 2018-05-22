@@ -1,9 +1,7 @@
 import React from 'react'
-import { Checkbox, Dropdown, Form, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
-import TopNavigation from '../../navigation/TopNavigation'
+import {  Menu, Grid, Segment } from 'semantic-ui-react'
 import { Route, NavLink, BrowserRouter } from 'react-router-dom'
 import LeveranseDescription from './LeveranseDescription'
-import ContactPerson from './ContactPerson'
 
 class NewProvisionAgreement extends React.Component {
 

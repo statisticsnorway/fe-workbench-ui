@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkbox, Dropdown, Form, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
+import { Checkbox, Form, Grid, Segment } from 'semantic-ui-react'
 import Agent from '../agent/Agent'
 import ProvisionAgreement from './ProvisionAgreement'
 import AdministrativeDetails from '../administrativeDetails/AdministrativeDetails'
@@ -37,12 +37,8 @@ class LeveranseDesription extends React.Component {
       <div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
-            <Form.Field>
-
-            </Form.Field>
-            <Form.Field>
-
-            </Form.Field>
+            <Form.Field></Form.Field>
+            <Form.Field></Form.Field>
             <Form.Field>
               <Checkbox slider checked={!this.state.readOnlyMode} onClick={this.editModeHandleClick} icon='edit'
                         label='Redigeringsmodus' readOnly={!this.state.readOnlyMode}/>
@@ -50,14 +46,12 @@ class LeveranseDesription extends React.Component {
           </Form.Group>
           <Grid container stackable>
             <Grid.Row columns={3}>
-              <Grid.Column>
+              <Grid.Column width={10}>
                 <Segment>
                   <ProvisionAgreement ref={(provisionAgreement => {
                     this.provisionAgreement = provisionAgreement
                   })} editMode={this.state.readOnlyMode}/>
                 </Segment>
-              </Grid.Column>
-              <Grid.Column>
                 <Segment>
                   <Role ref={(role => {this.role = role})} editMode={this.state.readOnlyMode}/>
                 </Segment>
@@ -65,7 +59,7 @@ class LeveranseDesription extends React.Component {
                   <Agent ref={(agent => {this.agent = agent})} editMode={this.state.readOnlyMode}/>
                 </Segment>
               </Grid.Column>
-              <Grid.Column>
+              <Grid.Column width={6}>
                 <Segment><AdministrativeDetails
                   ref={(administrativeDetails => {this.administrativeDetails = administrativeDetails})}
                   editMode={this.state.readOnlyMode}/>
