@@ -126,7 +126,7 @@ class AdministrativeDetails extends Component {
   }
 
   render () {
-    const editMode = this.props.editMode
+//    const editMode = this.props.editMode
 
     return (
       <div>

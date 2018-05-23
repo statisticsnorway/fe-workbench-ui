@@ -99,6 +99,7 @@ class ProvisionAgreement extends Component {
       .then(() => {
         for (let mainSubjectsKey in mainSubjects) {
           axios.get('https://data.ssb.no/api/v0/no/table/' + mainSubjects[mainSubjectsKey]['id'])
+            // eslint-disable-next-line
             .then((response) => {
               subSubjects = response.data
 
@@ -162,7 +163,7 @@ class ProvisionAgreement extends Component {
     return data
   }
 
-  registerProvisionAgreement (id) {
+  registerProvisionAgreement () {
     let responseStatus
     let errorMessage
     let responseMessage
