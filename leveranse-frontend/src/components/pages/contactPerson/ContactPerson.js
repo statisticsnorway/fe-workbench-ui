@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Segment, Button } from 'semantic-ui-react'
+import { Button, Form, Segment, Checkbox } from 'semantic-ui-react'
 import InternalAgent from './InternalAgent'
 import ExternalAgent from './ExternalAgent'
 
@@ -14,21 +14,34 @@ class ContactPerson extends React.Component {
     })
   }
 
-  render() {
+  editModeHandleClick = () => {
+    this.setState({
+      readOnlyMode: !this.state.readOnlyMode
+    })
+  }
 
+  render () {
     return (
       <Form>
+        <Form.Group widths='equal'>
+          <Form.Field></Form.Field>
+          <Form.Field></Form.Field>
+          <Form.Field>
+            <Checkbox slider checked={!this.state.readOnlyMode} onClick={this.editModeHandleClick} icon='edit'
+                      label='Redigeringsmodus' readOnly={!this.state.readOnlyMode}/>
+          </Form.Field>
+        </Form.Group>
         <div>
           <Segment>
-            <InternalAgent ref={(InternalAgent => {this.InternalAgent = InternalAgent})}/>
+            <InternalAgent ref={(InternalAgent => {this.InternalAgent = InternalAgent})} editMode={this.state.readOnlyMode}/>
           </Segment>
           <Segment>
-            <ExternalAgent ref={(ExternalAgent => {this.ExternalAgent = ExternalAgent})}/>
+            <ExternalAgent ref={(ExternalAgent => {this.ExternalAgent = ExternalAgent})} editMode={this.state.readOnlyMode}/>
           </Segment>
           <Segment>
-          <Button primary icon='save'
-                       onClick={this.saveContactPerson}
-                       content='Lagre kontaktperson'/>
+            <Button primary icon='save'
+                    onClick={this.saveContactPerson}
+                    content='Lagre kontaktperson'/>
           </Segment>
         </div>
       </Form>
@@ -36,6 +49,7 @@ class ContactPerson extends React.Component {
 
   }
 }
+
 export default ContactPerson;
 
 

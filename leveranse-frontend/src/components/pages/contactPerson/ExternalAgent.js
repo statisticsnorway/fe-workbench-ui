@@ -55,7 +55,7 @@ class ExternalAgent extends React.Component {
     let agents = this.state.agents.slice();
     let newAgents = agents.map(function(agent) {
 
-      for (var key in agent) {
+      for (let key in agent) {
         if (key == item.name && agent.id == item.id) {
           agent[key] = item.value;
 
@@ -68,11 +68,12 @@ class ExternalAgent extends React.Component {
 
 
   render() {
+    const editMode = this.props.editMode
 
     return (
       <div>
         <Divider horizontal>Ekstern</Divider>
-        <AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)} onRowDel={this.handleRowDel.bind(this)} agents={this.state.agents} filterText={this.state.filterText}/>
+        <AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)} onRowDel={this.handleRowDel.bind(this)} agents={this.state.agents} filterText={this.state.filterText} editMode={editMode}/>
       </div>
     );
 

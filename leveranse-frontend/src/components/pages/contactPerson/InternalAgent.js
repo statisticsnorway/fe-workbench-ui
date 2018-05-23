@@ -27,14 +27,14 @@ class InternalAgent extends React.Component {
   };
 
   handleRowDel(agent) {
-    var index = this.state.agents.indexOf(agent);
+    let index = this.state.agents.indexOf(agent)
     this.state.agents.splice(index, 1);
     this.setState(this.state.agents);
   };
 
   handleAddEvent(evt) {
-    var id = (+ new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    var agent = {
+    let id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36)
+    let agent = {
       id: id,
       role: "",
       name: "",
@@ -48,32 +48,33 @@ class InternalAgent extends React.Component {
   }
 
   handleAgentTable(evt) {
-    var item = {
+    let item = {
       id: evt.target.id,
       name: evt.target.name,
       value: evt.target.value
-    };
-    var agents = this.state.agents.slice();
-    var newAgents = agents.map(function(agent) {
+    }
+    let agents = this.state.agents.slice()
+    let newAgents = agents.map(function (agent) {
 
-      for (var key in agent) {
+      for (let key in agent) {
         if (key == item.name && agent.id == item.id) {
           agent[key] = item.value;
 
         }
       }
       return agent;
-    });
+    })
     this.setState({agents:newAgents});
   };
 
 
   render() {
+    const editMode = this.props.editMode
 
     return (
       <div>
         <Divider horizontal>Intern</Divider>
-        <AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)} onRowDel={this.handleRowDel.bind(this)} agents={this.state.agents} filterText={this.state.filterText}/>
+        <AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)} onRowDel={this.handleRowDel.bind(this)} agents={this.state.agents} filterText={this.state.filterText} editMode={editMode}/>
       </div>
     );
 

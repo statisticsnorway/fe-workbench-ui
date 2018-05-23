@@ -27,6 +27,7 @@ class LeveranseDesription extends React.Component {
       readOnlyMode: !this.state.readOnlyMode
     })
   }
+
   render() {
     return (
       <div>
