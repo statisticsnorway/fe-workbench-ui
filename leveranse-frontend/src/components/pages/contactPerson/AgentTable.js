@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Dropdown } from 'semantic-ui-react'
+import { Table, Dropdown, Button, Icon } from 'semantic-ui-react'
 
 class AgentTable extends React.Component {
 
@@ -9,14 +9,13 @@ class AgentTable extends React.Component {
     let filterText = this.props.filterText;
     let agent = this.props.agents.map(function(agent) {
       if (agent.name.indexOf(filterText) === -1) {
-        return;
+        return null;
       }
       return (<AgentRow onAgentTableUpdate={onAgentTableUpdate} agent={agent} onDelEvent={rowDel.bind(this)} key={agent.id}/>)
     });
     return (
       <div>
-        <button type="button" onClick={this.props.onRowAdd} className="btn btn-success pull-right">Legg til</button>
-        <Table className="table table-bordered">
+        <Table>
           <thead>
           <tr>
             <th>Rolle</th>
@@ -24,6 +23,7 @@ class AgentTable extends React.Component {
             <th>Epost</th>
             <th>Telefon</th>
             <th>Kommentar</th>
+            <th>&nbsp;</th>
           </tr>
           </thead>
 
@@ -32,6 +32,7 @@ class AgentTable extends React.Component {
           </tbody>
 
         </Table>
+        <Button color='green' onClick={this.props.onRowAdd}>Legg til</Button>
       </div>
     );
   }
@@ -75,8 +76,10 @@ class AgentRow extends React.Component {
           <input type='text' name="comment" id={this.props.agent.id} value={this.props.agent.comment}
                  onChange={this.props.onAgentTableUpdate}/>
         </td>
-        <td className="del-cell">
-          <input type="button" onClick={this.onDelEvent.bind(this)} value="X" className="del-btn"/>
+        <td>
+          <Button icon size='tiny' onClick={this.onDelEvent.bind(this)} color='red'>
+            <Icon name='delete'/>
+          </Button>
         </td>
       </tr>
     );
