@@ -3,6 +3,7 @@ import { Grid, Tab } from 'semantic-ui-react'
 import { BrowserRouter } from 'react-router-dom'
 import LeveranseDescription from './LeveranseDescription'
 import '../../../assets/css/site.css'
+import ContactPerson from "../contactPerson/ContactPerson";
 
 class NewProvisionAgreement extends React.Component {
 
@@ -12,7 +13,7 @@ class NewProvisionAgreement extends React.Component {
         menuItem: 'Leveransebeskrivelse',
         render: () => <Tab.Pane><LeveranseDescription></LeveranseDescription></Tab.Pane>
       },
-      {menuItem: 'Kotaktpersoner', render: () => <Tab.Pane>Kotaktpersoner Content</Tab.Pane>},
+      {menuItem: 'Kontaktpersoner', render: () => <Tab.Pane><ContactPerson></ContactPerson></Tab.Pane>},
       {menuItem: 'Leveranseformat', render: () => <Tab.Pane>Leveranseformat Content</Tab.Pane>},
       {menuItem: 'Documenter', render: () => <Tab.Pane>Documenter Content</Tab.Pane>},
       {menuItem: 'Forventede leveranser', render: () => <Tab.Pane>Forventede leveranser Content</Tab.Pane>},
