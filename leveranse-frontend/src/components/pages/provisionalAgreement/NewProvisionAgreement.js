@@ -11,9 +11,9 @@ class NewProvisionAgreement extends React.Component {
     const panes = [
       {
         menuItem: 'Leveransebeskrivelse',
-        render: () => <Tab.Pane><LeveranseDescription></LeveranseDescription></Tab.Pane>
+        render: () => <Tab.Pane><LeveranseDescription/></Tab.Pane>
       },
-      {menuItem: 'Kontaktpersoner', render: () => <Tab.Pane><ContactPerson></ContactPerson></Tab.Pane>},
+      {menuItem: 'Kontaktpersoner', render: () => <Tab.Pane><ContactPerson/></Tab.Pane>},
       {menuItem: 'Leveranseformat', render: () => <Tab.Pane>Leveranseformat Content</Tab.Pane>},
       {menuItem: 'Documenter', render: () => <Tab.Pane>Documenter Content</Tab.Pane>},
       {menuItem: 'Forventede leveranser', render: () => <Tab.Pane>Forventede leveranser Content</Tab.Pane>},

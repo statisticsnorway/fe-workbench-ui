@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Segment, Checkbox } from 'semantic-ui-react'
+import { Button, Checkbox, Form, Segment } from 'semantic-ui-react'
 import InternalAgent from './InternalAgent'
 import ExternalAgent from './ExternalAgent'
 
@@ -24,8 +24,8 @@ class ContactPerson extends React.Component {
     return (
       <Form>
         <Form.Group widths='equal'>
-          <Form.Field></Form.Field>
-          <Form.Field></Form.Field>
+          <Form.Field/>
+          <Form.Field/>
           <Form.Field>
             <Checkbox slider checked={!this.state.readOnlyMode} onClick={this.editModeHandleClick} icon='edit'
                       label='Redigeringsmodus' readOnly={!this.state.readOnlyMode}/>
@@ -33,10 +33,12 @@ class ContactPerson extends React.Component {
         </Form.Group>
         <div>
           <Segment>
-            <InternalAgent ref={(InternalAgent => {this.InternalAgent = InternalAgent})} editMode={this.state.readOnlyMode}/>
+            <InternalAgent ref={(InternalAgent => {this.InternalAgent = InternalAgent})}
+                           editMode={this.state.readOnlyMode}/>
           </Segment>
           <Segment>
-            <ExternalAgent ref={(ExternalAgent => {this.ExternalAgent = ExternalAgent})} editMode={this.state.readOnlyMode}/>
+            <ExternalAgent ref={(ExternalAgent => {this.ExternalAgent = ExternalAgent})}
+                           editMode={this.state.readOnlyMode}/>
           </Segment>
           <Segment>
             <Button primary icon='save'
@@ -46,7 +48,6 @@ class ContactPerson extends React.Component {
         </div>
       </Form>
     );
-
   }
 }
 
