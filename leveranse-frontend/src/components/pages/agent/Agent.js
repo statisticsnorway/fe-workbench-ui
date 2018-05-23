@@ -128,7 +128,7 @@ class Agent extends Component {
       <div>
         <Header as='h3' color={this.state.response.color}>
           <Header.Content>
-            Aktør {' '}
+            Aktør &nbsp;
             <Icon name={this.state.response.icon}/>
           </Header.Content>
           <Header.Subheader>

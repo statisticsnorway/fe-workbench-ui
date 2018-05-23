@@ -45,7 +45,7 @@ class ProvisionAgreementPage extends React.Component {
                   <Dropdown.Menu>
                     <Dropdown.Item icon='edit' text='Endre profil'/>
                     <Dropdown.Item icon='globe' text='Velg språk'/>
-                    <Dropdown.Item icon='settings' text='Kontoinstillinger'/>
+                    <Dropdown.Item icon='settings' text='Kontoinnstillinger'/>
                   </Dropdown.Menu>
                 </Dropdown>
               </Menu>

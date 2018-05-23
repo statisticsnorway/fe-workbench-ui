@@ -236,7 +236,7 @@ class ProvisionAgreement extends Component {
       <div>
         <Header as='h3' color={this.state.response.color}>
           <Header.Content>
-            Leveranseavtale {' '}
+            Leveranseavtale &nbsp;
             <Icon name={this.state.response.icon}/>
           </Header.Content>
           <Header.Subheader>

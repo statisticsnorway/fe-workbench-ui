@@ -27,13 +27,14 @@ class LeveranseDesription extends React.Component {
       readOnlyMode: !this.state.readOnlyMode
     })
   }
+
   render() {
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
-            <Form.Field></Form.Field>
-            <Form.Field></Form.Field>
+            <Form.Field/>
+            <Form.Field/>
             <Form.Field>
               <Checkbox slider checked={!this.state.readOnlyMode} onClick={this.editModeHandleClick} icon='edit'
                         label='Redigeringsmodus' readOnly={!this.state.readOnlyMode}/>
@@ -62,11 +63,13 @@ class LeveranseDesription extends React.Component {
               </Grid.Column>
             </Grid.Row>
           </Grid>
-          <Form.Group>
-            <Form.Button disabled={this.state.readOnlyMode} primary icon='save'
-                         onClick={this.saveProvisionAgreement}
-                         content='Lagre leveranseavtale'/>
-          </Form.Group>
+          <Segment>
+            <Form.Group>
+              <Form.Button disabled={this.state.readOnlyMode} primary icon='save'
+                           onClick={this.saveProvisionAgreement}
+                           content='Lagre leveranseavtale'/>
+            </Form.Group>
+          </Segment>
         </Form>
       </div>
     )
