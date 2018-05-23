@@ -1,6 +1,13 @@
 import React from 'react'
 import { Button, Dropdown, Icon, Table } from 'semantic-ui-react'
 
+const roleOptions = [{key: 'Kvalitetsansvar', value: 'Kvalitetsansvar', text: 'Kvalitetsansvar'},
+  {key: 'Planlegger', value: 'Planlegger', text: 'Planlegger'},
+  {key: 'Ansvarligseksjon', value: 'Ansvarligseksjon', text: 'Ansvarligseksjon'},
+  {key: 'Ansvarlig', value: 'Ansvarlig', text: 'Ansvarlig'},
+  {key: 'Uttrekk', value: 'Uttrekk', text: 'Uttrekk'},
+  {key: 'Regelverk', value: 'Regelverk', text: 'Regelverk'}];
+
 class AgentTable extends React.Component {
   render () {
     const editMode = this.props.editMode
@@ -12,10 +19,13 @@ class AgentTable extends React.Component {
       if (agent.name.indexOf(filterText) === -1) {
         return null;
       }
+
       return (
         <AgentRow onAgentTableUpdate={onAgentTableUpdate} agent={agent} onDelEvent={rowDel.bind(this)} key={agent.id}
-                  editMode={editMode}/>)
+                  editMode={editMode}/>
+      )
     });
+
     return (
       <div>
         <Table>
@@ -52,15 +62,8 @@ class AgentRow extends React.Component {
   render () {
     const editMode = this.props.editMode
 
-    let roleOptions = [{key: 'Kvalitetsansvar', value: 'Kvalitetsansvar', text: 'Kvalitetsansvar'},
-      {key: 'Planlegger', value: 'Planlegger', text: 'Planlegger'},
-      {key: 'Ansvarligseksjon', value: 'Ansvarligseksjon', text: 'Ansvarligseksjon'},
-      {key: 'Ansvarlig', value: 'Ansvarlig', text: 'Ansvarlig'},
-      {key: 'Uttrekk', value: 'Uttrekk', text: 'Uttrekk'},
-      {key: 'Regelverk', value: 'Regelverk', text: 'Regelverk'}];
-
     return (
-      <tr className="eachRow">
+      <tr>
         <td>
           <Dropdown placeholder='Velg rolle' search selection options={roleOptions} disabled={editMode}/>
         </td>

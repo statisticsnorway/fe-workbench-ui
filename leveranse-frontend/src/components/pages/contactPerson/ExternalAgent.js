@@ -10,7 +10,7 @@ class ExternalAgent extends React.Component {
     this.state.filterText = "";
     this.state.agents = [
       {
-        id: 0,
+        id: '0',
         role: '',
         name: '',
         email: '',
@@ -19,10 +19,6 @@ class ExternalAgent extends React.Component {
       }
     ];
   }
-
-  handleUserInput (filterText) {
-    this.setState({filterText: filterText});
-  };
 
   handleRowDel (agent) {
     let index = this.state.agents.indexOf(agent);
@@ -56,7 +52,7 @@ class ExternalAgent extends React.Component {
     let agents = this.state.agents.slice();
     let newAgents = agents.map(function (agent) {
       for (let key in agent) {
-        if (key == item.name && agent.id == item.id) {
+        if (key === item.name && agent['id'] === item.id) {
           agent[key] = item.value;
         }
       }

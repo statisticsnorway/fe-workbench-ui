@@ -132,7 +132,7 @@ class AdministrativeDetails extends Component {
       <div>
         <Header as='h3' color={this.state.response.color}>
           <Header.Content>
-            Administrative detaljer {' '}
+            Administrative detaljer &nbsp;
             <Icon name={this.state.response.icon}/>
           </Header.Content>
           <Header.Subheader>
