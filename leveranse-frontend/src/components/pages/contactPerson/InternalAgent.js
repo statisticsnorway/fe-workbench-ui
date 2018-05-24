@@ -27,7 +27,6 @@ class InternalAgent extends React.Component {
 
   handleAddEvent () {
     const uuidv1 = require('uuid/v1');
-    /*let id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);*/
     let id = uuidv1();
     let agent = {
       id: id,
