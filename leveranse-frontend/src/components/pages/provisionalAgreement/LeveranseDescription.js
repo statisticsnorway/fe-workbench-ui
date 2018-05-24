@@ -1,22 +1,16 @@
 import React from 'react'
 import { Checkbox, Form, Grid, Segment } from 'semantic-ui-react'
-import Agent from '../agent/Agent'
 import ProvisionAgreement from './ProvisionAgreement'
 import AdministrativeDetails from '../administrativeDetails/AdministrativeDetails'
-import Role from '../role/Role'
-import { v1 } from 'uuid';
 
-
-class LeveranseDesription extends React.Component {
+class LeveranseDescription extends React.Component {
   state = {
     readOnlyMode: false
   }
 
   saveProvisionAgreement = () => {
 //    this.administrativeDetails.registerAdministrativeDetails()
-    this.agent.registerAgent()
     this.provisionAgreement.registerProvisionAgreement()
-    this.role.registerRole()
     this.setState({
       readOnlyMode: true
     })
@@ -48,12 +42,6 @@ class LeveranseDesription extends React.Component {
                     this.provisionAgreement = provisionAgreement
                   })} editMode={this.state.readOnlyMode}/>
                 </Segment>
-                <Segment>
-                  <Role ref={(role => {this.role = role})} editMode={this.state.readOnlyMode}/>
-                </Segment>
-                <Segment>
-                  <Agent ref={(agent => {this.agent = agent})} editMode={this.state.readOnlyMode}/>
-                </Segment>
               </Grid.Column>
               <Grid.Column width={6}>
                 <Segment><AdministrativeDetails
@@ -64,11 +52,9 @@ class LeveranseDesription extends React.Component {
             </Grid.Row>
           </Grid>
           <Segment>
-            <Form.Group>
-              <Form.Button disabled={this.state.readOnlyMode} primary icon='save'
-                           onClick={this.saveProvisionAgreement}
-                           content='Lagre leveranseavtale'/>
-            </Form.Group>
+            <Form.Button disabled={this.state.readOnlyMode} primary icon='save'
+                         onClick={this.saveProvisionAgreement}
+                         content='Lagre leveranseavtale'/>
           </Segment>
         </Form>
       </div>
@@ -76,4 +62,4 @@ class LeveranseDesription extends React.Component {
   }
 }
 
-export default LeveranseDesription
+export default LeveranseDescription
