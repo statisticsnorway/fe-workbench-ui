@@ -19,11 +19,7 @@ const statusOptions = [
 const pursuantOptions = [
   {key: '1', text: 'Frivillig undersøkelse', value: 'Frivillig undersøkelse'},
   {key: '2', text: 'Oppgavepliktig undersøkelse', value: 'Oppgavepliktig undersøkelse'},
-  {
-    key: '3',
-    text: 'Oppgavepliktig rapportering fra administrativt register',
-    value: 'Oppgavepliktig rapportering fra administrativt register'
-  }
+  {key: '3', text: 'Oppgavepliktig rapportering fra administrativt register', value: 'Oppgavepliktig rapportering fra administrativt register'}
 ]
 
 const exchangeChannelOptions = [
@@ -141,6 +137,15 @@ class ProvisionAgreement extends Component {
     })
   }
 
+  handleDropdownChange (value, name) {
+    this.setState({
+      provisionAgreement: {
+        ...this.state.provisionAgreement,
+        [name]: value
+      }
+    })
+  }
+
   prepareDataForBackend (id) {
     let data = {...this.state.provisionAgreement}
 
@@ -174,6 +179,9 @@ class ProvisionAgreement extends Component {
     let provisionAgreement_uuid = uuidv1();
 
     data = this.prepareDataForBackend(provisionAgreement_uuid)
+
+    console.log(data)
+
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement';
 
     axios.post(url, data, {
@@ -296,8 +304,9 @@ class ProvisionAgreement extends Component {
         </Form.Group>
         <Form.Field>
           <label>Hjemmelsgrunnlag</label>
-          <Dropdown placeholder='Hjemmelsgrunnlag' selection options={pursuantOptions} name='pursuant'
-                    value={this.state.provisionAgreement.pursuant} onChange={this.handleInputChange}
+          <Dropdown placeholder='Hjemmelsgrunnlag' selection options={pursuantOptions}
+                    value={this.state.provisionAgreement.pursuant}
+                    onChange={(event, {value}) => this.handleDropdownChange(value, 'pursuant')}
                     disabled={editMode}/>
         </Form.Field>
         <Form.Field>
