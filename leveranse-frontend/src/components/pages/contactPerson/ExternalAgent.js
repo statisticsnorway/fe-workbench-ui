@@ -8,7 +8,7 @@ class ExternalAgent extends React.Component {
 
     this.state = {};
     this.state.filterText = "";
-    this.state.agents = [
+    this.state.externalAgents = [
       {
         id: '0',
         role: '',
@@ -20,15 +20,17 @@ class ExternalAgent extends React.Component {
     ];
   }
 
-  handleRowDel (agent) {
-    let index = this.state.agents.indexOf(agent);
+  handleRowDel (externalAgent) {
+    let index = this.state.externalAgents.indexOf(externalAgent);
 
-    this.state.agents.splice(index, 1);
-    this.setState(this.state.agents);
+    this.state.externalAgents.splice(index, 1);
+    this.setState(this.state.externalAgents);
   };
 
   handleAddEvent () {
-    let id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    const uuidv1 = require('uuid/v1');
+    /*let id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);*/
+    let id = uuidv1();
     let agent = {
       id: id,
       role: "",
@@ -38,12 +40,12 @@ class ExternalAgent extends React.Component {
       comment: ""
     }
 
-    this.state.agents.push(agent);
-    this.setState(this.state.agents);
+    this.state.externalAgents.push(externalAgent);
+    this.setState(this.state.externalAgents);
 
   }
 
-  handleAgentTable (evt) {
+  handleExternalAgentTable (evt) {
     let item = {
       id: evt.target.id,
       name: evt.target.name,
