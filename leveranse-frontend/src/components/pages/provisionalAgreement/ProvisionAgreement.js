@@ -1,10 +1,13 @@
+import _ from 'lodash'
+import faker from 'faker'
 import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { Dropdown, Form, Header, Icon, Input, TextArea } from "semantic-ui-react";
+import { Dropdown, Form, Header, Icon, Input, TextArea, Search, Grid } from "semantic-ui-react";
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
+import Leverandør from '../leverandør/Leverandør'
 
 moment.locale('nb')
 
@@ -50,6 +53,13 @@ const valuationOptions = [
 
 let subjectsOptions = []
 
+const sourceLeverandører = _.times(5, () => ({
+  title: faker.company.companyName(),
+  description: faker.company.catchPhrase(),
+  image: faker.internet.avatar(),
+  price: faker.finance.amount(0, 100, 2, '$'),
+}))
+
 class ProvisionAgreement extends Component {
   constructor (props) {
     super(props);
@@ -72,7 +82,8 @@ class ProvisionAgreement extends Component {
         durationFrom: '',
         durationTo: '',
         frequency: '',
-        pursuant: ''
+        pursuant: '',
+        supplier: ''
       },
       durationFrom: moment(),
       durationTo: moment(),
@@ -229,8 +240,34 @@ class ProvisionAgreement extends Component {
       })
   }
 
+  componentWillMount() {
+    this.resetComponent()
+  }
+
+  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
+
+  handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+
+  handleSearchChange = (e, { value }) => {
+    this.setState({ isLoading: true, value })
+
+    setTimeout(() => {
+      if (this.state.value.length < 1) return this.resetComponent()
+
+      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
+      const isMatch = result => re.test(result.title)
+
+      this.setState({
+        isLoading: false,
+        results: _.filter(sourceLeverandører, isMatch),
+      })
+    }, 300)
+  }
+
+
   render () {
     const editMode = this.props.editMode
+    const { isLoading, value, results } = this.state
 
     return (
       <div>
@@ -243,6 +280,24 @@ class ProvisionAgreement extends Component {
             {this.state.response.text}
           </Header.Subheader>
         </Header>
+        <Form.Field>
+          <label>Leverandør</label>
+          <Grid>
+            <Grid.Column width={11}>
+              <Search
+                loading={isLoading}
+                onResultSelect={this.handleResultSelect}
+                onSearchChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
+                results={results}
+                value={value}
+                {...this.props}
+                fluid={true}
+              />
+              <Leverandør/>
+            </Grid.Column>
+
+          </Grid>
+        </Form.Field>
         <Form.Field>
           <label>Avtalenavn</label>
           <Input placeholder='Avtalenavn' name='name' value={this.state.provisionAgreement.name}
