@@ -52,7 +52,7 @@ class ProvisionAgreementPage extends React.Component {
             </Grid.Column>
             <Grid.Column width={13}>
               <Segment>
-                <Route path="/newProvisionAgreement" component={NewProvisionAgreement}/>
+                <Route path="/newProvisionAgreement" render={(props) => <NewProvisionAgreement {...props} isNewProvisionAgreement={true}/>}/>
               </Segment>
             </Grid.Column>
           </Grid>
