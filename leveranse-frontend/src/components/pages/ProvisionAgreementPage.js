@@ -2,6 +2,7 @@ import React from 'react'
 import { Dropdown, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
 import { Route, NavLink, BrowserRouter } from "react-router-dom";
 import NewProvisionAgreement from './provisionalAgreement/NewProvisionAgreement'
+import Variable from './variable/Variable'
 
 class ProvisionAgreementPage extends React.Component {
   state = {}
@@ -19,6 +20,7 @@ class ProvisionAgreementPage extends React.Component {
           <Grid stackable>
             <Grid.Column width={3}>
               <Menu vertical>
+                <Menu.Item header>Leveranseavtale</Menu.Item>
                 <Menu.Item>
                   <Input icon='search' placeholder='Finn avtale'/>
                 </Menu.Item>
@@ -41,6 +43,17 @@ class ProvisionAgreementPage extends React.Component {
                   Slett avtale
                   </NavLink>
                 </Menu.Item>
+              </Menu>
+              <Menu vertical>
+                <Menu.Item header>Variabel</Menu.Item>
+                <Menu.Item name='newVariable' active={activeItem === 'newVariable'}>
+                  <NavLink to='/Variable'>
+                    <Icon name="compose"/>
+                    Opprett ny variabel
+                  </NavLink>
+                </Menu.Item>
+              </Menu>
+              <Menu vertical>
                 <Dropdown item text='Annet'>
                   <Dropdown.Menu>
                     <Dropdown.Item icon='edit' text='Endre profil'/>
@@ -53,6 +66,7 @@ class ProvisionAgreementPage extends React.Component {
             <Grid.Column width={13}>
               <Segment>
                 <Route path="/newProvisionAgreement" component={NewProvisionAgreement}/>
+                <Route path='/Variable' component={Variable}/>
               </Segment>
             </Grid.Column>
           </Grid>
