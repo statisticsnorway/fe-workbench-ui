@@ -6,8 +6,7 @@ class AdministrativeDetails extends Component {
   constructor (props) {
     super(props);
 
-    let now = new Date()
-    now = now.getDate() + '/' + now.getMonth() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes()
+    const rightNow = AdministrativeDetails.prettyfyDate()
 
     this.state = {
       response: {
@@ -21,9 +20,9 @@ class AdministrativeDetails extends Component {
         alias: '',
         annotation: '',
         documentation: '',
-        createDate: now,
+        createDate: rightNow,
         createBy: 'Testbruker',
-        lastUpdateDate: now,
+        lastUpdateDate: rightNow,
         lastUpdateBy: 'Testbruker 2',
         lifeCycleStatus: '',
         ControlledVocabulary: '',
@@ -35,6 +34,28 @@ class AdministrativeDetails extends Component {
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  static prettyfyDate () {
+    let now = new Date()
+    let nowMonth
+    let nowMinutes
+
+    if (now.getMinutes() < 10) {
+      nowMinutes = '0' + now.getMinutes()
+    } else {
+      nowMinutes = now.getMinutes()
+    }
+
+    if (now.getMonth() < 10) {
+      nowMonth = '0' + now.getMonth()
+    } else {
+      nowMonth = now.getMonth()
+    }
+
+    now = now.getDate() + '/' + nowMonth + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + nowMinutes
+
+    return now
   }
 
   handleInputChange (event) {
