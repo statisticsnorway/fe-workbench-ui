@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-import { Checkbox, Form, Grid, Segment, Header, Input, TextArea, Dropdown } from 'semantic-ui-react'
+import { Checkbox, Dropdown, Form, Grid, Header, Input, Segment, TextArea } from 'semantic-ui-react'
 
 const unitTypeOptions = [
   {key: '1', text: 'Person', value: 'Person'},
@@ -31,9 +31,7 @@ class Variable extends React.Component {
         text: '',
         icon: '',
       },
-      variable: {
-
-      }
+      variable: {}
     }
 
     const uuidv1 = require('uuid/v1')
@@ -55,7 +53,11 @@ class Variable extends React.Component {
       })
       .then(() => {
         for (let key in mainSubjects) {
-          subjectsOptions.push({key: mainSubjects[key]['id'], text: mainSubjects[key]['text'], value: mainSubjects[key]['text']})
+          subjectsOptions.push({
+            key: mainSubjects[key]['id'],
+            text: mainSubjects[key]['text'],
+            value: mainSubjects[key]['text']
+          })
         }
       })
   }
@@ -169,7 +171,7 @@ class Variable extends React.Component {
     })
   }
 
-  render() {
+  render () {
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
@@ -211,8 +213,8 @@ class Variable extends React.Component {
                   </Form.Field>
                   <Form.Field>
                     <label>Enhetstype</label>
-                      <Dropdown placeholder='Enhetstype' selection options={unitTypeOptions}
-                                disabled={this.state.readOnlyMode}/>
+                    <Dropdown placeholder='Enhetstype' selection options={unitTypeOptions}
+                              disabled={this.state.readOnlyMode}/>
                   </Form.Field>
                   <Form.Field>
                     <label>Merke</label>
