@@ -153,6 +153,10 @@ class ProvisionAgreement extends Component {
 
   handleInputChange (event) {
     this.setState({
+      errors: {
+        ...this.state.errors,
+        [event.target.name]: ''
+      },
       provisionAgreement: {
         ...this.state.provisionAgreement,
         [event.target.name]: event.target.value
@@ -162,6 +166,10 @@ class ProvisionAgreement extends Component {
 
   handleDropdownChange (value, name) {
     this.setState({
+      errors: {
+        ...this.state.errors,
+        [name]: ''
+      },
       provisionAgreement: {
         ...this.state.provisionAgreement,
         [name]: value
