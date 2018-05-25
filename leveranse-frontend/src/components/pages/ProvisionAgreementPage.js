@@ -65,7 +65,7 @@ class ProvisionAgreementPage extends React.Component {
             </Grid.Column>
             <Grid.Column width={13}>
               <Segment>
-                <Route path="/newProvisionAgreement" component={NewProvisionAgreement}/>
+                <Route path="/newProvisionAgreement" render={(props) => <NewProvisionAgreement {...props} isNewProvisionAgreement={true}/>}/>
                 <Route path='/Variable' component={Variable}/>
               </Segment>
             </Grid.Column>

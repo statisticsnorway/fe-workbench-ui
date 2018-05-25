@@ -76,6 +76,23 @@ class ProvisionAgreement extends Component {
 
     this.fetchSubjects()
     this.handleInputChange = this.handleInputChange.bind(this);
+
+    if (this.props.isNewProvisionAgreement) {
+      const uuidv1 = require('uuid/v1');
+      this.state.provisionAgreement.id = uuidv1()
+    } else {
+      let url
+
+      url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement/' + this.props.provisionAgreementId;
+
+      axios.get(url)
+        .then((response) => {
+          this.state.provisionAgreement = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }
 
   fetchSubjects () {
@@ -252,6 +269,10 @@ class ProvisionAgreement extends Component {
             {this.state.response.text}
           </Header.Subheader>
         </Header>
+        <Form.Field>
+          <label>Id:</label>
+          {this.state.provisionAgreement.id}
+        </Form.Field>
         <Form.Field>
           <label>Avtalenavn</label>
           <Input placeholder='Avtalenavn' name='name' value={this.state.provisionAgreement.name}
