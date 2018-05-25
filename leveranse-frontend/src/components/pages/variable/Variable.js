@@ -95,6 +95,10 @@ class Variable extends React.Component {
   }
 
   registerVariable = () => {
+    this.setState({
+      readOnlyMode: true
+    })
+    
     let responseStatus
     let errorMessage
     let responseMessage
@@ -115,10 +119,6 @@ class Variable extends React.Component {
       console.log(response);
       responseStatus = response.status
       responseMessage = response.statusText
-
-      this.setState({
-        readOnlyMode: true
-      })
     })
       .catch(function (error) {
         console.log(error);
