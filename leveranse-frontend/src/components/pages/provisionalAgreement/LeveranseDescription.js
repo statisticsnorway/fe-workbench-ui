@@ -40,7 +40,7 @@ class LeveranseDescription extends React.Component {
                 <Segment>
                   <ProvisionAgreement ref={(provisionAgreement => {
                     this.provisionAgreement = provisionAgreement
-                  })} editMode={this.state.readOnlyMode}/>
+                  })} editMode={this.state.readOnlyMode} isNewProvisionAgreement={this.props.isNewProvisionAgreement}/>
                 </Segment>
               </Grid.Column>
               <Grid.Column width={6}>

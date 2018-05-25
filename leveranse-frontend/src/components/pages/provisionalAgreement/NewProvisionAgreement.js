@@ -11,7 +11,7 @@ class NewProvisionAgreement extends React.Component {
     const panes = [
       {
         menuItem: 'Leveransebeskrivelse',
-        render: () => <Tab.Pane><LeveranseDescription/></Tab.Pane>
+        render: () => <Tab.Pane><LeveranseDescription isNewProvisionAgreement={this.props.isNewProvisionAgreement}/></Tab.Pane>
       },
       {menuItem: 'Kontaktpersoner', render: () => <Tab.Pane><ContactPerson/></Tab.Pane>},
       {menuItem: 'Leveranseformat', render: () => <Tab.Pane>Leveranseformat Content</Tab.Pane>},
