@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { Dropdown, Form, Header, Icon, Input, TextArea } from "semantic-ui-react";
+import { Dropdown, Form, Header, Icon, Input, Label, TextArea } from "semantic-ui-react";
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
+import InlineError from '../../messages/InlineError'
 
 moment.locale('nb')
 
@@ -19,7 +20,11 @@ const statusOptions = [
 const pursuantOptions = [
   {key: '1', text: 'Frivillig undersøkelse', value: 'Frivillig undersøkelse'},
   {key: '2', text: 'Oppgavepliktig undersøkelse', value: 'Oppgavepliktig undersøkelse'},
-  {key: '3', text: 'Oppgavepliktig rapportering fra administrativt register', value: 'Oppgavepliktig rapportering fra administrativt register'}
+  {
+    key: '3',
+    text: 'Oppgavepliktig rapportering fra administrativt register',
+    value: 'Oppgavepliktig rapportering fra administrativt register'
+  }
 ]
 
 const exchangeChannelOptions = [
@@ -72,6 +77,7 @@ class ProvisionAgreement extends Component {
       },
       durationFrom: moment(),
       durationTo: moment(),
+      errors: {}
     };
 
     this.fetchSubjects()
@@ -112,7 +118,7 @@ class ProvisionAgreement extends Component {
       .then(() => {
         for (let mainSubjectsKey in mainSubjects) {
           axios.get('https://data.ssb.no/api/v0/no/table/' + mainSubjects[mainSubjectsKey]['id'])
-            // eslint-disable-next-line
+          // eslint-disable-next-line
             .then((response) => {
               subSubjects = response.data
 
@@ -185,81 +191,103 @@ class ProvisionAgreement extends Component {
     return data
   }
 
+  validateInputData = data => {
+    const errors = {}
+
+    if (!data.description) errors.description = "Feltet kan ikke være tomt"
+
+    return errors
+  }
+
+  validationOk = () => {
+    const errors = this.validateInputData(this.state.provisionAgreement)
+    this.setState({errors})
+    return Object.keys(errors).length === 0;
+  }
+
   registerProvisionAgreement () {
-    let responseStatus
-    let errorMessage
-    let responseMessage
-    let url
-    let data
+    if (!this.validationOk()) {
 
-    const uuidv1 = require('uuid/v1');
-    let provisionAgreement_uuid = uuidv1();
+    } else {
+      let responseStatus
+      let errorMessage
+      let responseMessage
+      let url
+      let data
 
-    data = this.prepareDataForBackend(provisionAgreement_uuid)
+      const uuidv1 = require('uuid/v1');
+      let provisionAgreement_uuid = uuidv1();
 
-    console.log(data)
+      data = this.prepareDataForBackend(provisionAgreement_uuid)
 
-    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement';
+      console.log(data)
 
-    axios.post(url, data, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => {
-      console.log(response);
-      responseStatus = response.status
-      responseMessage = response.statusText
-    })
-      .catch(function (error) {
-        console.log(error);
-        responseStatus = 'Error'
-        errorMessage = error.message
-      })
-      .then(() => {
-        if (responseStatus === 201) {
-          this.setState({
-            response: {
-              color: 'green',
-              text: '',
-              icon: 'check'
-            }
-          })
-        } else if (responseStatus === 'Error') {
-          this.setState({
-            response: {
-              color: 'red',
-              text: [errorMessage],
-              icon: 'close'
-            }
-          })
-        } else {
-          this.setState({
-            response: {
-              color: 'yellow',
-              text: [responseMessage],
-              icon: 'warning'
-            }
-          })
+      url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement';
+
+      axios.post(url, data, {
+        headers: {
+          'Content-Type': 'application/json'
         }
+      }).then((response) => {
+        console.log(response);
+        responseStatus = response.status
+        responseMessage = response.statusText
       })
-      .then(() => {
-        setTimeout(() => {
-          this.setState({
-            response: {
-              color: 'black',
-              text: '',
-              icon: ''
-            }
-          })
-        }, 3000);
-      })
+        .catch(function (error) {
+          console.log(error);
+          responseStatus = 'Error'
+          errorMessage = error.message
+        })
+        .then(() => {
+          if (responseStatus === 201) {
+            this.setState({
+              response: {
+                color: 'green',
+                text: '',
+                icon: 'check'
+              }
+            })
+          } else if (responseStatus === 'Error') {
+            this.setState({
+              response: {
+                color: 'red',
+                text: [errorMessage],
+                icon: 'close'
+              }
+            })
+          } else {
+            this.setState({
+              response: {
+                color: 'yellow',
+                text: [responseMessage],
+                icon: 'warning'
+              }
+            })
+          }
+        })
+        .then(() => {
+          setTimeout(() => {
+            this.setState({
+              response: {
+                color: 'black',
+                text: '',
+                icon: ''
+              }
+            })
+          }, 3000);
+        })
+    }
   }
 
   render () {
     const editMode = this.props.editMode
+    // eslint-disable-next-line
+    const {response, provisionAgreement, errors} = this.state
 
     return (
       <div>
+        {Object.keys(errors).length !== 0 ?
+          <Label basic color='orange'>Leveranseavtalen ble ikke lagret, rett opp i feilene og prøv igjen</Label> : null}
         <Header as='h3' color={this.state.response.color}>
           <Header.Content>
             Leveranseavtale &nbsp;
@@ -278,11 +306,12 @@ class ProvisionAgreement extends Component {
           <Input placeholder='Avtalenavn' name='name' value={this.state.provisionAgreement.name}
                  onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
-        <Form.Field>
+        <Form.Field error={!!errors.description}>
           <label>Beskrivelse</label>
           <TextArea autoHeight placeholder='Beskrivelse' name='description'
                     value={this.state.provisionAgreement.description}
                     onChange={this.handleInputChange} readOnly={editMode}/>
+          {errors.description && <InlineError text={errors.description}/>}
         </Form.Field>
         <Form.Field>
           <label>Status</label>
@@ -292,17 +321,17 @@ class ProvisionAgreement extends Component {
           <Form.Field>
             <label>Gyldighet</label>
             Fra
-          <div>
-            <SingleDatePicker
-              date={this.state.durationFrom}
-              onDateChange={durationFrom => this.setState({durationFrom: durationFrom})}
-              focused={this.state.durationFromfocused}
-              onFocusChange={({focused: durationFromfocused}) => this.setState({durationFromfocused})}
-              numberOfMonths={1}
-              displayFormat="DD/MM/YYYY"
-              disabled={editMode}
-            />
-          </div>
+            <div>
+              <SingleDatePicker
+                date={this.state.durationFrom}
+                onDateChange={durationFrom => this.setState({durationFrom: durationFrom})}
+                focused={this.state.durationFromfocused}
+                onFocusChange={({focused: durationFromfocused}) => this.setState({durationFromfocused})}
+                numberOfMonths={1}
+                displayFormat="DD/MM/YYYY"
+                disabled={editMode}
+              />
+            </div>
           </Form.Field>
           <Form.Field>
             <label>&nbsp;</label>
@@ -310,17 +339,17 @@ class ProvisionAgreement extends Component {
           <Form.Field>
             <label>&nbsp;</label>
             Til
-          <div>
-            <SingleDatePicker
-              date={this.state.durationTo}
-              onDateChange={durationTo => this.setState({durationTo: durationTo})}
-              focused={this.state.durationTofocused}
-              onFocusChange={({focused: durationTofocused}) => this.setState({durationTofocused})}
-              numberOfMonths={1}
-              displayFormat="DD/MM/YYYY"
-              disabled={editMode}
-            />
-          </div>
+            <div>
+              <SingleDatePicker
+                date={this.state.durationTo}
+                onDateChange={durationTo => this.setState({durationTo: durationTo})}
+                focused={this.state.durationTofocused}
+                onFocusChange={({focused: durationTofocused}) => this.setState({durationTofocused})}
+                numberOfMonths={1}
+                displayFormat="DD/MM/YYYY"
+                disabled={editMode}
+              />
+            </div>
           </Form.Field>
         </Form.Group>
         <Form.Field>
