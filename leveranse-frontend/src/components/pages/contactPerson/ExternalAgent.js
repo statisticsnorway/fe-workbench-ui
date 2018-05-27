@@ -8,9 +8,11 @@ class ExternalAgent extends React.Component {
 
     this.state = {};
     this.state.filterText = "";
+    const uuidv1 = require('uuid/v1');
+    let id = uuidv1();
     this.state.agents = [
       {
-        id: '0',
+        id: id,
         role: '',
         name: '',
         email: '',
@@ -41,6 +43,7 @@ class ExternalAgent extends React.Component {
 
     this.state.agents.push(agent);
     this.setState(this.state.agents);
+    console.log(this.state.agents);
 
   }
 
@@ -62,6 +65,7 @@ class ExternalAgent extends React.Component {
     });
 
     this.setState({agents: newAgents});
+    this.props.internalAgents
   };
 
   render () {
