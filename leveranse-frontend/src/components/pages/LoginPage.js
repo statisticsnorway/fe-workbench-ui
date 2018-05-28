@@ -1,14 +1,14 @@
-import React from 'react';
-import { Grid, Image } from "semantic-ui-react";
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux'; //to connect react to redux
-import LoginForm from "../forms/LoginForm";
+import React from 'react'
+import { Grid, Image } from "semantic-ui-react"
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux' //to connect react to redux
+import LoginForm from "../forms/LoginForm"
 import { login } from "../../actions/auth"
-import ssb_logo from '../../assets/SSB_logo.png';
+import ssb_logo from '../../assets/SSB_logo.png'
 
 class LoginPage extends React.Component {
   //If all ok, then send the user to the homepage ( if the credentials are fine )
-  submit = data => this.props.login(data).then(() => this.props.history.push("/home"));
+  submit = data => this.props.login(data).then(() => this.props.history.push("/home"))
 
   render () {
     return (
@@ -40,6 +40,6 @@ LoginPage.propTypes = {
     push: PropTypes.func.isRequired
   }).isRequired,
   login: PropTypes.func.isRequired
-};
+}
 
-export default connect(null, {login})(LoginPage); // connect login page to redux
+export default connect(null, {login})(LoginPage) // connect login page to redux

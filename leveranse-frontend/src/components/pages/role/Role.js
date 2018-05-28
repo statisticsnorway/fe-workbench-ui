@@ -1,16 +1,11 @@
-import React, { Component } from 'react';
-import { Form, Header, Icon, Input } from "semantic-ui-react";
-import axios from 'axios';
+import React, { Component } from 'react'
+import { Form, Header, Input, Segment } from "semantic-ui-react"
+import axios from 'axios'
 
 class Role extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
-      response: {
-        color: 'black',
-        text: '',
-        icon: '',
-      },
       role: {
         description: '',
         id: '',
@@ -20,10 +15,11 @@ class Role extends Component {
         versionDate: '',
         versionRationale: '',
         administrativeDetailsId: ''
-      }
-    };
+      },
+      response: {}
+    }
 
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   handleInputChange (event) {
@@ -44,7 +40,8 @@ class Role extends Component {
       }
     }
 
-    data['id'] = id;
+    data['id'] = id
+
     JSON.stringify(data)
 
     return data
@@ -57,11 +54,11 @@ class Role extends Component {
     let url
     let data
 
-    const uuidv1 = require('uuid/v1');
-    let role_uuid = uuidv1();
+    const uuidv1 = require('uuid/v1')
+    let role_uuid = uuidv1()
 
     data = this.prepareDataForBackend(role_uuid)
-    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/role';
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/role'
 
     axios.post(url, data, {
       headers: {
@@ -69,12 +66,12 @@ class Role extends Component {
       }
     })
       .then((response) => {
-        console.log(response);
+        console.log(response)
         responseStatus = response.status
         responseMessage = response.statusText
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error)
         responseStatus = 'Error'
         errorMessage = error.message
       })
@@ -83,54 +80,37 @@ class Role extends Component {
           this.setState({
             response: {
               color: 'green',
-              text: '',
-              icon: 'check'
+              text: 'Rollen ble lagret: ' + [responseMessage]
             }
           })
         } else if (responseStatus === 'Error') {
           this.setState({
             response: {
               color: 'red',
-              text: [errorMessage],
-              icon: 'close'
+              text: 'Rollen ble ikke lagret: ' + [errorMessage]
             }
           })
         } else {
           this.setState({
             response: {
               color: 'yellow',
-              text: [responseMessage],
-              icon: 'warning'
+              text: 'Rollen ble ikke lagret: ' + [responseMessage]
             }
           })
         }
-      })
-      .then(() => {
-        setTimeout(() => {
-          this.setState({
-            response: {
-              color: 'black',
-              text: '',
-              icon: ''
-            }
-          })
-        }, 3000);
       })
   }
 
   render () {
     const editMode = this.props.editMode
+    const {response} = this.state
 
     return (
       <div>
-        <Header as='h3' color={this.state.response.color}>
-          <Header.Content>
-            Rolle &nbsp;
-            <Icon name={this.state.response.icon}/>
-          </Header.Content>
-          <Header.Subheader>
-            {this.state.response.text}
-          </Header.Subheader>
+        {Object.keys(response).length !== 0 && editMode ?
+          <Segment inverted color={response.color}>{response.text}</Segment> : null}
+        <Header as='h3'>
+          Rolle
         </Header>
         <Form.Field>
           <label>Navn</label>
@@ -138,8 +118,8 @@ class Role extends Component {
                  readOnly={editMode}/>
         </Form.Field>
       </div>
-    );
+    )
   }
 }
 
-export default Role;
+export default Role

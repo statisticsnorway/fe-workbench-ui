@@ -1,16 +1,11 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { Form, Header, Icon, Input } from "semantic-ui-react";
+import React, { Component } from 'react'
+import axios from 'axios'
+import { Form, Header, Input, Segment } from "semantic-ui-react"
 
 class Agent extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
-      response: {
-        color: 'black',
-        text: '',
-        icon: '',
-      },
       agent: {
         description: '',
         id: '',
@@ -23,10 +18,11 @@ class Agent extends Component {
         individualId: '',
         organizationId: '',
         internalExternal: ''
-      }
-    };
+      },
+      response: {}
+    }
 
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   handleInputChange (event) {
@@ -47,7 +43,8 @@ class Agent extends Component {
       }
     }
 
-    data['id'] = id; 
+    data['id'] = id
+
     JSON.stringify(data)
 
     return data
@@ -60,11 +57,11 @@ class Agent extends Component {
     let url
     let data
 
-    const uuidv1 = require('uuid/v1');
-    let agent_uuid = uuidv1();
-    
+    const uuidv1 = require('uuid/v1')
+    let agent_uuid = uuidv1()
+
     data = this.prepareDataForBackend(agent_uuid)
-    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/agent';
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/agent'
 
     axios.post(url, data, {
       headers: {
@@ -72,12 +69,12 @@ class Agent extends Component {
       }
     })
       .then((response) => {
-        console.log(response);
+        console.log(response)
         responseStatus = response.status
         responseMessage = response.statusText
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error)
         responseStatus = 'Error'
         errorMessage = error.message
       })
@@ -86,73 +83,58 @@ class Agent extends Component {
           this.setState({
             response: {
               color: 'green',
-              text: '',
-              icon: 'check'
+              text: 'Aktøren ble lagret: ' + [responseMessage]
             }
           })
         } else if (responseStatus === 'Error') {
           this.setState({
             response: {
               color: 'red',
-              text: [errorMessage],
-              icon: 'close'
+              text: 'Aktøren ble ikke lagret: ' + [errorMessage]
             }
           })
         } else {
           this.setState({
             response: {
               color: 'yellow',
-              text: [responseMessage],
-              icon: 'warning'
+              text: 'Aktøren ble ikke lagret: ' + [responseMessage]
             }
           })
         }
-      })
-      .then(() => {
-        setTimeout(() => {
-          this.setState({
-            response: {
-              color: 'black',
-              text: '',
-              icon: ''
-            }
-          })
-        }, 3000);
       })
   }
 
   render () {
     const editMode = this.props.editMode
+    const {response} = this.state
 
     return (
       <div>
-        <Header as='h3' color={this.state.response.color}>
-          <Header.Content>
-            Aktør &nbsp;
-            <Icon name={this.state.response.icon}/>
-          </Header.Content>
-          <Header.Subheader>
-            {this.state.response.text}
-          </Header.Subheader>
-        </Header>
-        <Form.Field>
-          <label>Navn</label>
-          <Input placeholder='Navn' name='name' value={this.state.agent.name}
-                 onChange={this.handleInputChange} readOnly={editMode}/>
-        </Form.Field>
-        <Form.Field>
-          <label>Beskrivelse</label>
-          <Input placeholder='Beskrivelse' name='description' value={this.state.agent.description}
-                 onChange={this.handleInputChange} readOnly={editMode}/>
-        </Form.Field>
-        <Form.Field>
-          <label>Versjon</label>
-          <Input placeholder='Versjon' name='version' value={this.state.agent.version}
-                 onChange={this.handleInputChange} readOnly={editMode}/>
-        </Form.Field>
+        {Object.keys(response).length !== 0 && editMode ?
+          <Segment inverted color={response.color}>{response.text}</Segment> : null}
+        <Form onSubmit={this.handleSubmit}>
+          <Header as='h3'>
+            Aktør
+          </Header>
+          <Form.Field>
+            <label>Navn</label>
+            <Input placeholder='Navn' name='name' value={this.state.agent.name}
+                   onChange={this.handleInputChange} readOnly={editMode}/>
+          </Form.Field>
+          <Form.Field>
+            <label>Beskrivelse</label>
+            <Input placeholder='Beskrivelse' name='description' value={this.state.agent.description}
+                   onChange={this.handleInputChange} readOnly={editMode}/>
+          </Form.Field>
+          <Form.Field>
+            <label>Versjon</label>
+            <Input placeholder='Versjon' name='version' value={this.state.agent.version}
+                   onChange={this.handleInputChange} readOnly={editMode}/>
+          </Form.Field>
+        </Form>
       </div>
-    );
+    )
   }
 }
 
-export default Agent;
+export default Agent
