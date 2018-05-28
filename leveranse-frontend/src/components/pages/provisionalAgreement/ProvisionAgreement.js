@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import moment from 'moment';
-import { Dropdown, Form, Header, Icon, Input, Segment, TextArea } from "semantic-ui-react";
-import { SingleDatePicker } from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css';
-import 'react-dates/initialize';
+import React, { Component } from 'react'
+import axios from 'axios'
+import moment from 'moment'
+import { Dropdown, Form, Header, Input, Segment, TextArea } from "semantic-ui-react"
+import { SingleDatePicker } from 'react-dates'
+import 'react-dates/lib/css/_datepicker.css'
+import 'react-dates/initialize'
 import InlineError from '../../messages/InlineError'
 
 moment.locale('nb')
@@ -53,13 +53,8 @@ let subjectsOptions = []
 
 class ProvisionAgreement extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
-      response: {
-        color: 'black',
-        text: '',
-        icon: '',
-      },
       provisionAgreement: {
         description: '',
         id: '',
@@ -77,19 +72,21 @@ class ProvisionAgreement extends Component {
       },
       durationFrom: moment(),
       durationTo: moment(),
-      errors: {}
-    };
+      errors: {},
+      response: {}
+    }
 
     this.fetchSubjects()
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this)
 
     if (this.props.isNewProvisionAgreement) {
-      const uuidv1 = require('uuid/v1');
+      const uuidv1 = require('uuid/v1')
+
       this.state.provisionAgreement.id = uuidv1()
     } else {
       let url
 
-      url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement/' + this.props.provisionAgreementId;
+      url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement/' + this.props.provisionAgreementId
 
       axios.get(url)
         .then((response) => {
@@ -102,13 +99,16 @@ class ProvisionAgreement extends Component {
   }
 
   fetchSubjects () {
-    let mainSubjects = ''
-    let subSubjects = ''
-    let organizedSubSubjects = ''
+    let mainSubjects
+    let subSubjects
+    let organizedSubSubjects
     let organizedSubjects = []
     let allSubjects = []
+    let url
 
-    axios.get('https://data.ssb.no/api/v0/no/table/')
+    url = process.env.REACT_APP_SSB_SUBJECTS
+
+    axios.get(url)
       .then((response) => {
         mainSubjects = response.data
       })
@@ -117,7 +117,7 @@ class ProvisionAgreement extends Component {
       })
       .then(() => {
         for (let mainSubjectsKey in mainSubjects) {
-          axios.get('https://data.ssb.no/api/v0/no/table/' + mainSubjects[mainSubjectsKey]['id'])
+          axios.get(url + mainSubjects[mainSubjectsKey]['id'])
           // eslint-disable-next-line
             .then((response) => {
               subSubjects = response.data
@@ -186,13 +186,14 @@ class ProvisionAgreement extends Component {
       }
 
       if (attribute === 'durationFrom') {
-        data[attribute] = this.state.durationFrom;
+        data[attribute] = this.state.durationFrom
       }
 
       if (attribute === 'durationTo') {
-        data[attribute] = this.state.durationTo;
+        data[attribute] = this.state.durationTo
       }
     }
+
     JSON.stringify(data)
 
     return data
@@ -211,7 +212,7 @@ class ProvisionAgreement extends Component {
   validationOk = () => {
     const errors = this.validateInputData(this.state.provisionAgreement)
     this.setState({errors})
-    return Object.keys(errors).length === 0;
+    return Object.keys(errors).length === 0
   }
 
   registerProvisionAgreement () {
@@ -228,19 +229,19 @@ class ProvisionAgreement extends Component {
 
       console.log(data)
 
-      url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement';
+      url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement'
 
       axios.post(url, data, {
         headers: {
           'Content-Type': 'application/json'
         }
       }).then((response) => {
-        console.log(response);
+        console.log(response)
         responseStatus = response.status
         responseMessage = response.statusText
       })
         .catch(function (error) {
-          console.log(error);
+          console.log(error)
           responseStatus = 'Error'
           errorMessage = error.message
         })
@@ -249,60 +250,41 @@ class ProvisionAgreement extends Component {
             this.setState({
               response: {
                 color: 'green',
-                text: '',
-                icon: 'check'
+                text: 'Leveranseavtalen ble lagret: ' + [responseMessage]
               }
             })
           } else if (responseStatus === 'Error') {
             this.setState({
               response: {
                 color: 'red',
-                text: [errorMessage],
-                icon: 'close'
+                text: 'Leveranseavtalen ble ikke lagret: ' + [errorMessage]
               }
             })
           } else {
             this.setState({
               response: {
                 color: 'yellow',
-                text: [responseMessage],
-                icon: 'warning'
+                text: 'Leveranseavtalen ble ikke lagret: ' + [responseMessage]
               }
             })
           }
-        })
-        .then(() => {
-          setTimeout(() => {
-            this.setState({
-              response: {
-                color: 'black',
-                text: '',
-                icon: ''
-              }
-            })
-          }, 3000);
         })
     }
   }
 
   render () {
     const editMode = this.props.editMode
-    // eslint-disable-next-line
-    const {errors} = this.state
+    const {errors, response} = this.state
 
     return (
       <div>
         {Object.keys(errors).length !== 0 && editMode ?
           <Segment inverted color='orange'>Leveranseavtalen ble ikke lagret, rett opp i feilene og prøv
             igjen</Segment> : null}
-        <Header as='h3' color={this.state.response.color}>
-          <Header.Content>
-            Leveranseavtale &nbsp;
-            <Icon name={this.state.response.icon}/>
-          </Header.Content>
-          <Header.Subheader>
-            {this.state.response.text}
-          </Header.Subheader>
+        {Object.keys(response).length !== 0 && editMode ?
+          <Segment inverted color={response.color}>{response.text}</Segment> : null}
+        <Header as='h3'>
+          Leveranseavtale
         </Header>
         <Form.Field>
           <label>Id:</label>
@@ -389,8 +371,8 @@ class ProvisionAgreement extends Component {
           <TextArea autoHeight placeholder='Endringshåndtering' readOnly={editMode}/>
         </Form.Field>
       </div>
-    );
+    )
   }
 }
 
-export default ProvisionAgreement;
+export default ProvisionAgreement

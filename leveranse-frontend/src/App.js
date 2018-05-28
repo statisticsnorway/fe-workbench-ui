@@ -1,8 +1,8 @@
-import React from 'react';
-import { Route } from "react-router-dom";
-import WelcomePage from "./components/pages/WelcomePage";
-import LoginPage from "./components/pages/LoginPage";
-import HomePage from "./components/pages/HomePage";
+import React from 'react'
+import { Route } from "react-router-dom"
+import WelcomePage from "./components/pages/WelcomePage"
+import LoginPage from "./components/pages/LoginPage"
+import HomePage from "./components/pages/HomePage"
 import 'moment/locale/nb'
 
 const App = () => (
@@ -13,4 +13,4 @@ const App = () => (
   </div>
 );
 
-export default App;
+export default App

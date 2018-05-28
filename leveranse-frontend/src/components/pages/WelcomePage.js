@@ -1,6 +1,6 @@
-import React from 'react';
-import { Button, Grid, Image, Segment } from "semantic-ui-react";
-import ssb_logo from '../../assets/SSB_logo.png';
+import React from 'react'
+import { Button, Grid, Image, Segment } from "semantic-ui-react"
+import ssb_logo from '../../assets/SSB_logo.png'
 
 let centerAlign = {
   textAlign: 'center'
@@ -8,7 +8,7 @@ let centerAlign = {
 
 class WelcomePage extends React.Component {
   handleClick = () => {
-    this.props.history.push("/login");
+    this.props.history.push("/login")
   }
 
   render () {
@@ -29,7 +29,6 @@ class WelcomePage extends React.Component {
               </div>
             </Grid.Column>
           </Grid.Row>
-
         </Grid>
         <Segment textAlign='center' key='massive' size='massive' secondary>
           Velkommen til Arbeidsbenk
@@ -42,4 +41,4 @@ class WelcomePage extends React.Component {
   }
 }
 
-export default WelcomePage;
+export default WelcomePage

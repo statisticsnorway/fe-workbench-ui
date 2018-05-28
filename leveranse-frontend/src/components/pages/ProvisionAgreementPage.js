@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dropdown, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
-import { BrowserRouter, NavLink, Route } from "react-router-dom";
+import { BrowserRouter, NavLink, Route } from "react-router-dom"
 import NewProvisionAgreement from './provisionalAgreement/NewProvisionAgreement'
 import Variable from './variable/Variable'
 

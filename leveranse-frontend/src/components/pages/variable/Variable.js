@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios';
+import axios from 'axios'
 import { Checkbox, Dropdown, Form, Grid, Header, Input, Segment, TextArea } from 'semantic-ui-react'
 
 const unitTypeOptions = [
@@ -26,25 +26,25 @@ class Variable extends React.Component {
     super(props)
     this.state = {
       readOnlyMode: false,
-      response: {
-        color: 'black',
-        text: '',
-        icon: '',
-      },
-      variable: {}
+      variable: {},
+      response: {}
     }
 
     const uuidv1 = require('uuid/v1')
     this.state.variable.id = uuidv1()
 
     this.fetchSubjects()
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   fetchSubjects () {
-    let mainSubjects = ''
+    subjectsOptions = []
+    let mainSubjects
+    let url
 
-    axios.get('https://data.ssb.no/api/v0/no/table/')
+    url = process.env.REACT_APP_SSB_SUBJECTS
+
+    axios.get(url)
       .then((response) => {
         mainSubjects = response.data
       })
@@ -98,7 +98,7 @@ class Variable extends React.Component {
     this.setState({
       readOnlyMode: true
     })
-    
+
     let responseStatus
     let errorMessage
     let responseMessage
@@ -116,12 +116,12 @@ class Variable extends React.Component {
         'Content-Type': 'application/json'
       }
     }).then((response) => {
-      console.log(response);
+      console.log(response)
       responseStatus = response.status
       responseMessage = response.statusText
     })
       .catch(function (error) {
-        console.log(error);
+        console.log(error)
         responseStatus = 'Error'
         errorMessage = error.message
       })
@@ -130,48 +130,37 @@ class Variable extends React.Component {
           this.setState({
             response: {
               color: 'green',
-              text: '',
-              icon: 'check'
+              text: 'Variabelen ble lagret: ' + [responseMessage]
             }
           })
         } else if (responseStatus === 'Error') {
           this.setState({
             response: {
               color: 'red',
-              text: [errorMessage],
-              icon: 'close'
+              text: 'Variabelen ble ikke lagret: ' + [errorMessage]
             }
           })
         } else {
           this.setState({
             response: {
               color: 'yellow',
-              text: [responseMessage],
-              icon: 'warning'
+              text: 'Variabelen ble ikke lagret: ' + [responseMessage]
             }
           })
         }
-      })
-      .then(() => {
-        setTimeout(() => {
-          this.setState({
-            response: {
-              color: 'black',
-              text: '',
-              icon: ''
-            }
-          })
-        }, 3000);
       })
   }
 
   editModeHandleClick = () => {
     this.setState({
-      readOnlyMode: !this.state.readOnlyMode
+      readOnlyMode: !this.state.readOnlyMode,
+      response: {}
     })
   }
 
   render () {
+    const {response} = this.state
+
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
@@ -187,13 +176,10 @@ class Variable extends React.Component {
             <Grid.Row columns={3}>
               <Grid.Column width={10}>
                 <Segment>
-                  <Header as='h3' color={this.state.response.color}>
-                    <Header.Content>
-                      Variabel
-                    </Header.Content>
-                    <Header.Subheader>
-                      {this.state.response.text}
-                    </Header.Subheader>
+                  {Object.keys(response).length !== 0 && this.state.readOnlyMode ?
+                    <Segment inverted color={response.color}>{response.text}</Segment> : null}
+                  <Header as='h3'>
+                    Variabel
                   </Header>
                   <Form.Field>
                     <label>Id:</label>

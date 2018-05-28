@@ -1,19 +1,14 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { Header, Icon,  List } from "semantic-ui-react";
+import React, { Component } from 'react'
+import axios from 'axios'
+import { Header, List, Segment } from "semantic-ui-react"
 
 class AdministrativeDetails extends Component {
   constructor (props) {
-    super(props);
+    super(props)
 
     const rightNow = AdministrativeDetails.prettyfyDate()
 
     this.state = {
-      response: {
-        color: 'black',
-        text: '',
-        icon: '',
-      },
       administrativeDetails: {
         id: '',
         administrativeStatus: '',
@@ -30,10 +25,11 @@ class AdministrativeDetails extends Component {
         validFrom: '',
         validUntil: '',
         version: '1.0'
-      }
-    };
+      },
+      response: {}
+    }
 
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   static prettyfyDate () {
@@ -89,7 +85,7 @@ class AdministrativeDetails extends Component {
     let data
 
     data = this.prepareDataForBackend()
-    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/administrativeDetail';
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/administrativeDetail'
 
     axios.post(url, data, {
       headers: {
@@ -111,54 +107,37 @@ class AdministrativeDetails extends Component {
           this.setState({
             response: {
               color: 'green',
-              text: '',
-              icon: 'check'
+              text: 'Administrative detaljer ble lagret: ' + [responseMessage]
             }
           })
         } else if (responseStatus === 'Error') {
           this.setState({
             response: {
               color: 'red',
-              text: [errorMessage],
-              icon: 'close'
+              text: 'Administrative detaljer ble ikke lagret: ' + [errorMessage]
             }
           })
         } else {
           this.setState({
             response: {
               color: 'yellow',
-              text: [responseMessage],
-              icon: 'warning'
+              text: 'Administrative detaljer ble ikke lagret: ' + [responseMessage]
             }
           })
         }
       })
-      .then(() => {
-        setTimeout(() => {
-          this.setState({
-            response: {
-              color: 'black',
-              text: '',
-              icon: ''
-            }
-          })
-        }, 3000);
-      })
   }
 
   render () {
-//    const editMode = this.props.editMode
+    const editMode = this.props.editMode
+    const {response} = this.state
 
     return (
       <div>
-        <Header as='h3' color={this.state.response.color}>
-          <Header.Content>
-            Administrative detaljer &nbsp;
-            <Icon name={this.state.response.icon}/>
-          </Header.Content>
-          <Header.Subheader>
-            {this.state.response.text}
-          </Header.Subheader>
+        {Object.keys(response).length !== 0 && editMode ?
+          <Segment inverted color={response.color}>{response.text}</Segment> : null}
+        <Header as='h3'>
+          Administrative detaljer
         </Header>
         <List>
           <List.Item>
@@ -192,7 +171,7 @@ class AdministrativeDetails extends Component {
             {this.state.administrativeDetails.version}
           </List.Item>
         </List>
-{/*        <Form.Field>
+        {/*        <Form.Field>
           <label>Id</label>
           <Input placeholder='Id' name='id' value={this.state.administrativeDetails.id}
                  onChange={this.handleInputChange} readOnly={editMode}/>
@@ -208,8 +187,8 @@ class AdministrativeDetails extends Component {
                  onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>*/}
       </div>
-    );
+    )
   }
 }
 
-export default AdministrativeDetails;
+export default AdministrativeDetails
