@@ -1,30 +1,9 @@
 import _ from 'lodash'
-import faker from 'faker'
 import React from 'react'
-import {
-  Button,
-  Icon,
-  Modal,
-  Container,
-  Segment,
-  Menu,
-  Label,
-  Input,
-  Divider,
-  TextArea,
-  Search
-} from 'semantic-ui-react'
+import { Button, Modal, Segment, Search } from 'semantic-ui-react'
 import '../../../assets/css/site.css'
 import sjøfart_logo from '../../../assets/sjøfart.jpg';
 import skatteetaten_logo from '../../../assets/Skatteetaten.png';
-
-const source = _.times(5, () => ({
-  title: faker.company.companyName(),
-  description: faker.company.catchPhrase(),
-  image: faker.internet.avatar(),
-  price: faker.finance.amount(0, 100, 2, '$'),
-}))
-
 
 
 const leverandører = [
@@ -60,7 +39,6 @@ class Leverandør extends React.Component {
 
   handleResultSelect = (e, {result}) => {
     console.log(result);
-    var supplier = result;
     this.props.onSearchSupplier(result);
     this.setState({ value: result.title })
   }
@@ -110,7 +88,6 @@ class Leverandør extends React.Component {
   }
 
   render () {
-    const {open} = this.state
     const {isLoading, value, results} = this.state
 
     return (
@@ -142,7 +119,7 @@ class Leverandør extends React.Component {
                       onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
                       results={results}
                       value={value}
-                    />
+                    ></Search>
                   </Segment>
                   <Segment textAlign="left" compact>
                     <Modal.Actions>
