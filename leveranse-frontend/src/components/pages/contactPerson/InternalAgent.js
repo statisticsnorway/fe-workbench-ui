@@ -8,18 +8,17 @@ class InternalAgent extends React.Component {
     super(props)
 
     this.state = {}
-    this.state.filterText = ''
     const uuidv1 = require('uuid/v1')
     let id = uuidv1()
     this.state.internalAgents = [
       {
-      id: id,
-      role: '',
-      name: '',
-      email: '',
-      telephone: '',
-      comment: ''
-    }
+        id: id,
+        role: '',
+        name: '',
+        email: '',
+        telephone: '',
+        comment: ''
+      }
     ]
     this.handleAgentTable = this.handleAgentTable.bind(this)
   }
