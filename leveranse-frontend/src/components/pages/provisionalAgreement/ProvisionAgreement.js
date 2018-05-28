@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import moment from 'moment'
-import { Dropdown, Form, Header, Input, Segment, TextArea } from "semantic-ui-react"
+import { Dropdown, Form, Header, Input, Segment, TextArea, Grid } from 'semantic-ui-react'
 import { SingleDatePicker } from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css'
 import 'react-dates/initialize'
 import InlineError from '../../messages/InlineError'
+import Supplier from '../supplier/Supplier'
+import '../../../assets/css/site.css'
 
 moment.locale('nb')
 
@@ -68,7 +70,8 @@ class ProvisionAgreement extends Component {
         durationFrom: '',
         durationTo: '',
         frequency: '',
-        pursuant: ''
+        pursuant: '',
+        supplier: ''
       },
       durationFrom: moment(),
       durationTo: moment(),
@@ -81,7 +84,6 @@ class ProvisionAgreement extends Component {
 
     if (this.props.isNewProvisionAgreement) {
       const uuidv1 = require('uuid/v1')
-
       this.state.provisionAgreement.id = uuidv1()
     } else {
       let url
@@ -202,9 +204,9 @@ class ProvisionAgreement extends Component {
   validateInputData = data => {
     const errors = {}
 
-    if (!data.description) errors.description = "Feltet kan ikke være tomt"
-    if (!data.name) errors.name = "Feltet kan ikke være tomt"
-    if (!data.pursuant) errors.pursuant = "Et valg må velges"
+    if (!data.description) errors.description = 'Feltet kan ikke være tomt'
+    if (!data.name) errors.name = 'Feltet kan ikke være tomt'
+    if (!data.pursuant) errors.pursuant = 'Et valg må velges'
 
     return errors
   }
@@ -272,6 +274,15 @@ class ProvisionAgreement extends Component {
     }
   }
 
+  getSupplier = (supplierValue) => {
+    this.setState({
+      provisionAgreement: {
+        ...this.state.provisionAgreement,
+        supplier: supplierValue
+      }
+    })
+  }
+
   render () {
     const editMode = this.props.editMode
     const {errors, response} = this.state
@@ -286,14 +297,29 @@ class ProvisionAgreement extends Component {
         <Header as='h3'>
           Leveranseavtale
         </Header>
-        <Form.Field>
+        {/*<Form.Field>
           <label>Id:</label>
           {this.state.provisionAgreement.id}
+        </Form.Field>*/}
+        <Form.Field>
+          <label>Leverandør</label>
+          <Grid stackable>
+            <Grid.Row>
+              <Grid.Column width={12}>
+                <Input placeholder='Leverandør' name='supplier' readOnly={editMode} className="ml-3"
+                       value={this.state.provisionAgreement.supplier.title || ''} onChange={this.handleInputChange}>
+                </Input>
+              </Grid.Column>
+              <Grid.Column width={4}>
+                <Supplier onSearchSupplier={this.getSupplier}></Supplier>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         </Form.Field>
         <Form.Field error={!!errors.name}>
           <label>Avtalenavn</label>
           <Input placeholder='Avtalenavn' name='name' value={this.state.provisionAgreement.name}
-                 onChange={this.handleInputChange} readOnly={editMode}/>
+                 onChange={this.handleInputChange} readOnly={editMode}></Input>
           {errors.name && <InlineError text={errors.name}/>}
         </Form.Field>
         <Form.Field error={!!errors.description}>
@@ -305,7 +331,7 @@ class ProvisionAgreement extends Component {
         </Form.Field>
         <Form.Field>
           <label>Status</label>
-          <Dropdown placeholder='Status' selection options={statusOptions} disabled={editMode}/>
+          <Dropdown placeholder='Status' selection options={statusOptions} disabled={editMode}></Dropdown>
         </Form.Field>
         <Form.Group widths='equal'>
           <Form.Field>
@@ -352,7 +378,8 @@ class ProvisionAgreement extends Component {
         </Form.Field>
         <Form.Field>
           <label>Kanal</label>
-          <Dropdown placeholder='Kanal' multiple selection options={exchangeChannelOptions} disabled={editMode}/>
+          <Dropdown placeholder='Kanal' multiple selection options={exchangeChannelOptions}
+                    disabled={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>Protokoll</label>
@@ -360,7 +387,8 @@ class ProvisionAgreement extends Component {
         </Form.Field>
         <Form.Field>
           <label>Emne</label>
-          <Dropdown placeholder='Emne' multiple search selection options={subjectsOptions} disabled={editMode}/>
+          <Dropdown placeholder='Emne' multiple search selection options={subjectsOptions}
+                    disabled={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>Verdivurdering</label>
