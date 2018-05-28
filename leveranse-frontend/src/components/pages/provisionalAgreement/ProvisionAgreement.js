@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import moment from 'moment';
-import { Dropdown, Form, Header, Input, Segment, TextArea } from "semantic-ui-react";
-import { SingleDatePicker } from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css';
-import 'react-dates/initialize';
+import React, { Component } from 'react'
+import axios from 'axios'
+import moment from 'moment'
+import { Dropdown, Form, Header, Input, Segment, TextArea } from "semantic-ui-react"
+import { SingleDatePicker } from 'react-dates'
+import 'react-dates/lib/css/_datepicker.css'
+import 'react-dates/initialize'
 import InlineError from '../../messages/InlineError'
 
 moment.locale('nb')
@@ -53,7 +53,7 @@ let subjectsOptions = []
 
 class ProvisionAgreement extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       provisionAgreement: {
         description: '',
@@ -74,18 +74,19 @@ class ProvisionAgreement extends Component {
       durationTo: moment(),
       errors: {},
       response: {}
-    };
+    }
 
     this.fetchSubjects()
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this)
 
     if (this.props.isNewProvisionAgreement) {
-      const uuidv1 = require('uuid/v1');
+      const uuidv1 = require('uuid/v1')
+
       this.state.provisionAgreement.id = uuidv1()
     } else {
       let url
 
-      url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement/' + this.props.provisionAgreementId;
+      url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement/' + this.props.provisionAgreementId
 
       axios.get(url)
         .then((response) => {
@@ -182,14 +183,14 @@ class ProvisionAgreement extends Component {
       }
 
       if (attribute === 'durationFrom') {
-        data[attribute] = this.state.durationFrom;
+        data[attribute] = this.state.durationFrom
       }
 
       if (attribute === 'durationTo') {
-        data[attribute] = this.state.durationTo;
+        data[attribute] = this.state.durationTo
       }
     }
-    
+
     JSON.stringify(data)
 
     return data
@@ -208,7 +209,7 @@ class ProvisionAgreement extends Component {
   validationOk = () => {
     const errors = this.validateInputData(this.state.provisionAgreement)
     this.setState({errors})
-    return Object.keys(errors).length === 0;
+    return Object.keys(errors).length === 0
   }
 
   registerProvisionAgreement () {
@@ -225,19 +226,19 @@ class ProvisionAgreement extends Component {
 
       console.log(data)
 
-      url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement';
+      url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement'
 
       axios.post(url, data, {
         headers: {
           'Content-Type': 'application/json'
         }
       }).then((response) => {
-        console.log(response);
+        console.log(response)
         responseStatus = response.status
         responseMessage = response.statusText
       })
         .catch(function (error) {
-          console.log(error);
+          console.log(error)
           responseStatus = 'Error'
           errorMessage = error.message
         })
@@ -246,7 +247,7 @@ class ProvisionAgreement extends Component {
             this.setState({
               response: {
                 color: 'green',
-                text: 'Leveranseavtalen ble lagret: ' + [responseMessage],
+                text: 'Leveranseavtalen ble lagret: ' + [responseMessage]
               }
             })
           } else if (responseStatus === 'Error') {
@@ -270,7 +271,6 @@ class ProvisionAgreement extends Component {
 
   render () {
     const editMode = this.props.editMode
-    // eslint-disable-next-line
     const {errors, response} = this.state
 
     return (
@@ -368,8 +368,8 @@ class ProvisionAgreement extends Component {
           <TextArea autoHeight placeholder='Endringshåndtering' readOnly={editMode}/>
         </Form.Field>
       </div>
-    );
+    )
   }
 }
 
-export default ProvisionAgreement;
+export default ProvisionAgreement

@@ -24,6 +24,10 @@ class LeveranseDescription extends React.Component {
     this.provisionAgreement.setState({
       response: {}
     })
+
+/*    this.administrativeDetails.setState({
+      response: {}
+    })*/
   }
 
   render() {

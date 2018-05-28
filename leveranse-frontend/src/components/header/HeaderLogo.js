@@ -1,6 +1,6 @@
-import React from 'react';
-import { Grid, Image } from "semantic-ui-react";
-import ssb_logo from '../../assets/SSB_logo.png';
+import React from 'react'
+import { Grid, Image } from "semantic-ui-react"
+import ssb_logo from '../../assets/SSB_logo.png'
 
 const HeaderLogo = () => (
   <Grid celled='internally'>
@@ -10,6 +10,6 @@ const HeaderLogo = () => (
       </Grid.Column>
     </Grid.Row>
   </Grid>
-);
+)
 
-export default HeaderLogo;
+export default HeaderLogo
