@@ -39,8 +39,11 @@ class Variable extends React.Component {
 
   fetchSubjects () {
     let mainSubjects = ''
+    let url
 
-    axios.get('https://data.ssb.no/api/v0/no/table/')
+    url = process.env.REACT_APP_SSB_SUBJECTS
+
+    axios.get(url)
       .then((response) => {
         mainSubjects = response.data
       })

@@ -104,8 +104,11 @@ class ProvisionAgreement extends Component {
     let organizedSubSubjects = ''
     let organizedSubjects = []
     let allSubjects = []
+    let url
 
-    axios.get('https://data.ssb.no/api/v0/no/table/')
+    url = process.env.REACT_APP_SSB_SUBJECTS
+
+    axios.get(url)
       .then((response) => {
         mainSubjects = response.data
       })
@@ -114,7 +117,7 @@ class ProvisionAgreement extends Component {
       })
       .then(() => {
         for (let mainSubjectsKey in mainSubjects) {
-          axios.get('https://data.ssb.no/api/v0/no/table/' + mainSubjects[mainSubjectsKey]['id'])
+          axios.get(url + mainSubjects[mainSubjectsKey]['id'])
           // eslint-disable-next-line
             .then((response) => {
               subSubjects = response.data
