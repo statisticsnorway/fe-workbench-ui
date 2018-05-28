@@ -1,12 +1,13 @@
 import React from 'react'
 import { Button, Dropdown, Icon, Table } from 'semantic-ui-react'
 
-const roleOptions = [{key: 'Kvalitetsansvar', value: 'Kvalitetsansvar', text: 'Kvalitetsansvar'},
-  {key: 'Planlegger', value: 'Planlegger', text: 'Planlegger'},
-  {key: 'Ansvarligseksjon', value: 'Ansvarligseksjon', text: 'Ansvarligseksjon'},
-  {key: 'Ansvarlig', value: 'Ansvarlig', text: 'Ansvarlig'},
-  {key: 'Uttrekk', value: 'Uttrekk', text: 'Uttrekk'},
-  {key: 'Regelverk', value: 'Regelverk', text: 'Regelverk'}];
+const roleOptions = [{key: '0', value: '', text: ''},
+  {key: '1', value: 'Kvalitetsansvar', text: 'Kvalitetsansvar'},
+  {key: '2', value: 'Planlegger', text: 'Planlegger'},
+  {key: '3', value: 'Ansvarligseksjon', text: 'Ansvarligseksjon'},
+  {key: '4', value: 'Ansvarlig', text: 'Ansvarlig'},
+  {key: '5', value: 'Uttrekk', text: 'Uttrekk'},
+  {key: '6', value: 'Regelverk', text: 'Regelverk'}];
 
 class AgentTable extends React.Component {
   render () {
@@ -14,12 +15,7 @@ class AgentTable extends React.Component {
 
     let onAgentTableUpdate = this.props.onAgentTableUpdate;
     let rowDel = this.props.onRowDel;
-    let filterText = this.props.filterText;
     let agent = this.props.agents.map(function (agent) {
-      if (agent.name.indexOf(filterText) === -1) {
-        return null;
-      }
-
       return (
         <AgentRow onAgentTableUpdate={onAgentTableUpdate} agent={agent} onDelEvent={rowDel.bind(this)} key={agent.id}
                   editMode={editMode}/>
@@ -55,9 +51,11 @@ class AgentTable extends React.Component {
 export default AgentTable;
 
 class AgentRow extends React.Component {
+
   onDelEvent () {
     this.props.onDelEvent(this.props.agent);
   }
+
 
   render () {
     const editMode = this.props.editMode
@@ -65,7 +63,8 @@ class AgentRow extends React.Component {
     return (
       <tr>
         <td>
-          <Dropdown placeholder='Velg rolle' search selection options={roleOptions} disabled={editMode}/>
+          <Dropdown placeholder='Velg rolle' selection options={roleOptions}
+                    id={this.props.agent.id} disabled={editMode}/>
         </td>
         <td>
           <input type='text' name="name" id={this.props.agent.id} value={this.props.agent.name}

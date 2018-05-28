@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import { Divider } from 'semantic-ui-react'
 import AgentTable from './AgentTable'
 
@@ -10,7 +11,7 @@ class InternalAgent extends React.Component {
     this.state.filterText = "";
     const uuidv1 = require('uuid/v1');
     let id = uuidv1();
-    this.state.agents = [{
+    this.state.internalAgents = [{
         id: id,
         role: '',
         name: '',
@@ -18,22 +19,14 @@ class InternalAgent extends React.Component {
         telephone: '',
         comment: ''
       }];
-  }
-
-  handleInputChange (event) {
-    this.setState({
-      provisionAgreement: {
-        ...this.state.provisionAgreement,
-        [event.target.name]: event.target.value
-      }
-    })
+    this.handleAgentTable = this.handleAgentTable.bind(this);
   }
 
   handleRowDel (agent) {
-    let index = this.state.agents.indexOf(agent)
+    let index = this.state.internalAgents.indexOf(agent)
 
-    this.state.agents.splice(index, 1);
-    this.setState(this.state.agents);
+    this.state.internalAgents.splice(index, 1);
+    this.setState(this.state.internalAgents);
   };
 
   handleAddEvent () {
@@ -48,10 +41,8 @@ class InternalAgent extends React.Component {
       comment: ""
     }
 
-    this.state.agents.push(agent);
-    this.setState(this.state.agents);
-    console.log(this.state.agents);
-
+    this.state.internalAgents.push(agent);
+    this.setState(this.state.internalAgents);
   }
 
   handleAgentTable (evt) {
@@ -60,7 +51,7 @@ class InternalAgent extends React.Component {
       name: evt.target.name,
       value: evt.target.value
     }
-    let agents = this.state.agents.slice()
+    let agents = this.state.internalAgents.slice()
     let newAgents = agents.map(function (agent) {
       for (let key in agent) {
         if (key === item.name && agent['id'] === item.id) {
@@ -70,9 +61,93 @@ class InternalAgent extends React.Component {
 
       return agent;
     })
-
-    this.setState({agents: newAgents});
+    this.setState({internalAgents: newAgents});
   };
+
+  prepareDataForBackend () {
+    let data = {...this.state.internalAgents}
+
+    for (let attribute in data) {
+      if (data[attribute] === '') {
+        data[attribute] = null
+      }
+    }
+
+    JSON.stringify(data)
+
+    return data
+  }
+
+  registerInternalAgents () {
+    /*
+    let responseStatus
+    let errorMessage
+    let responseMessage
+    let url
+    */
+    let data
+
+
+    data = this.prepareDataForBackend()
+    console.log(data)
+    /*
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/agents';
+
+    axios.post(url, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((response) => {
+        console.log(response)
+        responseStatus = response.status
+        responseMessage = response.statusText
+      })
+      .catch(function (error) {
+        console.log(error)
+        responseStatus = 'Error'
+        errorMessage = error.message
+      })
+      .then(() => {
+        if (responseStatus === 201) {
+          this.setState({
+            response: {
+              color: 'green',
+              text: '',
+              icon: 'check'
+            }
+          })
+        } else if (responseStatus === 'Error') {
+          this.setState({
+            response: {
+              color: 'red',
+              text: [errorMessage],
+              icon: 'close'
+            }
+          })
+        } else {
+          this.setState({
+            response: {
+              color: 'yellow',
+              text: [responseMessage],
+              icon: 'warning'
+            }
+          })
+        }
+      })
+      .then(() => {
+        setTimeout(() => {
+          this.setState({
+            response: {
+              color: 'black',
+              text: '',
+              icon: ''
+            }
+          })
+        }, 3000);
+      })
+    */
+  }
 
   render () {
     const editMode = this.props.editMode
@@ -81,8 +156,8 @@ class InternalAgent extends React.Component {
       <div>
         <Divider horizontal>Intern</Divider>
         <AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)}
-                    onRowDel={this.handleRowDel.bind(this)} agents={this.state.agents}
-                    filterText={this.state.filterText} editMode={editMode}/>
+                    onRowDel={this.handleRowDel.bind(this)} agents={this.state.internalAgents}
+                    editMode={editMode}/>
       </div>
     );
   }
