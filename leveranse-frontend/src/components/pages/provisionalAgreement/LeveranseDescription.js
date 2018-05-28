@@ -20,6 +20,10 @@ class LeveranseDescription extends React.Component {
     this.setState({
       readOnlyMode: !this.state.readOnlyMode
     })
+
+    this.provisionAgreement.setState({
+      response: {}
+    })
   }
 
   render() {

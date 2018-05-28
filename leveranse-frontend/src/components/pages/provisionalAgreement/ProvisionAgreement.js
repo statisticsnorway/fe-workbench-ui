@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { Dropdown, Form, Header, Icon, Input, Segment, TextArea } from "semantic-ui-react";
+import { Dropdown, Form, Header, Input, Segment, TextArea } from "semantic-ui-react";
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
@@ -55,11 +55,6 @@ class ProvisionAgreement extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      response: {
-        color: 'black',
-        text: '',
-        icon: '',
-      },
       provisionAgreement: {
         description: '',
         id: '',
@@ -77,7 +72,8 @@ class ProvisionAgreement extends Component {
       },
       durationFrom: moment(),
       durationTo: moment(),
-      errors: {}
+      errors: {},
+      response: {}
     };
 
     this.fetchSubjects()
@@ -193,6 +189,7 @@ class ProvisionAgreement extends Component {
         data[attribute] = this.state.durationTo;
       }
     }
+    
     JSON.stringify(data)
 
     return data
@@ -249,38 +246,24 @@ class ProvisionAgreement extends Component {
             this.setState({
               response: {
                 color: 'green',
-                text: '',
-                icon: 'check'
+                text: 'Leveranseavtalen ble lagret: ' + [responseMessage],
               }
             })
           } else if (responseStatus === 'Error') {
             this.setState({
               response: {
                 color: 'red',
-                text: [errorMessage],
-                icon: 'close'
+                text: 'Leveranseavtalen ble ikke lagret: ' + [errorMessage]
               }
             })
           } else {
             this.setState({
               response: {
                 color: 'yellow',
-                text: [responseMessage],
-                icon: 'warning'
+                text: 'Leveranseavtalen ble ikke lagret: ' + [responseMessage]
               }
             })
           }
-        })
-        .then(() => {
-          setTimeout(() => {
-            this.setState({
-              response: {
-                color: 'black',
-                text: '',
-                icon: ''
-              }
-            })
-          }, 3000);
         })
     }
   }
@@ -288,21 +271,17 @@ class ProvisionAgreement extends Component {
   render () {
     const editMode = this.props.editMode
     // eslint-disable-next-line
-    const {errors} = this.state
+    const {errors, response} = this.state
 
     return (
       <div>
         {Object.keys(errors).length !== 0 && editMode ?
           <Segment inverted color='orange'>Leveranseavtalen ble ikke lagret, rett opp i feilene og prøv
             igjen</Segment> : null}
-        <Header as='h3' color={this.state.response.color}>
-          <Header.Content>
-            Leveranseavtale &nbsp;
-            <Icon name={this.state.response.icon}/>
-          </Header.Content>
-          <Header.Subheader>
-            {this.state.response.text}
-          </Header.Subheader>
+        {Object.keys(response).length !== 0 && editMode ?
+          <Segment inverted color={response.color}>{response.text}</Segment> : null}
+        <Header as='h3'>
+          Leveranseavtale
         </Header>
         <Form.Field>
           <label>Id:</label>
