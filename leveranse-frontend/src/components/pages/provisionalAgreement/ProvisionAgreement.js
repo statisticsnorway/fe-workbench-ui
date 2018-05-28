@@ -277,6 +277,7 @@ class ProvisionAgreement extends Component {
   getSupplier = (supplierValue) => {
     this.setState({
       provisionAgreement: {
+        ...this.state.provisionAgreement,
         supplier: supplierValue
       }
     })
@@ -317,9 +318,9 @@ class ProvisionAgreement extends Component {
         </Form.Field>
         <Form.Field error={!!errors.name}>
           <label>Avtalenavn</label>
-          <Input placeholder='Avtalenavn' name='name' value={this.state.provisionAgreement.name || ''}
+          <Input placeholder='Avtalenavn' name='name' value={this.state.provisionAgreement.name}
                  onChange={this.handleInputChange} readOnly={editMode}></Input>
-          {errors.name && <InlineError text={errors.name}></InlineError>}
+          {errors.name && <InlineError text={errors.name}/>}
         </Form.Field>
         <Form.Field error={!!errors.description}>
           <label>Beskrivelse</label>
