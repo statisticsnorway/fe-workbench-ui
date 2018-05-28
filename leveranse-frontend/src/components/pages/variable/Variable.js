@@ -39,7 +39,7 @@ class Variable extends React.Component {
 
   fetchSubjects () {
     subjectsOptions = []
-    let mainSubjects = ''
+    let mainSubjects
     let url
 
     url = process.env.REACT_APP_SSB_SUBJECTS
@@ -163,8 +163,6 @@ class Variable extends React.Component {
 
     return (
       <div>
-        {Object.keys(response).length !== 0 && this.state.readOnlyMode ?
-          <Segment inverted color={response.color}>{response.text}</Segment> : null}
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
             <Form.Field/>
@@ -178,6 +176,8 @@ class Variable extends React.Component {
             <Grid.Row columns={3}>
               <Grid.Column width={10}>
                 <Segment>
+                  {Object.keys(response).length !== 0 && this.state.readOnlyMode ?
+                    <Segment inverted color={response.color}>{response.text}</Segment> : null}
                   <Header as='h3'>
                     Variabel
                   </Header>

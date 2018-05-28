@@ -99,9 +99,9 @@ class ProvisionAgreement extends Component {
   }
 
   fetchSubjects () {
-    let mainSubjects = ''
-    let subSubjects = ''
-    let organizedSubSubjects = ''
+    let mainSubjects
+    let subSubjects
+    let organizedSubSubjects
     let organizedSubjects = []
     let allSubjects = []
     let url
