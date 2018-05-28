@@ -177,7 +177,7 @@ class ProvisionAgreement extends Component {
     })
   }
 
-  prepareDataForBackend (id) {
+  prepareDataForBackend () {
     let data = {...this.state.provisionAgreement}
 
     for (let attribute in data) {
@@ -193,7 +193,6 @@ class ProvisionAgreement extends Component {
         data[attribute] = this.state.durationTo;
       }
     }
-    data['id'] = id;
     JSON.stringify(data)
 
     return data
@@ -203,6 +202,8 @@ class ProvisionAgreement extends Component {
     const errors = {}
 
     if (!data.description) errors.description = "Feltet kan ikke være tomt"
+    if (!data.name) errors.name = "Feltet kan ikke være tomt"
+    if (!data.pursuant) errors.pursuant = "Et valg må velges"
 
     return errors
   }
@@ -223,10 +224,7 @@ class ProvisionAgreement extends Component {
       let url
       let data
 
-      const uuidv1 = require('uuid/v1');
-      let provisionAgreement_uuid = uuidv1();
-
-      data = this.prepareDataForBackend(provisionAgreement_uuid)
+      data = this.prepareDataForBackend()
 
       console.log(data)
 
@@ -290,11 +288,11 @@ class ProvisionAgreement extends Component {
   render () {
     const editMode = this.props.editMode
     // eslint-disable-next-line
-    const {response, provisionAgreement, errors} = this.state
+    const {errors} = this.state
 
     return (
       <div>
-        {Object.keys(errors).length !== 0 ?
+        {Object.keys(errors).length !== 0 && editMode ?
           <Label basic color='orange'>Leveranseavtalen ble ikke lagret, rett opp i feilene og prøv igjen</Label> : null}
         <Header as='h3' color={this.state.response.color}>
           <Header.Content>
@@ -309,10 +307,11 @@ class ProvisionAgreement extends Component {
           <label>Id:</label>
           {this.state.provisionAgreement.id}
         </Form.Field>
-        <Form.Field>
+        <Form.Field error={!!errors.name}>
           <label>Avtalenavn</label>
           <Input placeholder='Avtalenavn' name='name' value={this.state.provisionAgreement.name}
                  onChange={this.handleInputChange} readOnly={editMode}/>
+          {errors.name && <InlineError text={errors.name}/>}
         </Form.Field>
         <Form.Field error={!!errors.description}>
           <label>Beskrivelse</label>
@@ -360,12 +359,13 @@ class ProvisionAgreement extends Component {
             </div>
           </Form.Field>
         </Form.Group>
-        <Form.Field>
+        <Form.Field error={!!errors.pursuant}>
           <label>Hjemmelsgrunnlag</label>
           <Dropdown placeholder='Hjemmelsgrunnlag' selection options={pursuantOptions}
                     value={this.state.provisionAgreement.pursuant}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'pursuant')}
                     disabled={editMode}/>
+          {errors.pursuant && <InlineError text={errors.pursuant}/>}
         </Form.Field>
         <Form.Field>
           <label>Kanal</label>
