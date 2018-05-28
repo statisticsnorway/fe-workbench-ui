@@ -37,6 +37,7 @@ class ExternalAgent extends React.Component {
     let agent = {
       id: id,
       role: '',
+      type: 'external',
       name: '',
       email: '',
       telephone: '',

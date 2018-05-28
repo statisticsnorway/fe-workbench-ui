@@ -37,6 +37,7 @@ class InternalAgent extends React.Component {
     let agent = {
       id: id,
       role: '',
+      type: 'internal',
       name: '',
       email: '',
       telephone: '',
