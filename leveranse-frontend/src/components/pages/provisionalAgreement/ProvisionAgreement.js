@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { Dropdown, Form, Header, Icon, Input, Label, TextArea } from "semantic-ui-react";
+import { Dropdown, Form, Header, Icon, Input, Segment, TextArea } from "semantic-ui-react";
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
@@ -293,7 +293,8 @@ class ProvisionAgreement extends Component {
     return (
       <div>
         {Object.keys(errors).length !== 0 && editMode ?
-          <Label basic color='orange'>Leveranseavtalen ble ikke lagret, rett opp i feilene og prøv igjen</Label> : null}
+          <Segment inverted color='orange'>Leveranseavtalen ble ikke lagret, rett opp i feilene og prøv
+            igjen</Segment> : null}
         <Header as='h3' color={this.state.response.color}>
           <Header.Content>
             Leveranseavtale &nbsp;
