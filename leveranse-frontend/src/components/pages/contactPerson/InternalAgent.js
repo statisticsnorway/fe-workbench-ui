@@ -1,48 +1,50 @@
 import React from 'react'
-import axios from 'axios'
+/*import axios from 'axios'*/
 import { Divider } from 'semantic-ui-react'
 import AgentTable from './AgentTable'
 
 class InternalAgent extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
 
-    this.state = {};
-    this.state.filterText = "";
-    const uuidv1 = require('uuid/v1');
-    let id = uuidv1();
-    this.state.internalAgents = [{
-        id: id,
-        role: '',
-        name: '',
-        email: '',
-        telephone: '',
-        comment: ''
-      }];
-    this.handleAgentTable = this.handleAgentTable.bind(this);
+    this.state = {}
+    this.state.filterText = ''
+    const uuidv1 = require('uuid/v1')
+    let id = uuidv1()
+    this.state.internalAgents = [
+      {
+      id: id,
+      role: '',
+      name: '',
+      email: '',
+      telephone: '',
+      comment: ''
+    }
+    ]
+    this.handleAgentTable = this.handleAgentTable.bind(this)
   }
 
   handleRowDel (agent) {
     let index = this.state.internalAgents.indexOf(agent)
 
-    this.state.internalAgents.splice(index, 1);
-    this.setState(this.state.internalAgents);
+    this.state.internalAgents.splice(index, 1)
+    this.setState(this.state.internalAgents)
   };
 
   handleAddEvent () {
-    const uuidv1 = require('uuid/v1');
-    let id = uuidv1();
+    const uuidv1 = require('uuid/v1')
+    let id = uuidv1()
     let agent = {
       id: id,
-      role: "",
-      name: "",
-      email: "",
-      telephone: "",
-      comment: ""
+      role: '',
+      name: '',
+      email: '',
+      telephone: '',
+      comment: ''
     }
 
-    this.state.internalAgents.push(agent);
-    this.setState(this.state.internalAgents);
+    this.state.internalAgents.push(agent)
+    this.setState(this.state.internalAgents)
   }
 
   handleAgentTable (evt) {
@@ -55,14 +57,33 @@ class InternalAgent extends React.Component {
     let newAgents = agents.map(function (agent) {
       for (let key in agent) {
         if (key === item.name && agent['id'] === item.id) {
-          agent[key] = item.value;
+          agent[key] = item.value
         }
       }
 
-      return agent;
+      return agent
     })
-    this.setState({internalAgents: newAgents});
+    this.setState({internalAgents: newAgents})
   };
+
+  handleAgentTableDropdown (id, name, value) {
+    let item = {
+      id: id,
+      name: name,
+      value: value
+    }
+    let agents = this.state.internalAgents.slice()
+    let newAgents = agents.map(function (agent) {
+      for (let key in agent) {
+        if (key === item.name && agent['id'] === item.id) {
+          agent[key] = item.value
+        }
+      }
+      return agent
+    })
+
+    this.setState({internalAgents: newAgents})
+  }
 
   prepareDataForBackend () {
     let data = {...this.state.internalAgents}
@@ -86,7 +107,6 @@ class InternalAgent extends React.Component {
     let url
     */
     let data
-
 
     data = this.prepareDataForBackend()
     console.log(data)
@@ -135,17 +155,6 @@ class InternalAgent extends React.Component {
           })
         }
       })
-      .then(() => {
-        setTimeout(() => {
-          this.setState({
-            response: {
-              color: 'black',
-              text: '',
-              icon: ''
-            }
-          })
-        }, 3000);
-      })
     */
   }
 
@@ -156,14 +165,15 @@ class InternalAgent extends React.Component {
       <div>
         <Divider horizontal>Intern</Divider>
         <AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)}
+                    onAgentTableUpdateDropdown={this.handleAgentTableDropdown.bind(this)}
                     onRowDel={this.handleRowDel.bind(this)} agents={this.state.internalAgents}
-                    editMode={editMode}/>
+                    editMode={editMode} />
       </div>
-    );
+    )
   }
 }
 
-export default InternalAgent;
+export default InternalAgent
 
 
 
