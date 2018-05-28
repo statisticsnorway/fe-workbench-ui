@@ -38,6 +38,7 @@ class Variable extends React.Component {
   }
 
   fetchSubjects () {
+    subjectsOptions = []
     let mainSubjects = ''
     let url
 
