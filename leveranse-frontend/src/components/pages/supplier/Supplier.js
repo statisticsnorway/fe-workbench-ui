@@ -6,7 +6,7 @@ import sjøfart_logo from '../../../assets/sjøfart.jpg';
 import skatteetaten_logo from '../../../assets/Skatteetaten.png';
 
 
-const leverandører = [
+const suppliers = [
   {
     title: "SDIR",
     description: "Sjøfart",
@@ -19,7 +19,7 @@ const leverandører = [
   }
 ];
 
-class Leverandør extends React.Component {
+class Supplier extends React.Component {
 
   constructor (props) {
     super(props)
@@ -54,7 +54,7 @@ class Leverandør extends React.Component {
 
       this.setState({
         isLoading: false,
-        results: _.filter(leverandører, isMatch),
+        results: _.filter(suppliers, isMatch),
       })
     }, 300)
   }
@@ -119,7 +119,7 @@ class Leverandør extends React.Component {
                       onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
                       results={results}
                       value={value}
-                    ></Search>
+                    />
                   </Segment>
                   <Segment textAlign="left" compact>
                     <Modal.Actions>
@@ -141,5 +141,5 @@ class Leverandør extends React.Component {
   }
 }
 
-export default Leverandør
+export default Supplier
 

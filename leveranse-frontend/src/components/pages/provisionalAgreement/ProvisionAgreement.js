@@ -6,7 +6,7 @@ import { SingleDatePicker } from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css'
 import 'react-dates/initialize'
 import InlineError from '../../messages/InlineError'
-import Leverandør from '../leverandør/Leverandør'
+import Supplier from '../supplier/Supplier'
 import '../../../assets/css/site.css'
 
 moment.locale('nb')
@@ -310,7 +310,7 @@ class ProvisionAgreement extends Component {
                 </Input>
               </Grid.Column>
               <Grid.Column width={4}>
-                <Leverandør onSearchSupplier={this.getSupplier}></Leverandør>
+                <Supplier onSearchSupplier={this.getSupplier}></Supplier>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -324,9 +324,9 @@ class ProvisionAgreement extends Component {
         <Form.Field error={!!errors.description}>
           <label>Beskrivelse</label>
           <TextArea autoHeight placeholder='Beskrivelse' name='description'
-                    value={this.state.provisionAgreement.description || ''}
-                    onChange={this.handleInputChange} readOnly={editMode}></TextArea>
-          {errors.description && <InlineError text={errors.description}></InlineError>}
+                    value={this.state.provisionAgreement.description}
+                    onChange={this.handleInputChange} readOnly={editMode}/>
+          {errors.description && <InlineError text={errors.description}/>}
         </Form.Field>
         <Form.Field>
           <label>Status</label>
@@ -345,7 +345,7 @@ class ProvisionAgreement extends Component {
                 numberOfMonths={1}
                 displayFormat="DD/MM/YYYY"
                 disabled={editMode}
-              ></SingleDatePicker>
+              />
             </div>
           </Form.Field>
           <Form.Field>
@@ -363,39 +363,39 @@ class ProvisionAgreement extends Component {
                 numberOfMonths={1}
                 displayFormat="DD/MM/YYYY"
                 disabled={editMode}
-              ></SingleDatePicker>
+              />
             </div>
           </Form.Field>
         </Form.Group>
         <Form.Field error={!!errors.pursuant}>
           <label>Hjemmelsgrunnlag</label>
           <Dropdown placeholder='Hjemmelsgrunnlag' selection options={pursuantOptions}
-                    value={this.state.provisionAgreement.pursuant || ''}
+                    value={this.state.provisionAgreement.pursuant}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'pursuant')}
-                    disabled={editMode}></Dropdown>
-          {errors.pursuant && <InlineError text={errors.pursuant}></InlineError>}
+                    disabled={editMode}/>
+          {errors.pursuant && <InlineError text={errors.pursuant}/>}
         </Form.Field>
         <Form.Field>
           <label>Kanal</label>
           <Dropdown placeholder='Kanal' multiple selection options={exchangeChannelOptions}
-                    disabled={editMode}></Dropdown>
+                    disabled={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>Protokoll</label>
-          <Dropdown placeholder='Protokoll' multiple selection options={protocolOptions} disabled={editMode}></Dropdown>
+          <Dropdown placeholder='Protokoll' multiple selection options={protocolOptions} disabled={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>Emne</label>
           <Dropdown placeholder='Emne' multiple search selection options={subjectsOptions}
-                    disabled={editMode}></Dropdown>
+                    disabled={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>Verdivurdering</label>
-          <Dropdown placeholder='Verdivurdering' selection options={valuationOptions} disabled={editMode}></Dropdown>
+          <Dropdown placeholder='Verdivurdering' selection options={valuationOptions} disabled={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>Endringshåndtering</label>
-          <TextArea autoHeight placeholder='Endringshåndtering' readOnly={editMode}></TextArea>
+          <TextArea autoHeight placeholder='Endringshåndtering' readOnly={editMode}/>
         </Form.Field>
       </div>
     )
