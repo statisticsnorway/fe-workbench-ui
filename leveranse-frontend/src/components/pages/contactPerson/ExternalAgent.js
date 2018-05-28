@@ -7,7 +7,10 @@ class ExternalAgent extends React.Component {
   constructor (props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+      response: {}
+    }
+
     const uuidv1 = require('uuid/v1')
     let id = uuidv1()
     this.state.externalAgents = [
@@ -111,19 +114,19 @@ class ExternalAgent extends React.Component {
 
     data = this.prepareDataForBackend()
     console.log(data)
+
     /*
-    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/agents';
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/agents'
 
     axios.post(url, data, {
       headers: {
         'Content-Type': 'application/json'
       }
+    }).then((response) => {
+      console.log(response)
+      responseStatus = response.status
+      responseMessage = response.statusText
     })
-      .then((response) => {
-        console.log(response)
-        responseStatus = response.status
-        responseMessage = response.statusText
-      })
       .catch(function (error) {
         console.log(error)
         responseStatus = 'Error'
@@ -134,29 +137,26 @@ class ExternalAgent extends React.Component {
           this.setState({
             response: {
               color: 'green',
-              text: '',
-              icon: 'check'
+              text: 'Interne kontaktpersoner ble lagret: ' + [responseMessage]
             }
           })
         } else if (responseStatus === 'Error') {
           this.setState({
             response: {
               color: 'red',
-              text: [errorMessage],
-              icon: 'close'
+              text: 'Interne kontaktpersoner ble ikke lagret: ' + [errorMessage]
             }
           })
         } else {
           this.setState({
             response: {
               color: 'yellow',
-              text: [responseMessage],
-              icon: 'warning'
+              text: 'Interne kontaktpersoner ble ikke lagret: ' + [responseMessage]
             }
           })
         }
       })
-      */
+    */
   }
 
   render () {
