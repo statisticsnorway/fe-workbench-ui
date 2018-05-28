@@ -1,13 +1,12 @@
-import _ from 'lodash'
-import faker from 'faker'
-import React, { Component } from 'react';
-import axios from 'axios';
-import moment from 'moment';
-import { Dropdown, Form, Header, Icon, Input, TextArea, Search, Grid } from "semantic-ui-react";
-import { SingleDatePicker } from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css';
-import 'react-dates/initialize';
+import React, { Component } from 'react'
+import axios from 'axios'
+import moment from 'moment'
+import { Dropdown, Form, Header, Icon, Input, TextArea, Search, Grid } from 'semantic-ui-react'
+import { SingleDatePicker } from 'react-dates'
+import 'react-dates/lib/css/_datepicker.css'
+import 'react-dates/initialize'
 import Leverandør from '../leverandør/Leverandør'
+import '../../../assets/css/site.css'
 
 moment.locale('nb')
 
@@ -22,7 +21,11 @@ const statusOptions = [
 const pursuantOptions = [
   {key: '1', text: 'Frivillig undersøkelse', value: 'Frivillig undersøkelse'},
   {key: '2', text: 'Oppgavepliktig undersøkelse', value: 'Oppgavepliktig undersøkelse'},
-  {key: '3', text: 'Oppgavepliktig rapportering fra administrativt register', value: 'Oppgavepliktig rapportering fra administrativt register'}
+  {
+    key: '3',
+    text: 'Oppgavepliktig rapportering fra administrativt register',
+    value: 'Oppgavepliktig rapportering fra administrativt register'
+  }
 ]
 
 const exchangeChannelOptions = [
@@ -49,16 +52,9 @@ const valuationOptions = [
 
 let subjectsOptions = []
 
-const sourceLeverandører = _.times(5, () => ({
-  title: faker.company.companyName(),
-  description: faker.company.catchPhrase(),
-  image: faker.internet.avatar(),
-  price: faker.finance.amount(0, 100, 2, '$'),
-}))
-
 class ProvisionAgreement extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       response: {
         color: 'black',
@@ -83,19 +79,18 @@ class ProvisionAgreement extends Component {
       },
       durationFrom: moment(),
       durationTo: moment(),
-    };
+    }
 
     this.fetchSubjects()
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this)
 
     if (this.props.isNewProvisionAgreement) {
-      const uuidv1 = require('uuid/v1');
+      const uuidv1 = require('uuid/v1')
       this.state.provisionAgreement.id = uuidv1()
     } else {
       let url
-
-      url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement/' + this.props.provisionAgreementId;
-
+      url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement/'
+        + this.props.provisionAgreementId
       axios.get(url)
         .then((response) => {
           this.state.provisionAgreement = response.data
@@ -123,7 +118,7 @@ class ProvisionAgreement extends Component {
       .then(() => {
         for (let mainSubjectsKey in mainSubjects) {
           axios.get('https://data.ssb.no/api/v0/no/table/' + mainSubjects[mainSubjectsKey]['id'])
-            // eslint-disable-next-line
+          // eslint-disable-next-line
             .then((response) => {
               subSubjects = response.data
 
@@ -183,14 +178,14 @@ class ProvisionAgreement extends Component {
       }
 
       if (attribute === 'durationFrom') {
-        data[attribute] = this.state.durationFrom;
+        data[attribute] = this.state.durationFrom
       }
 
       if (attribute === 'durationTo') {
-        data[attribute] = this.state.durationTo;
+        data[attribute] = this.state.durationTo
       }
     }
-    data['id'] = id;
+    data['id'] = id
     JSON.stringify(data)
 
     return data
@@ -203,26 +198,26 @@ class ProvisionAgreement extends Component {
     let url
     let data
 
-    const uuidv1 = require('uuid/v1');
-    let provisionAgreement_uuid = uuidv1();
+    const uuidv1 = require('uuid/v1')
+    let provisionAgreement_uuid = uuidv1()
 
     data = this.prepareDataForBackend(provisionAgreement_uuid)
 
     console.log(data)
 
-    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement';
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement'
 
     axios.post(url, data, {
       headers: {
         'Content-Type': 'application/json'
       }
     }).then((response) => {
-      console.log(response);
+      console.log(response)
       responseStatus = response.status
       responseMessage = response.statusText
     })
       .catch(function (error) {
-        console.log(error);
+        console.log(error)
         responseStatus = 'Error'
         errorMessage = error.message
       })
@@ -262,38 +257,20 @@ class ProvisionAgreement extends Component {
               icon: ''
             }
           })
-        }, 3000);
+        }, 3000)
       })
   }
 
-  componentWillMount() {
-    this.resetComponent()
+  getSupplier = (supplierValue) => {
+    this.setState({
+      provisionAgreement: {
+        supplier: supplierValue
+      }
+    })
   }
-
-  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
-
-  handleResultSelect = (e, { result }) => this.setState({ value: result.title })
-
-  handleSearchChange = (e, { value }) => {
-    this.setState({ isLoading: true, value })
-
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent()
-
-      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-      const isMatch = result => re.test(result.title)
-
-      this.setState({
-        isLoading: false,
-        results: _.filter(sourceLeverandører, isMatch),
-      })
-    }, 300)
-  }
-
 
   render () {
     const editMode = this.props.editMode
-    const { isLoading, value, results } = this.state
 
     return (
       <div>
@@ -306,37 +283,34 @@ class ProvisionAgreement extends Component {
             {this.state.response.text}
           </Header.Subheader>
         </Header>
-        <Form.Field>
+        {/*<Form.Field>
           <label>Id:</label>
           {this.state.provisionAgreement.id}
-        </Form.Field>
+        </Form.Field>*/}
         <Form.Field>
           <label>Leverandør</label>
-          <Grid>
-            <Grid.Column width={11}>
-              <Search
-                loading={isLoading}
-                onResultSelect={this.handleResultSelect}
-                onSearchChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
-                results={results}
-                value={value}
-                {...this.props}
-                fluid={true}
-              />
-              <Leverandør/>
-            </Grid.Column>
-
+          <Grid stackable>
+            <Grid.Row>
+              <Grid.Column width={12}>
+                <Input placeholder='Leverandør' name='supplier' readOnly={editMode} className="ml-3"
+                       value={this.state.provisionAgreement.supplier.title || ''} onChange={this.handleInputChange}
+                       />
+              </Grid.Column>
+              <Grid.Column width={4}>
+                <Leverandør onSearchSupplier={this.getSupplier}/>
+              </Grid.Column>
+            </Grid.Row>
           </Grid>
         </Form.Field>
         <Form.Field>
           <label>Avtalenavn</label>
-          <Input placeholder='Avtalenavn' name='name' value={this.state.provisionAgreement.name}
+          <Input placeholder='Avtalenavn' name='name' value={this.state.provisionAgreement.name || ''}
                  onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
           <label>Beskrivelse</label>
           <TextArea autoHeight placeholder='Beskrivelse' name='description'
-                    value={this.state.provisionAgreement.description}
+                    value={this.state.provisionAgreement.description || ''}
                     onChange={this.handleInputChange} readOnly={editMode}/>
         </Form.Field>
         <Form.Field>
@@ -347,17 +321,17 @@ class ProvisionAgreement extends Component {
           <Form.Field>
             <label>Gyldighet</label>
             Fra
-          <div>
-            <SingleDatePicker
-              date={this.state.durationFrom}
-              onDateChange={durationFrom => this.setState({durationFrom: durationFrom})}
-              focused={this.state.durationFromfocused}
-              onFocusChange={({focused: durationFromfocused}) => this.setState({durationFromfocused})}
-              numberOfMonths={1}
-              displayFormat="DD/MM/YYYY"
-              disabled={editMode}
-            />
-          </div>
+            <div>
+              <SingleDatePicker
+                date={this.state.durationFrom}
+                onDateChange={durationFrom => this.setState({durationFrom: durationFrom})}
+                focused={this.state.durationFromfocused}
+                onFocusChange={({focused: durationFromfocused}) => this.setState({durationFromfocused})}
+                numberOfMonths={1}
+                displayFormat="DD/MM/YYYY"
+                disabled={editMode}
+              />
+            </div>
           </Form.Field>
           <Form.Field>
             <label>&nbsp;</label>
@@ -365,23 +339,23 @@ class ProvisionAgreement extends Component {
           <Form.Field>
             <label>&nbsp;</label>
             Til
-          <div>
-            <SingleDatePicker
-              date={this.state.durationTo}
-              onDateChange={durationTo => this.setState({durationTo: durationTo})}
-              focused={this.state.durationTofocused}
-              onFocusChange={({focused: durationTofocused}) => this.setState({durationTofocused})}
-              numberOfMonths={1}
-              displayFormat="DD/MM/YYYY"
-              disabled={editMode}
-            />
-          </div>
+            <div>
+              <SingleDatePicker
+                date={this.state.durationTo}
+                onDateChange={durationTo => this.setState({durationTo: durationTo})}
+                focused={this.state.durationTofocused}
+                onFocusChange={({focused: durationTofocused}) => this.setState({durationTofocused})}
+                numberOfMonths={1}
+                displayFormat="DD/MM/YYYY"
+                disabled={editMode}
+              />
+            </div>
           </Form.Field>
         </Form.Group>
         <Form.Field>
           <label>Hjemmelsgrunnlag</label>
           <Dropdown placeholder='Hjemmelsgrunnlag' selection options={pursuantOptions}
-                    value={this.state.provisionAgreement.pursuant}
+                    value={this.state.provisionAgreement.pursuant || ''}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'pursuant')}
                     disabled={editMode}/>
         </Form.Field>
@@ -406,8 +380,8 @@ class ProvisionAgreement extends Component {
           <TextArea autoHeight placeholder='Endringshåndtering' readOnly={editMode}/>
         </Form.Field>
       </div>
-    );
+    )
   }
 }
 
-export default ProvisionAgreement;
+export default ProvisionAgreement

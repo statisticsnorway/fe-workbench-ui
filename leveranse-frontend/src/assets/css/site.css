@@ -10,3 +10,24 @@
     position: relative;
     top: 20%;
 }
+
+.displayInline{
+    display: inline-block;
+}
+
+.ui.grid>.row>.column{
+    position: relative;
+    display: inline-block;
+    width: 6.25%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    vertical-align: top;
+}
+
+.ml-3{
+    margin-left: 3% !important;
+}
+
+.ml-10{
+    margin-left: 10% !important;
+}
