@@ -1,9 +1,9 @@
 import _ from 'lodash'
 import React from 'react'
-import { Button, Modal, Search, Segment } from 'semantic-ui-react'
+import { Button, Modal, Search, Segment, Icon } from 'semantic-ui-react'
 import '../../../assets/css/site.css'
 import sjofart_logo from '../../../assets/sjofart.jpg'
-import skatteetaten_logo from '../../../assets/Skatteetaten.png'
+import skatteetaten_logo from '../../../assets/skatteetaten.png'
 
 const suppliers = [
   {
@@ -91,9 +91,8 @@ class Supplier extends React.Component {
 
     return (
       <Modal trigger={
-        <Button as="button" className="ml-10"
-                type="button" aria-label="Open" data-tooltip="Søk leverandør" aria-hidden={this.state.modalOpen}
-                basic onClick={this.handleOpen}>...
+        <Button icon className="ml-10" aria-label="Open" data-tooltip="Søk leverandør" aria-hidden={this.state.modalOpen}
+                basic onClick={this.handleOpen}><Icon name='ellipsis horizontal' />
         </Button>
       }
              open={this.state.modalOpen}

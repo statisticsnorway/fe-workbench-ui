@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux' //to connect react to redux
 import LoginForm from '../forms/LoginForm'
 import { login } from '../../actions/auth'
-import ssb_logo from '../../assets/SSB_logo.png'
+import ssb_logo from '../../assets/ssb_logo.png'
 
 class LoginPage extends React.Component {
   //If all ok, then send the user to the homepage ( if the credentials are fine )

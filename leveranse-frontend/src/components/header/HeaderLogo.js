@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Image } from 'semantic-ui-react'
-import ssb_logo from '../../assets/SSB_logo.png'
+import ssb_logo from '../../assets/ssb_logo.png'
 
 const HeaderLogo = () => (
   <Grid celled='internally'>

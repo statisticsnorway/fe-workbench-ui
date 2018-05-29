@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Grid, Image, Segment } from 'semantic-ui-react'
-import ssb_logo from '../../assets/SSB_logo.png'
+import ssb_logo from '../../assets/ssb_logo.png'
 
 let centerAlign = {
   textAlign: 'center'
