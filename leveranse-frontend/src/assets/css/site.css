@@ -31,3 +31,7 @@
 .ml-10{
     margin-left: 10% !important;
 }
+
+.ui.small.vertical.menu {
+    width: 11.4rem !important;
+}
