@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Header, List, Segment } from "semantic-ui-react"
+import { Header, List, Segment } from 'semantic-ui-react'
 
 class AdministrativeDetails extends Component {
   constructor (props) {
@@ -151,7 +151,7 @@ class AdministrativeDetails extends Component {
             {this.state.administrativeDetails.createBy}
           </List.Item>
         </List>
-        <hr/>
+        <hr />
         <List>
           <List.Item>
             <List.Header>Dato endret</List.Header>
@@ -164,7 +164,7 @@ class AdministrativeDetails extends Component {
             {this.state.administrativeDetails.lastUpdateBy}
           </List.Item>
         </List>
-        <hr/>
+        <hr />
         <List>
           <List.Item>
             <List.Header>Versjon</List.Header>

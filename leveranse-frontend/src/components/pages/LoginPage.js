@@ -1,14 +1,14 @@
 import React from 'react'
-import { Grid, Image } from "semantic-ui-react"
+import { Grid, Image } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux' //to connect react to redux
-import LoginForm from "../forms/LoginForm"
-import { login } from "../../actions/auth"
+import LoginForm from '../forms/LoginForm'
+import { login } from '../../actions/auth'
 import ssb_logo from '../../assets/SSB_logo.png'
 
 class LoginPage extends React.Component {
   //If all ok, then send the user to the homepage ( if the credentials are fine )
-  submit = data => this.props.login(data).then(() => this.props.history.push("/home"))
+  submit = data => this.props.login(data).then(() => this.props.history.push('/home'))
 
   render () {
     return (
@@ -23,13 +23,13 @@ class LoginPage extends React.Component {
           <Grid.Row verticalAlign='top'>
             <Grid.Column>
               <div className='ui container'>
-                <Image src={ssb_logo} size='medium' centered/>
+                <Image src={ssb_logo} size='medium' centered />
               </div>
             </Grid.Column>
           </Grid.Row>
 
         </Grid>
-        <LoginForm submit={this.submit}/>
+        <LoginForm submit={this.submit} />
       </div>
     )
   }

@@ -25,9 +25,11 @@ class LeveranseDescription extends React.Component {
       response: {}
     })
 
-/*    this.administrativeDetails.setState({
+    /*
+    this.administrativeDetails.setState({
       response: {}
-    })*/
+    })
+    */
   }
 
   render() {

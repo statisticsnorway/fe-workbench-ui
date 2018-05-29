@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Header, Input, Segment } from "semantic-ui-react"
+import { Form, Header, Input, Segment } from 'semantic-ui-react'
 import axios from 'axios'
 
 class Role extends Component {
@@ -115,7 +115,7 @@ class Role extends Component {
         <Form.Field>
           <label>Navn</label>
           <Input placeholder='Navn' name="name" value={this.state.role.name} onChange={this.handleInputChange}
-                 readOnly={editMode}/>
+                 readOnly={editMode} />
         </Form.Field>
       </div>
     )

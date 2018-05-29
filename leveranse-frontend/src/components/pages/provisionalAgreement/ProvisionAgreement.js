@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import moment from 'moment'
-import { Dropdown, Form, Header, Input, Segment, TextArea, Grid } from 'semantic-ui-react'
+import { Dropdown, Form, Grid, Header, Input, Segment, TextArea } from 'semantic-ui-react'
 import { SingleDatePicker } from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css'
 import 'react-dates/initialize'
@@ -213,7 +213,9 @@ class ProvisionAgreement extends Component {
 
   validationOk = () => {
     const errors = this.validateInputData(this.state.provisionAgreement)
+
     this.setState({errors})
+
     return Object.keys(errors).length === 0
   }
 
@@ -319,19 +321,19 @@ class ProvisionAgreement extends Component {
         <Form.Field error={!!errors.name}>
           <label>Avtalenavn</label>
           <Input placeholder='Avtalenavn' name='name' value={this.state.provisionAgreement.name}
-                 onChange={this.handleInputChange} readOnly={editMode}></Input>
-          {errors.name && <InlineError text={errors.name}/>}
+                 onChange={this.handleInputChange} readOnly={editMode}/>
+          {errors.name && <InlineError text={errors.name} />}
         </Form.Field>
         <Form.Field error={!!errors.description}>
           <label>Beskrivelse</label>
           <TextArea autoHeight placeholder='Beskrivelse' name='description'
                     value={this.state.provisionAgreement.description}
-                    onChange={this.handleInputChange} readOnly={editMode}/>
-          {errors.description && <InlineError text={errors.description}/>}
+                    onChange={this.handleInputChange} readOnly={editMode} />
+          {errors.description && <InlineError text={errors.description} />}
         </Form.Field>
         <Form.Field>
           <label>Status</label>
-          <Dropdown placeholder='Status' selection options={statusOptions} disabled={editMode}></Dropdown>
+          <Dropdown placeholder='Status' selection options={statusOptions} disabled={editMode}/>
         </Form.Field>
         <Form.Group widths='equal'>
           <Form.Field>
@@ -373,30 +375,30 @@ class ProvisionAgreement extends Component {
           <Dropdown placeholder='Hjemmelsgrunnlag' selection options={pursuantOptions}
                     value={this.state.provisionAgreement.pursuant}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'pursuant')}
-                    disabled={editMode}/>
-          {errors.pursuant && <InlineError text={errors.pursuant}/>}
+                    disabled={editMode} />
+          {errors.pursuant && <InlineError text={errors.pursuant} />}
         </Form.Field>
         <Form.Field>
           <label>Kanal</label>
           <Dropdown placeholder='Kanal' multiple selection options={exchangeChannelOptions}
-                    disabled={editMode}/>
+                    disabled={editMode} />
         </Form.Field>
         <Form.Field>
           <label>Protokoll</label>
-          <Dropdown placeholder='Protokoll' multiple selection options={protocolOptions} disabled={editMode}/>
+          <Dropdown placeholder='Protokoll' multiple selection options={protocolOptions} disabled={editMode} />
         </Form.Field>
         <Form.Field>
           <label>Emne</label>
           <Dropdown placeholder='Emne' multiple search selection options={subjectsOptions}
-                    disabled={editMode}/>
+                    disabled={editMode} />
         </Form.Field>
         <Form.Field>
           <label>Verdivurdering</label>
-          <Dropdown placeholder='Verdivurdering' selection options={valuationOptions} disabled={editMode}/>
+          <Dropdown placeholder='Verdivurdering' selection options={valuationOptions} disabled={editMode} />
         </Form.Field>
         <Form.Field>
           <label>Endringshåndtering</label>
-          <TextArea autoHeight placeholder='Endringshåndtering' readOnly={editMode}/>
+          <TextArea autoHeight placeholder='Endringshåndtering' readOnly={editMode} />
         </Form.Field>
       </div>
     )

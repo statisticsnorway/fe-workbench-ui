@@ -52,7 +52,6 @@ class AgentTable extends React.Component {
 export default AgentTable
 
 class AgentRow extends React.Component {
-
   onDelEvent () {
     this.props.onDelEvent(this.props.agent)
   }

@@ -13,8 +13,8 @@ class HomePage extends React.Component {
   render () {
     return (
       <div>
-        <HeaderLogo/>
-        <ProvisionAgreementPage/>
+        <HeaderLogo />
+        <ProvisionAgreementPage />
       </div>
     )
   }

@@ -13,8 +13,7 @@ class ExternalAgent extends React.Component {
 
     const uuidv1 = require('uuid/v1')
     let id = uuidv1()
-    this.state.externalAgents = [
-      {
+    this.state.externalAgents = [{
         id: id,
         role: '',
         type: 'external',
@@ -22,8 +21,8 @@ class ExternalAgent extends React.Component {
         email: '',
         telephone: '',
         comment: ''
-      }
-    ]
+      }]
+
     this.handleAgentTable = this.handleAgentTable.bind(this)
   }
 
@@ -32,7 +31,7 @@ class ExternalAgent extends React.Component {
 
     this.state.externalAgents.splice(index, 1)
     this.setState(this.state.externalAgents)
-  };
+  }
 
   handleAddEvent () {
     const uuidv1 = require('uuid/v1')
@@ -64,11 +63,12 @@ class ExternalAgent extends React.Component {
           agent[key] = item.value
         }
       }
+
       return agent
     })
 
     this.setState({externalAgents: newAgents})
-  };
+  }
 
   handleAgentTableDropdown (id, name, value) {
     let item = {
@@ -83,6 +83,7 @@ class ExternalAgent extends React.Component {
           agent[key] = item.value
         }
       }
+
       return agent
     })
 

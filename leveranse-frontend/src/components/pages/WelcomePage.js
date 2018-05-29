@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Grid, Image, Segment } from "semantic-ui-react"
+import { Button, Grid, Image, Segment } from 'semantic-ui-react'
 import ssb_logo from '../../assets/SSB_logo.png'
 
 let centerAlign = {
@@ -8,7 +8,7 @@ let centerAlign = {
 
 class WelcomePage extends React.Component {
   handleClick = () => {
-    this.props.history.push("/login")
+    this.props.history.push('/login')
   }
 
   render () {
@@ -25,7 +25,7 @@ class WelcomePage extends React.Component {
           <Grid.Row verticalAlign='top'>
             <Grid.Column>
               <div className='ui container'>
-                <Image src={ssb_logo} size='large' centered/>
+                <Image src={ssb_logo} size='large' centered />
               </div>
             </Grid.Column>
           </Grid.Row>
