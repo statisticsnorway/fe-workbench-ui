@@ -207,6 +207,9 @@ class ProvisionAgreement extends Component {
     if (!data.description) errors.description = 'Feltet kan ikke være tomt'
     if (!data.name) errors.name = 'Feltet kan ikke være tomt'
     if (!data.pursuant) errors.pursuant = 'Et valg må velges'
+    if (this.state.durationFrom.isAfter(this.state.durationTo)) { // noinspection JSValidateTypes
+      errors.durationTo = 'Dato til > dato fra'
+    }
 
     return errors
   }
@@ -354,13 +357,16 @@ class ProvisionAgreement extends Component {
           <Form.Field>
             <label>&nbsp;</label>
           </Form.Field>
-          <Form.Field>
+          <Form.Field error={!!errors.durationTo}>
             <label>&nbsp;</label>
             Til
             <div>
               <SingleDatePicker
                 date={this.state.durationTo}
-                onDateChange={durationTo => this.setState({durationTo: durationTo})}
+                onDateChange={durationTo => this.setState({
+                  durationTo: durationTo,
+                  errors: {...this.state.errors, durationTo: ''}
+                })}
                 focused={this.state.durationTofocused}
                 onFocusChange={({focused: durationTofocused}) => this.setState({durationTofocused})}
                 numberOfMonths={1}
@@ -368,6 +374,7 @@ class ProvisionAgreement extends Component {
                 disabled={editMode}
               />
             </div>
+            {errors.durationTo && <InlineError text={errors.durationTo} />}
           </Form.Field>
         </Form.Group>
         <Form.Field error={!!errors.pursuant}>
