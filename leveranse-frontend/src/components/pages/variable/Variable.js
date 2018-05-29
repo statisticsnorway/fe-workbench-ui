@@ -165,11 +165,11 @@ class Variable extends React.Component {
       <div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
-            <Form.Field/>
-            <Form.Field/>
+            <Form.Field />
+            <Form.Field />
             <Form.Field>
               <Checkbox slider checked={!this.state.readOnlyMode} onClick={this.editModeHandleClick} icon='edit'
-                        label='Redigeringsmodus' readOnly={!this.state.readOnlyMode}/>
+                        label='Redigeringsmodus' readOnly={!this.state.readOnlyMode} />
             </Form.Field>
           </Form.Group>
           <Grid container stackable>
@@ -187,49 +187,47 @@ class Variable extends React.Component {
                   </Form.Field>
                   <Form.Field>
                     <label>Variabelnavn</label>
-                    <Input placeholder='Variabelnavn' readOnly={this.state.readOnlyMode}/>
+                    <Input placeholder='Variabelnavn' readOnly={this.state.readOnlyMode} />
                   </Form.Field>
                   <Form.Field>
                     <label>Variabelbeskrivelse</label>
-                    <TextArea autoHeight placeholder='Variabelbeskrivelse' readOnly={this.state.readOnlyMode}/>
+                    <TextArea autoHeight placeholder='Variabelbeskrivelse' readOnly={this.state.readOnlyMode} />
                   </Form.Field>
                   <Form.Field>
                     <label>Begrep</label>
-                    <Input placeholder='Begrep' readOnly={this.state.readOnlyMode}/>
+                    <Input placeholder='Begrep' readOnly={this.state.readOnlyMode} />
                   </Form.Field>
                   <Form.Field>
                     <label>Enhetstype</label>
                     <Dropdown placeholder='Enhetstype' selection options={unitTypeOptions}
-                              disabled={this.state.readOnlyMode}/>
+                              disabled={this.state.readOnlyMode} />
                   </Form.Field>
                   <Form.Field>
                     <label>Merke</label>
                     <Dropdown placeholder='Merke' multiple search selection options={subjectsOptions}
-                              disabled={this.state.readOnlyMode}/>
+                              disabled={this.state.readOnlyMode} />
                   </Form.Field>
-                  <Header as='h4' content='Presisering av variabel'/>
+                  <Header as='h4' content='Presisering av variabel' />
                   <Form.Field>
                     <label>Ordnet</label>
                     <Dropdown placeholder='Ordnet' selection options={orderlyOptions}
-                              disabled={this.state.readOnlyMode}/>
+                              disabled={this.state.readOnlyMode} />
                   </Form.Field>
                   <Form.Field>
                     <label>Beskrevet</label>
                     <Dropdown placeholder='Beskrevet' selection options={describedOptions}
-                              disabled={this.state.readOnlyMode}/>
+                              disabled={this.state.readOnlyMode} />
                   </Form.Field>
                 </Segment>
               </Grid.Column>
               <Grid.Column width={6}>
-                <Segment>
-                </Segment>
               </Grid.Column>
             </Grid.Row>
           </Grid>
           <Segment>
             <Form.Button disabled={this.state.readOnlyMode} primary icon='save'
                          onClick={this.registerVariable}
-                         content='Lagre variabel'/>
+                         content='Lagre variabel' />
           </Segment>
         </Form>
       </div>

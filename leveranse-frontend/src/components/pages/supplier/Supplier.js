@@ -1,26 +1,24 @@
 import _ from 'lodash'
 import React from 'react'
-import { Button, Modal, Segment, Search } from 'semantic-ui-react'
+import { Button, Icon, Modal, Search, Segment } from 'semantic-ui-react'
 import '../../../assets/css/site.css'
-import sjøfart_logo from '../../../assets/sjøfart.jpg';
-import skatteetaten_logo from '../../../assets/Skatteetaten.png';
-
+import sjofart_logo from '../../../assets/sjofart.jpg'
+import skatteetaten_logo from '../../../assets/skatteetaten.png'
 
 const suppliers = [
   {
-    title: "SDIR",
-    description: "Sjøfart",
-    image: sjøfart_logo
+    title: 'SDIR',
+    description: 'Sjøfart',
+    image: sjofart_logo
   },
   {
-    title: "SERIUS",
-    description: "Skatteetaten",
+    title: 'SERIUS',
+    description: 'Skatteetaten',
     image: skatteetaten_logo
   }
-];
+]
 
 class Supplier extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -35,12 +33,13 @@ class Supplier extends React.Component {
     this.unmountTrap = this.unmountTrap.bind(this)
   }
 
-  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
+  resetComponent = () => this.setState({isLoading: false, results: [], value: ''})
 
   handleResultSelect = (e, {result}) => {
-    console.log(result);
-    this.props.onSearchSupplier(result);
-    this.setState({ value: result.title })
+    console.log(result)
+
+    this.props.onSearchSupplier(result)
+    this.setState({value: result.title})
   }
 
   handleSearchChange = (e, {value}) => {
@@ -54,7 +53,7 @@ class Supplier extends React.Component {
 
       this.setState({
         isLoading: false,
-        results: _.filter(suppliers, isMatch),
+        results: _.filter(suppliers, isMatch)
       })
     }, 300)
   }
@@ -74,12 +73,11 @@ class Supplier extends React.Component {
   }
 
   handleAccept = () => {
-   this.setState({
+    this.setState({
       modalOpen: false,
       activeTrap: false
     })
   }
-
 
   unmountTrap () {
     if (this.state.activeTrap) {
@@ -91,52 +89,52 @@ class Supplier extends React.Component {
     const {isLoading, value, results} = this.state
 
     return (
-     <Modal trigger={
-          <Button as="button" className="ml-10"
-                  type="button" aria-label="Open" data-tooltip="Søk leverandør" aria-hidden={this.state.modalOpen}
-                  basic onClick={this.handleOpen}>...
-          </Button>
-        }
-               open={this.state.modalOpen}
-               onClose={this.handleClose}
-               size="small"
-               className="container"
-               role="dialog"
-               id="exampleModal"
-               tabIndex="0">
-          <Modal.Header className="ui center aligned" as="h1" id="exampleModalHeader">
-            Levenrandør
-          </Modal.Header>
-          <Modal.Content>
-           <Segment color="blue" textAlign="center" padded>
-                <Segment.Group horizontal>
-                  <Segment textAlign="left">
-                    <Search
-                      input={{ fluid: true }}
-                      ref={(ref) => this.search = ref}
-                      loading={isLoading}
-                      onResultSelect={this.handleResultSelect}
-                      onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
-                      results={results}
-                      value={value}
-                    />
-                  </Segment>
-                  <Segment textAlign="left" compact>
-                    <Modal.Actions>
-                      <Button color="green" tabIndex="0" type="button" aria-label="Accept" data-tooltip="Select leverandør"
-                              onClick={this.handleAccept}>
-                        Select
-                      </Button>
-                      <Button color='red' tabIndex="0" type="button" aria-label="Cancel" data-tooltip="Cancel"
-                              onClick={this.handleClose}>
-                        Cancel
-                      </Button>
-                    </Modal.Actions>
-                  </Segment>
-                </Segment.Group>
+      <Modal trigger={
+        <Button icon className='ml-10' aria-label='Open' data-tooltip='Søk leverandør'
+                aria-hidden={this.state.modalOpen}
+                basic onClick={this.handleOpen}><Icon name='ellipsis horizontal' />
+        </Button>
+      }
+             open={this.state.modalOpen}
+             onClose={this.handleClose}
+             size='small'
+             className='container'
+             role='dialog'
+             id='exampleModal'
+             tabIndex='0'>
+        <Modal.Header className='ui center aligned' as='h1' id='exampleModalHeader'>
+          Leverandør
+        </Modal.Header>
+        <Modal.Content>
+          <Segment color='blue' textAlign='center' padded>
+            <Segment.Group horizontal>
+              <Segment textAlign='left'>
+                <Search
+                  input={{fluid: true}}
+                  ref={(ref) => this.search = ref}
+                  loading={isLoading}
+                  onResultSelect={this.handleResultSelect}
+                  onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
+                  results={results}
+                  value={value}
+                />
               </Segment>
-          </Modal.Content>
-        </Modal>
+              <Segment textAlign='left' compact>
+                <Modal.Actions>
+                  <Button color='green' tabIndex='0' type='button' aria-label='Accept' data-tooltip='Select leverandør'
+                          onClick={this.handleAccept}>
+                    Select
+                  </Button>
+                  <Button color='red' tabIndex='0' type='button' aria-label='Cancel' data-tooltip='Cancel'
+                          onClick={this.handleClose}>
+                    Cancel
+                  </Button>
+                </Modal.Actions>
+              </Segment>
+            </Segment.Group>
+          </Segment>
+        </Modal.Content>
+      </Modal>
     )
   }
 }

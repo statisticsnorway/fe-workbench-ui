@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Form, Header, Input, Segment } from "semantic-ui-react"
+import { Form, Header, Input, Segment } from 'semantic-ui-react'
 
 class Agent extends Component {
   constructor (props) {
@@ -119,17 +119,17 @@ class Agent extends Component {
           <Form.Field>
             <label>Navn</label>
             <Input placeholder='Navn' name='name' value={this.state.agent.name}
-                   onChange={this.handleInputChange} readOnly={editMode}/>
+                   onChange={this.handleInputChange} readOnly={editMode} />
           </Form.Field>
           <Form.Field>
             <label>Beskrivelse</label>
             <Input placeholder='Beskrivelse' name='description' value={this.state.agent.description}
-                   onChange={this.handleInputChange} readOnly={editMode}/>
+                   onChange={this.handleInputChange} readOnly={editMode} />
           </Form.Field>
           <Form.Field>
             <label>Versjon</label>
             <Input placeholder='Versjon' name='version' value={this.state.agent.version}
-                   onChange={this.handleInputChange} readOnly={editMode}/>
+                   onChange={this.handleInputChange} readOnly={editMode} />
           </Form.Field>
         </Form>
       </div>
