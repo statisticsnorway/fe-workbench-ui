@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "ajv": "^6.4.0",
-    "axios": "^0.17.1",
+    "axios": "^0.18.0",
     "faker": "^4.1.0",
     "focus-trap-react": "^3.1.2",
     "gravatar-url": "^2.0.0",
@@ -17,14 +17,14 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.17",
+    "react-scripts": "1.1.4",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.2",
-    "redux-thunk": "^2.2.0",
+    "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.3.1",
-    "semantic-ui-react": "^0.80.0",
+    "semantic-ui-react": "^0.80.2",
     "uuid": "^3.2.1",
-    "validator": "^9.4.1"
+    "validator": "^10.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,10 +35,10 @@
   },
   "devDependencies": {
     "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^15.0.1",
+    "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.11.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.7.0",
     "prettier": "^1.12.1"
