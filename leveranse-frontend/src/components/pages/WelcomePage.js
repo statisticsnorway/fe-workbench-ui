@@ -13,7 +13,7 @@ class WelcomePage extends React.Component {
 
   render () {
     return (
-      <div className="ui container">
+      <div className='ui container'>
         <Grid columns={1} centered>
           <Grid.Row verticalAlign='top'>
             <Grid.Column>

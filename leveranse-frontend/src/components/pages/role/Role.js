@@ -114,7 +114,7 @@ class Role extends Component {
         </Header>
         <Form.Field>
           <label>Navn</label>
-          <Input placeholder='Navn' name="name" value={this.state.role.name} onChange={this.handleInputChange}
+          <Input placeholder='Navn' name='name' value={this.state.role.name} onChange={this.handleInputChange}
                  readOnly={editMode} />
         </Form.Field>
       </div>

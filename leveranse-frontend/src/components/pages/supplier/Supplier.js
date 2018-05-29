@@ -19,7 +19,6 @@ const suppliers = [
 ]
 
 class Supplier extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -91,25 +90,25 @@ class Supplier extends React.Component {
 
     return (
       <Modal trigger={
-        <Button icon className="ml-10" aria-label="Open" data-tooltip="Søk leverandør"
+        <Button icon className='ml-10' aria-label='Open' data-tooltip='Søk leverandør'
                 aria-hidden={this.state.modalOpen}
                 basic onClick={this.handleOpen}><Icon name='ellipsis horizontal' />
         </Button>
       }
              open={this.state.modalOpen}
              onClose={this.handleClose}
-             size="small"
-             className="container"
-             role="dialog"
-             id="exampleModal"
-             tabIndex="0">
-        <Modal.Header className="ui center aligned" as="h1" id="exampleModalHeader">
+             size='small'
+             className='container'
+             role='dialog'
+             id='exampleModal'
+             tabIndex='0'>
+        <Modal.Header className='ui center aligned' as='h1' id='exampleModalHeader'>
           Leverandør
         </Modal.Header>
         <Modal.Content>
-          <Segment color="blue" textAlign="center" padded>
+          <Segment color='blue' textAlign='center' padded>
             <Segment.Group horizontal>
-              <Segment textAlign="left">
+              <Segment textAlign='left'>
                 <Search
                   input={{fluid: true}}
                   ref={(ref) => this.search = ref}
@@ -120,13 +119,13 @@ class Supplier extends React.Component {
                   value={value}
                 />
               </Segment>
-              <Segment textAlign="left" compact>
+              <Segment textAlign='left' compact>
                 <Modal.Actions>
-                  <Button color="green" tabIndex="0" type="button" aria-label="Accept" data-tooltip="Select leverandør"
+                  <Button color='green' tabIndex='0' type='button' aria-label='Accept' data-tooltip='Select leverandør'
                           onClick={this.handleAccept}>
                     Select
                   </Button>
-                  <Button color='red' tabIndex="0" type="button" aria-label="Cancel" data-tooltip="Cancel"
+                  <Button color='red' tabIndex='0' type='button' aria-label='Cancel' data-tooltip='Cancel'
                           onClick={this.handleClose}>
                     Cancel
                   </Button>

@@ -69,10 +69,10 @@ class LoginForm extends React.Component {
                     fluid
                     icon='user'
                     iconPosition='left'
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="eksempel@ssb.no"
+                    type='email'
+                    id='email'
+                    name='email'
+                    placeholder='eksempel@ssb.no'
                     value={data.email}
                     onChange={this.onChange} />
                   {errors.email && <InlineError text={errors.email} />}
@@ -83,9 +83,9 @@ class LoginForm extends React.Component {
                     icon='lock'
                     iconPosition='left'
                     type='password'
-                    id="password"
-                    name="password"
-                    placeholder="Passord"
+                    id='password'
+                    name='password'
+                    placeholder='Passord'
                     value={data.password}
                     onChange={this.onChange} />
                   {errors.password && <InlineError text={errors.password} />}

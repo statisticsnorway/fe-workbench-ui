@@ -6,10 +6,10 @@ import HomePage from './components/pages/HomePage'
 import 'moment/locale/nb'
 
 const App = () => (
-  <div className=" ui container">
-    <Route path="/" exact component={WelcomePage} />
-    <Route path="/login" exact component={LoginPage} />
-    <Route path="/home" exact component={HomePage} />
+  <div className='ui container'>
+    <Route path='/' exact component={WelcomePage} />
+    <Route path='/login' exact component={LoginPage} />
+    <Route path='/home' exact component={HomePage} />
   </div>
 )
 

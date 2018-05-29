@@ -308,7 +308,7 @@ class ProvisionAgreement extends Component {
           <Grid stackable>
             <Grid.Row>
               <Grid.Column width={12}>
-                <Input placeholder='Leverandør' name='supplier' readOnly={editMode} className="ml-3"
+                <Input placeholder='Leverandør' name='supplier' readOnly={editMode} className='ml-3'
                        value={this.state.provisionAgreement.supplier.title || ''} onChange={this.handleInputChange}>
                 </Input>
               </Grid.Column>
@@ -321,7 +321,7 @@ class ProvisionAgreement extends Component {
         <Form.Field error={!!errors.name}>
           <label>Avtalenavn</label>
           <Input placeholder='Avtalenavn' name='name' value={this.state.provisionAgreement.name}
-                 onChange={this.handleInputChange} readOnly={editMode}/>
+                 onChange={this.handleInputChange} readOnly={editMode} />
           {errors.name && <InlineError text={errors.name} />}
         </Form.Field>
         <Form.Field error={!!errors.description}>
@@ -333,7 +333,7 @@ class ProvisionAgreement extends Component {
         </Form.Field>
         <Form.Field>
           <label>Status</label>
-          <Dropdown placeholder='Status' selection options={statusOptions} disabled={editMode}/>
+          <Dropdown placeholder='Status' selection options={statusOptions} disabled={editMode} />
         </Form.Field>
         <Form.Group widths='equal'>
           <Form.Field>
@@ -346,7 +346,7 @@ class ProvisionAgreement extends Component {
                 focused={this.state.durationFromfocused}
                 onFocusChange={({focused: durationFromfocused}) => this.setState({durationFromfocused})}
                 numberOfMonths={1}
-                displayFormat="DD/MM/YYYY"
+                displayFormat='DD/MM/YYYY'
                 disabled={editMode}
               />
             </div>
@@ -364,7 +364,7 @@ class ProvisionAgreement extends Component {
                 focused={this.state.durationTofocused}
                 onFocusChange={({focused: durationTofocused}) => this.setState({durationTofocused})}
                 numberOfMonths={1}
-                displayFormat="DD/MM/YYYY"
+                displayFormat='DD/MM/YYYY'
                 disabled={editMode}
               />
             </div>

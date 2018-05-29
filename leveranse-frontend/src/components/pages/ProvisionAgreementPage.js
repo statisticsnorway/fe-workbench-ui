@@ -25,20 +25,20 @@ class ProvisionAgreementPage extends React.Component {
                   <Input icon='search' placeholder='Finn avtale' />
                 </Menu.Item>
                 <Menu.Item name='newProvisionAgreement' active={activeItem === 'newProvisionAgreement'}>
-                  <NavLink to="/newProvisionAgreement">
-                    <Icon name="compose" />
+                  <NavLink to='/newProvisionAgreement'>
+                    <Icon name='compose' />
                     Opprett ny avtale
                   </NavLink>
                 </Menu.Item>
                 <Menu.Item name='copyProvisionAgreement' active={activeItem === 'copyProvisionAgreement'}>
-                  <NavLink to="/copyProvisionAgreement">
+                  <NavLink to='/copyProvisionAgreement'>
                     <Icon name='copy' />
                     Kopier avtale
                   </NavLink>
                 </Menu.Item>
                 <Menu.Item name='deleteProvisionAgreement'
                            active={activeItem === 'deleteProvisionAgreement'}>
-                  <NavLink to="/deleteProvisionAgreement">
+                  <NavLink to='/deleteProvisionAgreement'>
                     <Icon name='trash' />
                     Slett avtale
                   </NavLink>
@@ -48,7 +48,7 @@ class ProvisionAgreementPage extends React.Component {
                 <Menu.Item header>Variabel</Menu.Item>
                 <Menu.Item name='newVariable' active={activeItem === 'newVariable'}>
                   <NavLink to='/Variable'>
-                    <Icon name="compose" />
+                    <Icon name='compose' />
                     Opprett ny variabel
                   </NavLink>
                 </Menu.Item>
@@ -65,7 +65,7 @@ class ProvisionAgreementPage extends React.Component {
             </Grid.Column>
             <Grid.Column width={13}>
               <Segment>
-                <Route path="/newProvisionAgreement"
+                <Route path='/newProvisionAgreement'
                        render={(props) => <NewProvisionAgreement {...props} isNewProvisionAgreement={true} />} />
                 <Route path='/Variable' component={Variable} />
               </Segment>
