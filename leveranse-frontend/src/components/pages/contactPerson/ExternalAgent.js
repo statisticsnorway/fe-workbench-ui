@@ -23,7 +23,7 @@ class ExternalAgent extends React.Component {
       roleId: '',
       agentId: uuAgentId,
       individualId: uuIndividualId,
-      internalExternal: 'external',
+      internalExternal: 'E',
       name: '',
       email: '',
       phoneNumber: '',
@@ -53,7 +53,7 @@ class ExternalAgent extends React.Component {
       roleId: '',
       agentId: uuAgentId,
       individualId: uuIndividualId,
-      internalExternal: 'external',
+      internalExternal: 'E',
       name: '',
       email: '',
       phoneNumber: '',
@@ -104,8 +104,8 @@ class ExternalAgent extends React.Component {
     this.setState({externalAgents: newAgents})
   }
 
-  prepareDataForBackend () {
-    let data = {...this.state.externalAgents}
+  prepareDataForBackend (agent) {
+    let data = agent
 
     for (let attribute in data) {
       if (data[attribute] === '') {
@@ -118,21 +118,11 @@ class ExternalAgent extends React.Component {
     return data
   }
 
-  registerExternalAgents () {
+  sendDataToBackend (data) {
     let responseStatus
     let errorMessage
     let responseMessage
     let url
-    let externalAgents = {...this.state.externalAgents}
-
-    let data
-    /*data = this.prepareDataForBackend()*/
-
-    JSON.stringify(data)
-    console.log(data)
-    }
-
-    /*
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/contactPerson'
 
     axios.post(url, data, {
@@ -154,26 +144,36 @@ class ExternalAgent extends React.Component {
           this.setState({
             response: {
               color: 'green',
-              text: 'Interne kontaktpersoner ble lagret: ' + [responseMessage]
+              text: 'Ekstern kontaktperson ble lagret: ' + [responseMessage]
             }
           })
         } else if (responseStatus === 'Error') {
           this.setState({
             response: {
               color: 'red',
-              text: 'Interne kontaktpersoner ble ikke lagret: ' + [errorMessage]
+              text: 'Ekstern kontaktperson ble ikke lagret: ' + [errorMessage]
             }
           })
         } else {
           this.setState({
             response: {
               color: 'yellow',
-              text: 'Interne kontaktpersoner ble ikke lagret: ' + [responseMessage]
+              text: 'Ekstern kontaktpersoner ble ikke lagret: ' + [responseMessage]
             }
           })
         }
       })
-      */
+  }
+
+  registerExternalAgents () {
+    let agents = this.state.externalAgents.slice()
+    let data
+
+    agents.forEach((agent) => {
+      data = this.prepareDataForBackend (agent)
+      console.log(data)
+      this.sendDataToBackend(data)
+    })
   }
 
   render () {
