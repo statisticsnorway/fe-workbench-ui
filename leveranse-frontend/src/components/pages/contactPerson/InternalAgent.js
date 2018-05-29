@@ -32,7 +32,7 @@ class InternalAgent extends React.Component {
 
     this.state.internalAgents.splice(index, 1)
     this.setState(this.state.internalAgents)
-  };
+  }
 
   handleAddEvent () {
     const uuidv1 = require('uuid/v1')
@@ -68,7 +68,7 @@ class InternalAgent extends React.Component {
       return agent
     })
     this.setState({internalAgents: newAgents})
-  };
+  }
 
   handleAgentTableDropdown (id, name, value) {
     let item = {
@@ -83,6 +83,7 @@ class InternalAgent extends React.Component {
           agent[key] = item.value
         }
       }
+
       return agent
     })
 

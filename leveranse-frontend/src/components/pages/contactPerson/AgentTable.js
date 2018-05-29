@@ -52,7 +52,6 @@ class AgentTable extends React.Component {
 export default AgentTable
 
 class AgentRow extends React.Component {
-
   onDelEvent () {
     this.props.onDelEvent(this.props.agent)
   }
@@ -69,19 +68,19 @@ class AgentRow extends React.Component {
                     disabled={editMode} />
         </td>
         <td>
-          <input type='text' name="name" id={this.props.agent.id} value={this.props.agent.name}
+          <input type='text' name='name' id={this.props.agent.id} value={this.props.agent.name}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
-          <input type='text' name="email" id={this.props.agent.id} value={this.props.agent.email}
+          <input type='text' name='email' id={this.props.agent.id} value={this.props.agent.email}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
-          <input type='text' name="telephone" id={this.props.agent.id} value={this.props.agent.telephone}
+          <input type='text' name='telephone' id={this.props.agent.id} value={this.props.agent.telephone}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
-          <input type='text' name="comment" id={this.props.agent.id} value={this.props.agent.comment}
+          <input type='text' name='comment' id={this.props.agent.id} value={this.props.agent.comment}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>

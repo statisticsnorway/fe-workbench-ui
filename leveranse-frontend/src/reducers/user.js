@@ -1,4 +1,4 @@
-import { USER_LOGGED_IN } from "../types"
+import { USER_LOGGED_IN } from '../types'
 
 export default function user (state = {}, action = {}) {
   switch (action.type) {
