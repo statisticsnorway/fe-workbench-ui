@@ -12,6 +12,8 @@ class ContactPerson extends React.Component {
     this.setState({
       readOnlyMode: true
     })
+    this.InternalAgent.registerInternalAgents()
+    this.ExternalAgent.registerExternalAgents()
   }
 
   editModeHandleClick = () => {
