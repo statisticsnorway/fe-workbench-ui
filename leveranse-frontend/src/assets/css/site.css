@@ -29,5 +29,13 @@
 }
 
 .ml-10 {
+    margin-left: 10% !important;
+}
+
+.ml-15 {
     margin-left: 15% !important;
+}
+
+.ui.small.vertical.menu {
+    width: 11.4rem !important;
 }
