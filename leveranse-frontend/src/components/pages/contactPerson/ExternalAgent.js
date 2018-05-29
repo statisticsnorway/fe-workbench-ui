@@ -1,46 +1,54 @@
 import React from 'react'
+/*import axios from 'axios'*/
 import { Divider } from 'semantic-ui-react'
 import AgentTable from './AgentTable'
 
 class ExternalAgent extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
 
-    this.state = {};
-    this.state.filterText = "";
-    this.state.agents = [
+    this.state = {
+      response: {}
+    }
+
+    const uuidv1 = require('uuid/v1')
+    let id = uuidv1()
+    this.state.externalAgents = [
       {
-        id: '0',
+        id: id,
         role: '',
+        type: 'external',
         name: '',
         email: '',
         telephone: '',
         comment: ''
       }
-    ];
+    ]
+    this.handleAgentTable = this.handleAgentTable.bind(this)
   }
 
   handleRowDel (agent) {
-    let index = this.state.agents.indexOf(agent);
+    let index = this.state.externalAgents.indexOf(agent)
 
-    this.state.agents.splice(index, 1);
-    this.setState(this.state.agents);
+    this.state.externalAgents.splice(index, 1)
+    this.setState(this.state.externalAgents)
   };
 
   handleAddEvent () {
-    let id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    const uuidv1 = require('uuid/v1')
+    let id = uuidv1()
     let agent = {
       id: id,
-      role: "",
-      name: "",
-      email: "",
-      telephone: "",
-      comment: ""
+      role: '',
+      type: 'external',
+      name: '',
+      email: '',
+      telephone: '',
+      comment: ''
     }
 
-    this.state.agents.push(agent);
-    this.setState(this.state.agents);
-
+    this.state.externalAgents.push(agent)
+    this.setState(this.state.externalAgents)
   }
 
   handleAgentTable (evt) {
@@ -48,20 +56,108 @@ class ExternalAgent extends React.Component {
       id: evt.target.id,
       name: evt.target.name,
       value: evt.target.value
-    };
-    let agents = this.state.agents.slice();
+    }
+    let agents = this.state.externalAgents.slice()
     let newAgents = agents.map(function (agent) {
       for (let key in agent) {
         if (key === item.name && agent['id'] === item.id) {
-          agent[key] = item.value;
+          agent[key] = item.value
         }
       }
+      return agent
+    })
 
-      return agent;
-    });
-
-    this.setState({agents: newAgents});
+    this.setState({externalAgents: newAgents})
   };
+
+  handleAgentTableDropdown (id, name, value) {
+    let item = {
+      id: id,
+      name: name,
+      value: value
+    }
+    let agents = this.state.externalAgents.slice()
+    let newAgents = agents.map(function (agent) {
+      for (let key in agent) {
+        if (key === item.name && agent['id'] === item.id) {
+          agent[key] = item.value
+        }
+      }
+      return agent
+    })
+
+    this.setState({externalAgents: newAgents})
+  }
+
+  prepareDataForBackend () {
+    let data = {...this.state.externalAgents}
+
+    for (let attribute in data) {
+      if (data[attribute] === '') {
+        data[attribute] = null
+      }
+    }
+
+    JSON.stringify(data)
+
+    return data
+  }
+
+  registerExternalAgents () {
+    /*
+    let responseStatus
+    let errorMessage
+    let responseMessage
+    let url
+    */
+    let data
+
+    data = this.prepareDataForBackend()
+    console.log(data)
+
+    /*
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/agents'
+
+    axios.post(url, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => {
+      console.log(response)
+      responseStatus = response.status
+      responseMessage = response.statusText
+    })
+      .catch(function (error) {
+        console.log(error)
+        responseStatus = 'Error'
+        errorMessage = error.message
+      })
+      .then(() => {
+        if (responseStatus === 201) {
+          this.setState({
+            response: {
+              color: 'green',
+              text: 'Interne kontaktpersoner ble lagret: ' + [responseMessage]
+            }
+          })
+        } else if (responseStatus === 'Error') {
+          this.setState({
+            response: {
+              color: 'red',
+              text: 'Interne kontaktpersoner ble ikke lagret: ' + [errorMessage]
+            }
+          })
+        } else {
+          this.setState({
+            response: {
+              color: 'yellow',
+              text: 'Interne kontaktpersoner ble ikke lagret: ' + [responseMessage]
+            }
+          })
+        }
+      })
+    */
+  }
 
   render () {
     const editMode = this.props.editMode
@@ -69,15 +165,17 @@ class ExternalAgent extends React.Component {
     return (
       <div>
         <Divider horizontal>Ekstern</Divider>
-        <AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)}
-                    onRowDel={this.handleRowDel.bind(this)} agents={this.state.agents}
-                    filterText={this.state.filterText} editMode={editMode}/>
+        <AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)}
+                    onAgentTableUpdateDropdown={this.handleAgentTableDropdown.bind(this)}
+                    onRowAdd={this.handleAddEvent.bind(this)}
+                    onRowDel={this.handleRowDel.bind(this)} agents={this.state.externalAgents}
+                    editMode={editMode} />
       </div>
-    );
+    )
   }
 }
 
-export default ExternalAgent;
+export default ExternalAgent
 
 
 
