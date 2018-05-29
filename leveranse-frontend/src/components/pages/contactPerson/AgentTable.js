@@ -1,12 +1,12 @@
 import React from 'react'
 import { Button, Dropdown, Icon, Table } from 'semantic-ui-react'
 
-const roleOptions = [{key: '1', value: 'Kvalitetsansvar', text: 'Kvalitetsansvar'},
-  {key: '2', value: 'Planlegger', text: 'Planlegger'},
-  {key: '3', value: 'Ansvarligseksjon', text: 'Ansvarligseksjon'},
-  {key: '4', value: 'Ansvarlig', text: 'Ansvarlig'},
-  {key: '5', value: 'Uttrekk', text: 'Uttrekk'},
-  {key: '6', value: 'Regelverk', text: 'Regelverk'}]
+const roleOptions = [{key: '1', value: '1', text: 'Kvalitetsansvar'},
+  {key: '2', value: '2', text: 'Planlegger'},
+  {key: '3', value: '3', text: 'Ansvarligseksjon'},
+  {key: '4', value: '4', text: 'Ansvarlig'},
+  {key: '5', value: '5', text: 'Uttrekk'},
+  {key: '6', value: '6', text: 'Regelverk'}]
 
 class AgentTable extends React.Component {
   render () {

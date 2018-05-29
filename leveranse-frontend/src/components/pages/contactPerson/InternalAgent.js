@@ -1,5 +1,5 @@
 import React from 'react'
-/*import axios from 'axios'*/
+import axios from 'axios'
 import { Divider } from 'semantic-ui-react'
 import AgentTable from './AgentTable'
 
@@ -12,15 +12,22 @@ class InternalAgent extends React.Component {
     }
 
     const uuidv1 = require('uuid/v1')
-    let id = uuidv1()
+    let uupaId = uuidv1()
+    let uuId = uuidv1()
+    let uuAgentId = uuidv1()
+    let uuIndividualId = uuidv1()
+
     this.state.internalAgents = [
       {
-        id: id,
-        role: '',
-        type: 'internal',
+        paId: uupaId,
+        id: uuId,
+        roleId: '',
+        agentId: uuAgentId,
+        individualId: uuIndividualId,
+        internalExternal: 'internal',
         name: '',
         email: '',
-        telephone: '',
+        phoneNumber: '',
         comment: ''
       }
     ]
@@ -36,14 +43,21 @@ class InternalAgent extends React.Component {
 
   handleAddEvent () {
     const uuidv1 = require('uuid/v1')
-    let id = uuidv1()
+    let uupaId = uuidv1()
+    let uuId = uuidv1()
+    let uuAgentId = uuidv1()
+    let uuIndividualId = uuidv1()
+
     let agent = {
-      id: id,
-      role: '',
-      type: 'internal',
+      paId: uupaId,
+      id: uuId,
+      roleId: '',
+      agentId: uuAgentId,
+      individualId: uuIndividualId,
+      internalExternal: 'internal',
       name: '',
       email: '',
-      telephone: '',
+      phoneNumber: '',
       comment: ''
     }
 
@@ -105,19 +119,17 @@ class InternalAgent extends React.Component {
   }
 
   registerInternalAgents () {
-    /*
     let responseStatus
     let errorMessage
     let responseMessage
     let url
-    */
+
     let data
 
     data = this.prepareDataForBackend()
     console.log(data)
 
-    /*
-    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/agents'
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/contactPerson'
 
     axios.post(url, data, {
       headers: {
@@ -157,7 +169,6 @@ class InternalAgent extends React.Component {
           })
         }
       })
-    */
 
   }
 
