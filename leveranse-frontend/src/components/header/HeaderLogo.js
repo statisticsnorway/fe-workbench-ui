@@ -6,7 +6,7 @@ const HeaderLogo = () => (
   <Grid celled='internally'>
     <Grid.Row>
       <Grid.Column>
-        <Image src={ssb_logo} size='medium' />
+        <Image src={ssb_logo} size='medium' as='a' href='/home' />
       </Grid.Column>
     </Grid.Row>
   </Grid>

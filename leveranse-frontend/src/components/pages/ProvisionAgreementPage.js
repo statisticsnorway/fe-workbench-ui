@@ -1,8 +1,9 @@
 import React from 'react'
 import { Dropdown, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
 import { BrowserRouter, NavLink, Route } from 'react-router-dom'
-import NewProvisionAgreement from './provisionalAgreement/NewProvisionAgreement'
+import NewProvisionAgreement from './provisionAgreement/NewProvisionAgreement'
 import Variable from './variable/Variable'
+import ProvisionAgreementsList from './provisionAgreement/ProvisionAgreementsList'
 import '../../assets/css/site.css'
 
 class ProvisionAgreementPage extends React.Component {
@@ -49,8 +50,8 @@ class ProvisionAgreementPage extends React.Component {
                 <Menu fluid vertical>
                   <Menu.Item header>Variabel</Menu.Item>
                   <Menu.Item name='newVariable' active={activeItem === 'newVariable'}>
-                    <NavLink to='/Variable'>
-                      <Icon name="compose" />
+                    <NavLink to='/variable'>
+                      <Icon name='compose' />
                       Opprett ny
                     </NavLink>
                   </Menu.Item>
@@ -65,14 +66,13 @@ class ProvisionAgreementPage extends React.Component {
                   </Dropdown>
                 </Menu>
               </Segment>
-
             </Grid.Column>
-
             <Grid.Column width={12}>
               <Segment inverted tertiary>
                 <Route path='/newProvisionAgreement'
                        render={(props) => <NewProvisionAgreement {...props} isNewProvisionAgreement={true} />} />
-                <Route path='/Variable' component={Variable} />
+                <Route path='/variable' component={Variable} />
+                <Route path='/home' component={ProvisionAgreementsList} />
               </Segment>
             </Grid.Column>
           </Grid>

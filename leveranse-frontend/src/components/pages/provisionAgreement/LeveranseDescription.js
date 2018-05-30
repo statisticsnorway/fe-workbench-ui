@@ -32,16 +32,16 @@ class LeveranseDescription extends React.Component {
     */
   }
 
-  render() {
+  render () {
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
-            <Form.Field/>
-            <Form.Field/>
+            <Form.Field />
+            <Form.Field />
             <Form.Field>
               <Checkbox slider checked={!this.state.readOnlyMode} onClick={this.editModeHandleClick} icon='edit'
-                        label='Redigeringsmodus' readOnly={!this.state.readOnlyMode}/>
+                        label='Redigeringsmodus' readOnly={!this.state.readOnlyMode} />
             </Form.Field>
           </Form.Group>
           <Grid container stackable>
@@ -50,13 +50,13 @@ class LeveranseDescription extends React.Component {
                 <Segment>
                   <ProvisionAgreement ref={(provisionAgreement => {
                     this.provisionAgreement = provisionAgreement
-                  })} editMode={this.state.readOnlyMode} isNewProvisionAgreement={this.props.isNewProvisionAgreement}/>
+                  })} editMode={this.state.readOnlyMode} isNewProvisionAgreement={this.props.isNewProvisionAgreement} />
                 </Segment>
               </Grid.Column>
               <Grid.Column width={6}>
                 <Segment><AdministrativeDetails
                   ref={(administrativeDetails => {this.administrativeDetails = administrativeDetails})}
-                  editMode={this.state.readOnlyMode}/>
+                  editMode={this.state.readOnlyMode} />
                 </Segment>
               </Grid.Column>
             </Grid.Row>
@@ -64,7 +64,7 @@ class LeveranseDescription extends React.Component {
           <Segment>
             <Form.Button disabled={this.state.readOnlyMode} primary icon='save'
                          onClick={this.saveProvisionAgreement}
-                         content='Lagre leveranseavtale'/>
+                         content='Lagre leveranseavtale' />
           </Segment>
         </Form>
       </div>
