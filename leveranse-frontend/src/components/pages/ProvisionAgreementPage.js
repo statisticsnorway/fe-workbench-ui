@@ -51,7 +51,7 @@ class ProvisionAgreementPage extends React.Component {
                   <Menu.Item header>Variabel</Menu.Item>
                   <Menu.Item name='newVariable' active={activeItem === 'newVariable'}>
                     <NavLink to='/variable'>
-                      <Icon name="compose" />
+                      <Icon name='compose' />
                       Opprett ny
                     </NavLink>
                   </Menu.Item>
@@ -66,9 +66,7 @@ class ProvisionAgreementPage extends React.Component {
                   </Dropdown>
                 </Menu>
               </Segment>
-
             </Grid.Column>
-
             <Grid.Column width={12}>
               <Segment inverted tertiary>
                 <Route path='/newProvisionAgreement'
