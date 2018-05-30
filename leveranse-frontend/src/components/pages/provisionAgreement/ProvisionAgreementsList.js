@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { Grid, List, Loader, Message, Segment } from 'semantic-ui-react'
+import { Grid, Header, List, Loader, Message, Segment } from 'semantic-ui-react'
 
 let provisionAgreements = []
 
@@ -83,7 +83,8 @@ class ProvisionAgreementsList extends React.Component {
           <Grid.Row columns={1}>
             <Grid.Column width={16}>
               <Segment>
-                {this.state.loading ? <Loader active size='mini' /> : <List>{listItems}</List>}
+                <Header as='h3' dividing>Leveranseavtaler</Header>
+                {this.state.loading ? <Loader active size='mini' /> : <List relaxed>{listItems}</List>}
                 {Object.keys(response).length !== 0 ?
                   <Message color={response.color}><Message.Header>Noe gikk galt ved henting av
                     leveranseavtaler</Message.Header>{response.text}</Message> : null}
