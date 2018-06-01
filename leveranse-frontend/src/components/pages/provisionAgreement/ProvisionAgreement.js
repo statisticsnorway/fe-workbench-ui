@@ -71,7 +71,8 @@ class ProvisionAgreement extends Component {
         durationTo: '',
         frequency: '',
         pursuant: '',
-        supplier: ''
+        supplier: '',
+        selected: ''
       },
       durationFrom: moment(),
       durationTo: moment(),
