@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Checkbox, Dropdown, Form, Grid, Header, Input, Segment, TextArea } from 'semantic-ui-react'
+import { fetchMainSubjectsFromExternalApi } from '../../../utils/Common'
 
 const unitTypeOptions = [
   {key: '1', text: 'Person', value: 'Person'},
@@ -19,7 +20,7 @@ const describedOptions = [
   {key: '2', text: '[ingenting]', value: null}
 ]
 
-let subjectsOptions = []
+const mainSubjectsOptions = fetchMainSubjectsFromExternalApi()
 
 class Variable extends React.Component {
   constructor (props) {
@@ -33,33 +34,7 @@ class Variable extends React.Component {
     const uuidv1 = require('uuid/v1')
     this.state.variable.id = uuidv1()
 
-    this.fetchSubjects()
     this.handleInputChange = this.handleInputChange.bind(this)
-  }
-
-  fetchSubjects () {
-    subjectsOptions = []
-    let mainSubjects
-    let url
-
-    url = process.env.REACT_APP_SSB_SUBJECTS
-
-    axios.get(url)
-      .then((response) => {
-        mainSubjects = response.data
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-      .then(() => {
-        for (let key in mainSubjects) {
-          subjectsOptions.push({
-            key: mainSubjects[key]['id'],
-            text: mainSubjects[key]['text'],
-            value: mainSubjects[key]['text']
-          })
-        }
-      })
   }
 
   handleInputChange (event) {
@@ -204,7 +179,7 @@ class Variable extends React.Component {
                   </Form.Field>
                   <Form.Field>
                     <label>Merke</label>
-                    <Dropdown placeholder='Merke' multiple search selection options={subjectsOptions}
+                    <Dropdown placeholder='Merke' multiple search selection options={mainSubjectsOptions}
                               disabled={this.state.readOnlyMode} />
                   </Form.Field>
                   <Header as='h4' content='Presisering av variabel' />
