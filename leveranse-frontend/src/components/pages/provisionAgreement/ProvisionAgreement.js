@@ -3,6 +3,7 @@ import axios from 'axios'
 import moment from 'moment'
 import { Dropdown, Form, Grid, Header, Input, Segment, TextArea } from 'semantic-ui-react'
 import { SingleDatePicker } from 'react-dates'
+import { fetchAllSubjectsFromExternalApi } from '../../../utils/Common'
 import 'react-dates/lib/css/_datepicker.css'
 import 'react-dates/initialize'
 import InlineError from '../../messages/InlineError'
@@ -51,6 +52,7 @@ const valuationOptions = [
   {key: '5', text: 'Klassifikasjon 5', value: 'Klassifikasjon 5'}
 ]
 
+const allSubjectsOptions = fetchAllSubjectsFromExternalApi()
 const constSupplier = {
   desription: 'Sjøfart',
   image:
@@ -87,7 +89,6 @@ class ProvisionAgreement extends Component {
       response: {}
     }
 
-    this.fetchSubjects()
     this.handleInputChange = this.handleInputChange.bind(this)
 
     if (this.props.isNewProvisionAgreement) {
@@ -106,59 +107,6 @@ class ProvisionAgreement extends Component {
           console.log(error)
         })
     }
-  }
-
-  fetchSubjects () {
-    let mainSubjects
-    let subSubjects
-    let organizedSubSubjects
-    let organizedSubjects = []
-    let allSubjects = []
-    let url
-
-    url = process.env.REACT_APP_SSB_SUBJECTS
-
-    axios.get(url)
-      .then((response) => {
-        mainSubjects = response.data
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-      .then(() => {
-        for (let mainSubjectsKey in mainSubjects) {
-          axios.get(url + mainSubjects[mainSubjectsKey]['id'])
-          // eslint-disable-next-line
-            .then((response) => {
-              subSubjects = response.data
-
-              for (let subSubjectsKey in subSubjects) {
-                let key = mainSubjectsKey + subSubjectsKey
-                let text = mainSubjects[mainSubjectsKey]['text'] + ' - ' + subSubjects[subSubjectsKey]['text']
-
-                allSubjects.push({key: key, text: text, value: text})
-
-                organizedSubSubjects = {
-                  ...organizedSubSubjects,
-                  [subSubjects[subSubjectsKey]['text']]: [subSubjects[subSubjectsKey]['text']]
-                }
-              }
-
-              organizedSubjects.push({
-                mainSubject: mainSubjects[mainSubjectsKey]['text'], subSubjects: organizedSubSubjects
-              })
-            })
-            .catch((error) => {
-              console.log(error)
-            })
-        }
-      })
-      .then(() => {
-        subjectsOptions = allSubjects
-
-//        Organized all subsubjects per mainsubject (might be useful for a cleaner dropdown at a later stage
-//        console.log(organizedSubjects)
-      })
   }
 
   handleInputChange (event) {
@@ -339,19 +287,19 @@ class ProvisionAgreement extends Component {
         <Form.Field error={!!errors.name}>
           <label>Avtalenavn</label>
           <Input placeholder='Avtalenavn' name='name' value={this.state.provisionAgreement.name}
-                 onChange={this.handleInputChange} readOnly={editMode}/>
-          {errors.name && <InlineError text={errors.name}/>}
+                 onChange={this.handleInputChange} readOnly={editMode} />
+          {errors.name && <InlineError text={errors.name} />}
         </Form.Field>
         <Form.Field error={!!errors.description}>
           <label>Beskrivelse</label>
           <TextArea autoHeight placeholder='Beskrivelse' name='description'
                     value={this.state.provisionAgreement.description}
-                    onChange={this.handleInputChange} readOnly={editMode}/>
-          {errors.description && <InlineError text={errors.description}/>}
+                    onChange={this.handleInputChange} readOnly={editMode} />
+          {errors.description && <InlineError text={errors.description} />}
         </Form.Field>
         <Form.Field>
           <label>Status</label>
-          <Dropdown placeholder='Status' selection options={statusOptions} disabled={editMode}/>
+          <Dropdown placeholder='Status' selection options={statusOptions} disabled={editMode} />
         </Form.Field>
         <Form.Group widths='equal'>
           <Form.Field>
@@ -389,7 +337,7 @@ class ProvisionAgreement extends Component {
                 disabled={editMode}
               />
             </div>
-            {errors.durationTo && <InlineError text={errors.durationTo}/>}
+            {errors.durationTo && <InlineError text={errors.durationTo} />}
           </Form.Field>
         </Form.Group>
         <Form.Field error={!!errors.pursuant}>
@@ -397,30 +345,30 @@ class ProvisionAgreement extends Component {
           <Dropdown placeholder='Hjemmelsgrunnlag' selection options={pursuantOptions}
                     value={this.state.provisionAgreement.pursuant}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'pursuant')}
-                    disabled={editMode}/>
-          {errors.pursuant && <InlineError text={errors.pursuant}/>}
+                    disabled={editMode} />
+          {errors.pursuant && <InlineError text={errors.pursuant} />}
         </Form.Field>
         <Form.Field>
           <label>Kanal</label>
           <Dropdown placeholder='Kanal' multiple selection options={exchangeChannelOptions}
-                    disabled={editMode}/>
+                    disabled={editMode} />
         </Form.Field>
         <Form.Field>
           <label>Protokoll</label>
-          <Dropdown placeholder='Protokoll' multiple selection options={protocolOptions} disabled={editMode}/>
+          <Dropdown placeholder='Protokoll' multiple selection options={protocolOptions} disabled={editMode} />
         </Form.Field>
         <Form.Field>
           <label>Emne</label>
-          <Dropdown placeholder='Emne' multiple search selection options={subjectsOptions}
-                    disabled={editMode}/>
+          <Dropdown placeholder='Emne' multiple search selection options={allSubjectsOptions}
+                    disabled={editMode} />
         </Form.Field>
         <Form.Field>
           <label>Verdivurdering</label>
-          <Dropdown placeholder='Verdivurdering' selection options={valuationOptions} disabled={editMode}/>
+          <Dropdown placeholder='Verdivurdering' selection options={valuationOptions} disabled={editMode} />
         </Form.Field>
         <Form.Field>
           <label>Endringshåndtering</label>
-          <TextArea autoHeight placeholder='Endringshåndtering' readOnly={editMode}/>
+          <TextArea autoHeight placeholder='Endringshåndtering' readOnly={editMode} />
         </Form.Field>
       </div>
     )
