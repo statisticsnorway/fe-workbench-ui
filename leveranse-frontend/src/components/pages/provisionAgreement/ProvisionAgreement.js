@@ -3,6 +3,7 @@ import axios from 'axios'
 import moment from 'moment'
 import { Dropdown, Form, Grid, Header, Input, Segment, TextArea } from 'semantic-ui-react'
 import { SingleDatePicker } from 'react-dates'
+import { fetchAllSubjectsFromExternalApi } from '../../../utils/Common'
 import 'react-dates/lib/css/_datepicker.css'
 import 'react-dates/initialize'
 import InlineError from '../../messages/InlineError'
@@ -51,7 +52,7 @@ const valuationOptions = [
   {key: '5', text: 'Klassifikasjon 5', value: 'Klassifikasjon 5'}
 ]
 
-let subjectsOptions = []
+const allSubjectsOptions = fetchAllSubjectsFromExternalApi()
 
 class ProvisionAgreement extends Component {
   constructor (props) {
@@ -79,7 +80,6 @@ class ProvisionAgreement extends Component {
       response: {}
     }
 
-    this.fetchSubjects()
     this.handleInputChange = this.handleInputChange.bind(this)
 
     if (this.props.isNewProvisionAgreement) {
@@ -98,59 +98,6 @@ class ProvisionAgreement extends Component {
           console.log(error)
         })
     }
-  }
-
-  fetchSubjects () {
-    let mainSubjects
-    let subSubjects
-    let organizedSubSubjects
-    let organizedSubjects = []
-    let allSubjects = []
-    let url
-
-    url = process.env.REACT_APP_SSB_SUBJECTS
-
-    axios.get(url)
-      .then((response) => {
-        mainSubjects = response.data
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-      .then(() => {
-        for (let mainSubjectsKey in mainSubjects) {
-          axios.get(url + mainSubjects[mainSubjectsKey]['id'])
-          // eslint-disable-next-line
-            .then((response) => {
-              subSubjects = response.data
-
-              for (let subSubjectsKey in subSubjects) {
-                let key = mainSubjectsKey + subSubjectsKey
-                let text = mainSubjects[mainSubjectsKey]['text'] + ' - ' + subSubjects[subSubjectsKey]['text']
-
-                allSubjects.push({key: key, text: text, value: text})
-
-                organizedSubSubjects = {
-                  ...organizedSubSubjects,
-                  [subSubjects[subSubjectsKey]['text']]: [subSubjects[subSubjectsKey]['text']]
-                }
-              }
-
-              organizedSubjects.push({
-                mainSubject: mainSubjects[mainSubjectsKey]['text'], subSubjects: organizedSubSubjects
-              })
-            })
-            .catch((error) => {
-              console.log(error)
-            })
-        }
-      })
-      .then(() => {
-        subjectsOptions = allSubjects
-
-//        Organized all subsubjects per mainsubject (might be useful for a cleaner dropdown at a later stage
-//        console.log(organizedSubjects)
-      })
   }
 
   handleInputChange (event) {
@@ -396,7 +343,7 @@ class ProvisionAgreement extends Component {
         </Form.Field>
         <Form.Field>
           <label>Emne</label>
-          <Dropdown placeholder='Emne' multiple search selection options={subjectsOptions}
+          <Dropdown placeholder='Emne' multiple search selection options={allSubjectsOptions}
                     disabled={editMode} />
         </Form.Field>
         <Form.Field>
