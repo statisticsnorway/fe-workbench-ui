@@ -94,8 +94,8 @@ class ProvisionAgreementsList extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    var annotated = this.annotateProvisionAgreement(nextProps.pipelines)
-    this.setState({pipelines: annotated})
+    var annotated = this.annotateProvisionAgreement(nextProps.provisionAgreements)
+    this.setState({provisionAgreements: annotated})
   }
 
   // Assume that any data we're getting doesn't have our hidden 'selected' feature. So

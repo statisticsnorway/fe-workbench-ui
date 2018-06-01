@@ -1,7 +1,7 @@
 import React from 'react'
 import { Dropdown, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
 import { BrowserRouter, NavLink, Route } from 'react-router-dom'
-import NewProvisionAgreement from './provisionAgreement/NewProvisionAgreement'
+import ProvisionAgreement from './provisionAgreement/ProvisionAgreement'
 import Variable from './variable/Variable'
 import ProvisionAgreementsList from './provisionAgreement/ProvisionAgreementsList'
 import '../../assets/css/site.css'
@@ -27,8 +27,14 @@ class ProvisionAgreementPage extends React.Component {
                   <Menu.Item>
                     <Input icon='search' placeholder='Finn avtale' />
                   </Menu.Item>
-                  <Menu.Item name='newProvisionAgreement' active={activeItem === 'newProvisionAgreement'}>
-                    <NavLink to='/newProvisionAgreement'>
+                  <Menu.Item name='Home' active={activeItem === 'home'}>
+                    <NavLink to='/home'>
+                      <Icon name='home' />
+                      Hjem
+                    </NavLink>
+                  </Menu.Item>
+                  <Menu.Item name='ProvisionAgreement' active={activeItem === 'newProvisionAgreement'}>
+                    <NavLink to='/ProvisionAgreement'>
                       <Icon name='compose' />
                       Opprett ny
                     </NavLink>
@@ -69,8 +75,8 @@ class ProvisionAgreementPage extends React.Component {
             </Grid.Column>
             <Grid.Column width={12}>
               <Segment inverted tertiary>
-                <Route path='/newProvisionAgreement'
-                       render={(props) => <NewProvisionAgreement {...props} isNewProvisionAgreement={true} />} />
+                <Route path='/ProvisionAgreement'
+                       render={(props) => <ProvisionAgreement {...props} isNewProvisionAgreement={true} />} />
                 <Route path='/variable' component={Variable} />
                 <Route path='/home' component={ProvisionAgreementsList} />
               </Segment>
