@@ -5,7 +5,7 @@ import LeveranseDescription from './LeveranseDescription'
 import '../../../assets/css/site.css'
 import ContactPerson from '../contactPerson/ContactPerson'
 
-class NewProvisionAgreement extends React.Component {
+class ProvisionAgreement extends React.Component {
   render () {
     const panes = [
       {
@@ -33,4 +33,4 @@ class NewProvisionAgreement extends React.Component {
   }
 }
 
-export default NewProvisionAgreement
+export default ProvisionAgreement
