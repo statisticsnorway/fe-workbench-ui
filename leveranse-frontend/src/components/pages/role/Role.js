@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Form, Header, Input, Segment } from 'semantic-ui-react'
-import axios from 'axios'
+import { Form, Header, Input, Message } from 'semantic-ui-react'
+import { sendDataToBackend } from '../../../utils/Common'
 
 class Role extends Component {
   constructor (props) {
@@ -19,6 +19,9 @@ class Role extends Component {
       response: {}
     }
 
+    const uuidv1 = require('uuid/v1')
+    this.state.role.id = uuidv1()
+
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
@@ -31,90 +34,33 @@ class Role extends Component {
     })
   }
 
-  prepareDataForBackend (id) {
-    let data = {...this.state.role}
-
-    for (let attribute in data) {
-      if (data[attribute] === '') {
-        data[attribute] = null
-      }
-    }
-
-    data['id'] = id
-
-    JSON.stringify(data)
-
-    return data
-  }
-
   registerRole () {
-    let responseStatus
-    let errorMessage
-    let responseMessage
-    let url
-    let data
-
-    const uuidv1 = require('uuid/v1')
-    let role_uuid = uuidv1()
-
-    data = this.prepareDataForBackend(role_uuid)
-    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/role'
-
-    axios.post(url, data, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
+    this.setState({
+      readOnlyMode: true,
+      waitingForResponse: true
     })
-      .then((response) => {
-        console.log(response)
-        responseStatus = response.status
-        responseMessage = response.statusText
+
+    sendDataToBackend('/role', 'Rollen', this.state.role).then((result) => {
+      this.setState({
+        response: result,
+        waitingForResponse: false
       })
-      .catch(function (error) {
-        console.log(error)
-        responseStatus = 'Error'
-        errorMessage = error.message
-      })
-      .then(() => {
-        if (responseStatus === 201) {
-          this.setState({
-            response: {
-              color: 'green',
-              text: 'Rollen ble lagret: ' + [responseMessage]
-            }
-          })
-        } else if (responseStatus === 'Error') {
-          this.setState({
-            response: {
-              color: 'red',
-              text: 'Rollen ble ikke lagret: ' + [errorMessage]
-            }
-          })
-        } else {
-          this.setState({
-            response: {
-              color: 'yellow',
-              text: 'Rollen ble ikke lagret: ' + [responseMessage]
-            }
-          })
-        }
-      })
+    })
   }
 
   render () {
     const editMode = this.props.editMode
-    const {response} = this.state
+    const {response, role} = this.state
 
     return (
       <div>
         {Object.keys(response).length !== 0 && editMode ?
-          <Segment inverted color={response.color}>{response.text}</Segment> : null}
-        <Header as='h3'>
-          Rolle
-        </Header>
+          <Message icon={response.icon} color={response.color} header={response.header}
+                   content={response.text} /> : null}
+        <Header as='h3' content='Rolle' />
         <Form.Field>
           <label>Navn</label>
-          <Input placeholder='Navn' name='name' value={this.state.role.name} onChange={this.handleInputChange}
+          <Input placeholder='Navn' name='name' value={role.name} onChange={this.handleInputChange}
                  readOnly={editMode} />
         </Form.Field>
       </div>

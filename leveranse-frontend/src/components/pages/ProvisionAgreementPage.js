@@ -27,14 +27,14 @@ class ProvisionAgreementPage extends React.Component {
                   <Menu.Item>
                     <Input icon='search' placeholder='Finn avtale' />
                   </Menu.Item>
-                  <Menu.Item name='Home' active={activeItem === 'home'}>
+                  <Menu.Item name='home' active={activeItem === 'home'}>
                     <NavLink to='/home'>
                       <Icon name='home' />
                       Hjem
                     </NavLink>
                   </Menu.Item>
-                  <Menu.Item name='ProvisionAgreement' active={activeItem === 'newProvisionAgreement'}>
-                    <NavLink to='/ProvisionAgreement'>
+                  <Menu.Item name='provisionAgreement' active={activeItem === 'provisionAgreement'}>
+                    <NavLink to='/provisionAgreement'>
                       <Icon name='compose' />
                       Opprett ny
                     </NavLink>
@@ -55,7 +55,7 @@ class ProvisionAgreementPage extends React.Component {
                 </Menu>
                 <Menu fluid vertical>
                   <Menu.Item header>Variabel</Menu.Item>
-                  <Menu.Item name='newVariable' active={activeItem === 'newVariable'}>
+                  <Menu.Item name='variable' active={activeItem === 'variable'}>
                     <NavLink to='/variable'>
                       <Icon name='compose' />
                       Opprett ny
@@ -75,7 +75,7 @@ class ProvisionAgreementPage extends React.Component {
             </Grid.Column>
             <Grid.Column width={12}>
               <Segment inverted tertiary>
-                <Route path='/ProvisionAgreement'
+                <Route path='/provisionAgreement'
                        render={(props) => <ProvisionAgreement {...props} isNewProvisionAgreement={true} />} />
                 <Route path='/variable' component={Variable} />
                 <Route path='/home' component={ProvisionAgreementsList} />

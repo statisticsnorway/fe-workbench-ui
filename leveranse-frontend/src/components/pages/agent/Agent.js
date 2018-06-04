@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import { Form, Header, Input, Segment } from 'semantic-ui-react'
+import { Form, Header, Input, Message } from 'semantic-ui-react'
+import { sendDataToBackend } from '../../../utils/Common'
 
 class Agent extends Component {
   constructor (props) {
@@ -22,6 +22,9 @@ class Agent extends Component {
       response: {}
     }
 
+    const uuidv1 = require('uuid/v1')
+    this.state.agent.id = uuidv1()
+
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
@@ -34,101 +37,44 @@ class Agent extends Component {
     })
   }
 
-  prepareDataForBackend (id) {
-    let data = {...this.state.agent}
-
-    for (let attribute in data) {
-      if (data[attribute] === '') {
-        data[attribute] = null
-      }
-    }
-
-    data['id'] = id
-
-    JSON.stringify(data)
-
-    return data
-  }
-
   registerAgent () {
-    let responseStatus
-    let errorMessage
-    let responseMessage
-    let url
-    let data
-
-    const uuidv1 = require('uuid/v1')
-    let agent_uuid = uuidv1()
-
-    data = this.prepareDataForBackend(agent_uuid)
-    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/agent'
-
-    axios.post(url, data, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
+    this.setState({
+      readOnlyMode: true,
+      waitingForResponse: true
     })
-      .then((response) => {
-        console.log(response)
-        responseStatus = response.status
-        responseMessage = response.statusText
+
+    sendDataToBackend('/agent', 'Aktøren', this.state.agent).then((result) => {
+      this.setState({
+        response: result,
+        waitingForResponse: false
       })
-      .catch(function (error) {
-        console.log(error)
-        responseStatus = 'Error'
-        errorMessage = error.message
-      })
-      .then(() => {
-        if (responseStatus === 201) {
-          this.setState({
-            response: {
-              color: 'green',
-              text: 'Aktøren ble lagret: ' + [responseMessage]
-            }
-          })
-        } else if (responseStatus === 'Error') {
-          this.setState({
-            response: {
-              color: 'red',
-              text: 'Aktøren ble ikke lagret: ' + [errorMessage]
-            }
-          })
-        } else {
-          this.setState({
-            response: {
-              color: 'yellow',
-              text: 'Aktøren ble ikke lagret: ' + [responseMessage]
-            }
-          })
-        }
-      })
+    })
   }
 
   render () {
     const editMode = this.props.editMode
-    const {response} = this.state
+    const {response, agent} = this.state
 
     return (
       <div>
         {Object.keys(response).length !== 0 && editMode ?
-          <Segment inverted color={response.color}>{response.text}</Segment> : null}
+          <Message icon={response.icon} color={response.color} header={response.header}
+                   content={response.text} /> : null}
         <Form onSubmit={this.handleSubmit}>
-          <Header as='h3'>
-            Aktør
-          </Header>
+          <Header as='h3' content='Aktør' />
           <Form.Field>
             <label>Navn</label>
-            <Input placeholder='Navn' name='name' value={this.state.agent.name}
+            <Input placeholder='Navn' name='name' value={agent.name}
                    onChange={this.handleInputChange} readOnly={editMode} />
           </Form.Field>
           <Form.Field>
             <label>Beskrivelse</label>
-            <Input placeholder='Beskrivelse' name='description' value={this.state.agent.description}
+            <Input placeholder='Beskrivelse' name='description' value={agent.description}
                    onChange={this.handleInputChange} readOnly={editMode} />
           </Form.Field>
           <Form.Field>
             <label>Versjon</label>
-            <Input placeholder='Versjon' name='version' value={this.state.agent.version}
+            <Input placeholder='Versjon' name='version' value={agent.version}
                    onChange={this.handleInputChange} readOnly={editMode} />
           </Form.Field>
         </Form>
