@@ -68,32 +68,13 @@ class ProvisionAgreementsList extends React.Component {
     return (<div style={{cursor: 'default', fontWeight: 'normal'}}>{row.value}</div>)
   }
 
-  componentWillReceiveProps (nextProps) {
-    var annotated = this.annotateProvisionAgreement(nextProps.provisionAgreements)
-    this.setState({provisionAgreements: annotated})
-  }
-
-  // Assume that any data we're getting doesn't have our hidden 'selected' feature. So
-  // here we add it manually
-  annotateProvisionAgreement (provisionAgreementList) {
-    var annotated = new Array()
-
-    for (var i = 0; i < provisionAgreementList.length; i++) {
-      var converter = provisionAgreementList[i]
-      converter['selected'] = false
-      annotated.push(converter)
-    }
-
-    return (annotated)
-  }
-
   selectProvisionAgreement (e, state, column, rowInfo, instance) {
     if (this.state.selectedIndex != -1) {
-      var ProvisionAgreementOld = this.state.provisionAgreements[this.state.selectedIndex]
+      let ProvisionAgreementOld = this.state.provisionAgreements[this.state.selectedIndex]
       ProvisionAgreementOld.selected = false
     }
 
-    var provisionAgreement = this.state.provisionAgreements[rowInfo.index]
+    let provisionAgreement = this.state.provisionAgreements[rowInfo.index]
     provisionAgreement.selected = true
 
     console.log('selected PA: ', provisionAgreement)
