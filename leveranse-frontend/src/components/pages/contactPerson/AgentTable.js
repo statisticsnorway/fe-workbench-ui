@@ -63,8 +63,8 @@ class AgentRow extends React.Component {
       <tr>
         <td>
           <Dropdown placeholder='Velg rolle' selection options={roleOptions}
-                    id={this.props.agent.id} value={this.props.agent.role}
-                    onChange={(event, {id, value}) => this.props.onAgentTableUpdateDropdown(id, 'role', value)}
+                    id={this.props.agent.id} value={this.props.agent.roleId}
+                    onChange={(event, {id, value}) => this.props.onAgentTableUpdateDropdown(id, 'roleId', value)}
                     disabled={editMode} />
         </td>
         <td>
@@ -76,7 +76,7 @@ class AgentRow extends React.Component {
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
-          <input type='text' name='telephone' id={this.props.agent.id} value={this.props.agent.telephone}
+          <input type='text' name='phoneNumber' id={this.props.agent.id} value={this.props.agent.phoneNumber}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
