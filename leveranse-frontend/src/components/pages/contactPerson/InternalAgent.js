@@ -16,6 +16,7 @@ class InternalAgent extends React.Component {
     let uuId = uuidv1()
     let uuAgentId = uuidv1()
     let uuIndividualId = uuidv1()
+    let uuAiripaId = uuidv1()
 
     this.state.internalAgents = [
       {
@@ -24,6 +25,7 @@ class InternalAgent extends React.Component {
         roleId: '',
         agentId: uuAgentId,
         individualId: uuIndividualId,
+        airipaId: uuAiripaId,
         internalExternal: 'I',
         name: '',
         email: '',
@@ -47,6 +49,7 @@ class InternalAgent extends React.Component {
     let uuId = uuidv1()
     let uuAgentId = uuidv1()
     let uuIndividualId = uuidv1()
+    let uuAiripaId = uuidv1()
 
     let agent = {
       paId: uupaId,
@@ -54,6 +57,7 @@ class InternalAgent extends React.Component {
       roleId: '',
       agentId: uuAgentId,
       individualId: uuIndividualId,
+      airipaId: uuAiripaId,
       internalExternal: 'I',
       name: '',
       email: '',

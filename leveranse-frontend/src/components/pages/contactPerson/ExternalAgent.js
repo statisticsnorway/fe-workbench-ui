@@ -16,6 +16,7 @@ class ExternalAgent extends React.Component {
     let uuId = uuidv1()
     let uuAgentId = uuidv1()
     let uuIndividualId = uuidv1()
+    let uuAiripaId = uuidv1()
 
     this.state.externalAgents = [{
       paId: uupaId,
@@ -23,6 +24,7 @@ class ExternalAgent extends React.Component {
       roleId: '',
       agentId: uuAgentId,
       individualId: uuIndividualId,
+      airipaId: uuAiripaId,
       internalExternal: 'E',
       name: '',
       email: '',
@@ -46,6 +48,7 @@ class ExternalAgent extends React.Component {
     let uuId = uuidv1()
     let uuAgentId = uuidv1()
     let uuIndividualId = uuidv1()
+    let uuAiripaId = uuidv1()
 
     let agent = {
       paId: uupaId,
@@ -53,6 +56,7 @@ class ExternalAgent extends React.Component {
       roleId: '',
       agentId: uuAgentId,
       individualId: uuIndividualId,
+      airipaId: uuAiripaId,
       internalExternal: 'E',
       name: '',
       email: '',
