@@ -4,7 +4,6 @@ import { Grid, Header, Message, Segment } from 'semantic-ui-react'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
-let provisionAgreements
 let selectedProvisionalAgreement
 
 class ProvisionAgreementsList extends React.Component {
@@ -62,7 +61,7 @@ class ProvisionAgreementsList extends React.Component {
   }
 
   renderCell (row) {
-    if (row.original.selected == true) {
+    if (row.original.selected === true) {
       return (<div style={{cursor: 'default', fontWeight: 'bold'}}>{row.value}</div>)
     }
 
@@ -149,7 +148,7 @@ class ProvisionAgreementsList extends React.Component {
 
   render () {
     const {response, loading} = this.state
-    const data = provisionAgreements
+    const data = this.state.provisionAgreements
 
     const columns = [{
       Header: 'Name',
@@ -164,9 +163,6 @@ class ProvisionAgreementsList extends React.Component {
       Header: 'Duration To', // Required because our accessor is not a string
       accessor: 'durationTo'
     }]
-
-    console.log('data In render()', data)
-    console.log('In render()', columns)
 
     return (
       <div>
