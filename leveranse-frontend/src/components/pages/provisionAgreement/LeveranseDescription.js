@@ -176,11 +176,15 @@ class ProvisionAgreement extends Component {
   }
 
   registerProvisionAgreement = () => {
+    this.setState({
+      readOnlyMode: true
+    })
+
     this.insertDatesInState()
 
     if (this.validationOk()) {
       this.setState({
-        readOnlyMode: true,
+        errors: {},
         waitingForResponse: true
       })
 
@@ -211,7 +215,7 @@ class ProvisionAgreement extends Component {
             <Grid.Row columns={3}>
               <Grid.Column width={10}>
                 <Segment>
-                  {Object.keys(errors).length !== 0 && !readOnlyMode ?
+                  {Object.keys(errors).length !== 0 && readOnlyMode ?
                     <Message icon='warning' header={'Leveranseavtalen ble ikke lagret'}
                              content={'Rett opp i feilene og prøv igjen'} color='yellow' /> : null}
                   {Object.keys(response).length !== 0 && readOnlyMode ?
