@@ -1,10 +1,9 @@
 import React from 'react'
 import axios from 'axios'
-import { Grid, Header, List, Message, Segment } from 'semantic-ui-react'
+import { Grid, Header, Message, Segment } from 'semantic-ui-react'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
-let listItems
 let provisionAgreements
 let selectedProvisionalAgreement
 
@@ -34,15 +33,6 @@ class ProvisionAgreementsList extends React.Component {
         this.setState({
           provisionAgreements: response.data
         })
-
-        provisionAgreements = response.data
-
-        listItems = provisionAgreements.map((provisionAgreement) =>
-          <List.Item key={provisionAgreement.id}>
-            <List.Header>{provisionAgreement.name}</List.Header>
-            <List.Description>{provisionAgreement.description}</List.Description>
-          </List.Item>
-        )
       } else {
         this.setState({
           response: {
@@ -185,6 +175,9 @@ class ProvisionAgreementsList extends React.Component {
             <Grid.Column width={16}>
               <Segment loading={loading}>
                 <Header as='h3' content='Leveranseavtaler' dividing />
+                {Object.keys(response).length !== 0 ?
+                  <Message icon={response.icon} color={response.color} header={response.header}
+                           content={response.content} /> : null}
                 {loading ? null : <ReactTable
                   data={data}
                   columns={columns}
@@ -203,9 +196,6 @@ class ProvisionAgreementsList extends React.Component {
                     }
                   }}
                 />}
-                {Object.keys(response).length !== 0 ?
-                  <Message icon={response.icon} color={response.color} header={response.header}
-                           content={response.content} /> : null}
               </Segment>
             </Grid.Column>
           </Grid.Row>

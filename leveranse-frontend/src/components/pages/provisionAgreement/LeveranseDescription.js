@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import moment from 'moment'
-import { Dropdown, Form, Grid, Header, Input, Message, TextArea } from 'semantic-ui-react'
+import { Checkbox, Dropdown, Form, Grid, Header, Input, Message, Segment, TextArea } from 'semantic-ui-react'
 import { SingleDatePicker } from 'react-dates'
 import { fetchAllSubjectsFromExternalApi, sendDataToBackend } from '../../../utils/Common'
 import 'react-dates/lib/css/_datepicker.css'
@@ -53,11 +53,6 @@ const valuationOptions = [
 ]
 
 const allSubjectsOptions = fetchAllSubjectsFromExternalApi()
-
-const constSupplier = {
-  desription: 'Sjøfart',
-  title: 'SDIR'
-}
 
 class ProvisionAgreement extends Component {
   constructor (props) {
@@ -133,6 +128,13 @@ class ProvisionAgreement extends Component {
     })
   }
 
+  handleEditModeClick = () => {
+    this.setState({
+      readOnlyMode: !this.state.readOnlyMode,
+      response: {}
+    })
+  }
+
   getSupplier = (supplierValue) => {
     this.setState({
       provisionAgreement: {
@@ -173,7 +175,7 @@ class ProvisionAgreement extends Component {
     return Object.keys(errors).length === 0
   }
 
-  registerProvisionAgreement () {
+  registerProvisionAgreement = () => {
     this.insertDatesInState()
 
     if (this.validationOk()) {
@@ -192,118 +194,145 @@ class ProvisionAgreement extends Component {
   }
 
   render () {
-    const {errors, response, provisionAgreement, readOnlyMode} = this.state
+    const {errors, response, provisionAgreement, readOnlyMode, waitingForResponse} = this.state
 
     return (
       <div>
-        {Object.keys(errors).length !== 0 && readOnlyMode ?
-          <Message icon='warning' header={'Leveranseavtalen ble ikke lagret'}
-                   content={'Rett opp i feilene og prøv igjen'} color='yellow' /> : null}
-        {Object.keys(response).length !== 0 && readOnlyMode ?
-          <Message icon={response.icon} header={response.header} content={response.text}
-                   color={response.color} /> : null}
-        <Header as='h3' content='Leveranseavtale' />
-        <Form.Field>
-          <label>Leverandør</label>
-          <Grid stackable>
-            <Grid.Row>
-              <Grid.Column width={12}>
-                <Input placeholder='Leverandør' name='supplier' readOnly={readOnlyMode} className='ml-3'
-                       value={provisionAgreement.supplier.title || ''} onChange={this.handleInputChange}>
-                </Input>
+        <Form>
+          <Form.Group widths='equal'>
+            <Form.Field />
+            <Form.Field />
+            <Form.Field>
+              <Checkbox slider checked={!readOnlyMode} onClick={this.handleEditModeClick} icon='edit'
+                        label='Redigeringsmodus' />
+            </Form.Field>
+          </Form.Group>
+          <Grid container stackable>
+            <Grid.Row columns={3}>
+              <Grid.Column width={10}>
+                <Segment>
+                  {Object.keys(errors).length !== 0 && !readOnlyMode ?
+                    <Message icon='warning' header={'Leveranseavtalen ble ikke lagret'}
+                             content={'Rett opp i feilene og prøv igjen'} color='yellow' /> : null}
+                  {Object.keys(response).length !== 0 && readOnlyMode ?
+                    <Message icon={response.icon} header={response.header} content={response.text}
+                             color={response.color} /> : null}
+                  <Header as='h3' content='Leveranseavtale' />
+                  <Form.Field>
+                    <label>Leverandør</label>
+                    <Grid stackable>
+                      <Grid.Row>
+                        <Grid.Column width={12}>
+                          <Input placeholder='Leverandør' name='supplier' readOnly={readOnlyMode} className='ml-3'
+                                 value={provisionAgreement.supplier.title || ''} onChange={this.handleInputChange}>
+                          </Input>
+                        </Grid.Column>
+                        <Grid.Column width={4}>
+                          <Supplier onSearchSupplier={this.getSupplier}></Supplier>
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
+                  </Form.Field>
+                  <Form.Field error={!!errors.name}>
+                    <label>Avtalenavn</label>
+                    <Input placeholder='Avtalenavn' name='name' value={provisionAgreement.name}
+                           onChange={this.handleInputChange} readOnly={readOnlyMode} />
+                    {errors.name && <InlineError text={errors.name} />}
+                  </Form.Field>
+                  <Form.Field error={!!errors.description}>
+                    <label>Beskrivelse</label>
+                    <TextArea autoHeight placeholder='Beskrivelse' name='description'
+                              value={provisionAgreement.description}
+                              onChange={this.handleInputChange} readOnly={readOnlyMode} />
+                    {errors.description && <InlineError text={errors.description} />}
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Status</label>
+                    <Dropdown placeholder='Status' selection options={statusOptions} disabled={readOnlyMode} />
+                  </Form.Field>
+                  <Form.Group widths='equal'>
+                    <Form.Field>
+                      <label>Gyldighet</label>
+                      Fra
+                      <div>
+                        <SingleDatePicker
+                          date={this.state.durationFrom}
+                          onDateChange={durationFrom => this.setState({durationFrom: durationFrom})}
+                          focused={this.state.durationFromfocused}
+                          onFocusChange={({focused: durationFromfocused}) => this.setState({durationFromfocused})}
+                          numberOfMonths={1}
+                          displayFormat='DD/MM/YYYY'
+                          disabled={readOnlyMode}
+                        />
+                      </div>
+                    </Form.Field>
+                    <Form.Field>
+                      <label>&nbsp;</label>
+                    </Form.Field>
+                    <Form.Field error={!!errors.durationTo}>
+                      <label>&nbsp;</label>
+                      Til
+                      <div>
+                        <SingleDatePicker
+                          date={this.state.durationTo}
+                          onDateChange={durationTo => this.setState({
+                            durationTo: durationTo,
+                            errors: {...this.state.errors, durationTo: ''}
+                          })}
+                          focused={this.state.durationTofocused}
+                          onFocusChange={({focused: durationTofocused}) => this.setState({durationTofocused})}
+                          numberOfMonths={1}
+                          displayFormat='DD/MM/YYYY'
+                          disabled={readOnlyMode}
+                        />
+                      </div>
+                      {errors.durationTo && <InlineError text={errors.durationTo} />}
+                    </Form.Field>
+                  </Form.Group>
+                  <Form.Field error={!!errors.pursuant}>
+                    <label>Hjemmelsgrunnlag</label>
+                    <Dropdown placeholder='Hjemmelsgrunnlag' selection options={pursuantOptions}
+                              value={provisionAgreement.pursuant}
+                              onChange={(event, {value}) => this.handleDropdownChange(value, 'pursuant')}
+                              disabled={readOnlyMode} />
+                    {errors.pursuant && <InlineError text={errors.pursuant} />}
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Kanal</label>
+                    <Dropdown placeholder='Kanal' multiple selection options={exchangeChannelOptions}
+                              disabled={readOnlyMode} />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Protokoll</label>
+                    <Dropdown placeholder='Protokoll' multiple selection options={protocolOptions}
+                              disabled={readOnlyMode} />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Emne</label>
+                    <Dropdown placeholder='Emne' multiple search selection options={allSubjectsOptions}
+                              disabled={readOnlyMode} />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Verdivurdering</label>
+                    <Dropdown placeholder='Verdivurdering' selection options={valuationOptions}
+                              disabled={readOnlyMode} />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Endringshåndtering</label>
+                    <TextArea autoHeight placeholder='Endringshåndtering' readOnly={readOnlyMode} />
+                  </Form.Field>
+                </Segment>
               </Grid.Column>
-              <Grid.Column width={4}>
-                <Supplier onSearchSupplier={this.getSupplier}></Supplier>
+              <Grid.Column width={6}>
               </Grid.Column>
             </Grid.Row>
           </Grid>
-        </Form.Field>
-        <Form.Field error={!!errors.name}>
-          <label>Avtalenavn</label>
-          <Input placeholder='Avtalenavn' name='name' value={provisionAgreement.name}
-                 onChange={this.handleInputChange} readOnly={readOnlyMode} />
-          {errors.name && <InlineError text={errors.name} />}
-        </Form.Field>
-        <Form.Field error={!!errors.description}>
-          <label>Beskrivelse</label>
-          <TextArea autoHeight placeholder='Beskrivelse' name='description'
-                    value={provisionAgreement.description}
-                    onChange={this.handleInputChange} readOnly={readOnlyMode} />
-          {errors.description && <InlineError text={errors.description} />}
-        </Form.Field>
-        <Form.Field>
-          <label>Status</label>
-          <Dropdown placeholder='Status' selection options={statusOptions} disabled={readOnlyMode} />
-        </Form.Field>
-        <Form.Group widths='equal'>
-          <Form.Field>
-            <label>Gyldighet</label>
-            Fra
-            <div>
-              <SingleDatePicker
-                date={this.state.durationFrom}
-                onDateChange={durationFrom => this.setState({durationFrom: durationFrom})}
-                focused={this.state.durationFromfocused}
-                onFocusChange={({focused: durationFromfocused}) => this.setState({durationFromfocused})}
-                numberOfMonths={1}
-                displayFormat='DD/MM/YYYY'
-                disabled={readOnlyMode}
-              />
-            </div>
-          </Form.Field>
-          <Form.Field>
-            <label>&nbsp;</label>
-          </Form.Field>
-          <Form.Field error={!!errors.durationTo}>
-            <label>&nbsp;</label>
-            Til
-            <div>
-              <SingleDatePicker
-                date={this.state.durationTo}
-                onDateChange={durationTo => this.setState({
-                  durationTo: durationTo,
-                  errors: {...this.state.errors, durationTo: ''}
-                })}
-                focused={this.state.durationTofocused}
-                onFocusChange={({focused: durationTofocused}) => this.setState({durationTofocused})}
-                numberOfMonths={1}
-                displayFormat='DD/MM/YYYY'
-                disabled={readOnlyMode}
-              />
-            </div>
-            {errors.durationTo && <InlineError text={errors.durationTo} />}
-          </Form.Field>
-        </Form.Group>
-        <Form.Field error={!!errors.pursuant}>
-          <label>Hjemmelsgrunnlag</label>
-          <Dropdown placeholder='Hjemmelsgrunnlag' selection options={pursuantOptions}
-                    value={provisionAgreement.pursuant}
-                    onChange={(event, {value}) => this.handleDropdownChange(value, 'pursuant')}
-                    disabled={readOnlyMode} />
-          {errors.pursuant && <InlineError text={errors.pursuant} />}
-        </Form.Field>
-        <Form.Field>
-          <label>Kanal</label>
-          <Dropdown placeholder='Kanal' multiple selection options={exchangeChannelOptions}
-                    disabled={readOnlyMode} />
-        </Form.Field>
-        <Form.Field>
-          <label>Protokoll</label>
-          <Dropdown placeholder='Protokoll' multiple selection options={protocolOptions} disabled={readOnlyMode} />
-        </Form.Field>
-        <Form.Field>
-          <label>Emne</label>
-          <Dropdown placeholder='Emne' multiple search selection options={allSubjectsOptions}
-                    disabled={readOnlyMode} />
-        </Form.Field>
-        <Form.Field>
-          <label>Verdivurdering</label>
-          <Dropdown placeholder='Verdivurdering' selection options={valuationOptions} disabled={readOnlyMode} />
-        </Form.Field>
-        <Form.Field>
-          <label>Endringshåndtering</label>
-          <TextArea autoHeight placeholder='Endringshåndtering' readOnly={readOnlyMode} />
-        </Form.Field>
+          <Segment>
+            <Form.Button disabled={readOnlyMode} loading={waitingForResponse} primary icon='save'
+                         onClick={this.registerProvisionAgreement}
+                         content='Lagre leveranseavtale' />
+          </Segment>
+        </Form>
       </div>
     )
   }
