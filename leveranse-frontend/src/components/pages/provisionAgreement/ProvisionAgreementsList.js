@@ -1,10 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import { Grid, Header, List, Loader, Message, Segment } from 'semantic-ui-react'
+import { Grid, Header, List, Message, Segment } from 'semantic-ui-react'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-
-let provisionAgreementsList = []
 
 let listItems
 let provisionAgreements
@@ -19,70 +17,58 @@ class ProvisionAgreementsList extends React.Component {
       loading: true,
       response: {}
     }
-    this.selectProvisionAgreement = this.selectProvisionAgreement.bind(this)
+
     this.fetchAllStoredProvisionAgreements()
+    this.selectProvisionAgreement = this.selectProvisionAgreement.bind(this)
     this.onClickProvisionAgreement = this.onClickProvisionAgreement.bind(this)
   }
 
   fetchAllStoredProvisionAgreements () {
-    let responseStatus
-    let errorMessage
-    let responseMessage
     let url
 
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement'
 
-    axios.get(url)
-      .then((response) => {
-        console.log(response)
-
-        responseStatus = response.status
-        responseMessage = response.statusText
-        provisionAgreements = response.data
+    axios.get(url).then((response) => {
+      console.log(response)
+      if (response.status === 200) {
         this.setState({
           provisionAgreements: response.data
-
         })
-        if (responseStatus === 200) {
-          provisionAgreements = response.data
-          listItems = provisionAgreements.map((provisionAgreement) =>
-            <List.Item key={provisionAgreement.id}>
-              <List.Header>{provisionAgreement.name}</List.Header>
-              <List.Description>{provisionAgreement.description}</List.Description>
-            </List.Item>
-          )
+
+        provisionAgreements = response.data
+
+        listItems = provisionAgreements.map((provisionAgreement) =>
+          <List.Item key={provisionAgreement.id}>
+            <List.Header>{provisionAgreement.name}</List.Header>
+            <List.Description>{provisionAgreement.description}</List.Description>
+          </List.Item>
+        )
+      } else {
+        this.setState({
+          response: {
+            header: 'Noe gikk galt ved henting av leveranseavtaler',
+            text: response.statusText + ' (' + url + ')',
+            color: 'yellow',
+            icon: 'warning'
+          }
+        })
+      }
+    }).catch((error) => {
+      console.log(error)
+
+      this.setState({
+        response: {
+          header: 'Noe gikk galt ved henting av leveranseavtaler',
+          text: error.message + ' (' + url + ')',
+          color: 'red',
+          icon: 'warning'
         }
       })
-      .catch((error) => {
-        console.log(error)
-        responseStatus = 'Error'
-        errorMessage = error.message
+    }).then(() => {
+      this.setState({
+        loading: false
       })
-      .then(() => {
-        if (responseStatus === 'Error') {
-          this.setState({
-            loading: false,
-            response: {
-              text: errorMessage,
-              color: 'red'
-            }
-          })
-        }
-        else if (responseStatus !== 200) {
-          this.setState({
-            loading: false,
-            response: {
-              text: responseMessage,
-              color: 'yellow'
-            }
-          })
-        } else {
-          this.setState({
-            loading: false,
-            response: {}
-          })
-        }
-      })
+    })
   }
 
   renderCell (row) {
@@ -121,9 +107,9 @@ class ProvisionAgreementsList extends React.Component {
     var provisionAgreement = this.state.provisionAgreements[rowInfo.index]
     provisionAgreement.selected = true
 
-    console.log("selected PA: ", provisionAgreement);
+    console.log('selected PA: ', provisionAgreement)
     if (provisionAgreement != null) {
-      let PA = this.onClickProvisionAgreement(provisionAgreement.id);
+      let PA = this.onClickProvisionAgreement(provisionAgreement.id)
     } else {
       console.log('Error retrieving PA from PA list')
     }
@@ -132,58 +118,47 @@ class ProvisionAgreementsList extends React.Component {
   }
 
   onClickProvisionAgreement (id) {
-    let responseStatus
-    let errorMessage
-    let responseMessage
     let url
 
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/provisionAgreement/' + id
 
-    axios.get(url)
-      .then((response) => {
-        console.log("Fetched PA: ", response)
-        responseStatus = response.status
-        responseMessage = response.statusText
-        selectedProvisionalAgreement = response.data
+    axios.get(url).then((response) => {
+      console.log('Fetched PA: ', response)
 
-        if (responseStatus === 200) {
-          selectedProvisionalAgreement
+      selectedProvisionalAgreement = response.data
+
+      if (response.status === 200) {
+        selectedProvisionalAgreement
+      } else {
+        this.setState({
+          response: {
+            header: 'Noe gikk galt ved henting av leveranseavtalen',
+            text: response.statusText + ' (' + url + ')',
+            color: 'yellow',
+            icon: 'warning'
+          }
+        })
+      }
+    }).catch((error) => {
+      console.log(error)
+
+      this.setState({
+        response: {
+          header: 'Noe gikk galt ved henting av leveranseavtalen',
+          text: error.message + ' (' + url + ')',
+          color: 'red',
+          icon: 'warning'
         }
       })
-      .catch((error) => {
-        console.log(error)
-        responseStatus = 'Error'
-        errorMessage = error.message
+    }).then(() => {
+      this.setState({
+        loading: false
       })
-      .then(() => {
-        if (responseStatus === 'Error') {
-          this.setState({
-            loading: false,
-            response: {
-              text: errorMessage,
-              color: 'red'
-            }
-          })
-        }
-        else if (responseStatus !== 200) {
-          this.setState({
-            loading: false,
-            response: {
-              text: responseMessage,
-              color: 'yellow'
-            }
-          })
-        } else {
-          this.setState({
-            loading: false,
-            response: {}
-          })
-        }
-      })
+    })
   }
 
   render () {
-    const {response} = this.state
+    const {response, loading} = this.state
     const data = provisionAgreements
 
     const columns = [{
@@ -208,32 +183,30 @@ class ProvisionAgreementsList extends React.Component {
         <Grid container stackable>
           <Grid.Row columns={1}>
             <Grid.Column width={16}>
-              <Segment>
-                <Header as='h3' dividing>Leveranseavtaler</Header>
-                {this.state.loading ? <Loader active size='mini'/> : <ReactTable
+              <Segment loading={loading}>
+                <Header as='h3' content='Leveranseavtaler' dividing />
+                {loading ? null : <ReactTable
                   data={data}
                   columns={columns}
-                  noDataText="No data!"
+                  noDataText='No data!'
                   filterable
                   defaultPageSize={10}
                   style={{
                     height: '400px' // This will force the table body to overflow and scroll, since there is not enough room
                   }}
-                  className="-striped -highlight"
+                  className='-striped -highlight'
                   showPaginationTop
                   showPaginationBottom
                   getTdProps={(state, rowInfo, column, instance) => {
                     return {
                       onClick: e => { this.selectProvisionAgreement(e, state, column, rowInfo, instance) }
                     }
-                  }
-                  }
+                  }}
                 />}
                 {Object.keys(response).length !== 0 ?
-                  <Message color={response.color}><Message.Header>Noe gikk galt ved henting av
-                    leveranseavtaler</Message.Header>{response.text}</Message> : null}
+                  <Message icon={response.icon} color={response.color} header={response.header}
+                           content={response.content} /> : null}
               </Segment>
-
             </Grid.Column>
           </Grid.Row>
         </Grid>
