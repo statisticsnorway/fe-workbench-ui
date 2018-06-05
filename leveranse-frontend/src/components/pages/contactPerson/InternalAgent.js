@@ -18,8 +18,7 @@ class InternalAgent extends React.Component {
     let uuIndividualId = uuidv1()
     let uuAiripaId = uuidv1()
 
-    this.state.internalAgents = [
-      {
+    this.state.internalAgents = [{
         paId: uupaId,
         id: uuId,
         roleId: '',
@@ -31,16 +30,22 @@ class InternalAgent extends React.Component {
         email: '',
         phoneNumber: '',
         comment: ''
-      }
-    ]
+      }]
     this.handleAgentTable = this.handleAgentTable.bind(this)
   }
 
   handleRowDel (agent) {
     let index = this.state.internalAgents.indexOf(agent)
-
     this.state.internalAgents.splice(index, 1)
     this.setState(this.state.internalAgents)
+  }
+
+  handleRowSave (agent) {
+    let data
+
+    data = this.prepareDataForBackend (agent)
+    console.log(data)
+    this.sendDataToBackend(data)
   }
 
   handleAddEvent () {
@@ -169,18 +174,6 @@ class InternalAgent extends React.Component {
       })
   }
 
-  registerInternalAgents () {
-    let agents = this.state.internalAgents.slice()
-    let data
-
-    agents.forEach((agent) => {
-      data = this.prepareDataForBackend (agent)
-      console.log(data)
-      this.sendDataToBackend(data)
-    })
-  }
-
-
   render () {
     const editMode = this.props.editMode
 
@@ -189,7 +182,9 @@ class InternalAgent extends React.Component {
         <Divider horizontal>Intern</Divider>
         <AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)}
                     onAgentTableUpdateDropdown={this.handleAgentTableDropdown.bind(this)}
-                    onRowDel={this.handleRowDel.bind(this)} agents={this.state.internalAgents}
+                    onRowDel={this.handleRowDel.bind(this)}
+                    onRowSave={this.handleRowSave.bind(this)}
+                    agents={this.state.internalAgents}
                     editMode={editMode} />
       </div>
     )

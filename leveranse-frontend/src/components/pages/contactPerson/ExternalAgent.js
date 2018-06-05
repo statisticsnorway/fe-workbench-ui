@@ -31,15 +31,21 @@ class ExternalAgent extends React.Component {
       phoneNumber: '',
       comment: ''
     }]
-
     this.handleAgentTable = this.handleAgentTable.bind(this)
   }
 
   handleRowDel (agent) {
     let index = this.state.externalAgents.indexOf(agent)
-
     this.state.externalAgents.splice(index, 1)
     this.setState(this.state.externalAgents)
+  }
+
+  handleRowSave (agent) {
+    let data
+
+    data = this.prepareDataForBackend (agent)
+    console.log(data)
+    this.sendDataToBackend(data)
   }
 
   handleAddEvent () {
@@ -84,7 +90,6 @@ class ExternalAgent extends React.Component {
 
       return agent
     })
-
     this.setState({externalAgents: newAgents})
   }
 
@@ -169,17 +174,6 @@ class ExternalAgent extends React.Component {
       })
   }
 
-  registerExternalAgents () {
-    let agents = this.state.externalAgents.slice()
-    let data
-
-    agents.forEach((agent) => {
-      data = this.prepareDataForBackend (agent)
-      console.log(data)
-      this.sendDataToBackend(data)
-    })
-  }
-
   render () {
     const editMode = this.props.editMode
 
@@ -189,7 +183,9 @@ class ExternalAgent extends React.Component {
         <AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)}
                     onAgentTableUpdateDropdown={this.handleAgentTableDropdown.bind(this)}
                     onRowAdd={this.handleAddEvent.bind(this)}
-                    onRowDel={this.handleRowDel.bind(this)} agents={this.state.externalAgents}
+                    onRowDel={this.handleRowDel.bind(this)}
+                    onRowSave={this.handleRowSave.bind(this)}
+                    agents={this.state.externalAgents}
                     editMode={editMode} />
       </div>
     )

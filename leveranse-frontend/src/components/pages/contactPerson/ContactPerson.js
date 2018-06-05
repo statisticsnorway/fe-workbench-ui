@@ -8,14 +8,6 @@ class ContactPerson extends React.Component {
     readOnlyMode: false
   }
 
-  saveContactPerson = () => {
-    this.setState({
-      readOnlyMode: true
-    })
-    this.InternalAgent.registerInternalAgents()
-    this.ExternalAgent.registerExternalAgents()
-  }
-
   editModeHandleClick = () => {
     this.setState({
       readOnlyMode: !this.state.readOnlyMode
@@ -25,14 +17,6 @@ class ContactPerson extends React.Component {
   render () {
     return (
       <Form>
-        <Form.Group widths='equal'>
-          <Form.Field />
-          <Form.Field />
-          <Form.Field>
-            <Checkbox slider checked={!this.state.readOnlyMode} onClick={this.editModeHandleClick} icon='edit'
-                      label='Redigeringsmodus' readOnly={!this.state.readOnlyMode} />
-          </Form.Field>
-        </Form.Group>
         <div>
           <Segment>
             <InternalAgent ref={(InternalAgent => {this.InternalAgent = InternalAgent})}
@@ -41,11 +25,6 @@ class ContactPerson extends React.Component {
           <Segment>
             <ExternalAgent ref={(ExternalAgent => {this.ExternalAgent = ExternalAgent})}
                            editMode={this.state.readOnlyMode} />
-          </Segment>
-          <Segment>
-            <Button primary icon='save'
-                    onClick={this.saveContactPerson}
-                    content='Lagre kontaktperson' />
           </Segment>
         </div>
       </Form>
