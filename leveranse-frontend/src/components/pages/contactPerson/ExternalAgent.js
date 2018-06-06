@@ -1,9 +1,12 @@
-import React from 'react'
-import axios from 'axios'
+import React, { Component } from 'react'
 import { Divider } from 'semantic-ui-react'
 import AgentTable from './AgentTable'
+import { sendDataToBackend, deleteDataInBackend } from '../../../utils/Common'
 
-class ExternalAgent extends React.Component {
+const saveContactPersonUrl = '/contactPerson'
+const deleteContactPersonPaConnectionUrl = '/contactPerson/provisionAgreement/'
+
+class ExternalAgent extends Component {
   constructor (props) {
     super(props)
 
@@ -35,17 +38,24 @@ class ExternalAgent extends React.Component {
   }
 
   handleRowDel (agent) {
-    let index = this.state.externalAgents.indexOf(agent)
-    this.state.externalAgents.splice(index, 1)
-    this.setState(this.state.externalAgents)
+    console.log('Sendes til backend for sletting:')
+    console.log(agent)
+    deleteDataInBackend(deleteContactPersonPaConnectionUrl, 'Kontaktpersonens kobling til PA', agent.airipaId).then((result) => {
+      console.log(result)
+      if (result.status === 204) {
+        let index = this.state.externalAgents.indexOf(agent)
+        this.state.externalAgents.splice(index, 1)
+        this.setState(this.state.externalAgents)
+      }
+    })
   }
 
   handleRowSave (agent) {
-    let data
-
-    data = this.prepareDataForBackend (agent)
-    console.log(data)
-    this.sendDataToBackend(data)
+    console.log('Sendes til backend for lagring:')
+    console.log(agent)
+    sendDataToBackend(saveContactPersonUrl, 'Kontaktperson', agent).then((result) => {
+      console.log(result)
+    })
   }
 
   handleAddEvent () {
@@ -111,67 +121,6 @@ class ExternalAgent extends React.Component {
     })
 
     this.setState({externalAgents: newAgents})
-  }
-
-  prepareDataForBackend (agent) {
-    let data = agent
-
-    for (let attribute in data) {
-      if (data[attribute] === '') {
-        data[attribute] = null
-      }
-    }
-
-    JSON.stringify(data)
-
-    return data
-  }
-
-  sendDataToBackend (data) {
-    let responseStatus
-    let errorMessage
-    let responseMessage
-    let url
-    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/contactPerson'
-
-    axios.post(url, data, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => {
-      console.log(response)
-      responseStatus = response.status
-      responseMessage = response.statusText
-    })
-      .catch(function (error) {
-        console.log(error)
-        responseStatus = 'Error'
-        errorMessage = error.message
-      })
-      .then(() => {
-        if (responseStatus === 201) {
-          this.setState({
-            response: {
-              color: 'green',
-              text: 'Ekstern kontaktperson ble lagret: ' + [responseMessage]
-            }
-          })
-        } else if (responseStatus === 'Error') {
-          this.setState({
-            response: {
-              color: 'red',
-              text: 'Ekstern kontaktperson ble ikke lagret: ' + [errorMessage]
-            }
-          })
-        } else {
-          this.setState({
-            response: {
-              color: 'yellow',
-              text: 'Ekstern kontaktpersoner ble ikke lagret: ' + [responseMessage]
-            }
-          })
-        }
-      })
   }
 
   render () {

@@ -1,14 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
+import axios from 'axios'
 import { Button, Dropdown, Icon, Table, Checkbox } from 'semantic-ui-react'
+import { fetchListOptions } from '../../../utils/Common'
 
-const roleOptions = [{key: '1', value: '1', text: 'Kvalitetsansvar'},
-  {key: '2', value: '2', text: 'Planlegger'},
-  {key: '3', value: '3', text: 'Ansvarligseksjon'},
-  {key: '4', value: '4', text: 'Ansvarlig'},
-  {key: '5', value: '5', text: 'Uttrekk'},
-  {key: '6', value: '6', text: 'Regelverk'}]
+const fetchRoleUrl = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/contactPerson/role'
+const roleOptions = fetchListOptions(fetchRoleUrl)
 
-class AgentTable extends React.Component {
+class AgentTable extends Component {
   render () {
     const editMode = this.props.editMode
 
@@ -55,7 +53,7 @@ class AgentTable extends React.Component {
 
 export default AgentTable
 
-class AgentRow extends React.Component {
+class AgentRow extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -64,7 +62,6 @@ class AgentRow extends React.Component {
   }
 
   editModeHandleClick = () => {
-    console.log('Trykket!')
     this.setState({
       readOnlyMode: !this.state.readOnlyMode
     })

@@ -71,6 +71,33 @@ export const fetchAllSubjectsFromExternalApi = () => {
   return allSubjectsOptions
 }
 
+export const fetchListOptions  = (url) => {
+  let theRespons
+  let theList = []
+
+  axios.get(url).then((response) => {
+    console.log(response)
+    if (response.status === 200) {
+      theRespons = response.data
+      console.log('response.data')
+      console.log(response.data)
+      for (let key in theRespons) {
+        theList.push({
+          key: theRespons[key]['id'],
+          text: theRespons[key]['name'],
+          value: theRespons[key]['id']
+        })
+      }
+    } else {
+      console.log ('Noe gikk galt ved henting av data')
+    }
+  }).catch((error) => {
+    console.log(error)
+  })
+
+  return theList
+}
+
 function prepareDataForBackend (state) {
   let data = state
 
@@ -122,6 +149,52 @@ export const sendDataToBackend = (path, text, state) => {
         header: text + ' ble ikke lagret',
         text: error.message + ' (' + url + ')',
         icon: 'warning'
+      }
+    }).then(() => {
+      resolve(newState)
+    })
+  })
+}
+
+export const deleteDataInBackend = (path, text, id) => {
+  return new Promise((resolve) => {
+    let url
+    let data
+    let newState = {}
+
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + path + id
+
+    axios.post(url, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => {
+      if (response.status === 204) {
+        newState = {
+          color: 'green',
+          header: text + ' ble slettet',
+          text: response.statusText,
+          icon: 'check',
+          status: response.status
+        }
+      } else {
+        newState = {
+          color: 'orange',
+          header: text + ' ble ikke slettet',
+          text: response.statusText + ' (' + url + ')',
+          icon: 'warning',
+          status: response.status
+        }
+      }
+    }).catch((error) => {
+      console.log(error)
+
+      newState = {
+        color: 'red',
+        header: text + ' ble ikke slettet',
+        text: error.message + ' (' + url + ')',
+        icon: 'warning',
+        status: 'error'
       }
     }).then(() => {
       resolve(newState)
