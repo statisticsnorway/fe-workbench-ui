@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header, Icon, Input, Popup } from 'semantic-ui-react'
+import { Divider, Header, Icon, Input, Popup } from 'semantic-ui-react'
 import UnitTypeModal from '../unitType/UnitTypeModal'
 import ReactTable from 'react-table'
 
@@ -12,8 +12,98 @@ const tableHeaders = [
   ['action', '']
 ]
 
-const tableData = [
+let tableColumns = []
+
+class UnitType extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      unitTypeModalOpen: false,
+      search: '',
+      tableData: tempTableData,
+      loadingTable: false,
+      selectedUnitTypeId: 'new'
+    }
+
+    tableHeaders.map((row) => {
+      let tableColumn = {}
+      tableColumn['Header'] = row[1]
+      tableColumn['accessor'] = row[0]
+      if (row[0] === 'name') {
+        tableColumn['Cell'] = props => (
+          <a className='item cursorPointer' onClick={() => this.setStateThenOpenModal(props.value)}>{props.value}</a>)
+      }
+      tableColumns.push(tableColumn)
+    })
+
+    this.searchInputOnChange = this.searchInputOnChange.bind(this)
+  }
+
+  searchInputOnChange (event) {
+    this.setState({
+      search: event.target.value
+    })
+  }
+
+  handleSelectedUnitType = (id) => {
+    return new Promise((resolve) => {
+      this.setState({selectedUnitTypeId: id})
+      resolve(true)
+    })
+  }
+
+  setStateThenOpenModal (id) {
+    this.handleSelectedUnitType(id).then(() => {
+      this.UnitTypeModal.handleUnitTypeModalOpen()
+    })
+  }
+
+  render () {
+    const {search, tableData, loadingTable} = this.state
+    let filteredTableData = tableData
+
+    if (search) {
+      filteredTableData = tableData.filter(row => {
+        return row.name.toUpperCase().includes(search.toUpperCase())
+      })
+    }
+
+    return (
+      <div>
+        <Header as='h3' content='Enhetstyper' dividing />
+        <Popup trigger={<Input icon='search' placeholder='Søk...' value={search}
+                               onChange={this.searchInputOnChange} />}
+               flowing hoverable hideOnScroll position='right center'>
+          <Icon color='blue' name='info circle' />
+          Filtrerer tabellen etter navn
+        </Popup>
+        <UnitTypeModal ref={(UnitTypeModal => {this.UnitTypeModal = UnitTypeModal})}
+                       unitTypeId={this.state.selectedUnitTypeId} key={this.state.selectedUnitTypeId} />
+        <Divider hidden />
+        <ReactTable
+          sortable
+          data={filteredTableData}
+          loading={loadingTable}
+          resizable={false}
+          columns={tableColumns}
+          defaultPageSize={10}
+          noDataText={'Fant ingen enhetstyper med navnet: \'' + search + '\''}
+          previousText='Forrige'
+          nextText='Neste'
+          loadingText='Laster...'
+          pageText='Side'
+          ofText='av'
+          rowsText='rader'
+          className='-striped -highlight'
+        />
+      </div>
+    )
+  }
+}
+
+const tempTableData = [
   {
+    id: 'sdafgasd',
     name: 'Aksjonær',
     description: 'Aksjonær er en person eller sammenslutning som eier aksjer i et aksjeselskap eller allmennaksjeselskap',
     code: '69',
@@ -54,77 +144,5 @@ const tableData = [
     action: ''
   }
 ]
-
-let tableColumns = []
-
-class UnitType extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      unitTypeModalOpen: false,
-      search: '',
-      tableData: tableData,
-      loadingTable: false
-    }
-
-    tableHeaders.map((row) => {
-      let tableColumn = {}
-      tableColumn['Header'] = row[1]
-      tableColumn['accessor'] = row[0]
-      tableColumn['className'] = 'text-align center'
-      tableColumns.push(tableColumn)
-    })
-
-    console.log(tableColumns)
-
-    this.searchInputOnChange = this.searchInputOnChange.bind(this)
-  }
-
-  searchInputOnChange (event) {
-    this.setState({
-      search: event.target.value
-    })
-  }
-
-  render () {
-    const {search, tableData, loadingTable} = this.state
-
-    let filteredTableData = tableData
-
-    if (search) {
-      filteredTableData = tableData.filter(row => {
-        return row.name.toUpperCase().includes(search.toUpperCase())
-      })
-    }
-
-    return (
-      <div>
-        <Header as='h3' content='Enhetstyper' dividing />
-        <Popup trigger={<Input icon='search' placeholder='Søk...' value={search}
-                               onChange={this.searchInputOnChange} />}
-               flowing hoverable hideOnScroll position='right center'>
-          <Icon color='blue' name='info circle' />
-          Filtrerer tabellen etter navn
-        </Popup>
-        <UnitTypeModal />
-        <ReactTable
-          data={filteredTableData}
-          loading={loadingTable}
-          noDataText={'Fant ingen enhetstyper med navnet: \'' + search + '\''}
-          previousText='Forrige'
-          nextText='Neste'
-          loadingText='Laster...'
-          pageText='Side'
-          ofText='av'
-          rowsText='rader'
-          sortable
-          resizable={false}
-          columns={tableColumns}
-          className='-striped -highlight'
-        />
-      </div>
-    )
-  }
-}
 
 export default UnitType

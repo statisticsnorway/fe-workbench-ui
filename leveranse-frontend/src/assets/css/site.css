@@ -39,3 +39,7 @@
 .ui.small.vertical.menu {
     width: 11.4rem !important;
 }
+
+.cursorPointer {
+    cursor: pointer !important;
+}
