@@ -88,24 +88,24 @@ class AgentRow extends Component {
         </td>
         <td>
           <Dropdown placeholder='Velg rolle' selection options={roleOptions}
-                    id={this.props.agent.id} value={this.props.agent.roleId}
+                    id={this.props.agent.id} value={this.props.agent.roleId || ''}
                     onChange={(event, {id, value}) => this.props.onAgentTableUpdateDropdown(id, 'roleId', value)}
                     disabled={editMode} />
         </td>
         <td>
-          <input type='text' name='name' id={this.props.agent.id} value={this.props.agent.name}
+          <input type='text' name='name' id={this.props.agent.id} value={this.props.agent.name || ''}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
-          <input type='text' name='email' id={this.props.agent.id} value={this.props.agent.email}
+          <input type='text' name='email' id={this.props.agent.id} value={this.props.agent.email || ''}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
-          <input type='text' name='phoneNumber' id={this.props.agent.id} value={this.props.agent.phoneNumber}
+          <input type='text' name='phoneNumber' id={this.props.agent.id} value={this.props.agent.phoneNumber || ''}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
-          <input type='text' name='comment' id={this.props.agent.id} value={this.props.agent.comment}
+          <input type='text' name='comment' id={this.props.agent.id} value={this.props.agent.comment || ''}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
