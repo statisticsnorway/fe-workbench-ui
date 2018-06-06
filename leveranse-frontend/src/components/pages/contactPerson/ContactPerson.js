@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Checkbox, Form, Segment } from 'semantic-ui-react'
+import { Form, Segment } from 'semantic-ui-react'
 import InternalAgent from './InternalAgent'
 import ExternalAgent from './ExternalAgent'
 

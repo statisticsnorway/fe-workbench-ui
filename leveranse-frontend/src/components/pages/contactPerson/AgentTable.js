@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import { Button, Dropdown, Icon, Table, Checkbox } from 'semantic-ui-react'
 import { fetchListOptions } from '../../../utils/Common'
 
@@ -72,6 +71,9 @@ class AgentRow extends Component {
   }
 
   onSaveEvent () {
+    this.setState({
+      readOnlyMode: true
+    })
     this.props.onSaveEvent(this.props.agent)
   }
 

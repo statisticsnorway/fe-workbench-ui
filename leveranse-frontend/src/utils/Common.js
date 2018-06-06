@@ -159,12 +159,11 @@ export const sendDataToBackend = (path, text, state) => {
 export const deleteDataInBackend = (path, text, id) => {
   return new Promise((resolve) => {
     let url
-    let data
     let newState = {}
 
     url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + path + id
 
-    axios.post(url, {
+    axios.delete(url, {
       headers: {
         'Content-Type': 'application/json'
       }
