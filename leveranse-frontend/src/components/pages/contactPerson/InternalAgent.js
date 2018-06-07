@@ -1,7 +1,10 @@
 import React from 'react'
-/*import axios from 'axios'*/
 import { Divider } from 'semantic-ui-react'
 import AgentTable from './AgentTable'
+import { sendDataToBackend, deleteDataInBackend } from '../../../utils/Common'
+
+const saveContactPersonUrl = '/contactPerson'
+const deleteContactPersonPaConnectionUrl = '/contactPerson/provisionAgreement/'
 
 class InternalAgent extends React.Component {
   constructor (props) {
@@ -12,38 +15,68 @@ class InternalAgent extends React.Component {
     }
 
     const uuidv1 = require('uuid/v1')
-    let id = uuidv1()
-    this.state.internalAgents = [
-      {
-        id: id,
-        role: '',
-        type: 'internal',
+    let uupaId = uuidv1()
+    let uuId = uuidv1()
+    let uuAgentId = uuidv1()
+    let uuIndividualId = uuidv1()
+    let uuAiripaId = uuidv1()
+
+    this.state.internalAgents = [{
+        paId: uupaId,
+        id: uuId,
+        roleId: '',
+        agentId: uuAgentId,
+        individualId: uuIndividualId,
+        airipaId: uuAiripaId,
+        internalExternal: 'I',
         name: '',
         email: '',
-        telephone: '',
+        phoneNumber: '',
         comment: ''
-      }
-    ]
+      }]
     this.handleAgentTable = this.handleAgentTable.bind(this)
   }
 
   handleRowDel (agent) {
-    let index = this.state.internalAgents.indexOf(agent)
+    console.log('Sendes til backend for sletting:')
+    console.log(agent)
+    deleteDataInBackend(deleteContactPersonPaConnectionUrl, 'Kontaktpersonens kobling til PA', agent.airipaId).then((result) => {
+      console.log(result)
+      if (result.status === 204) {
+        let index = this.state.internalAgents.indexOf(agent)
+        this.state.internalAgents.splice(index, 1)
+        this.setState(this.state.internalAgents)
+      }
+    })
+  }
 
-    this.state.internalAgents.splice(index, 1)
-    this.setState(this.state.internalAgents)
+  handleRowSave (agent) {
+    console.log('Sendes til backend for lagring:')
+    console.log(agent)
+    sendDataToBackend(saveContactPersonUrl, 'Kontaktperson', agent).then((result) => {
+      console.log(result)
+    })
   }
 
   handleAddEvent () {
     const uuidv1 = require('uuid/v1')
-    let id = uuidv1()
+    let uupaId = uuidv1()
+    let uuId = uuidv1()
+    let uuAgentId = uuidv1()
+    let uuIndividualId = uuidv1()
+    let uuAiripaId = uuidv1()
+
     let agent = {
-      id: id,
-      role: '',
-      type: 'internal',
+      paId: uupaId,
+      id: uuId,
+      roleId: '',
+      agentId: uuAgentId,
+      individualId: uuIndividualId,
+      airipaId: uuAiripaId,
+      internalExternal: 'I',
       name: '',
       email: '',
-      telephone: '',
+      phoneNumber: '',
       comment: ''
     }
 
@@ -90,77 +123,6 @@ class InternalAgent extends React.Component {
     this.setState({internalAgents: newAgents})
   }
 
-  prepareDataForBackend () {
-    let data = {...this.state.internalAgents}
-
-    for (let attribute in data) {
-      if (data[attribute] === '') {
-        data[attribute] = null
-      }
-    }
-
-    JSON.stringify(data)
-
-    return data
-  }
-
-  registerInternalAgents () {
-    /*
-    let responseStatus
-    let errorMessage
-    let responseMessage
-    let url
-    */
-    let data
-
-    data = this.prepareDataForBackend()
-    console.log(data)
-
-    /*
-    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/agents'
-
-    axios.post(url, data, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => {
-      console.log(response)
-      responseStatus = response.status
-      responseMessage = response.statusText
-    })
-      .catch(function (error) {
-        console.log(error)
-        responseStatus = 'Error'
-        errorMessage = error.message
-      })
-      .then(() => {
-        if (responseStatus === 201) {
-          this.setState({
-            response: {
-              color: 'green',
-              text: 'Eksterne kontaktpersoner ble lagret: ' + [responseMessage]
-            }
-          })
-        } else if (responseStatus === 'Error') {
-          this.setState({
-            response: {
-              color: 'red',
-              text: 'Eksterne kontaktpersoner ble ikke lagret: ' + [errorMessage]
-            }
-          })
-        } else {
-          this.setState({
-            response: {
-              color: 'yellow',
-              text: 'Eksterne kontaktpersoner ble ikke lagret: ' + [responseMessage]
-            }
-          })
-        }
-      })
-    */
-
-  }
-
   render () {
     const editMode = this.props.editMode
 
@@ -169,7 +131,9 @@ class InternalAgent extends React.Component {
         <Divider horizontal>Intern</Divider>
         <AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)}
                     onAgentTableUpdateDropdown={this.handleAgentTableDropdown.bind(this)}
-                    onRowDel={this.handleRowDel.bind(this)} agents={this.state.internalAgents}
+                    onRowDel={this.handleRowDel.bind(this)}
+                    onRowSave={this.handleRowSave.bind(this)}
+                    agents={this.state.internalAgents}
                     editMode={editMode} />
       </div>
     )
