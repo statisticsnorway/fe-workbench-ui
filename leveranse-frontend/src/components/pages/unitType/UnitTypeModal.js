@@ -23,24 +23,12 @@ class UnitTypeModal extends React.Component {
 
     if (this.props.unitTypeId !== 'new') {
       this.state.unitType.id = this.props.unitTypeId
+
       // Code to fetch the unitType from backend with the passed id
     } else {
       const uuidv1 = require('uuid/v1')
       this.state.unitType.id = uuidv1()
     }
-  }
-
-  handleInputChange (event) {
-    this.setState({
-      errors: {
-        ...this.state.errors,
-        [event.target.name]: ''
-      },
-      unitType: {
-        ...this.state.unitType,
-        [event.target.name]: event.target.value
-      }
-    })
   }
 
   handleUnitTypeModalOpen = () => {
@@ -61,6 +49,19 @@ class UnitTypeModal extends React.Component {
     this.setState({
       readOnlyMode: !this.state.readOnlyMode,
       response: {}
+    })
+  }
+
+  handleInputChange (event) {
+    this.setState({
+      errors: {
+        ...this.state.errors,
+        [event.target.name]: ''
+      },
+      unitType: {
+        ...this.state.unitType,
+        [event.target.name]: event.target.value
+      }
     })
   }
 
@@ -103,14 +104,14 @@ class UnitTypeModal extends React.Component {
 
     return (
       <Modal trigger={<Button primary floated='right' icon='edit' content='Registrer ny enhetstype'
-                              onClick={this.handleUnitTypeModalOpen} />} open={unitTypeModalOpen}
+                              onClick={this.props.handleIsNewUnitType} />} open={unitTypeModalOpen}
              onClose={this.handleUnitTypeModalClose} dimmer='inverted' centered={false} closeOnEscape={false}
              closeOnRootNodeClick={false}>
-        <Modal.Header content='Registrer ny enhetstype' />
+        <Modal.Header content='Enhetstype' />
         <Modal.Content>
           <Form>
             <Container textAlign='right'>
-              <Checkbox toggle floated='right' checked={!readOnlyMode} onClick={this.handleEditModeClick} icon='edit'
+              <Checkbox toggle checked={!readOnlyMode} onClick={this.handleEditModeClick} icon='edit'
                         label='Redigeringsmodus' />
             </Container>
             <Divider hidden />
@@ -129,7 +130,7 @@ class UnitTypeModal extends React.Component {
               </Form.Field>
               <Form.Field>
                 <label>Kode</label>
-                <Label size='big'>{unitType.id}</Label>
+                <Label size='big' content={unitType.id} />
               </Form.Field>
             </Form.Group>
             <Form.Field error={!!errors.description}>

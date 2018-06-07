@@ -12,7 +12,7 @@ const tableHeaders = [
   ['action', '']
 ]
 
-let tableColumns = []
+let tableColumns
 
 class UnitType extends React.Component {
   constructor (props) {
@@ -25,15 +25,34 @@ class UnitType extends React.Component {
       selectedUnitTypeId: 'new'
     }
 
-    tableHeaders.map((row) => {
+    tableColumns = tableHeaders.map((row) => {
       let tableColumn = {}
       tableColumn['Header'] = row[1]
       tableColumn['accessor'] = row[0]
+
       if (row[0] === 'name') {
         tableColumn['Cell'] = props => (
-          <a className='item cursorPointer' onClick={() => this.setStateThenOpenModal(props.value)}>{props.value}</a>)
+          // props.value will have to be changed to the unit types id when we implement fetching data from backend
+          <a className='item cursorPointer' onClick={() => this.setStateThenOpenModal(props.value)}>{props.value}</a>
+        )
       }
-      tableColumns.push(tableColumn)
+
+      if (row[0] === 'description') {
+        tableColumn['Cell'] = props => (
+          // Using <a> because that is the only thing (found so far) in Semantic UI using '...' to cutoff text
+          <Popup trigger={<a className='noStyle'>{props.value}</a>} wide hideOnScroll position='top left'>
+            {props.value}
+          </Popup>
+        )
+      }
+
+      if (row[0] === 'code' || row[0] === 'status' || row[0] === 'lastUpdateDate') {
+        tableColumn['Cell'] = props => (
+          <div className='textCenter'>{props.value}</div>
+        )
+      }
+
+      return tableColumn
     })
 
     this.searchInputOnChange = this.searchInputOnChange.bind(this)
@@ -58,8 +77,14 @@ class UnitType extends React.Component {
     })
   }
 
+  handleIsNewUnitType = () => {
+    this.handleSelectedUnitType('new').then(() => {
+      this.UnitTypeModal.handleUnitTypeModalOpen()
+    })
+  }
+
   render () {
-    const {search, tableData, loadingTable} = this.state
+    const {search, tableData, loadingTable, selectedUnitTypeId} = this.state
     let filteredTableData = tableData
 
     if (search) {
@@ -78,7 +103,8 @@ class UnitType extends React.Component {
           Filtrerer tabellen etter navn
         </Popup>
         <UnitTypeModal ref={(UnitTypeModal => {this.UnitTypeModal = UnitTypeModal})}
-                       unitTypeId={this.state.selectedUnitTypeId} key={this.state.selectedUnitTypeId} />
+                       unitTypeId={selectedUnitTypeId} handleIsNewUnitType={this.handleIsNewUnitType}
+                       key={selectedUnitTypeId} />
         <Divider hidden />
         <ReactTable
           sortable
