@@ -6,8 +6,8 @@ import Variable from './variable/Variable'
 import ProvisionAgreementsList from './provisionAgreement/ProvisionAgreementsList'
 import UnitType from './unitType/UnitType'
 import '../../assets/css/site.css'
-import TargetPopulation from '../population/TargetPopulation'
-import SurveyPopulation from '../population/SurveyPopulation'
+import TargetPopulation from './population/TargetPopulation'
+import SurveyPopulation from './population/SurveyPopulation'
 
 class ProvisionAgreementPage extends React.Component {
   state = {}
@@ -66,6 +66,15 @@ class ProvisionAgreementPage extends React.Component {
                   </Menu.Item>
                 </Menu>
                 <Menu fluid vertical>
+                  <Menu.Item header content='Enhetstyper' />
+                  <Menu.Item name='unitType' active={activeItem === 'unitType'}>
+                    <NavLink to='/unitType'>
+                      <Icon name='tasks' />
+                      Administrer
+                    </NavLink>
+                  </Menu.Item>
+                </Menu>
+                <Menu fluid vertical>
                   <Menu.Item header>Populasjoner</Menu.Item>
                   <Dropdown item text='Valg'>
                     <Dropdown.Menu>
@@ -96,23 +105,14 @@ class ProvisionAgreementPage extends React.Component {
                     </Dropdown.Menu>
                   </Dropdown>
                 </Menu>
-                <Menu fluid vertical>
-                  <Menu.Item header content='Enhetstyper' />
-                  <Menu.Item name='unitType' active={activeItem === 'unitType'}>
-                    <NavLink to='/unitType'>
-                      <Icon name='tasks' />
-                      Administrer
-                    </NavLink>
-                  </Menu.Item>
-                </Menu>
               </Segment>
             </Grid.Column>
             <Grid.Column width={12}>
               <Segment inverted tertiary>
+                <Route path='/home' component={ProvisionAgreementsList} />
                 <Route path='/provisionAgreement'
                        render={(props) => <ProvisionAgreement {...props} isNewProvisionAgreement={true} />} />
                 <Route path='/variable' component={Variable} />
-                <Route path='/home' component={ProvisionAgreementsList} />
                 <Route path='/unitType' component={UnitType} />
                 <Route path='/population/targetPopulation' component={TargetPopulation} />
                 <Route path='/population/surveyPopulation' component={SurveyPopulation} />

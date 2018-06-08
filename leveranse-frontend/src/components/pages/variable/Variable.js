@@ -1,23 +1,13 @@
 import React from 'react'
-import { Checkbox, Dropdown, Form, Grid, Header, Input, Message, Segment, TextArea } from 'semantic-ui-react'
-import { fetchMainSubjectsFromExternalApi, sendDataToBackend } from '../../../utils/Common'
-
-const unitTypeOptions = [
-  {key: '1', text: 'Person', value: 'Person'},
-  {key: '2', text: 'Husholdning', value: 'Husholdning'},
-  {key: '3', text: 'Virksomhet', value: 'Virksomhet'}
-]
-
-const orderlyOptions = [
-  {key: '1', text: 'Mann', value: 'Mann'},
-  {key: '2', text: 'Kvinne', value: 'Kvinne'},
-  {key: '3', text: '[ingenting]', value: null}
-]
-
-const describedOptions = [
-  {key: '1', text: 'Heltall større enn 0', value: 'Heltall større enn 0'},
-  {key: '2', text: '[ingenting]', value: null}
-]
+import { Button, Dropdown, Form, Header, Input } from 'semantic-ui-react'
+import {
+  editModeCheckbox,
+  errorMessages,
+  fetchMainSubjectsFromExternalApi,
+  responseMessages,
+  sendDataToBackend
+} from '../../../utils/Common'
+import InlineError from '../../messages/InlineError'
 
 const mainSubjectsOptions = fetchMainSubjectsFromExternalApi()
 
@@ -25,9 +15,19 @@ class Variable extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      variable: {
+        id: '',
+        name: '',
+        description: '',
+        concept: '',
+        unitType: '',
+        labels: [],
+        variablePrecisionOrderly: '',
+        variablePrecisionDescribed: ''
+      },
       readOnlyMode: false,
-      variable: {},
       response: {},
+      errors: {},
       waitingForResponse: false
     }
 
@@ -39,6 +39,10 @@ class Variable extends React.Component {
 
   handleInputChange (event) {
     this.setState({
+      errors: {
+        ...this.state.errors,
+        [event.target.name]: ''
+      },
       variable: {
         ...this.state.variable,
         [event.target.name]: event.target.value
@@ -48,6 +52,10 @@ class Variable extends React.Component {
 
   handleDropdownChange (value, name) {
     this.setState({
+      errors: {
+        ...this.state.errors,
+        [name]: ''
+      },
       variable: {
         ...this.state.variable,
         [name]: value
@@ -62,90 +70,133 @@ class Variable extends React.Component {
     })
   }
 
-  registerVariable = () => {
-    this.setState({
-      readOnlyMode: true,
-      waitingForResponse: true
-    })
+  validateInputData = data => {
+    const errors = {}
 
-    sendDataToBackend('/variable', 'Variabelen', this.state.variable).then((result) => {
+    if (!data.name) errors.name = 'Feltet kan ikke være tomt'
+    if (!data.description) errors.description = 'Feltet kan ikke være tomt'
+    if (!data.concept) errors.concept = 'Feltet kan ikke være tomt'
+    if (!data.unitType) errors.unitType = 'Et valg må velges'
+    if (Object.keys(data.labels).length === 0) errors.labels = 'Ett eller flere valg må velges'
+
+    return errors
+  }
+
+  validationOk = () => {
+    const errors = this.validateInputData(this.state.variable)
+
+    this.setState({errors})
+
+    return Object.keys(errors).length === 0
+  }
+
+  registerVariable = () => {
+    if (this.validationOk()) {
       this.setState({
-        response: result,
-        waitingForResponse: false
+        readOnlyMode: true,
+        errors: {},
+        waitingForResponse: true
       })
-    })
+
+      sendDataToBackend('/variable', 'Variabelen', this.state.variable).then((result) => {
+        this.setState({
+          response: result,
+          waitingForResponse: false
+        })
+      })
+    }
   }
 
   render () {
-    const {response, waitingForResponse, readOnlyMode} = this.state
+    const {errors, response, readOnlyMode, waitingForResponse, variable} = this.state
 
     return (
-      <div>
-        <Form>
-          <Form.Group widths='equal'>
-            <Form.Field />
-            <Form.Field />
-            <Form.Field>
-              <Checkbox slider checked={!readOnlyMode} onClick={this.handleEditModeClick} icon='edit'
-                        label='Redigeringsmodus' />
-            </Form.Field>
-          </Form.Group>
-          <Grid container stackable>
-            <Grid.Row columns={3}>
-              <Grid.Column width={10}>
-                <Segment>
-                  {Object.keys(response).length !== 0 && readOnlyMode ?
-                    <Message icon={response.icon} color={response.color} header={response.header}
-                             content={response.text} /> : null}
-                  <Header as='h3' content='Variabel' />
-                  <Form.Field>
-                    <label>Variabelnavn</label>
-                    <Input placeholder='Variabelnavn' readOnly={readOnlyMode} />
-                  </Form.Field>
-                  <Form.Field>
-                    <label>Variabelbeskrivelse</label>
-                    <TextArea autoHeight placeholder='Variabelbeskrivelse' readOnly={readOnlyMode.readOnlyMode} />
-                  </Form.Field>
-                  <Form.Field>
-                    <label>Begrep</label>
-                    <Input placeholder='Begrep' readOnly={readOnlyMode} />
-                  </Form.Field>
-                  <Form.Field>
-                    <label>Enhetstype</label>
-                    <Dropdown placeholder='Enhetstype' selection options={unitTypeOptions}
-                              disabled={readOnlyMode} />
-                  </Form.Field>
-                  <Form.Field>
-                    <label>Merke</label>
-                    <Dropdown placeholder='Merke' multiple search selection options={mainSubjectsOptions}
-                              disabled={readOnlyMode} />
-                  </Form.Field>
-                  <Header as='h4' content='Presisering av variabel' />
-                  <Form.Field>
-                    <label>Ordnet</label>
-                    <Dropdown placeholder='Ordnet' selection options={orderlyOptions}
-                              disabled={readOnlyMode} />
-                  </Form.Field>
-                  <Form.Field>
-                    <label>Beskrevet</label>
-                    <Dropdown placeholder='Beskrevet' selection options={describedOptions}
-                              disabled={readOnlyMode} />
-                  </Form.Field>
-                </Segment>
-              </Grid.Column>
-              <Grid.Column width={6}>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-          <Segment>
-            <Form.Button disabled={readOnlyMode} loading={waitingForResponse} primary icon='save'
-                         onClick={this.registerVariable}
-                         content='Lagre variabel' />
-          </Segment>
-        </Form>
-      </div>
+      <Form>
+        <Header as='h2' dividing content='Variabel' />
+
+        {editModeCheckbox(readOnlyMode, this.handleEditModeClick)}
+        {errorMessages(errors, 'Variabelen')}
+        {responseMessages(readOnlyMode, response)}
+
+        <Form.Field error={!!errors.name}>
+          <label>Variabelnavn</label>
+          <Input name='name' placeholder='Variabelnavn' value={variable.name} onChange={this.handleInputChange}
+                 readOnly={readOnlyMode} />
+          {errors.name && <InlineError text={errors.name} />}
+        </Form.Field>
+
+        <Form.Field error={!!errors.description}>
+          <Form.TextArea autoHeight name='description' label='Beskrivelse' placeholder='Variabelbeskrivelse'
+                         readOnly={readOnlyMode.readOnlyMode} value={variable.description}
+                         onChange={this.handleInputChange} />
+          {errors.description && <InlineError text={errors.description} />}
+        </Form.Field>
+
+        <Form.Field error={!!errors.concept}>
+          <label>Begrep</label>
+          <Input name='concept' placeholder='Begrep' value={variable.concept} onChange={this.handleInputChange}
+                 readOnly={readOnlyMode} />
+          {errors.concept && <InlineError text={errors.concept} />}
+        </Form.Field>
+
+        <Form.Field error={!!errors.unitType}>
+          <label>Enhetstype</label>
+          <Dropdown placeholder='Enhetstype' selection options={tempUnitTypeOptions}
+                    value={variable.unitType}
+                    onChange={(event, {value}) => this.handleDropdownChange(value, 'unitType')}
+                    disabled={readOnlyMode} />
+          {errors.unitType && <InlineError text={errors.unitType} />}
+        </Form.Field>
+
+        <Form.Field error={!!errors.labels}>
+          <label>Merke(er)</label>
+          <Dropdown placeholder='Merke(er)' multiple search selection options={mainSubjectsOptions}
+                    value={variable.labels}
+                    onChange={(event, {value}) => this.handleDropdownChange(value, 'labels')}
+                    disabled={readOnlyMode} />
+          {errors.labels && <InlineError text={errors.labels} />}
+        </Form.Field>
+
+        <Header as='h3' content='Presisering av variabel' />
+        <Form.Field error={!!errors.variablePrecisionOrderly}>
+          <label>Ordnet</label>
+          <Dropdown placeholder='Ordnet' selection options={tempOrderlyOptions}
+                    value={variable.variablePrecisionOrderly}
+                    onChange={(event, {value}) => this.handleDropdownChange(value, 'variablePrecisionOrderly')}
+                    disabled={readOnlyMode} />
+          {errors.variablePrecisionOrderly && <InlineError text={errors.variablePrecisionOrderly} />}
+        </Form.Field>
+        <Form.Field error={!!errors.variablePrecisionDescribed}>
+          <label>Beskrevet</label>
+          <Dropdown placeholder='Beskrevet' selection options={tempDescribedOptions}
+                    value={variable.variablePrecisionDescribed}
+                    onChange={(event, {value}) => this.handleDropdownChange(value, 'variablePrecisionDescribed')}
+                    disabled={readOnlyMode} />
+          {errors.variablePrecisionDescribed && <InlineError text={errors.variablePrecisionDescribed} />}
+        </Form.Field>
+
+        <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
+                content='Lagre variabel' onClick={this.registerVariable} />
+      </Form>
     )
   }
 }
+
+const tempUnitTypeOptions = [
+  {key: '1', text: 'Person', value: 'Person'},
+  {key: '2', text: 'Husholdning', value: 'Husholdning'},
+  {key: '3', text: 'Virksomhet', value: 'Virksomhet'}
+]
+
+const tempOrderlyOptions = [
+  {key: '1', text: 'Mann', value: 'Mann'},
+  {key: '2', text: 'Kvinne', value: 'Kvinne'},
+  {key: '3', text: '[ingenting]', value: null}
+]
+
+const tempDescribedOptions = [
+  {key: '1', text: 'Heltall større enn 0', value: 'Heltall større enn 0'},
+  {key: '2', text: '[ingenting]', value: null}
+]
 
 export default Variable

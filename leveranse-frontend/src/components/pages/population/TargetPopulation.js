@@ -1,7 +1,7 @@
 import React from 'react'
-import { editModeCheckbox, errorMessages, responseMessages, sendDataToBackend } from '../../utils/Common'
+import { editModeCheckbox, errorMessages, responseMessages, sendDataToBackend } from '../../../utils/Common'
 import { Button, Dropdown, Form, Header } from 'semantic-ui-react'
-import InlineError from '../messages/InlineError'
+import InlineError from '../../messages/InlineError'
 
 class TargetPopulation extends React.Component {
   constructor (props) {
@@ -97,7 +97,7 @@ class TargetPopulation extends React.Component {
 
     return (
       <Form>
-        <Header as='h3' dividing content='Målpopulasjon' />
+        <Header as='h2' dividing content='Målpopulasjon' />
 
         {editModeCheckbox(readOnlyMode, this.handleEditModeClick)}
         {errorMessages(errors, 'Målpopulasjonen')}
