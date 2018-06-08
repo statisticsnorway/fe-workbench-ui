@@ -95,17 +95,21 @@ class UnitType extends React.Component {
 
     return (
       <div>
-        <Header as='h3' content='Enhetstyper' dividing />
+        <Header as='h2' content='Enhetstyper' dividing />
+
         <Popup trigger={<Input icon='search' placeholder='Søk...' value={search}
                                onChange={this.searchInputOnChange} />}
                flowing hoverable hideOnScroll position='right center'>
           <Icon color='blue' name='info circle' />
           Filtrerer tabellen etter navn
         </Popup>
+
         <UnitTypeModal ref={(UnitTypeModal => {this.UnitTypeModal = UnitTypeModal})}
                        unitTypeId={selectedUnitTypeId} handleIsNewUnitType={this.handleIsNewUnitType}
                        key={selectedUnitTypeId} />
+
         <Divider hidden />
+
         <ReactTable
           sortable
           data={filteredTableData}

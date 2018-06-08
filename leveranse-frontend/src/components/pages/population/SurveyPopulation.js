@@ -1,7 +1,7 @@
 import React from 'react'
-import { editModeCheckbox, errorMessages, responseMessages, sendDataToBackend } from '../../utils/Common'
+import { editModeCheckbox, errorMessages, responseMessages, sendDataToBackend } from '../../../utils/Common'
 import { Button, Dropdown, Form, Header } from 'semantic-ui-react'
-import InlineError from '../messages/InlineError'
+import InlineError from '../../messages/InlineError'
 
 class SurveyPopulation extends React.Component {
   constructor (props) {

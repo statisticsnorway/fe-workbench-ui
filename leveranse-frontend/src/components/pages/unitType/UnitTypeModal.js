@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button, Checkbox, Container, Divider, Form, Input, Label, Message, Modal } from 'semantic-ui-react'
-import { sendDataToBackend } from '../../../utils/Common'
+import { Button, Form, Input, Label, Modal } from 'semantic-ui-react'
+import { editModeCheckbox, errorMessages, responseMessages, sendDataToBackend } from '../../../utils/Common'
 import InlineError from '../../messages/InlineError'
 
 class UnitTypeModal extends React.Component {
@@ -110,17 +110,10 @@ class UnitTypeModal extends React.Component {
         <Modal.Header content='Enhetstype' />
         <Modal.Content>
           <Form>
-            <Container textAlign='right'>
-              <Checkbox toggle checked={!readOnlyMode} onClick={this.handleEditModeClick} icon='edit'
-                        label='Redigeringsmodus' />
-            </Container>
-            <Divider hidden />
-            {Object.keys(errors).length !== 0 && !Object.values(errors).every(i => (i === '')) ?
-              <Message icon='warning' header={'Enhetstypen ble ikke lagret'}
-                       content={'Rett opp i feilene og prøv igjen'} color='yellow' /> : null}
-            {Object.keys(response).length !== 0 && readOnlyMode ?
-              <Message icon={response.icon} header={response.header} content={response.text}
-                       color={response.color} /> : null}
+            {editModeCheckbox(readOnlyMode, this.handleEditModeClick)}
+            {errorMessages(errors, 'Enhetstypen')}
+            {responseMessages(readOnlyMode, response)}
+
             <Form.Group widths='equal'>
               <Form.Field error={!!errors.name}>
                 <label>Navn</label>
@@ -133,11 +126,13 @@ class UnitTypeModal extends React.Component {
                 <Label size='big' content={unitType.id} />
               </Form.Field>
             </Form.Group>
+
             <Form.Field error={!!errors.description}>
               <Form.TextArea autoHeight name='description' label='Beskrivelse' placeholder='Beskrivelse'
                              readOnly={readOnlyMode} value={unitType.description} onChange={this.handleInputChange} />
               {errors.description && <InlineError text={errors.description} />}
             </Form.Field>
+
             <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='clipboard check'
                     content='Send til godkjenning' onClick={this.registerUnitType} />
             <Button negative floated='right' onClick={this.handleUnitTypeModalClose} content='Tilbake' />
