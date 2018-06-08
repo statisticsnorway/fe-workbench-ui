@@ -5,8 +5,8 @@ import ProvisionAgreement from './provisionAgreement/ProvisionAgreement'
 import Variable from './variable/Variable'
 import ProvisionAgreementsList from './provisionAgreement/ProvisionAgreementsList'
 import UnitType from './unitType/UnitType'
-import SurveyPopulation from '../pages/population/SurveyPopulation'
-import TargetPopulation from '../pages/population/TargetPopulation'
+import SurveyPopulation from './population/SurveyPopulation'
+import TargetPopulation from './population/TargetPopulation'
 import '../assets/css/site.css'
 
 class ProvisionAgreementPage extends React.Component {

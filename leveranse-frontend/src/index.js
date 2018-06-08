@@ -7,12 +7,12 @@ import { store } from './_helpers'
 import { App } from './App'
 
 // setup fake backend
-import { configureFakeBackend } from './_helpers';
-configureFakeBackend();
+import { configureFakeBackend } from './_helpers'
 
+configureFakeBackend()
 
 ReactDOM.render(
   <Provider store={store}>
-      <App/>
-    </Provider>,
+    <App/>
+  </Provider>,
   document.getElementById('root'))
