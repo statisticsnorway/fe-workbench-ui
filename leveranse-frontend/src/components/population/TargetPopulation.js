@@ -1,6 +1,6 @@
 import React from 'react'
-import { sendDataToBackend } from '../../utils/Common'
-import { Button, Checkbox, Container, Divider, Dropdown, Form, Header, Message } from 'semantic-ui-react'
+import { editModeCheckbox, errorMessages, responseMessages, sendDataToBackend } from '../../utils/Common'
+import { Button, Dropdown, Form, Header } from 'semantic-ui-react'
 import InlineError from '../messages/InlineError'
 
 class TargetPopulation extends React.Component {
@@ -98,23 +98,18 @@ class TargetPopulation extends React.Component {
     return (
       <Form>
         <Header as='h3' dividing content='Målpopulasjon' />
-        <Container textAlign='right'>
-          <Checkbox toggle checked={!readOnlyMode} onClick={this.handleEditModeClick} icon='edit'
-                    label='Redigeringsmodus' />
-        </Container>
-        <Divider hidden />
-        {Object.keys(errors).length !== 0 && !Object.values(errors).every(i => (i === '')) ?
-          <Message icon='warning' header={'Målpopulasjonen ble ikke lagret'}
-                   content={'Rett opp i feilene og prøv igjen'} color='yellow' /> : null}
-        {Object.keys(response).length !== 0 && readOnlyMode ?
-          <Message icon={response.icon} header={response.header} content={response.text}
-                   color={response.color} /> : null}
+
+        {editModeCheckbox(readOnlyMode, this.handleEditModeClick)}
+        {errorMessages(errors, 'Målpopulasjonen')}
+        {responseMessages(readOnlyMode, response)}
+
         <Form.Field error={!!errors.description}>
           <Form.TextArea autoHeight name='description' label='Beskrivelse' placeholder='Beskrivelse'
                          readOnly={readOnlyMode} value={targetPopulation.description}
                          onChange={this.handleInputChange} />
           {errors.description && <InlineError text={errors.description} />}
         </Form.Field>
+
         <Form.Field error={!!errors.unitTypes}>
           <label>Enhetstype(r) i målpopulasjon</label>
           <Dropdown placeholder='Enhetstype(r)' multiple selection options={tempUnitTypeOptions}
@@ -123,6 +118,7 @@ class TargetPopulation extends React.Component {
                     disabled={readOnlyMode} />
           {errors.unitTypes && <InlineError text={errors.unitTypes} />}
         </Form.Field>
+
         <Form.Field error={!!errors.geographicalClarification}>
           <Form.TextArea autoHeight name='geographicalClarification' label='Geografi i målpopulasjon'
                          placeholder='Geografi i målpopulasjon'
@@ -130,12 +126,14 @@ class TargetPopulation extends React.Component {
                          onChange={this.handleInputChange} />
           {errors.geographicalClarification && <InlineError text={errors.geographicalClarification} />}
         </Form.Field>
+
         <Form.Field error={!!errors.timeInterval}>
           <Form.TextArea autoHeight name='timeInterval' label='Tid i målpopulasjon' placeholder='Tid i målpopulasjon'
                          readOnly={readOnlyMode} value={targetPopulation.timeInterval}
                          onChange={this.handleInputChange} />
           {errors.timeInterval && <InlineError text={errors.timeInterval} />}
         </Form.Field>
+
         <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
                 content='Lagre målpopulasjon' onClick={this.registerTargetPopulation} />
       </Form>
