@@ -92,7 +92,7 @@ class Supplier extends React.Component {
       <Modal trigger={
         <Button icon aria-label='Open' data-tooltip='Søk leverandør'
                 aria-hidden={this.state.modalOpen}
-                basic onClick={this.handleOpen}><Icon name='ellipsis horizontal' />
+                basic onClick={this.handleOpen}><Icon name='ellipsis horizontal'/>
         </Button>
       }
              open={this.state.modalOpen}

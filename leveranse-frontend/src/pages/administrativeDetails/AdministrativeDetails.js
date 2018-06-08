@@ -85,8 +85,8 @@ class AdministrativeDetails extends Component {
       <div>
         {Object.keys(response).length !== 0 && editMode ?
           <Message icon={response.icon} color={response.color} header={response.header}
-                   content={response.text} /> : null}
-        <Header as='h3' content='Administrative detaljer' />
+                   content={response.text}/> : null}
+        <Header as='h3' content='Administrative detaljer'/>
         <List>
           <List.Item>
             <List.Header>Dato opprettet</List.Header>
@@ -99,7 +99,7 @@ class AdministrativeDetails extends Component {
             {administrativeDetails.createBy}
           </List.Item>
         </List>
-        <hr />
+        <hr/>
         <List>
           <List.Item>
             <List.Header>Dato endret</List.Header>
@@ -112,7 +112,7 @@ class AdministrativeDetails extends Component {
             {administrativeDetails.lastUpdateBy}
           </List.Item>
         </List>
-        <hr />
+        <hr/>
         <List>
           <List.Item>
             <List.Header>Versjon</List.Header>
