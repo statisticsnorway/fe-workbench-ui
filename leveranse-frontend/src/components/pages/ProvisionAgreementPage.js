@@ -6,6 +6,7 @@ import Variable from './variable/Variable'
 import ProvisionAgreementsList from './provisionAgreement/ProvisionAgreementsList'
 import '../../assets/css/site.css'
 import TargetPopulation from '../population/TargetPopulation'
+import SurveyPopulation from '../population/SurveyPopulation'
 
 class ProvisionAgreementPage extends React.Component {
   state = {}
@@ -103,6 +104,7 @@ class ProvisionAgreementPage extends React.Component {
                 <Route path='/variable' component={Variable} />
                 <Route path='/home' component={ProvisionAgreementsList} />
                 <Route path='/population/targetPopulation' component={TargetPopulation} />
+                <Route path='/population/surveyPopulation' component={SurveyPopulation} />
               </Segment>
             </Grid.Column>
           </Grid>
