@@ -6,6 +6,8 @@ import Variable from './variable/Variable'
 import ProvisionAgreementsList from './provisionAgreement/ProvisionAgreementsList'
 import UnitType from './unitType/UnitType'
 import '../../assets/css/site.css'
+import TargetPopulation from '../population/TargetPopulation'
+import SurveyPopulation from '../population/SurveyPopulation'
 
 class ProvisionAgreementPage extends React.Component {
   state = {}
@@ -64,6 +66,28 @@ class ProvisionAgreementPage extends React.Component {
                   </Menu.Item>
                 </Menu>
                 <Menu fluid vertical>
+                  <Menu.Item header>Populasjoner</Menu.Item>
+                  <Dropdown item text='Valg'>
+                    <Dropdown.Menu>
+                      <Dropdown.Header>Målpopulasjon</Dropdown.Header>
+                      <Dropdown.Item>
+                        <NavLink to='/population/targetPopulation'>
+                          <Icon name='compose' />
+                          Opprett ny
+                        </NavLink>
+                      </Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Header>Undersøkelsespopulasjon</Dropdown.Header>
+                      <Dropdown.Item>
+                        <NavLink to='/population/surveyPopulation'>
+                          <Icon name='compose' />
+                          Opprett ny
+                        </NavLink>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Menu>
+                <Menu fluid vertical>
                   <Dropdown item text='Annet'>
                     <Dropdown.Menu>
                       <Dropdown.Item icon='edit' text='Endre profil' />
@@ -90,6 +114,8 @@ class ProvisionAgreementPage extends React.Component {
                 <Route path='/variable' component={Variable} />
                 <Route path='/home' component={ProvisionAgreementsList} />
                 <Route path='/unitType' component={UnitType} />
+                <Route path='/population/targetPopulation' component={TargetPopulation} />
+                <Route path='/population/surveyPopulation' component={SurveyPopulation} />
               </Segment>
             </Grid.Column>
           </Grid>
