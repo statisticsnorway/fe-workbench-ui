@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom'
 import 'semantic-ui-css/semantic.min.css'
 import { Provider } from 'react-redux'
 
-import { store } from './_helpers'
-import { App } from './App'
+import { store } from './helpers'
+import { App } from './app'
 
 // setup fake backend
-import { configureFakeBackend } from './_helpers'
+import { configureFakeBackend } from './helpers'
 
 configureFakeBackend()
 
