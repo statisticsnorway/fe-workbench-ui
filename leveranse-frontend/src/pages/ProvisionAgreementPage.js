@@ -4,7 +4,7 @@ import { BrowserRouter, NavLink, Route } from 'react-router-dom'
 import ProvisionAgreement from './provisionAgreement/ProvisionAgreement'
 import Variable from './variable/Variable'
 import ProvisionAgreementsList from './provisionAgreement/ProvisionAgreementsList'
-import TargetPopulation from '../population/TargetPopulation'
+import TargetPopulation from '../pages/population/TargetPopulation'
 import '../assets/css/site.css'
 
 class ProvisionAgreementPage extends React.Component {

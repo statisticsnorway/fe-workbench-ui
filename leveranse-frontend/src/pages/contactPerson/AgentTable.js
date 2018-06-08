@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Dropdown, Icon, Table, Checkbox } from 'semantic-ui-react'
-import { fetchListOptions } from '../../../utils/Common'
+import { fetchListOptions } from '../../utils/Common'
 
 const fetchRoleUrl = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + '/contactPerson/role'
 const roleOptions = fetchListOptions(fetchRoleUrl)

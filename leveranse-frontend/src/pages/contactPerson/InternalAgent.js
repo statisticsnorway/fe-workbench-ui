@@ -1,7 +1,7 @@
 import React from 'react'
 import { Divider } from 'semantic-ui-react'
 import AgentTable from './AgentTable'
-import { sendDataToBackend, deleteDataInBackend } from '../../../utils/Common'
+import { sendDataToBackend, deleteDataInBackend } from '../../utils/Common'
 
 const saveContactPersonUrl = '/contactPerson'
 const deleteContactPersonPaConnectionUrl = '/contactPerson/provisionAgreement/'
