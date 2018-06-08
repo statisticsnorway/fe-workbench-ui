@@ -4,6 +4,8 @@ import { BrowserRouter, NavLink, Route } from 'react-router-dom'
 import ProvisionAgreement from './provisionAgreement/ProvisionAgreement'
 import Variable from './variable/Variable'
 import ProvisionAgreementsList from './provisionAgreement/ProvisionAgreementsList'
+import UnitType from './unitType/UnitType'
+import SurveyPopulation from '../pages/population/SurveyPopulation'
 import TargetPopulation from '../pages/population/TargetPopulation'
 import '../assets/css/site.css'
 
@@ -94,6 +96,15 @@ class ProvisionAgreementPage extends React.Component {
                     </Dropdown.Menu>
                   </Dropdown>
                 </Menu>
+                <Menu fluid vertical>
+                  <Menu.Item header content='Enhetstyper' />
+                  <Menu.Item name='unitType' active={activeItem === 'unitType'}>
+                    <NavLink to='/unitType'>
+                      <Icon name='tasks' />
+                      Administrer
+                    </NavLink>
+                  </Menu.Item>
+                </Menu>
               </Segment>
             </Grid.Column>
             <Grid.Column width={12} floated='right'>
@@ -102,7 +113,9 @@ class ProvisionAgreementPage extends React.Component {
                        render={(props) => <ProvisionAgreement {...props} isNewProvisionAgreement={true} />} />
                 <Route path='/variable' component={Variable} />
                 <Route path='/home' component={ProvisionAgreementsList} />
+                <Route path='/unitType' component={UnitType} />
                 <Route path='/population/targetPopulation' component={TargetPopulation} />
+                <Route path='/population/surveyPopulation' component={SurveyPopulation} />
               </Segment>
             </Grid.Column>
           </Grid>

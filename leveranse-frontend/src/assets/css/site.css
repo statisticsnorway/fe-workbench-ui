@@ -32,3 +32,16 @@
 .ui.small.vertical.menu {
     width: 11.4rem !important;
 }
+
+.cursorPointer {
+    cursor: pointer !important;
+}
+
+.noStyle, .noStyle:link, .noStyle:visited, .noStyle:hover, .noStyle:active {
+    text-decoration: none;
+    color: rgba(255,255,255,.8);
+}
+
+.textCenter {
+    text-align: center;
+}
