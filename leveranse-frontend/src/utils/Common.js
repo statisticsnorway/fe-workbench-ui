@@ -1,4 +1,6 @@
+import React from 'react'
 import axios from 'axios'
+import { Checkbox, Container, Message } from 'semantic-ui-react'
 
 export const fetchMainSubjectsFromExternalApi = () => {
   let mainSubjectsOptions = []
@@ -71,6 +73,33 @@ export const fetchAllSubjectsFromExternalApi = () => {
   return allSubjectsOptions
 }
 
+export const fetchListOptions = (url) => {
+  let theRespons
+  let theList = []
+
+  axios.get(url).then((response) => {
+    console.log(response)
+    if (response.status === 200) {
+      theRespons = response.data
+      console.log('response.data')
+      console.log(response.data)
+      for (let key in theRespons) {
+        theList.push({
+          key: theRespons[key]['id'],
+          text: theRespons[key]['name'],
+          value: theRespons[key]['id']
+        })
+      }
+    } else {
+      console.log('Noe gikk galt ved henting av data')
+    }
+  }).catch((error) => {
+    console.log(error)
+  })
+
+  return theList
+}
+
 function prepareDataForBackend (state) {
   let data = state
 
@@ -127,4 +156,72 @@ export const sendDataToBackend = (path, text, state) => {
       resolve(newState)
     })
   })
+}
+
+export const deleteDataInBackend = (path, text, id) => {
+  return new Promise((resolve) => {
+    let url
+    let newState = {}
+
+    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + path + id
+
+    axios.delete(url, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => {
+      if (response.status === 204) {
+        newState = {
+          color: 'green',
+          header: text + ' ble slettet',
+          text: response.statusText,
+          icon: 'check',
+          status: response.status
+        }
+      } else {
+        newState = {
+          color: 'orange',
+          header: text + ' ble ikke slettet',
+          text: response.statusText + ' (' + url + ')',
+          icon: 'warning',
+          status: response.status
+        }
+      }
+    }).catch((error) => {
+      console.log(error)
+
+      newState = {
+        color: 'red',
+        header: text + ' ble ikke slettet',
+        text: error.message + ' (' + url + ')',
+        icon: 'warning',
+        status: 'error'
+      }
+    }).then(() => {
+      resolve(newState)
+    })
+  })
+}
+
+export const editModeCheckbox = (readOnlyMode, action) => {
+  return (
+    <Container textAlign='right'>
+      <Checkbox toggle checked={!readOnlyMode} onClick={action} icon='edit' label='Redigeringsmodus' />
+    </Container>
+  )
+}
+
+export const errorMessages = (errors, name) => {
+  return (
+    Object.keys(errors).length !== 0 && !Object.values(errors).every(i => (i === '')) ?
+      <Message icon='warning' header={name + ' ble ikke lagret'} content={'Rett opp i feilene og prøv igjen'}
+               color='yellow' /> : null
+  )
+}
+
+export const responseMessages = (readOnlyMode, response) => {
+  return (
+    Object.keys(response).length !== 0 && readOnlyMode ?
+      <Message icon={response.icon} header={response.header} content={response.text} color={response.color} /> : null
+  )
 }
