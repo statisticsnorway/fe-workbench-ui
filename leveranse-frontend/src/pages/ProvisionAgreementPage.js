@@ -8,6 +8,7 @@ import UnitType from './unitType/UnitType'
 import '../assets/css/site.css'
 import TargetPopulation from './population/TargetPopulation'
 import SurveyPopulation from './population/SurveyPopulation'
+import ValueDomainList from './valueDomain/ValueDomainList'
 
 class ProvisionAgreementPage extends React.Component {
   state = {}
@@ -66,6 +67,15 @@ class ProvisionAgreementPage extends React.Component {
                   </Menu.Item>
                 </Menu>
                 <Menu fluid vertical>
+                  <Menu.Item header>Verdiområde</Menu.Item>
+                  <Menu.Item name='valueDomain' active={activeItem === 'valueDomain'}>
+                    <NavLink to='/valueDomain'>
+                      <Icon name='tasks' />
+                      Administrer
+                    </NavLink>
+                  </Menu.Item>
+                </Menu>
+                <Menu fluid vertical>
                   <Menu.Item header content='Enhetstyper' />
                   <Menu.Item name='unitType' active={activeItem === 'unitType'}>
                     <NavLink to='/unitType'>
@@ -114,6 +124,7 @@ class ProvisionAgreementPage extends React.Component {
                        render={(props) => <ProvisionAgreement {...props} isNewProvisionAgreement={true} />} />
                 <Route path='/variable' component={Variable} />
                 <Route path='/unitType' component={UnitType} />
+                <Route path='/valueDomain' component={ValueDomainList} />
                 <Route path='/population/targetPopulation' component={TargetPopulation} />
                 <Route path='/population/surveyPopulation' component={SurveyPopulation} />
               </Segment>
