@@ -1,57 +1,111 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Divider, Header, Icon, Input, Popup, Button, Modal } from 'semantic-ui-react'
 import ReactTable from 'react-table'
 import ValueDomainModal from './ValueDomainModal'
 
 const tableHeaders = [
-  ['description', 'Beskrivelse'],
   ['name', 'Navn'],
+  ['description', 'Beskrivelse'],
   ['dataType', 'Datatype']
 ]
 
 const tempTableData = [
   {
-    id: 1,
+    id: '1',
     name: 'Positivt heltall',
-    description: 'Positivt heltall. Min: 0. Max: 1000 000. Tom ikke tillatt.',
-    dataType: 'Heltall'
+    dataType: 'Heltall',
+    format: '',
+    minNumberChar: '',
+    maxNumberChar: '',
+    minValue: '',
+    maxValue: '',
+    minNumberDec: '',
+    maxNumberDec: '',
+    measure: '',
+    null: '',
+    description: 'Positivt heltall. Min: 0. Max: 1000 000. Tom ikke tillatt.'
   },
   {
-    id: 2,
+    id: '2',
     name: 'Negativt heltall',
-    description: 'Negativt heltall. Min: -1000 000 kr. Max: 0. Tom ikke tillatt.',
-    dataType: 'Heltall'
+    dataType: 'Heltall',
+    format: '',
+    minNumberChar: '',
+    maxNumberChar: '',
+    minValue: '',
+    maxValue: '',
+    minNumberDec: '',
+    maxNumberDec: '',
+    measure: '',
+    null: '',
+    description: 'Negativt heltall. Min: -1000 000 kr. Max: 0. Tom ikke tillatt.'
   },
   {
-    id: 3,
+    id: '3',
     name: 'Positivt demimaltall',
-    description: 'Positivt desimaltall. Uendelig til uendelig. 0-2 desimaler. I kr. Tom er tillatt',
-    dataType: 'Desimaltall'
+    dataType: 'Desimaltall',
+    format: '',
+    minNumberChar: '',
+    maxNumberChar: '',
+    minValue: '',
+    maxValue: '',
+    minNumberDec: '',
+    maxNumberDec: '',
+    measure: '',
+    null: '',
+    description: 'Positivt desimaltall. Uendelig til uendelig. 0-2 desimaler. I kr. Tom er tillatt'
   },
   {
-    id: 4,
+    id: '4',
     name: 'Negativt demimaltall',
-    description: 'Negativt desimaltall. Uendelig til uendelig. 0-2 desimaler. I kr. Tom er tillatt',
-    dataType: 'Desimaltall'
+    dataType: 'Desimaltall',
+    format: '',
+    minNumberChar: '',
+    maxNumberChar: '',
+    minValue: '',
+    maxValue: '',
+    minNumberDec: '',
+    maxNumberDec: '',
+    measure: '',
+    null: '',
+    description: 'Negativt desimaltall. Uendelig til uendelig. 0-2 desimaler. I kr. Tom er tillatt'
   },
   {
-    id: 5,
+    id: '5',
     name: 'Dato',
-    description: 'Boolsk variabel. Sann/Usann. Tom er tillatt',
-    dataType: 'Dato'
+    dataType: 'Dato',
+    format: '',
+    minNumberChar: '',
+    maxNumberChar: '',
+    minValue: '',
+    maxValue: '',
+    minNumberDec: '',
+    maxNumberDec: '',
+    measure: '',
+    null: '',
+    description: 'Boolsk variabel. Sann/Usann. Tom er tillatt'
   },
   {
-    id: 6,
+    id: '6',
     name: 'Tekst',
-    description: 'Streng av tegn. Opptil 2000 tegn. Tom er tillatt',
-    dataType: 'Tekst'
+    dataType: 'Tekst',
+    format: '',
+    minNumberChar: '',
+    maxNumberChar: '',
+    minValue: '',
+    maxValue: '',
+    minNumberDec: '',
+    maxNumberDec: '',
+    measure: '',
+    null: '',
+    description: 'Streng av tegn. Opptil 2000 tegn. Tom er tillatt'
   }
 ]
 
 const noDataText = 'Fant ingen verdiområde med navnet: '
 let tableColumns
 
-class ValueDomainList extends React.Component {
+class ValueDomainList extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -67,6 +121,24 @@ class ValueDomainList extends React.Component {
       tableColumn['Header'] = row[1]
       tableColumn['accessor'] = row[0]
 
+      if (row[0] === 'name') {
+        tableColumn['Cell'] = props => (
+          // props.value will have to be changed to the unit types id when we implement fetching data from backend
+          <a className='item cursorPointer' onClick={() => this.setStateThenOpenModal(props.value)}>{props.value}</a>
+        )
+      }
+      else if (row[0] === 'description') {
+        tableColumn['Cell'] = props => (
+          <Popup trigger={<a className='noStyle'>{props.value}</a>} wide hideOnScroll position='top left'>
+            {props.value}
+          </Popup>
+        )
+      }
+      else {
+        tableColumn['Cell'] = props => (
+          <div className='textCenter'>{props.value}</div>
+        )
+      }
       return tableColumn
     })
 
@@ -110,7 +182,7 @@ class ValueDomainList extends React.Component {
 
     return (
       <div>
-        <Header as='h2' content='Søk opp verdiområde' dividing />
+        <Header as='h2' content='Verdiområde' dividing />
 
         <Popup trigger={<Input icon='search' placeholder='Søk...' value={search}
                                onChange={this.searchInputOnChange} />}
