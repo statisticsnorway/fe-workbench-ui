@@ -10,6 +10,11 @@ const datatypeOptions = [
   {key: '4', text: 'Dato', value: 'Dato'}
 ]
 
+const dateformatOptions = [
+  {key: '1', text: 'YYYY-MM-DD', value: 'YYYY-MM-DD'},
+  {key: '2', text: 'DD/MM/YY', value: 'DD/MM/YY'}
+]
+
 const unitOfMeasurementeOptions = [
   {key: '1', text: '000Kr', value: '000Kr'},
   {key: '2', text: 'Tonn', value: 'Tonn'},
@@ -24,7 +29,7 @@ class ValueDomain extends Component {
         id: '',
         name: '',
         dataType: '',
-        format: '',
+        dateformat: '',
         minNumberChar: '',
         maxNumberChar: '',
         minValue: '',
@@ -32,17 +37,21 @@ class ValueDomain extends Component {
         minNumberDec: '',
         maxNumberDec: '',
         unitOfMeasurement: '',
-        null: '',
+        nulladble: '',
         description: ''
       },
       valueDomainModalOpen: false,
       readOnlyMode: false,
       response: {},
       errors: {},
-      waitingForResponse: false
+      waitingForResponse: false,
+      checked: false
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
+
+    console.log(this.props.selectedValueDomainId)
 
     if (this.props.selectedValueDomainId !== 'new') {
       this.state.valueDomain.id = this.props.valueDomainId
@@ -51,7 +60,13 @@ class ValueDomain extends Component {
     } else {
       console.log('kommer hit')
       const uuidv1 = require('uuid/v1')
-      this.state.valueDomain.id = uuidv1()
+
+      this.setState({
+        valueDomain: {
+          ...this.state.valueDomain,
+          id: uuidv1()
+        }
+      })
     }
   }
 
@@ -97,12 +112,19 @@ class ValueDomain extends Component {
     })
   }
 
+  handleCheckboxChange () {
+    this.setState({
+      valueDomain: {
+        ...this.state.valueDomain,
+        nullable: !this.state.nullable
+      }
+    })
+  }
+
   validateInputData = data => {
     const errors = {}
 
     if (!data.dataType) errors.dataType = 'Datatype må velges'
-    if (!data.unitOfMeasurement) errors.unitOfMeasurement = 'Måleenhet må velges'
-    if (!data.description) errors.description = 'Feltet kan ikke være tomt'
     if (!data.name) errors.name = 'Feltet kan ikke være tomt'
 
     return errors
@@ -116,11 +138,30 @@ class ValueDomain extends Component {
     return Object.keys(errors).length === 0
   }
 
+  makeUniqueName () {
+    let uniqueName = this.state.valueDomain.name + '_' +
+      this.state.valueDomain.dataType + '_' +
+      this.state.valueDomain.dateformat + '_' +
+      this.state.minNumberChar + '_' +
+      this.state.maxNumberChar + '_' +
+      this.state.minValue + '_' +
+      this.state.maxValue + '_' +
+      this.state.minNumberDec + '_' +
+      this.state.maxNumberDec + '_' +
+      this.state.unitOfMeasurement + '_' +
+      this.state.nulladble
+
+    return uniqueName
+  }
+
   registerValueDomain = () => {
-    console.log('Trykket på send til godkjenning')
 
     if (this.validationOk()) {
       this.setState({
+        valueDomain: {
+          ...this.state.valueDomain,
+          description: this.makeUniqueName()
+        },
         readOnlyMode: true,
         errors: {},
         waitingForResponse: true
@@ -137,6 +178,7 @@ class ValueDomain extends Component {
 
   render () {
     const {readOnlyMode, valueDomain, valueDomainModalOpen, waitingForResponse, errors, response} = this.state
+    console.log(this.state)
 
     return (
       <Modal trigger={<Button primary floated='right' icon='edit' content='Registrer nytt verdiområde'
@@ -144,11 +186,12 @@ class ValueDomain extends Component {
              onClose={this.handleValueDomainModalClose} dimmer='inverted' centered={false} closeOnEscape={true}
              closeOnRootNodeClick={false}>
         <Modal.Header content='Verdiområde' />
+
         <Form>
           <Form.Field>
+            {editModeCheckbox(readOnlyMode, this.handleEditModeClick)}
             <label>Id</label>
             <Input value={this.state.valueDomain.id} readOnly='true' />
-              {editModeCheckbox(readOnlyMode, this.handleEditModeClick)}
           </Form.Field>
 
           {errorMessages(errors, 'Verdiområdet')}
@@ -162,69 +205,96 @@ class ValueDomain extends Component {
             {errors.dataType && <InlineError text={errors.dataType} />}
           </Form.Field>
 
+          {(this.state.valueDomain.dataType === 'Dato') &&
+          <Form.Field>
+            <label>Datoformat</label>
+            <Dropdown placeholder='Velg datoformat' selection options={dateformatOptions}
+                      disabled={readOnlyMode}
+                      onChange={(event, {value}) => this.handleDropdownChange(value, 'dateformat')} />
+          </Form.Field>
+          }
+
           <Form.Group widths='equal'>
+            {(this.state.valueDomain.dataType === 'Heltall' ||
+              this.state.valueDomain.dataType === 'Tekst') &&
             <Form.Field>
               <label>MIN antall tegn</label>
               <Input name='minNumberChar' placeholder='MIN antall tegn' readOnly={readOnlyMode}
                      value={valueDomain.minNumberChar}
                      onChange={this.handleInputChange} />
             </Form.Field>
+            }
 
+            {(this.state.valueDomain.dataType === 'Heltall' ||
+              this.state.valueDomain.dataType === 'Tekst') &&
             <Form.Field>
               <label>MAX antall tegn</label>
               <Input name='maxNumberChar' placeholder='MAX antall tegn' readOnly={readOnlyMode}
                      value={valueDomain.maxNumberChar}
                      onChange={this.handleInputChange} />
             </Form.Field>
+            }
           </Form.Group>
 
           <Form.Group widths='equal'>
+            {(this.state.valueDomain.dataType === 'Heltall' ||
+              this.state.valueDomain.dataType === 'Desimaltall') &&
             <Form.Field>
               <label>MIN verdi</label>
               <Input name='minValue' placeholder='MIN verdi' readOnly={readOnlyMode}
                      value={valueDomain.minValue}
                      onChange={this.handleInputChange} />
             </Form.Field>
+            }
 
+            {(this.state.valueDomain.dataType === 'Heltall' ||
+              this.state.valueDomain.dataType === 'Desimaltall') &&
             <Form.Field>
               <label>MAX verdi</label>
               <Input name='maxValue' placeholder='MAX verdi' readOnly={readOnlyMode}
                      value={valueDomain.maxValue}
                      onChange={this.handleInputChange} />
             </Form.Field>
+            }
           </Form.Group>
 
           <Form.Group widths='equal'>
+            {(this.state.valueDomain.dataType === 'Desimaltall') &&
             <Form.Field>
-              <label>MIN verdi</label>
+              <label>MIN desimal verdi</label>
               <Input name='minNumberDec' placeholder='MIN antall desimaler' readOnly={readOnlyMode}
-                     value={valueDomain.minValue}
+                     value={valueDomain.minNumberDec}
                      onChange={this.handleInputChange} />
             </Form.Field>
+            }
 
+            {(this.state.valueDomain.dataType === 'Desimaltall') &&
             <Form.Field>
-              <label>MAX verdi</label>
+              <label>MAX desimal verdi</label>
               <Input name='maxNumberDec' placeholder='MAX antall desimaler' readOnly={readOnlyMode}
-                     value={valueDomain.maxValue}
+                     value={valueDomain.maxNumberDec}
                      onChange={this.handleInputChange} />
             </Form.Field>
+            }
           </Form.Group>
 
+          {(this.state.valueDomain.dataType === 'Heltall' ||
+            this.state.valueDomain.dataType === 'Desimaltall') &&
           <Form.Field error={!!errors.unitOfMeasurement}>
             <label>Måleenhet</label>
             <Dropdown placeholder='Velg måleenhet' selection options={unitOfMeasurementeOptions}
-                      disabled={readOnlyMode}
                       onChange={(event, {value}) => this.handleDropdownChange(value, 'unitOfMeasurement')} />
             {errors.unitOfMeasurement && <InlineError text={errors.unitOfMeasurement} />}
           </Form.Field>
+          }
 
-          <Checkbox label='Kan være tom' />
+          <Checkbox label='Kan være tom' checked={this.state.checked}
+                    onChange={this.handleCheckboxChange} />
 
-          <Form.Field error={!!errors.description}>
+          <Form.Field>
             <Form.TextArea autoHeight name='description' label='Beskrivelse' placeholder='Beskrivelse'
-                           readOnly={readOnlyMode} value={valueDomain.description}
+                           readOnly={true} value={valueDomain.description}
                            onChange={this.handleInputChange} />
-            {errors.description && <InlineError text={errors.description} />}
           </Form.Field>
 
           <Form.Field error={!!errors.name}>
