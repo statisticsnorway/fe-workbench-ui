@@ -51,22 +51,9 @@ class ValueDomain extends Component {
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
 
-    console.log(this.props.selectedValueDomainId)
-
     if (this.props.selectedValueDomainId !== 'new') {
-      this.state.valueDomain.id = this.props.valueDomainId
-
-      // Code to fetch the valueDomain from backend with the passed id
-    } else {
-      console.log('kommer hit')
-      const uuidv1 = require('uuid/v1')
-
-      this.setState({
-        valueDomain: {
-          ...this.state.valueDomain,
-          id: uuidv1()
-        }
-      })
+      //TODO: Get ID and fetch valueDomain from backend
+      this.state.valueDomain.name = this.props.valueDomainId
     }
   }
 
@@ -138,30 +125,47 @@ class ValueDomain extends Component {
     return Object.keys(errors).length === 0
   }
 
-  makeUniqueName () {
+  setUniqueDescription () {
     let uniqueName = this.state.valueDomain.name + '_' +
       this.state.valueDomain.dataType + '_' +
       this.state.valueDomain.dateformat + '_' +
-      this.state.minNumberChar + '_' +
-      this.state.maxNumberChar + '_' +
-      this.state.minValue + '_' +
-      this.state.maxValue + '_' +
-      this.state.minNumberDec + '_' +
-      this.state.maxNumberDec + '_' +
-      this.state.unitOfMeasurement + '_' +
-      this.state.nulladble
+      this.state.valueDomain.minNumberChar + '_' +
+      this.state.valueDomain.maxNumberChar + '_' +
+      this.state.valueDomain.minValue + '_' +
+      this.state.valueDomain.maxValue + '_' +
+      this.state.valueDomain.minNumberDec + '_' +
+      this.state.valueDomain.maxNumberDec + '_' +
+      this.state.valueDomain.unitOfMeasurement + '_' +
+      this.state.valueDomain.nulladble
 
-    return uniqueName
+    this.setState({
+      valueDomain: {
+        ...this.state.valueDomain,
+        description: uniqueName
+      }
+    })
+
+    console.log (this.state)
+  }
+
+  setUniquId () {
+    const uuidv1 = require('uuid/v1')
+
+    this.setState({
+      valueDomain: {
+        ...this.state.valueDomain,
+        id: uuidv1()
+      }
+    })
   }
 
   registerValueDomain = () => {
 
+    this.setUniqueDescription ()
+    this.setUniquId ()
+
     if (this.validationOk()) {
       this.setState({
-        valueDomain: {
-          ...this.state.valueDomain,
-          description: this.makeUniqueName()
-        },
         readOnlyMode: true,
         errors: {},
         waitingForResponse: true
@@ -178,7 +182,6 @@ class ValueDomain extends Component {
 
   render () {
     const {readOnlyMode, valueDomain, valueDomainModalOpen, waitingForResponse, errors, response} = this.state
-    console.log(this.state)
 
     return (
       <Modal trigger={<Button primary floated='right' icon='edit' content='Registrer nytt verdiområde'
@@ -293,8 +296,7 @@ class ValueDomain extends Component {
 
           <Form.Field>
             <Form.TextArea autoHeight name='description' label='Beskrivelse' placeholder='Beskrivelse'
-                           readOnly={true} value={valueDomain.description}
-                           onChange={this.handleInputChange} />
+                           readOnly={true} value={valueDomain.description} />
           </Form.Field>
 
           <Form.Field error={!!errors.name}>
