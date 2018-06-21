@@ -187,128 +187,129 @@ class ValueDomain extends Component {
              onClose={this.handleValueDomainModalClose} dimmer='inverted' centered={false} closeOnEscape={true}
              closeOnRootNodeClick={false}>
         <Modal.Header content='Verdiområde'/>
-
-        <Form>
-          <Form.Field>
-            {editModeCheckbox(readOnlyMode, this.handleEditModeClick)}
-            <label>Id</label>
-            <Input value={this.state.valueDomain.id} readOnly='true'/>
-          </Form.Field>
-
-          {errorMessages(errors, 'Verdiområdet')}
-          {responseMessages(readOnlyMode, response)}
-
-          <Form.Field error={!!errors.dataType}>
-            <label>Datatype</label>
-            <Dropdown placeholder='Velg datatype' selection options={datatypeOptions}
-                      disabled={readOnlyMode}
-                      onChange={(event, {value}) => this.handleDropdownChange(value, 'dataType')}/>
-
-          {errors.dataType && <InlineError text={errors.dataType} />}
-          </Form.Field>
-
-          {(this.state.valueDomain.dataType === 'Dato') &&
-          <Form.Field>
-            <label>Datoformat</label>
-            <Dropdown placeholder='Velg datoformat' selection options={dateformatOptions}
-                      disabled={readOnlyMode}
-                      onChange={(event, {value}) => this.handleDropdownChange(value, 'dateformat')}/>
-          </Form.Field>
-          }
-
-          <Form.Group widths='equal'>
-            {(this.state.valueDomain.dataType === 'Heltall' ||
-              this.state.valueDomain.dataType === 'Tekst') &&
+        <Modal.Content>
+          <Form>
             <Form.Field>
-              <label>MIN antall tegn</label>
-              <Input name='minNumberChar' placeholder='MIN antall tegn' readOnly={readOnlyMode}
-                     value={valueDomain.minNumberChar}
-                     onChange={this.handleInputChange}/>
+              {editModeCheckbox(readOnlyMode, this.handleEditModeClick)}
+              <label>Id</label>
+              <Input value={this.state.valueDomain.id} readOnly='true'/>
+            </Form.Field>
+
+            {errorMessages(errors, 'Verdiområdet')}
+            {responseMessages(readOnlyMode, response)}
+
+            <Form.Field error={!!errors.dataType}>
+              <label>Datatype</label>
+              <Dropdown placeholder='Velg datatype' selection options={datatypeOptions}
+                        disabled={readOnlyMode}
+                        onChange={(event, {value}) => this.handleDropdownChange(value, 'dataType')}/>
+
+            {errors.dataType && <InlineError text={errors.dataType} />}
+            </Form.Field>
+
+            {(this.state.valueDomain.dataType === 'Dato') &&
+            <Form.Field>
+              <label>Datoformat</label>
+              <Dropdown placeholder='Velg datoformat' selection options={dateformatOptions}
+                        disabled={readOnlyMode}
+                        onChange={(event, {value}) => this.handleDropdownChange(value, 'dateformat')}/>
             </Form.Field>
             }
 
-            {(this.state.valueDomain.dataType === 'Heltall' ||
-              this.state.valueDomain.dataType === 'Tekst') &&
-            <Form.Field>
-              <label>MAX antall tegn</label>
-              <Input name='maxNumberChar' placeholder='MAX antall tegn' readOnly={readOnlyMode}
-                     value={valueDomain.maxNumberChar}
-                     onChange={this.handleInputChange}/>
-            </Form.Field>
-            }
-          </Form.Group>
+            <Form.Group widths='equal'>
+              {(this.state.valueDomain.dataType === 'Heltall' ||
+                this.state.valueDomain.dataType === 'Tekst') &&
+              <Form.Field>
+                <label>MIN antall tegn</label>
+                <Input name='minNumberChar' placeholder='MIN antall tegn' readOnly={readOnlyMode}
+                       value={valueDomain.minNumberChar}
+                       onChange={this.handleInputChange}/>
+              </Form.Field>
+              }
 
-          <Form.Group widths='equal'>
+              {(this.state.valueDomain.dataType === 'Heltall' ||
+                this.state.valueDomain.dataType === 'Tekst') &&
+              <Form.Field>
+                <label>MAX antall tegn</label>
+                <Input name='maxNumberChar' placeholder='MAX antall tegn' readOnly={readOnlyMode}
+                       value={valueDomain.maxNumberChar}
+                       onChange={this.handleInputChange}/>
+              </Form.Field>
+              }
+            </Form.Group>
+
+            <Form.Group widths='equal'>
+              {(this.state.valueDomain.dataType === 'Heltall' ||
+                this.state.valueDomain.dataType === 'Desimaltall') &&
+              <Form.Field>
+                <label>MIN verdi</label>
+                <Input name='minValue' placeholder='MIN verdi' readOnly={readOnlyMode}
+                       value={valueDomain.minValue}
+                       onChange={this.handleInputChange}/>
+              </Form.Field>
+              }
+
+              {(this.state.valueDomain.dataType === 'Heltall' ||
+                this.state.valueDomain.dataType === 'Desimaltall') &&
+              <Form.Field>
+                <label>MAX verdi</label>
+                <Input name='maxValue' placeholder='MAX verdi' readOnly={readOnlyMode}
+                       value={valueDomain.maxValue}
+                       onChange={this.handleInputChange}/>
+              </Form.Field>
+              }
+            </Form.Group>
+
+            <Form.Group widths='equal'>
+              {(this.state.valueDomain.dataType === 'Desimaltall') &&
+              <Form.Field>
+                <label>MIN desimal verdi</label>
+                <Input name='minNumberDec' placeholder='MIN antall desimaler' readOnly={readOnlyMode}
+                       value={valueDomain.minNumberDec}
+                       onChange={this.handleInputChange}/>
+              </Form.Field>
+              }
+
+              {(this.state.valueDomain.dataType === 'Desimaltall') &&
+              <Form.Field>
+                <label>MAX desimal verdi</label>
+                <Input name='maxNumberDec' placeholder='MAX antall desimaler' readOnly={readOnlyMode}
+                       value={valueDomain.maxNumberDec}
+                       onChange={this.handleInputChange}/>
+              </Form.Field>
+              }
+            </Form.Group>
+
             {(this.state.valueDomain.dataType === 'Heltall' ||
               this.state.valueDomain.dataType === 'Desimaltall') &&
             <Form.Field>
-              <label>MIN verdi</label>
-              <Input name='minValue' placeholder='MIN verdi' readOnly={readOnlyMode}
-                     value={valueDomain.minValue}
-                     onChange={this.handleInputChange}/>
+              <label>Måleenhet</label>
+              <Dropdown placeholder='Velg måleenhet' selection options={unitOfMeasurementeOptions}
+                        onChange={(event, {value}) => this.handleDropdownChange(value, 'unitOfMeasurement')}/>
             </Form.Field>
             }
 
-            {(this.state.valueDomain.dataType === 'Heltall' ||
-              this.state.valueDomain.dataType === 'Desimaltall') &&
+            <Checkbox label='Kan være tom' checked={this.state.nullable} readOnly={readOnlyMode}
+                      onChange={this.handleCheckboxChange}/>
+
             <Form.Field>
-              <label>MAX verdi</label>
-              <Input name='maxValue' placeholder='MAX verdi' readOnly={readOnlyMode}
-                     value={valueDomain.maxValue}
-                     onChange={this.handleInputChange}/>
+              <Form.TextArea autoHeight name='description' label='Beskrivelse' placeholder='Beskrivelse'
+                             readOnly={true} value={valueDomain.description}/>
             </Form.Field>
-            }
-          </Form.Group>
 
-          <Form.Group widths='equal'>
-            {(this.state.valueDomain.dataType === 'Desimaltall') &&
-            <Form.Field>
-              <label>MIN desimal verdi</label>
-              <Input name='minNumberDec' placeholder='MIN antall desimaler' readOnly={readOnlyMode}
-                     value={valueDomain.minNumberDec}
-                     onChange={this.handleInputChange}/>
+            <Form.Field error={!!errors.name}>
+              <label>Navn</label>
+              <Input name='name' placeholder='Navn' readOnly={readOnlyMode}
+                     value={valueDomain.name} onChange={this.handleInputChange}/>
+              {errors.name && <InlineError text={errors.name} />}
             </Form.Field>
-            }
 
-            {(this.state.valueDomain.dataType === 'Desimaltall') &&
-            <Form.Field>
-              <label>MAX desimal verdi</label>
-              <Input name='maxNumberDec' placeholder='MAX antall desimaler' readOnly={readOnlyMode}
-                     value={valueDomain.maxNumberDec}
-                     onChange={this.handleInputChange}/>
-            </Form.Field>
-            }
-          </Form.Group>
+            <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='clipboard check'
+                    content='Send til godkjenning' onClick={this.registerValueDomain}/>
 
-          {(this.state.valueDomain.dataType === 'Heltall' ||
-            this.state.valueDomain.dataType === 'Desimaltall') &&
-          <Form.Field>
-            <label>Måleenhet</label>
-            <Dropdown placeholder='Velg måleenhet' selection options={unitOfMeasurementeOptions}
-                      onChange={(event, {value}) => this.handleDropdownChange(value, 'unitOfMeasurement')}/>
-          </Form.Field>
-          }
-
-          <Checkbox label='Kan være tom' checked={this.state.nullable} readOnly={readOnlyMode}
-                    onChange={this.handleCheckboxChange}/>
-
-          <Form.Field>
-            <Form.TextArea autoHeight name='description' label='Beskrivelse' placeholder='Beskrivelse'
-                           readOnly={true} value={valueDomain.description}/>
-          </Form.Field>
-
-          <Form.Field error={!!errors.name}>
-            <label>Navn</label>
-            <Input name='name' placeholder='Navn' readOnly={readOnlyMode}
-                   value={valueDomain.name} onChange={this.handleInputChange}/>
-            {errors.name && <InlineError text={errors.name} />}
-          </Form.Field>
-
-          <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='clipboard check'
-                  content='Send til godkjenning' onClick={this.registerValueDomain}/>
-
-          <Button negative floated='right' onClick={this.handleValueDomainModalClose} content='Tilbake'/>
-        </Form>
+            <Button negative floated='right' onClick={this.handleValueDomainModalClose} content='Tilbake'/>
+          </Form>
+        </Modal.Content>
       </Modal>
     )
   }
