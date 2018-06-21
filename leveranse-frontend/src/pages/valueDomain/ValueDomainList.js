@@ -123,7 +123,7 @@ class ValueDomainList extends Component {
 
       if (row[0] === 'name') {
         tableColumn['Cell'] = props => (
-          // props.value will have to be changed to the unit types id when we implement fetching data from backend
+          // TODO: props.value will have to be changed to the unit types id when we implement fetching data from backend
           <a className='item cursorPointer' onClick={() => this.setStateThenOpenModal(props.value)}>{props.value}</a>
         )
       }
