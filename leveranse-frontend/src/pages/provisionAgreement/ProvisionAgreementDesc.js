@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
 import moment from 'moment'
-import { Button, Dropdown, Form, Header, Input, TextArea } from 'semantic-ui-react'
-import { SingleDatePicker } from 'react-dates'
+import {Button, Dropdown, Form, Header, Input, TextArea, Message} from 'semantic-ui-react'
+import {SingleDatePicker} from 'react-dates'
 import {
   editModeCheckbox,
   errorMessages,
@@ -10,6 +10,8 @@ import {
   responseMessages,
   sendDataToBackend
 } from '../../utils/Common'
+import {alertActions, provisionAgreementActions} from '../../actions'
+import {connect} from 'react-redux'
 import 'react-dates/lib/css/_datepicker.css'
 import 'react-dates/initialize'
 import InlineError from '../messages/InlineError'
@@ -20,31 +22,47 @@ moment.locale('nb')
 
 const allSubjectsOptions = fetchAllSubjectsFromExternalApi()
 
-class ProvisionAgreement extends Component {
-  constructor (props) {
+class ProvisionAgreementDesc extends Component {
+  constructor(props) {
     super(props)
     this.state = {
       provisionAgreement: {
-        description: '',
         id: '',
-        localeId: '',
-        name: '',
+        name: [
+          {
+            languageCode: "nb",
+            languageText: ''
+          }
+        ],
+        description: [
+          {
+            "languageCode": "nb",
+            "languageText": ''
+          }
+        ],
+        administrativeStatus: '',
         version: '',
-        versionDate: '',
-        versionRationale: '',
-        administrativeDetailsId: '',
-        provisionDate: '',
+        versionValidFrom: moment().toJSON(),
+        validFrom: moment().toJSON(),
+        createdDate: moment().toJSON(),
+        createdBy: this.props.authentication.user.username,
+        informationProvider: '',
+        supplier: '',
+        regulation: '',
         status: '',
-        durationFrom: '',
-        durationTo: '',
-        frequency: '',
-        pursuant: '',
-        exchangeChannels: [],
-        protocols: [],
-        subjects: [],
         valuation: '',
-        changeManagement: '',
-        supplier: ''
+        changeManagement:
+           {
+            languageCode: "nb",
+            languageText: ''
+          },
+        informationSource:
+          {
+            languageCode: "nb",
+            languageText: ''
+          },
+        exchangeChannel: '',
+        frequency: ''
       },
       durationFrom: moment(),
       durationTo: moment(),
@@ -55,6 +73,8 @@ class ProvisionAgreement extends Component {
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleInputChangeDeep = this.handleInputChangeDeep.bind(this)
+    this.handleInputChangeManagement = this.handleInputChangeManagement.bind(this)
 
     if (this.props.isNewProvisionAgreement) {
       const uuidv1 = require('uuid/v1')
@@ -74,7 +94,7 @@ class ProvisionAgreement extends Component {
     }
   }
 
-  handleInputChange (event) {
+  handleInputChange(event) {
     this.setState({
       errors: {
         ...this.state.errors,
@@ -87,7 +107,39 @@ class ProvisionAgreement extends Component {
     })
   }
 
-  handleDropdownChange (value, name) {
+  handleInputChangeDeep(event) {
+    this.setState({
+      errors: {
+        ...this.state.errors,
+        [event.target.name]: ''
+      },
+      provisionAgreement: {
+        ...this.state.provisionAgreement,
+        [event.target.name]: [{
+          languageCode: 'nb',
+          languageText: event.target.value
+        }]
+      }
+    })
+  }
+
+  handleInputChangeManagement(event) {
+    this.setState({
+      errors: {
+        ...this.state.errors,
+        [event.target.name]: ''
+      },
+      provisionAgreement: {
+        ...this.state.provisionAgreement,
+        [event.target.name]: {
+          languageCode: 'nb',
+          languageText: event.target.value
+        }
+      }
+    })
+  }
+
+  handleDropdownChange(value, name) {
     this.setState({
       errors: {
         ...this.state.errors,
@@ -116,7 +168,7 @@ class ProvisionAgreement extends Component {
     })
   }
 
-  insertDatesInState () {
+  insertDatesInState() {
     this.setState({
       provisionAgreement: {
         ...this.state.provisionAgreement,
@@ -129,8 +181,8 @@ class ProvisionAgreement extends Component {
   validateInputData = data => {
     const errors = {}
 
-    if (!data.description) errors.description = 'Feltet kan ikke være tomt'
-    if (!data.name) errors.name = 'Feltet kan ikke være tomt'
+    if (!data.description[0].languageText) errors.description = 'Feltet kan ikke være tomt'
+    if (!data.name[0].languageText) errors.name = 'Feltet kan ikke være tomt'
     if (!data.pursuant) errors.pursuant = 'Et valg må velges'
     if (this.state.durationFrom.isAfter(this.state.durationTo)) { // noinspection JSValidateTypes
       errors.durationTo = 'Dato til > dato fra'
@@ -150,6 +202,8 @@ class ProvisionAgreement extends Component {
   registerProvisionAgreement = () => {
     this.insertDatesInState()
 
+    const {dispatch} = this.props
+
     if (this.validationOk()) {
       this.setState({
         readOnlyMode: true,
@@ -157,46 +211,55 @@ class ProvisionAgreement extends Component {
         waitingForResponse: true
       })
 
-      sendDataToBackend('/provisionAgreement', 'Leveranseavtalen', this.state.provisionAgreement).then((result) => {
-        this.setState({
-          response: result,
-          waitingForResponse: false
-        })
+      dispatch(provisionAgreementActions.create(this.state.provisionAgreement))
+      this.setState({
+        waitingForResponse: false,
+        loading: false
       })
+
     }
   }
 
-  render () {
+  render() {
     const {errors, response, readOnlyMode, waitingForResponse, provisionAgreement} = this.state
+    const {alert, provisionAgreementId} = this.props
 
     return (
       <Form>
-        <Header as='h2' dividing content={'Leveransebeskrivelse'} />
+        <Header as='h2' dividing content={'Leveransebeskrivelse'}/>
 
         {editModeCheckbox(readOnlyMode, this.handleEditModeClick)}
         {errorMessages(errors, 'Leveranseavtalen')}
         {responseMessages(readOnlyMode, response)}
+        {alert.type === 'alert-success' && alert.message &&
+        <Message positive onDismiss={this.handleDismiss}><Message.Header>{alert.message}</Message.Header>
+        </Message>
+        }
+        {alert.type === 'alert-danger' && alert.message &&
+        <Message negative onDismiss={this.handleDismiss}><Message.Header>{alert.message}</Message.Header>
+        </Message>
+        }
 
         <Form.Field>
           <label>Leverandør</label>
           <Input placeholder='Leverandør' name='supplier' readOnly={true}
                  value={provisionAgreement.supplier.title || ''} onChange={this.handleInputChange}
-                 label={<Supplier onSearchSupplier={this.getSupplier}></Supplier>} labelPosition='right' />
+                 label={<Supplier onSearchSupplier={this.getSupplier}></Supplier>} labelPosition='right'/>
         </Form.Field>
 
         <Form.Field error={!!errors.name}>
           <label>Avtalenavn</label>
-          <Input placeholder='Avtalenavn' name='name' value={provisionAgreement.name}
-                 onChange={this.handleInputChange} readOnly={readOnlyMode} />
-          {errors.name && <InlineError text={errors.name} />}
+          <Input placeholder='Avtalenavn' name='name' value={provisionAgreement.name[0].languageText}
+                 onChange={this.handleInputChangeDeep} readOnly={readOnlyMode}/>
+          {errors.name && <InlineError text={errors.name}/>}
         </Form.Field>
 
         <Form.Field error={!!errors.description}>
           <label>Beskrivelse</label>
           <TextArea autoHeight placeholder='Beskrivelse' name='description'
-                    value={provisionAgreement.description}
-                    onChange={this.handleInputChange} readOnly={readOnlyMode} />
-          {errors.description && <InlineError text={errors.description} />}
+                    value={provisionAgreement.description[0].languageText}
+                    onChange={this.handleInputChangeDeep} readOnly={readOnlyMode}/>
+          {errors.description && <InlineError text={errors.description}/>}
         </Form.Field>
 
         <Form.Field error={!!errors.status}>
@@ -204,7 +267,7 @@ class ProvisionAgreement extends Component {
           <Dropdown placeholder='Status' selection options={tempStatusOptions}
                     value={provisionAgreement.status}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'status')}
-                    disabled={readOnlyMode} />
+                    disabled={readOnlyMode}/>
         </Form.Field>
 
         <Form.Group widths='equal'>
@@ -242,7 +305,7 @@ class ProvisionAgreement extends Component {
                 disabled={readOnlyMode}
               />
             </div>
-            {errors.durationTo && <InlineError text={errors.durationTo} />}
+            {errors.durationTo && <InlineError text={errors.durationTo}/>}
           </Form.Field>
         </Form.Group>
 
@@ -251,8 +314,8 @@ class ProvisionAgreement extends Component {
           <Dropdown placeholder='Hjemmelsgrunnlag' selection options={tempPursuantOptions}
                     value={provisionAgreement.pursuant}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'pursuant')}
-                    disabled={readOnlyMode} />
-          {errors.pursuant && <InlineError text={errors.pursuant} />}
+                    disabled={readOnlyMode}/>
+          {errors.pursuant && <InlineError text={errors.pursuant}/>}
         </Form.Field>
 
         <Form.Field error={!!errors.exchangeChannels}>
@@ -260,8 +323,8 @@ class ProvisionAgreement extends Component {
           <Dropdown placeholder='Kanal(er)' multiple selection options={tempExchangeChannelOptions}
                     value={provisionAgreement.exchangeChannels}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'exchangeChannels')}
-                    disabled={readOnlyMode} />
-          {errors.exchangeChannels && <InlineError text={errors.exchangeChannels} />}
+                    disabled={readOnlyMode}/>
+          {errors.exchangeChannels && <InlineError text={errors.exchangeChannels}/>}
         </Form.Field>
 
         <Form.Field error={!!errors.protocols}>
@@ -269,8 +332,8 @@ class ProvisionAgreement extends Component {
           <Dropdown placeholder='Protokoll(er)' multiple selection options={tempProtocolOptions}
                     value={provisionAgreement.protocols}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'protocols')}
-                    disabled={readOnlyMode} />
-          {errors.protocols && <InlineError text={errors.protocols} />}
+                    disabled={readOnlyMode}/>
+          {errors.protocols && <InlineError text={errors.protocols}/>}
         </Form.Field>
 
         <Form.Field error={!!errors.subjects}>
@@ -278,8 +341,8 @@ class ProvisionAgreement extends Component {
           <Dropdown placeholder='Emne(r)' multiple search selection options={allSubjectsOptions}
                     value={provisionAgreement.subjects}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'subjects')}
-                    disabled={readOnlyMode} />
-          {errors.subjects && <InlineError text={errors.subjects} />}
+                    disabled={readOnlyMode}/>
+          {errors.subjects && <InlineError text={errors.subjects}/>}
         </Form.Field>
 
         <Form.Field error={!!errors.valuation}>
@@ -287,19 +350,19 @@ class ProvisionAgreement extends Component {
           <Dropdown placeholder='Verdivurdering' selection options={tempValuationOptions}
                     value={provisionAgreement.valuation}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'valuation')}
-                    disabled={readOnlyMode} />
-          {errors.valuation && <InlineError text={errors.valuation} />}
+                    disabled={readOnlyMode}/>
+          {errors.valuation && <InlineError text={errors.valuation}/>}
         </Form.Field>
 
         <Form.Field error={!!errors.changeManagement}>
           <Form.TextArea autoHeight name='changeManagement' label='Endringshåndtering' placeholder='Endringshåndtering'
-                         readOnly={readOnlyMode} value={provisionAgreement.changeManagement}
-                         onChange={this.handleInputChange} />
-          {errors.changeManagement && <InlineError text={errors.changeManagement} />}
+                         readOnly={readOnlyMode} value={provisionAgreement.changeManagement.languageText}
+                         onChange={this.handleInputChangeManagement}/>
+          {errors.changeManagement && <InlineError text={errors.changeManagement}/>}
         </Form.Field>
 
         <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
-                content='Lagre leveranseavtale' onClick={this.registerProvisionAgreement} />
+                content='Lagre leveranseavtale' onClick={this.registerProvisionAgreement}/>
       </Form>
     )
   }
@@ -345,4 +408,14 @@ const tempValuationOptions = [
   {key: '5', text: 'Klassifikasjon 5', value: 'Klassifikasjon 5'}
 ]
 
-export default ProvisionAgreement
+function mapStateToProps(state) {
+  const {authentication, alert, createdPA} = state
+  return {
+    authentication,
+    createdPA,
+    alert
+  }
+}
+
+const connectedProvisionAgreement = connect(mapStateToProps)(ProvisionAgreementDesc)
+export {connectedProvisionAgreement as ProvisionAgreementDesc}
