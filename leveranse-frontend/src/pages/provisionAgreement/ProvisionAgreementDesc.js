@@ -40,14 +40,13 @@ class ProvisionAgreementDesc extends Component {
             "languageText": ''
           }
         ],
-        administrativeStatus: '',
-        version: '',
+        administrativeStatus: 'OPEN',
+        version: "1.0.0",
         versionValidFrom: moment().toJSON(),
         validFrom: moment().toJSON(),
         createdDate: moment().toJSON(),
         createdBy: this.props.authentication.user.username,
-        informationProvider: '',
-        supplier: '',
+        informationProvider: "/InformationProvider/79945ada-de3e-4742-82c0-98d908beec7b",
         regulation: '',
         status: '',
         valuation: '',
@@ -61,7 +60,7 @@ class ProvisionAgreementDesc extends Component {
             languageCode: "nb",
             languageText: ''
           },
-        exchangeChannel: '',
+        exchangeChannel: '/ExchangeChannel/4eea64e6-5c87-462d-9fc5-c3fdd3a310fc',
         frequency: ''
       },
       durationFrom: moment(),
@@ -183,7 +182,8 @@ class ProvisionAgreementDesc extends Component {
 
     if (!data.description[0].languageText) errors.description = 'Feltet kan ikke være tomt'
     if (!data.name[0].languageText) errors.name = 'Feltet kan ikke være tomt'
-    if (!data.pursuant) errors.pursuant = 'Et valg må velges'
+    if (!data.regulation) errors.regulation = 'Et valg må velges'
+    if (!data.frequency) errors.frequency = 'Et valg må velges'
     if (this.state.durationFrom.isAfter(this.state.durationTo)) { // noinspection JSValidateTypes
       errors.durationTo = 'Dato til > dato fra'
     }
@@ -240,12 +240,12 @@ class ProvisionAgreementDesc extends Component {
         </Message>
         }
 
-        <Form.Field>
+        {/*<Form.Field>
           <label>Leverandør</label>
           <Input placeholder='Leverandør' name='supplier' readOnly={true}
                  value={provisionAgreement.supplier.title || ''} onChange={this.handleInputChange}
                  label={<Supplier onSearchSupplier={this.getSupplier}></Supplier>} labelPosition='right'/>
-        </Form.Field>
+        </Form.Field>*/}
 
         <Form.Field error={!!errors.name}>
           <label>Avtalenavn</label>
@@ -264,7 +264,7 @@ class ProvisionAgreementDesc extends Component {
 
         <Form.Field error={!!errors.status}>
           <label>Status</label>
-          <Dropdown placeholder='Status' selection options={tempStatusOptions}
+          <Dropdown placeholder='Status' selection options={statusOptions}
                     value={provisionAgreement.status}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'status')}
                     disabled={readOnlyMode}/>
@@ -309,23 +309,22 @@ class ProvisionAgreementDesc extends Component {
           </Form.Field>
         </Form.Group>
 
-        <Form.Field error={!!errors.pursuant}>
+        <Form.Field error={!!errors.regulation}>
           <label>Hjemmelsgrunnlag</label>
-          <Dropdown placeholder='Hjemmelsgrunnlag' selection options={tempPursuantOptions}
-                    value={provisionAgreement.pursuant}
-                    onChange={(event, {value}) => this.handleDropdownChange(value, 'pursuant')}
+          <Dropdown placeholder='Hjemmelsgrunnlag' selection options={regulationOptions}
+                    value={provisionAgreement.regulation}
+                    onChange={(event, {value}) => this.handleDropdownChange(value, 'regulation')}
                     disabled={readOnlyMode}/>
-          {errors.pursuant && <InlineError text={errors.pursuant}/>}
+          {errors.regulation && <InlineError text={errors.regulation}/>}
         </Form.Field>
 
-        <Form.Field error={!!errors.exchangeChannels}>
+       {/* <Form.Field error={!!errors.exchangeChannel}>
           <label>Kanal(er)</label>
           <Dropdown placeholder='Kanal(er)' multiple selection options={tempExchangeChannelOptions}
-                    value={provisionAgreement.exchangeChannels}
-                    onChange={(event, {value}) => this.handleDropdownChange(value, 'exchangeChannels')}
+                    onChange={(event, {value}) => this.handleDropdownChange(value, 'exchangeChannel')}
                     disabled={readOnlyMode}/>
-          {errors.exchangeChannels && <InlineError text={errors.exchangeChannels}/>}
-        </Form.Field>
+          {errors.exchangeChannel && <InlineError text={errors.exchangeChannel}/>}
+        </Form.Field>*/}
 
         <Form.Field error={!!errors.protocols}>
           <label>Protokoll(er)</label>
@@ -336,15 +335,6 @@ class ProvisionAgreementDesc extends Component {
           {errors.protocols && <InlineError text={errors.protocols}/>}
         </Form.Field>
 
-        <Form.Field error={!!errors.subjects}>
-          <label>Emne(r)</label>
-          <Dropdown placeholder='Emne(r)' multiple search selection options={allSubjectsOptions}
-                    value={provisionAgreement.subjects}
-                    onChange={(event, {value}) => this.handleDropdownChange(value, 'subjects')}
-                    disabled={readOnlyMode}/>
-          {errors.subjects && <InlineError text={errors.subjects}/>}
-        </Form.Field>
-
         <Form.Field error={!!errors.valuation}>
           <label>Verdivurdering</label>
           <Dropdown placeholder='Verdivurdering' selection options={tempValuationOptions}
@@ -352,6 +342,15 @@ class ProvisionAgreementDesc extends Component {
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'valuation')}
                     disabled={readOnlyMode}/>
           {errors.valuation && <InlineError text={errors.valuation}/>}
+        </Form.Field>
+
+        <Form.Field error={!!errors.frequency}>
+          <label>Hyppighet</label>
+          <Dropdown placeholder='Hyppighet' selection options={frequencyOptions}
+                    value={provisionAgreement.frequency}
+                    onChange={(event, {value}) => this.handleDropdownChange(value, 'frequency')}
+                    disabled={readOnlyMode}/>
+          {errors.frequency && <InlineError text={errors.frequency}/>}
         </Form.Field>
 
         <Form.Field error={!!errors.changeManagement}>
@@ -368,22 +367,17 @@ class ProvisionAgreementDesc extends Component {
   }
 }
 
-const tempStatusOptions = [
-  {key: '1', text: 'Påbegynt', value: 'Påbegynt'},
-  {key: '2', text: 'Til intern godkjenning', value: 'Til intern godkjenning'},
-  {key: '3', text: 'Til ekstern godkjenning', value: 'Til ekstern godkjenning'},
-  {key: '4', text: 'Utløpt', value: 'Utløpt'},
-  {key: '5', text: 'Avslått', value: 'Avslått'}
+const statusOptions = [
+  {key: '1', text: 'DRAFT', value: 'DRAFT'},
+  {key: '2', text: 'INTERNAL', value: 'INTERNAL'},
+  {key: '3', text: 'OPEN', value: 'OPEN'},
+  {key: '4', text: 'DEPRECATED', value: 'DEPRECATED'}
 ]
 
-const tempPursuantOptions = [
-  {key: '1', text: 'Frivillig undersøkelse', value: 'Frivillig undersøkelse'},
-  {key: '2', text: 'Oppgavepliktig undersøkelse', value: 'Oppgavepliktig undersøkelse'},
-  {
-    key: '3',
-    text: 'Oppgavepliktig rapportering fra administrativt register',
-    value: 'Oppgavepliktig rapportering fra administrativt register'
-  }
+const regulationOptions = [
+  {key: '1', text: 'Frivillig undersøkelse', value: 'F'},
+  {key: '2', text: 'Oppgaveplikt undersøkelse', value: 'O'},
+  {key: '3', text: 'Administrativt register', value: 'A'}
 ]
 
 const tempExchangeChannelOptions = [
@@ -406,6 +400,14 @@ const tempValuationOptions = [
   {key: '3', text: 'Klassifikasjon 3', value: 'Klassifikasjon 3'},
   {key: '4', text: 'Klassifikasjon 4', value: 'Klassifikasjon 4'},
   {key: '5', text: 'Klassifikasjon 5', value: 'Klassifikasjon 5'}
+]
+
+const frequencyOptions = [
+  {key: '1', text: 'Løpende', value: 'Løpende'},
+  {key: '2', text: 'Daglig', value: 'Daglig'},
+  {key: '3', text: 'Ukentlig', value: 'Ukentlig'},
+  {key: '4', text: 'Månedlig', value: 'Månedlig'},
+  {key: '5', text: 'Årlig', value: 'Årlig'}
 ]
 
 function mapStateToProps(state) {
