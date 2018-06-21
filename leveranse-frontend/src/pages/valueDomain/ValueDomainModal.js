@@ -238,7 +238,7 @@ class ValueDomain extends Component {
             }
           </Form.Group>
 
-          <Form.Group widths='equal' error={!!errors.name}>
+          <Form.Group widths='equal'>
             {(this.state.valueDomain.dataType === 'Heltall' ||
               this.state.valueDomain.dataType === 'Desimaltall') &&
             <Form.Field>
