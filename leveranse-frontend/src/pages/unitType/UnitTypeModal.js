@@ -32,7 +32,7 @@ class UnitTypeModal extends React.Component {
         validFrom: moment().toJSON(),
         validUntil: moment().toJSON(),
         administrativeDetails: [{
-          administrativeDetailsType: '',
+          administrativeDetailType: '',
           values: []
         }]
       },
