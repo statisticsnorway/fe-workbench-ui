@@ -8,6 +8,7 @@ import {
   sendDataToBackend
 } from '../../utils/Common'
 import InlineError from '../messages/InlineError'
+import moment from 'moment'
 
 const mainSubjectsOptions = fetchMainSubjectsFromExternalApi()
 
@@ -17,13 +18,38 @@ class Variable extends React.Component {
     this.state = {
       variable: {
         id: '',
-        name: '',
-        description: '',
+        name: [
+          {
+            languageCode: 'nb',
+            languageText: ''
+          }
+        ],
+        description: [
+          {
+            languageCode: 'nb',
+            languageText: ''
+          }
+        ],
+        administrativeStatus: '',
+        createdDate: moment().toJSON(),
+        createdBy: '',
+        version: '',
+        versionValidFrom: moment().toJSON(),
+        versionRationale: [
+          {
+            languageCode: 'nb',
+            languageText: ''
+          }
+        ],
+        lastUpdatedDate: moment().toJSON(),
+        lastUpdatedBy: '',
+        validFrom: moment().toJSON(),
+        validUntil: moment().toJSON(),
+        administrativeDetails: [
+
+        ],
         concept: '',
-        unitType: '',
-        labels: [],
-        variablePrecisionOrderly: '',
-        variablePrecisionDescribed: ''
+        unitType: ''
       },
       readOnlyMode: false,
       response: {},
@@ -35,6 +61,7 @@ class Variable extends React.Component {
     this.state.variable.id = uuidv1()
 
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleInputChangeDeep = this.handleInputChangeDeep.bind(this)
   }
 
   handleInputChange (event) {
@@ -46,6 +73,22 @@ class Variable extends React.Component {
       variable: {
         ...this.state.variable,
         [event.target.name]: event.target.value
+      }
+    })
+  }
+
+  handleInputChangeDeep (event) {
+    this.setState({
+      errors: {
+        ...this.state.errors,
+        [event.target.name]: ''
+      },
+      variable: {
+        ...this.state.variable,
+        [event.target.name]: [{
+          languageCode: 'nb',
+          languageText: event.target.value
+        }]
       }
     })
   }
@@ -73,11 +116,11 @@ class Variable extends React.Component {
   validateInputData = data => {
     const errors = {}
 
-    if (!data.name) errors.name = 'Feltet kan ikke være tomt'
-    if (!data.description) errors.description = 'Feltet kan ikke være tomt'
+    if (!data.name[0].languageText) errors.name = 'Feltet kan ikke være tomt'
+    if (!data.description[0].languageText) errors.description = 'Feltet kan ikke være tomt'
     if (!data.concept) errors.concept = 'Feltet kan ikke være tomt'
     if (!data.unitType) errors.unitType = 'Et valg må velges'
-    if (Object.keys(data.labels).length === 0) errors.labels = 'Ett eller flere valg må velges'
+//    if (Object.keys(data.labels).length === 0) errors.labels = 'Ett eller flere valg må velges'
 
     return errors
   }
@@ -98,7 +141,9 @@ class Variable extends React.Component {
         waitingForResponse: true
       })
 
-      sendDataToBackend('/variable', 'Variabelen', this.state.variable).then((result) => {
+      console.log(this.state.variable)
+
+      sendDataToBackend('Variable/' + this.state.variable.id, 'Variabelen', this.state.variable).then((result) => {
         this.setState({
           response: result,
           waitingForResponse: false
@@ -120,15 +165,15 @@ class Variable extends React.Component {
 
         <Form.Field error={!!errors.name}>
           <label>Variabelnavn</label>
-          <Input name='name' placeholder='Variabelnavn' value={variable.name} onChange={this.handleInputChange}
+          <Input name='name' placeholder='Variabelnavn' value={variable.name[0].languageText} onChange={this.handleInputChangeDeep}
                  readOnly={readOnlyMode} />
           {errors.name && <InlineError text={errors.name} />}
         </Form.Field>
 
         <Form.Field error={!!errors.description}>
           <Form.TextArea autoHeight name='description' label='Beskrivelse' placeholder='Variabelbeskrivelse'
-                         readOnly={readOnlyMode.readOnlyMode} value={variable.description}
-                         onChange={this.handleInputChange} />
+                         readOnly={readOnlyMode.readOnlyMode} value={variable.description[0].languageText}
+                         onChange={this.handleInputChangeDeep} />
           {errors.description && <InlineError text={errors.description} />}
         </Form.Field>
 
@@ -148,7 +193,7 @@ class Variable extends React.Component {
           {errors.unitType && <InlineError text={errors.unitType} />}
         </Form.Field>
 
-        <Form.Field error={!!errors.labels}>
+{/*        <Form.Field error={!!errors.labels}>
           <label>Merke(er)</label>
           <Dropdown placeholder='Merke(er)' multiple search selection options={mainSubjectsOptions}
                     value={variable.labels}
@@ -173,7 +218,7 @@ class Variable extends React.Component {
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'variablePrecisionDescribed')}
                     disabled={readOnlyMode} />
           {errors.variablePrecisionDescribed && <InlineError text={errors.variablePrecisionDescribed} />}
-        </Form.Field>
+        </Form.Field>*/}
 
         <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
                 content='Lagre variabel' onClick={this.registerVariable} />
