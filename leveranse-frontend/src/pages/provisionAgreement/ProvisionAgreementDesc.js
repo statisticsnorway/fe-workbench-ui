@@ -7,16 +7,15 @@ import {
   editModeCheckbox,
   errorMessages,
   fetchAllSubjectsFromExternalApi,
-  responseMessages,
-  sendDataToBackend
+  responseMessages
 } from '../../utils/Common'
 import {alertActions, provisionAgreementActions} from '../../actions'
 import {connect} from 'react-redux'
 import 'react-dates/lib/css/_datepicker.css'
 import 'react-dates/initialize'
 import InlineError from '../messages/InlineError'
-import Supplier from '../supplier/Supplier'
 import '../../assets/css/site.css'
+import InformationProviderModal from "../informationProvider/InformationProviderModal";
 
 moment.locale('nb')
 
@@ -46,12 +45,12 @@ class ProvisionAgreementDesc extends Component {
         validFrom: moment().toJSON(),
         createdDate: moment().toJSON(),
         createdBy: this.props.authentication.user.username,
-        informationProvider: "/InformationProvider/79945ada-de3e-4742-82c0-98d908beec7b",
+        informationProvider: '',
         regulation: '',
         status: '',
         valuation: '',
         changeManagement:
-           {
+          {
             languageCode: "nb",
             languageText: ''
           },
@@ -63,17 +62,18 @@ class ProvisionAgreementDesc extends Component {
         exchangeChannel: '/ExchangeChannel/4eea64e6-5c87-462d-9fc5-c3fdd3a310fc',
         frequency: ''
       },
-      durationFrom: moment(),
-      durationTo: moment(),
+      //durationFrom: moment(),
+      //durationTo: moment(),
       readOnlyMode: false,
       response: {},
       errors: {},
-      waitingForResponse: false
+      waitingForResponse: false,
+      selectedInformationProvider: ''
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleInputChangeDeep = this.handleInputChangeDeep.bind(this)
-    this.handleInputChangeManagement = this.handleInputChangeManagement.bind(this)
+    this.handleInputChangeArrayObject = this.handleInputChangeArrayObject.bind(this)
+    this.handleInputChangeJSONObject = this.handleInputChangeJSONObject.bind(this)
 
     if (this.props.isNewProvisionAgreement) {
       const uuidv1 = require('uuid/v1')
@@ -106,7 +106,7 @@ class ProvisionAgreementDesc extends Component {
     })
   }
 
-  handleInputChangeDeep(event) {
+  handleInputChangeArrayObject(event) {
     this.setState({
       errors: {
         ...this.state.errors,
@@ -122,7 +122,7 @@ class ProvisionAgreementDesc extends Component {
     })
   }
 
-  handleInputChangeManagement(event) {
+  handleInputChangeJSONObject(event) {
     this.setState({
       errors: {
         ...this.state.errors,
@@ -158,16 +158,7 @@ class ProvisionAgreementDesc extends Component {
     })
   }
 
-  getSupplier = (supplierValue) => {
-    this.setState({
-      provisionAgreement: {
-        ...this.state.provisionAgreement,
-        supplier: supplierValue
-      }
-    })
-  }
-
-  insertDatesInState() {
+  /*insertDatesInState() {
     this.setState({
       provisionAgreement: {
         ...this.state.provisionAgreement,
@@ -175,32 +166,30 @@ class ProvisionAgreementDesc extends Component {
         durationTo: this.state.durationTo
       }
     })
-  }
+  }*/
 
   validateInputData = data => {
     const errors = {}
-
     if (!data.description[0].languageText) errors.description = 'Feltet kan ikke være tomt'
     if (!data.name[0].languageText) errors.name = 'Feltet kan ikke være tomt'
+    if (!data.status) errors.status = 'Et valg må velges'
     if (!data.regulation) errors.regulation = 'Et valg må velges'
     if (!data.frequency) errors.frequency = 'Et valg må velges'
-    if (this.state.durationFrom.isAfter(this.state.durationTo)) { // noinspection JSValidateTypes
+    if (!data.informationSource.languageText) errors.informationSource = 'Feltet kan ikke være tomt'
+    /*if (this.state.durationFrom.isAfter(this.state.durationTo)) { // noinspection JSValidateTypes
       errors.durationTo = 'Dato til > dato fra'
-    }
-
+    }*/
     return errors
   }
 
   validationOk = () => {
     const errors = this.validateInputData(this.state.provisionAgreement)
-
     this.setState({errors})
-
     return Object.keys(errors).length === 0
   }
 
   registerProvisionAgreement = () => {
-    this.insertDatesInState()
+    //this.insertDatesInState()
 
     const {dispatch} = this.props
 
@@ -220,10 +209,25 @@ class ProvisionAgreementDesc extends Component {
     }
   }
 
+  handleGetInformationProvider = () => {
+    this.InformationProviderModal.handleInfoProviderModalOpen()
+  }
+
+  getInformationProvider = (informationProvider) => {
+    this.setState({
+      provisionAgreement: {
+        ...this.state.provisionAgreement,
+        informationProvider: "/InformationProvider/" + informationProvider.id
+      },
+      selectedInformationProvider: informationProvider.name[0].languageText
+    })
+  }
+
   render() {
     const {errors, response, readOnlyMode, waitingForResponse, provisionAgreement} = this.state
     const {alert, provisionAgreementId} = this.props
-
+    console.log("Selected PA: ", this.state.provisionAgreement)
+    console.log("Selected InfoProvider: ", this.state.selectedInformationProvider)
     return (
       <Form>
         <Header as='h2' dividing content={'Leveransebeskrivelse'}/>
@@ -240,17 +244,26 @@ class ProvisionAgreementDesc extends Component {
         </Message>
         }
 
-        {/*<Form.Field>
+        <Form.Field>
           <label>Leverandør</label>
-          <Input placeholder='Leverandør' name='supplier' readOnly={true}
-                 value={provisionAgreement.supplier.title || ''} onChange={this.handleInputChange}
-                 label={<Supplier onSearchSupplier={this.getSupplier}></Supplier>} labelPosition='right'/>
-        </Form.Field>*/}
+          <Input placeholder='Leverandør'
+                 name='informationProvider'
+                 readOnly={true}
+                 value={this.state.selectedInformationProvider}
+                 onChange={this.handleInputChange}
+                 label={<InformationProviderModal
+                   ref={(InformationProviderModal => {
+                     this.InformationProviderModal = InformationProviderModal
+                   })}
+                   getInfoProvider={this.handleGetInformationProvider}
+                   getSelectedValue={this.getInformationProvider}/>}
+                 labelPosition='right'/>
+        </Form.Field>
 
         <Form.Field error={!!errors.name}>
           <label>Avtalenavn</label>
           <Input placeholder='Avtalenavn' name='name' value={provisionAgreement.name[0].languageText}
-                 onChange={this.handleInputChangeDeep} readOnly={readOnlyMode}/>
+                 onChange={this.handleInputChangeArrayObject} readOnly={readOnlyMode}/>
           {errors.name && <InlineError text={errors.name}/>}
         </Form.Field>
 
@@ -258,7 +271,7 @@ class ProvisionAgreementDesc extends Component {
           <label>Beskrivelse</label>
           <TextArea autoHeight placeholder='Beskrivelse' name='description'
                     value={provisionAgreement.description[0].languageText}
-                    onChange={this.handleInputChangeDeep} readOnly={readOnlyMode}/>
+                    onChange={this.handleInputChangeArrayObject} readOnly={readOnlyMode}/>
           {errors.description && <InlineError text={errors.description}/>}
         </Form.Field>
 
@@ -270,7 +283,7 @@ class ProvisionAgreementDesc extends Component {
                     disabled={readOnlyMode}/>
         </Form.Field>
 
-        <Form.Group widths='equal'>
+        {/* <Form.Group widths='equal'>
           <Form.Field>
             <label>Gyldighet</label>
             Fra
@@ -308,7 +321,7 @@ class ProvisionAgreementDesc extends Component {
             {errors.durationTo && <InlineError text={errors.durationTo}/>}
           </Form.Field>
         </Form.Group>
-
+        */}
         <Form.Field error={!!errors.regulation}>
           <label>Hjemmelsgrunnlag</label>
           <Dropdown placeholder='Hjemmelsgrunnlag' selection options={regulationOptions}
@@ -318,7 +331,7 @@ class ProvisionAgreementDesc extends Component {
           {errors.regulation && <InlineError text={errors.regulation}/>}
         </Form.Field>
 
-       {/* <Form.Field error={!!errors.exchangeChannel}>
+        {/* <Form.Field error={!!errors.exchangeChannel}>
           <label>Kanal(er)</label>
           <Dropdown placeholder='Kanal(er)' multiple selection options={tempExchangeChannelOptions}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'exchangeChannel')}
@@ -356,9 +369,17 @@ class ProvisionAgreementDesc extends Component {
         <Form.Field error={!!errors.changeManagement}>
           <Form.TextArea autoHeight name='changeManagement' label='Endringshåndtering' placeholder='Endringshåndtering'
                          readOnly={readOnlyMode} value={provisionAgreement.changeManagement.languageText}
-                         onChange={this.handleInputChangeManagement}/>
+                         onChange={this.handleInputChangeJSONObject}/>
           {errors.changeManagement && <InlineError text={errors.changeManagement}/>}
         </Form.Field>
+
+        <Form.Field error={!!errors.informationSource}>
+          <label>Kilde</label>
+          <Input placeholder='Kilde' name='informationSource' value={provisionAgreement.informationSource.languageText}
+                 onChange={this.handleInputChangeJSONObject} readOnly={readOnlyMode}/>
+          {errors.informationSource && <InlineError text={errors.informationSource}/>}
+        </Form.Field>
+
 
         <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
                 content='Lagre leveranseavtale' onClick={this.registerProvisionAgreement}/>
@@ -378,12 +399,6 @@ const regulationOptions = [
   {key: '1', text: 'Frivillig undersøkelse', value: 'F'},
   {key: '2', text: 'Oppgaveplikt undersøkelse', value: 'O'},
   {key: '3', text: 'Administrativt register', value: 'A'}
-]
-
-const tempExchangeChannelOptions = [
-  {key: '1', text: 'Administrativt register', value: 'Administrativt register'},
-  {key: '2', text: 'Andre register', value: 'Andre register'},
-  {key: '3', text: 'Direkte', value: 'Direkte'}
 ]
 
 const tempProtocolOptions = [

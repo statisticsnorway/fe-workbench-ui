@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { Checkbox, Container, Message } from 'semantic-ui-react'
+import {Checkbox, Container, Message} from 'semantic-ui-react'
 
 export const fetchMainSubjectsFromExternalApi = () => {
   let mainSubjectsOptions = []
@@ -100,18 +100,57 @@ export const fetchListOptions = (url) => {
   return theList
 }
 
-function prepareDataForBackend (state) {
+function prepareDataForBackend(state) {
   let data = state
 
-/*  for (let attribute in data) {
-    if (data[attribute] === '') {
-      data[attribute] = null
-    }
-  }*/
+  /*  for (let attribute in data) {
+      if (data[attribute] === '') {
+        data[attribute] = null
+      }
+    }*/
 
   JSON.stringify(data)
 
   return data
+}
+
+export const getDataFromBackend = (path, data, state) => {
+  return new Promise((resolve) => {
+    let url
+    let newState = {}
+    url = process.env.REACT_APP_BACKENDHOST + path + data
+
+    axios.get(url, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => {
+      if (response.status === 200) {
+        newState = {
+          informationProviderList: response.data
+        }
+      } else {
+        newState = {
+          color: 'orange',
+          header: 'kan ikke hente ' + path + ' fra server',
+          text: response.statusText + ' (' + url + ')',
+          icon: 'error'
+        }
+      }
+    }).catch((error) => {
+      if (error.response) {
+        console.log(error.response.data)
+      }
+      newState = {
+        color: 'red',
+        header: 'kan ikke hente ' + path + ' fra server',
+        text: error.message + ' (' + url + ')',
+        icon: 'warning'
+      }
+    }).then(() => {
+      resolve(newState)
+    })
+  })
 }
 
 export const sendDataToBackend = (path, text, state) => {
@@ -151,7 +190,7 @@ export const sendDataToBackend = (path, text, state) => {
         }
       }
     }).catch((error) => {
-      if(error.response) {
+      if (error.response) {
         console.log(error.response.data)
       }
 
@@ -215,7 +254,7 @@ export const deleteDataInBackend = (path, text, id) => {
 export const editModeCheckbox = (readOnlyMode, action) => {
   return (
     <Container textAlign='right'>
-      <Checkbox toggle checked={!readOnlyMode} onClick={action} icon='edit' label='Redigeringsmodus' />
+      <Checkbox toggle checked={!readOnlyMode} onClick={action} icon='edit' label='Redigeringsmodus'/>
     </Container>
   )
 }
@@ -224,13 +263,13 @@ export const errorMessages = (errors, name) => {
   return (
     Object.keys(errors).length !== 0 && !Object.values(errors).every(i => (i === '')) ?
       <Message icon='warning' header={name + ' ble ikke lagret'} content={'Rett opp i feilene og prøv igjen'}
-               color='yellow' /> : null
+               color='yellow'/> : null
   )
 }
 
 export const responseMessages = (readOnlyMode, response) => {
   return (
     Object.keys(response).length !== 0 && readOnlyMode ?
-      <Message icon={response.icon} header={response.header} content={response.text} color={response.color} /> : null
+      <Message icon={response.icon} header={response.header} content={response.text} color={response.color}/> : null
   )
 }
