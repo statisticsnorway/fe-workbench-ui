@@ -18,34 +18,31 @@ class Variable extends React.Component {
     this.state = {
       variable: {
         id: '',
-        name: [
-          {
-            languageCode: 'nb',
-            languageText: ''
-          }
-        ],
-        description: [
-          {
-            languageCode: 'nb',
-            languageText: ''
-          }
-        ],
+        name: [{
+          languageCode: 'nb',
+          languageText: ''
+        }],
+        description: [{
+          languageCode: 'nb',
+          languageText: ''
+        }],
         administrativeStatus: '',
         createdDate: moment().toJSON(),
         createdBy: '',
         version: '',
         versionValidFrom: moment().toJSON(),
-        versionRationale: [
-          {
-            languageCode: 'nb',
-            languageText: ''
-          }
-        ],
+        versionRationale: [{
+          languageCode: 'nb',
+          languageText: ''
+        }],
         lastUpdatedDate: moment().toJSON(),
         lastUpdatedBy: '',
         validFrom: moment().toJSON(),
         validUntil: moment().toJSON(),
-        administrativeDetails: [],
+        administrativeDetails: [{
+          administrativeDetailsType: '',
+          values: []
+        }],
         unitType: ''
       },
       readOnlyMode: false,
