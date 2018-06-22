@@ -45,10 +45,7 @@ class Variable extends React.Component {
         lastUpdatedBy: '',
         validFrom: moment().toJSON(),
         validUntil: moment().toJSON(),
-        administrativeDetails: [
-
-        ],
-        concept: '',
+        administrativeDetails: [],
         unitType: ''
       },
       readOnlyMode: false,
@@ -118,7 +115,7 @@ class Variable extends React.Component {
 
     if (!data.name[0].languageText) errors.name = 'Feltet kan ikke være tomt'
     if (!data.description[0].languageText) errors.description = 'Feltet kan ikke være tomt'
-    if (!data.concept) errors.concept = 'Feltet kan ikke være tomt'
+//    if (!data.concept) errors.concept = 'Feltet kan ikke være tomt'
     if (!data.unitType) errors.unitType = 'Et valg må velges'
 //    if (Object.keys(data.labels).length === 0) errors.labels = 'Ett eller flere valg må velges'
 
@@ -177,12 +174,12 @@ class Variable extends React.Component {
           {errors.description && <InlineError text={errors.description} />}
         </Form.Field>
 
-        <Form.Field error={!!errors.concept}>
+{/*        <Form.Field error={!!errors.concept}>
           <label>Begrep</label>
           <Input name='concept' placeholder='Begrep' value={variable.concept} onChange={this.handleInputChange}
                  readOnly={readOnlyMode} />
           {errors.concept && <InlineError text={errors.concept} />}
-        </Form.Field>
+        </Form.Field>*/}
 
         <Form.Field error={!!errors.unitType}>
           <label>Enhetstype</label>
