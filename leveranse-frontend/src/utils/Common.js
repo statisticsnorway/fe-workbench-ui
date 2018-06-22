@@ -103,11 +103,11 @@ export const fetchListOptions = (url) => {
 function prepareDataForBackend (state) {
   let data = state
 
-  for (let attribute in data) {
+/*  for (let attribute in data) {
     if (data[attribute] === '') {
       data[attribute] = null
     }
-  }
+  }*/
 
   JSON.stringify(data)
 
@@ -121,9 +121,9 @@ export const sendDataToBackend = (path, text, state) => {
     let newState = {}
 
     data = prepareDataForBackend(state)
-    url = process.env.REACT_APP_BACKENDHOST + process.env.REACT_APP_APIVERSION + path
+    url = process.env.REACT_APP_BACKENDHOST + path
 
-    axios.post(url, data, {
+    axios.put(url, data, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -132,6 +132,13 @@ export const sendDataToBackend = (path, text, state) => {
         newState = {
           color: 'green',
           header: text + ' ble lagret',
+          text: response.statusText,
+          icon: 'check'
+        }
+      } else if (response.status === 200) {
+        newState = {
+          color: 'green',
+          header: text + ' ble oppdatert',
           text: response.statusText,
           icon: 'check'
         }
@@ -144,7 +151,9 @@ export const sendDataToBackend = (path, text, state) => {
         }
       }
     }).catch((error) => {
-      console.log(error)
+      if(error.response) {
+        console.log(error.response.data)
+      }
 
       newState = {
         color: 'red',
