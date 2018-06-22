@@ -135,6 +135,13 @@ export const sendDataToBackend = (path, text, state) => {
           text: response.statusText,
           icon: 'check'
         }
+      } else if (response.status === 200) {
+        newState = {
+          color: 'green',
+          header: text + ' ble oppdatert',
+          text: response.statusText,
+          icon: 'check'
+        }
       } else {
         newState = {
           color: 'orange',
@@ -144,7 +151,9 @@ export const sendDataToBackend = (path, text, state) => {
         }
       }
     }).catch((error) => {
-      console.log(error.response.data)
+      if(error.response) {
+        console.log(error.response.data)
+      }
 
       newState = {
         color: 'red',

@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Form, Input, Label, Modal } from 'semantic-ui-react'
 import { editModeCheckbox, errorMessages, responseMessages, sendDataToBackend } from '../../utils/Common'
 import InlineError from '../messages/InlineError'
+import moment from 'moment/moment'
 
 class UnitTypeModal extends React.Component {
   constructor (props) {
@@ -9,8 +10,34 @@ class UnitTypeModal extends React.Component {
     this.state = {
       unitType: {
         id: '',
-        name: '',
-        description: ''
+        name: [
+          {
+            languageCode: 'nb',
+            languageText: ''
+          }
+        ],
+        description: [
+          {
+            languageCode: 'nb',
+            languageText: ''
+          }
+        ],
+        administrativeStatus: '',
+        createdDate: moment().toJSON(),
+        createdBy: '',
+        version: '',
+        versionValidFrom: moment().toJSON(),
+        versionRationale: [
+          {
+            languageCode: 'nb',
+            languageText: ''
+          }
+        ],
+        lastUpdatedDate: moment().toJSON(),
+        lastUpdatedBy: '',
+        validFrom: moment().toJSON(),
+        validUntil: moment().toJSON(),
+        administrativeDetails: []
       },
       unitTypeModalOpen: false,
       readOnlyMode: false,
@@ -20,6 +47,7 @@ class UnitTypeModal extends React.Component {
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleInputChangeDeep = this.handleInputChangeDeep.bind(this)
 
     if (this.props.unitTypeId !== 'new') {
       this.state.unitType.id = this.props.unitTypeId
@@ -65,11 +93,27 @@ class UnitTypeModal extends React.Component {
     })
   }
 
+  handleInputChangeDeep (event) {
+    this.setState({
+      errors: {
+        ...this.state.errors,
+        [event.target.name]: ''
+      },
+      unitType: {
+        ...this.state.unitType,
+        [event.target.name]: [{
+          languageCode: 'nb',
+          languageText: event.target.value
+        }]
+      }
+    })
+  }
+
   validateInputData = data => {
     const errors = {}
 
-    if (!data.name) errors.name = 'Feltet kan ikke være tomt'
-    if (!data.description) errors.description = 'Feltet kan ikke være tomt'
+    if (!data.name[0].languageText) errors.name = 'Feltet kan ikke være tomt'
+    if (!data.description[0].languageText) errors.description = 'Feltet kan ikke være tomt'
 
     return errors
   }
@@ -90,7 +134,7 @@ class UnitTypeModal extends React.Component {
         waitingForResponse: true
       })
 
-      sendDataToBackend('/unitType', 'Enhetstypen', this.state.unitType).then((result) => {
+      sendDataToBackend('UnitType/' + this.state.unitType.id, 'Enhetstypen', this.state.unitType).then((result) => {
         this.setState({
           response: result,
           waitingForResponse: false
@@ -117,8 +161,8 @@ class UnitTypeModal extends React.Component {
             <Form.Group widths='equal'>
               <Form.Field error={!!errors.name}>
                 <label>Navn</label>
-                <Input name='name' placeholder='Navn' readOnly={readOnlyMode} value={unitType.name}
-                       onChange={this.handleInputChange} />
+                <Input name='name' placeholder='Navn' readOnly={readOnlyMode} value={unitType.name[0].languageText}
+                       onChange={this.handleInputChangeDeep} />
                 {errors.name && <InlineError text={errors.name} />}
               </Form.Field>
               <Form.Field>
@@ -129,7 +173,7 @@ class UnitTypeModal extends React.Component {
 
             <Form.Field error={!!errors.description}>
               <Form.TextArea autoHeight name='description' label='Beskrivelse' placeholder='Beskrivelse'
-                             readOnly={readOnlyMode} value={unitType.description} onChange={this.handleInputChange} />
+                             readOnly={readOnlyMode} value={unitType.description[0].languageText} onChange={this.handleInputChangeDeep} />
               {errors.description && <InlineError text={errors.description} />}
             </Form.Field>
 
