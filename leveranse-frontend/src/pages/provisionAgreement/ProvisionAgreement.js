@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Tab } from 'semantic-ui-react'
 import { BrowserRouter } from 'react-router-dom'
-import LeveranseDescription from './LeveranseDescription'
+import {ProvisionAgreementDesc} from './ProvisionAgreementDesc'
 import '../../assets/css/site.css'
 import ContactPerson from '../contactPerson/ContactPerson'
 
@@ -10,7 +10,7 @@ class ProvisionAgreement extends React.Component {
     const panes = [
       {
         menuItem: 'Leveransebeskrivelse',
-        render: () => <Tab.Pane><LeveranseDescription
+        render: () => <Tab.Pane><ProvisionAgreementDesc
           isNewProvisionAgreement={this.props.isNewProvisionAgreement} /></Tab.Pane>
       },
       {menuItem: 'Kontaktpersoner', render: () => <Tab.Pane><ContactPerson /></Tab.Pane>},

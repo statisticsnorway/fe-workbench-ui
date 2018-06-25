@@ -33,10 +33,6 @@ class App extends React.Component {
               <Route path='/' exact component={WelcomePage}/>
               <Route path='/login' exact component={LoginPage}/>
               <Route path="/register" component={RegisterPage}/>
-              {alert.message &&
-              <Message negative><Message.Header>{alert.message}</Message.Header>
-              </Message>
-              }
             </div>
           </Router>
         </div>

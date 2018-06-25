@@ -40,6 +40,8 @@ class LoginPage extends React.Component {
 
   render () {
     const {username, password, submitted, loading} = this.state
+    const {alert} = this.props
+
     return (
       <div>
         <Grid textAlign='center' style={{height: '100%'}} verticalAlign='middle'>
@@ -49,6 +51,14 @@ class LoginPage extends React.Component {
             <Header as='h2' color='blue' textAlign='center'>
               Innlogging
             </Header>
+            {alert.type === 'alert-success' && alert.message &&
+            <Message positive onDismiss={this.handleDismiss}><Message.Header>{alert.message}</Message.Header>
+            </Message>
+            }
+            {alert.type === 'alert-danger' && alert.message &&
+            <Message negative onDismiss={this.handleDismiss}><Message.Header>{alert.message}</Message.Header>
+            </Message>
+            }
             <Form name="form" onSubmit={this.handleSubmit} loading={loading} size='large'>
               <Form.Field error={submitted && !username}>
                 <Form.Input
@@ -95,8 +105,9 @@ class LoginPage extends React.Component {
 }
 
 function mapStateToProps (state) {
-  const {loggingIn} = state.authentication
+  const {loggingIn, alert} = state
   return {
+    alert,
     loggingIn
   }
 }

@@ -114,6 +114,45 @@ function prepareDataForBackend (state) {
   return data
 }
 
+export const getDataFromBackend = (path, data, state) => {
+  return new Promise((resolve) => {
+    let url
+    let newState = {}
+    url = process.env.REACT_APP_BACKENDHOST + path + data
+
+    axios.get(url, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => {
+      if (response.status === 200) {
+        newState = {
+          informationProviderList: response.data
+        }
+      } else {
+        newState = {
+          color: 'orange',
+          header: 'kan ikke hente ' + path + ' fra server',
+          text: response.statusText + ' (' + url + ')',
+          icon: 'error'
+        }
+      }
+    }).catch((error) => {
+      if (error.response) {
+        console.log(error.response.data)
+      }
+      newState = {
+        color: 'red',
+        header: 'kan ikke hente ' + path + ' fra server',
+        text: error.message + ' (' + url + ')',
+        icon: 'warning'
+      }
+    }).then(() => {
+      resolve(newState)
+    })
+  })
+}
+
 export const sendDataToBackend = (path, text, state) => {
   return new Promise((resolve) => {
     let url
@@ -151,9 +190,7 @@ export const sendDataToBackend = (path, text, state) => {
         }
       }
     }).catch((error) => {
-      console.log(error)
-
-      if(error.response) {
+      if (error.response) {
         console.log(error.response.data)
       }
 
