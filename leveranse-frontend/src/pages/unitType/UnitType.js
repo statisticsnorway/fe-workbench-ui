@@ -77,6 +77,8 @@ class UnitType extends React.Component {
     })
   }
 
+  // TODO: There is a bug here. If you open the modal to register a new unitType, then close it, then open it again,
+  // TODO: its not generating a new one, however if you open one from the table in between it generates a new one.
   handleIsNewUnitType = () => {
     this.handleSelectedUnitType('new').then(() => {
       this.UnitTypeModal.handleUnitTypeModalOpen()

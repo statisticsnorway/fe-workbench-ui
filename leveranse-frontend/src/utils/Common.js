@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import {Checkbox, Container, Message} from 'semantic-ui-react'
+import { Checkbox, Container, Message } from 'semantic-ui-react'
 
 export const fetchMainSubjectsFromExternalApi = () => {
   let mainSubjectsOptions = []
@@ -100,14 +100,14 @@ export const fetchListOptions = (url) => {
   return theList
 }
 
-function prepareDataForBackend(state) {
+function prepareDataForBackend (state) {
   let data = state
 
-  /*  for (let attribute in data) {
-      if (data[attribute] === '') {
-        data[attribute] = null
-      }
-    }*/
+/*  for (let attribute in data) {
+    if (data[attribute] === '') {
+      data[attribute] = null
+    }
+  }*/
 
   JSON.stringify(data)
 
@@ -254,7 +254,7 @@ export const deleteDataInBackend = (path, text, id) => {
 export const editModeCheckbox = (readOnlyMode, action) => {
   return (
     <Container textAlign='right'>
-      <Checkbox toggle checked={!readOnlyMode} onClick={action} icon='edit' label='Redigeringsmodus'/>
+      <Checkbox toggle checked={!readOnlyMode} onClick={action} icon='edit' label='Redigeringsmodus' />
     </Container>
   )
 }
@@ -263,13 +263,13 @@ export const errorMessages = (errors, name) => {
   return (
     Object.keys(errors).length !== 0 && !Object.values(errors).every(i => (i === '')) ?
       <Message icon='warning' header={name + ' ble ikke lagret'} content={'Rett opp i feilene og prøv igjen'}
-               color='yellow'/> : null
+               color='yellow' /> : null
   )
 }
 
 export const responseMessages = (readOnlyMode, response) => {
   return (
     Object.keys(response).length !== 0 && readOnlyMode ?
-      <Message icon={response.icon} header={response.header} content={response.text} color={response.color}/> : null
+      <Message icon={response.icon} header={response.header} content={response.text} color={response.color} /> : null
   )
 }
