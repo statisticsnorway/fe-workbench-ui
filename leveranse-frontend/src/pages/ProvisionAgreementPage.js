@@ -31,12 +31,12 @@ class ProvisionAgreementPage extends React.Component {
                   <Menu.Item>
                     <Input icon='search' placeholder='Finn avtale' />
                   </Menu.Item>
-                  <Menu.Item name='home' active={activeItem === 'home'}>
+                  {/*<Menu.Item name='home' active={activeItem === 'home'}>
                     <NavLink to='/home'>
                       <Icon name='home' />
                       Hjem
                     </NavLink>
-                  </Menu.Item>
+                  </Menu.Item>*/}
                   <Menu.Item name='provisionAgreement' active={activeItem === 'provisionAgreement'}>
                     <NavLink to='/provisionAgreement'>
                       <Icon name='compose' />
@@ -119,7 +119,7 @@ class ProvisionAgreementPage extends React.Component {
             </Grid.Column>
             <Grid.Column width={12} floated='right'>
               <Segment inverted tertiary>
-                <Route path='/home' component={ProvisionAgreementsList} />
+                {/*<Route path='/home' component={ProvisionAgreementsList} />*/}
                 <Route path='/provisionAgreement'
                        render={(props) => <ProvisionAgreement {...props} isNewProvisionAgreement={true} />} />
                 <Route path='/variable' component={Variable} />
