@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Button, Form, Input, Label, Modal, Header, Dropdown, Checkbox } from 'semantic-ui-react'
+import { Button, Form, Input, Modal, Dropdown, Checkbox } from 'semantic-ui-react'
 import { editModeCheckbox, errorMessages, responseMessages, sendDataToBackend } from '../../utils/Common'
 import InlineError from '../messages/InlineError'
+import moment from 'moment'
 
 const datatypeOptions = [
   {key: '1', text: 'Tekst', value: 'Tekst'},
@@ -27,18 +28,43 @@ class ValueDomain extends Component {
     this.state = {
       valueDomain: {
         id: '',
-        name: '',
-        dataType: '',
-        dateformat: '',
-        minNumberChar: '',
-        maxNumberChar: '',
-        minValue: '',
-        maxValue: '',
-        minNumberDec: '',
-        maxNumberDec: '',
+        name: [
+          {
+            languageCode: 'nb',
+            languageText: ''
+          }
+        ],
+        description: [
+          {
+            languageCode: 'nb',
+            languageText: ''
+          }
+        ],
+        administrativeStatus: '',
+        createdDate: moment().toJSON(),
+        createdBy: '',
+        version: '',
+        versionValidFrom: moment().toJSON(),
+        versionRationale: [
+          {
+            languageCode: 'nb',
+            languageText: ''
+          }
+        ],
+        lastUpdatedDate: moment().toJSON(),
+        lastUpdatedBy: '',
+        validFrom: moment().toJSON(),
+        validUntil: moment().toJSON(),
+        administrativeDetails: [],
+        dataType: 0,
+        minLength: 0,
+        maxLength: 0,
+        minValue: 0,
+        maxValue: 0,
+        minDecimals: 0,
+        maxDecimals: 0,
         unitOfMeasurement: '',
-        nulladble: false,
-        description: ''
+        optional: false
       },
       valueDomainModalOpen: false,
       readOnlyMode: false,
@@ -48,11 +74,15 @@ class ValueDomain extends Component {
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleInputChangeDeep = this.handleInputChangeDeep.bind(this)
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
 
     if (this.props.valueDomainId !== 'new') {
       //TODO: Get ID and fetch valueDomain from backend
-      this.state.valueDomain.name = this.props.valueDomainId
+      this.state.valueDomain.name[0].languageText = this.props.valueDomainId
+    } else {
+      const uuidv1 = require('uuid/v1')
+      this.state.valueDomain.id = uuidv1()
     }
   }
 
@@ -87,7 +117,23 @@ class ValueDomain extends Component {
     this.setState({
       valueDomain: {
         ...this.state.valueDomain,
-        [event.target.name]: event.target.value
+        [event.target.name]: event.target.type === 'number' ? parseInt(event.target.value) : event.target.value
+      }
+    })
+  }
+
+  handleInputChangeDeep (event) {
+    this.setState({
+      errors: {
+        ...this.state.errors,
+        [event.target.name]: ''
+      },
+      valueDomain: {
+        ...this.state.valueDomain,
+        [event.target.name]: [{
+          languageCode: 'nb',
+          languageText: event.target.value
+        }]
       }
     })
   }
@@ -118,7 +164,7 @@ class ValueDomain extends Component {
     const errors = {}
 
     if (!data.dataType) errors.dataType = 'Datatype må velges'
-    if (!data.name) errors.name = 'Feltet kan ikke være tomt'
+    if (!data.name[0].languageText) errors.name = 'Feltet kan ikke være tomt'
 
     return errors
   }
@@ -131,44 +177,42 @@ class ValueDomain extends Component {
     return Object.keys(errors).length === 0
   }
 
-  setUniquIdAndDescription = () => {
-    const uuidv1 = require('uuid/v1')
-
+  setUniqueDescription = () => {
     //TODO: Check with backend for valuedomains  simular to this
     //TODO: Make a cleaner function to make unique name
-    let uniqueName = this.state.valueDomain.name + '_' +
+    let uniqueName = this.state.valueDomain.name[0].languageText + '_' +
       this.state.valueDomain.dataType + '_' +
-      this.state.valueDomain.dateformat + '_' +
-      this.state.valueDomain.minNumberChar + '_' +
-      this.state.valueDomain.maxNumberChar + '_' +
+      this.state.valueDomain.minLength + '_' +
+      this.state.valueDomain.maxLength + '_' +
       this.state.valueDomain.minValue + '_' +
       this.state.valueDomain.maxValue + '_' +
-      this.state.valueDomain.minNumberDec + '_' +
-      this.state.valueDomain.maxNumberDec + '_' +
+      this.state.valueDomain.minDecimals + '_' +
+      this.state.valueDomain.maxDecimals + '_' +
       this.state.valueDomain.unitOfMeasurement + '_' +
-      this.state.valueDomain.nulladble
+      this.state.valueDomain.optional
 
     this.setState({
       valueDomain: {
         ...this.state.valueDomain,
-        description: uniqueName,
-        id: uuidv1()
-      }}, () => console.log(this.state.valueDomain))
+        description: [{
+          languageCode: 'nb',
+          languageText: uniqueName
+        }]
+      }
+    }, () => console.log(this.state.valueDomain))
   }
 
-
   registerValueDomain = () => {
-    this.setUniquIdAndDescription()
+    this.setUniqueDescription()
 
     if (this.validationOk()) {
       this.setState({
-        ...this.state.valueDomain,
         readOnlyMode: true,
         errors: {},
         waitingForResponse: true
       })
 
-      sendDataToBackend('/valueDomain', 'Verdiområdet', this.state.valueDomain).then((result) => {
+      sendDataToBackend('DescribedValueDomain/' + this.state.valueDomain.id, 'Verdiområdet', this.state.valueDomain).then((result) => {
         this.setState({
           response: result,
           waitingForResponse: false
@@ -178,7 +222,7 @@ class ValueDomain extends Component {
   }
 
   render () {
-    const {readOnlyMode, valueDomain, valueDomainModalOpen, waitingForResponse, errors, response} = this.state
+    const {readOnlyMode, valueDomain, waitingForResponse, errors, response} = this.state
 
     return (
       <Modal trigger={<Button primary floated='right' icon='edit' content='Registrer nytt verdiområde'
@@ -203,26 +247,16 @@ class ValueDomain extends Component {
               <Dropdown placeholder='Velg datatype' selection options={datatypeOptions}
                         disabled={readOnlyMode}
                         onChange={(event, {value}) => this.handleDropdownChange(value, 'dataType')}/>
-
-            {errors.dataType && <InlineError text={errors.dataType} />}
+              {errors.dataType && <InlineError text={errors.dataType}/>}
             </Form.Field>
-
-            {(this.state.valueDomain.dataType === 'Dato') &&
-            <Form.Field>
-              <label>Datoformat</label>
-              <Dropdown placeholder='Velg datoformat' selection options={dateformatOptions}
-                        disabled={readOnlyMode}
-                        onChange={(event, {value}) => this.handleDropdownChange(value, 'dateformat')}/>
-            </Form.Field>
-            }
 
             <Form.Group widths='equal'>
               {(this.state.valueDomain.dataType === 'Heltall' ||
                 this.state.valueDomain.dataType === 'Tekst') &&
               <Form.Field>
                 <label>MIN antall tegn</label>
-                <Input name='minNumberChar' placeholder='MIN antall tegn' readOnly={readOnlyMode}
-                       value={valueDomain.minNumberChar}
+                <Input name='minLength' type='number' placeholder='MIN antall tegn' readOnly={readOnlyMode}
+                       value={valueDomain.minLength}
                        onChange={this.handleInputChange}/>
               </Form.Field>
               }
@@ -231,8 +265,8 @@ class ValueDomain extends Component {
                 this.state.valueDomain.dataType === 'Tekst') &&
               <Form.Field>
                 <label>MAX antall tegn</label>
-                <Input name='maxNumberChar' placeholder='MAX antall tegn' readOnly={readOnlyMode}
-                       value={valueDomain.maxNumberChar}
+                <Input name='maxLength' type='number' placeholder='MAX antall tegn' readOnly={readOnlyMode}
+                       value={valueDomain.maxLength}
                        onChange={this.handleInputChange}/>
               </Form.Field>
               }
@@ -243,7 +277,7 @@ class ValueDomain extends Component {
                 this.state.valueDomain.dataType === 'Desimaltall') &&
               <Form.Field>
                 <label>MIN verdi</label>
-                <Input name='minValue' placeholder='MIN verdi' readOnly={readOnlyMode}
+                <Input name='minValue' type='number' placeholder='MIN verdi' readOnly={readOnlyMode}
                        value={valueDomain.minValue}
                        onChange={this.handleInputChange}/>
               </Form.Field>
@@ -253,7 +287,7 @@ class ValueDomain extends Component {
                 this.state.valueDomain.dataType === 'Desimaltall') &&
               <Form.Field>
                 <label>MAX verdi</label>
-                <Input name='maxValue' placeholder='MAX verdi' readOnly={readOnlyMode}
+                <Input name='maxValue' type='number' placeholder='MAX verdi' readOnly={readOnlyMode}
                        value={valueDomain.maxValue}
                        onChange={this.handleInputChange}/>
               </Form.Field>
@@ -264,8 +298,8 @@ class ValueDomain extends Component {
               {(this.state.valueDomain.dataType === 'Desimaltall') &&
               <Form.Field>
                 <label>MIN desimal verdi</label>
-                <Input name='minNumberDec' placeholder='MIN antall desimaler' readOnly={readOnlyMode}
-                       value={valueDomain.minNumberDec}
+                <Input name='minDecimals' type='number' placeholder='MIN antall desimaler' readOnly={readOnlyMode}
+                       value={valueDomain.minDecimals}
                        onChange={this.handleInputChange}/>
               </Form.Field>
               }
@@ -273,8 +307,8 @@ class ValueDomain extends Component {
               {(this.state.valueDomain.dataType === 'Desimaltall') &&
               <Form.Field>
                 <label>MAX desimal verdi</label>
-                <Input name='maxNumberDec' placeholder='MAX antall desimaler' readOnly={readOnlyMode}
-                       value={valueDomain.maxNumberDec}
+                <Input name='maxDecimals' type='number' placeholder='MAX antall desimaler' readOnly={readOnlyMode}
+                       value={valueDomain.maxDecimals}
                        onChange={this.handleInputChange}/>
               </Form.Field>
               }
@@ -289,19 +323,19 @@ class ValueDomain extends Component {
             </Form.Field>
             }
 
-            <Checkbox label='Kan være tom' checked={this.state.nullable} readOnly={readOnlyMode}
+            <Checkbox label='Kan være tom' checked={this.state.optional} readOnly={readOnlyMode}
                       onChange={this.handleCheckboxChange}/>
 
             <Form.Field>
               <Form.TextArea autoHeight name='description' label='Beskrivelse' placeholder='Beskrivelse'
-                             readOnly={true} value={valueDomain.description}/>
+                             readOnly={true} value={valueDomain.description[0].languageText}/>
             </Form.Field>
 
             <Form.Field error={!!errors.name}>
               <label>Navn</label>
               <Input name='name' placeholder='Navn' readOnly={readOnlyMode}
-                     value={valueDomain.name} onChange={this.handleInputChange}/>
-              {errors.name && <InlineError text={errors.name} />}
+                     value={valueDomain.name[0].languageText} onChange={this.handleInputChangeDeep}/>
+              {errors.name && <InlineError text={errors.name}/>}
             </Form.Field>
 
             <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='clipboard check'
