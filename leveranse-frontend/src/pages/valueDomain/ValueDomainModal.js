@@ -80,10 +80,10 @@ class ValueDomain extends Component {
     if (this.props.valueDomainId !== 'new') {
       //TODO: Get ID and fetch valueDomain from backend
       this.state.valueDomain.name[0].languageText = this.props.valueDomainId
-    } else {
-      const uuidv1 = require('uuid/v1')
-      this.state.valueDomain.id = uuidv1()
     }
+
+    const uuidv1 = require('uuid/v1')
+    this.state.valueDomain.id = uuidv1()
   }
 
   handleEditModeClick = () => {
