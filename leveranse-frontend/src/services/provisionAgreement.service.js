@@ -14,7 +14,7 @@ function create(provisionAgreement) {
 }
 
 function handleResponse(response) {
-  if (response.status !== 201) {
+  if (response.status !== 200) {
     return Promise.reject(response.statusText)
   }
   return response.data
