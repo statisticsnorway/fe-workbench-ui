@@ -17,6 +17,7 @@ const objectInfo = {
   formConfig: {
     unitType: {
       type: 'dropdownSingle',
+      stateMapping: '',
       values: tempUnitTypeOptions
     }
   }

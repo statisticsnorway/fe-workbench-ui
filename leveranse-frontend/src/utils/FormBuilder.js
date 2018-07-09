@@ -135,6 +135,11 @@ class FormBuilder extends React.Component {
     }
   }
 
+  handleButtonClick = () => {
+    console.log(this.state)
+    console.log(this.formConfig)
+  }
+
   render () {
     const {readOnlyMode, waitingForResponse, response, errors, form} = this.state
 
@@ -196,6 +201,8 @@ class FormBuilder extends React.Component {
           <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
                   content={'Lagre ' + this.objectNameNorwegianLowerCase} onClick={this.saveToBackend} />
           : null}
+
+        <Button onClick={this.handleButtonClick} content={'Test'} />
       </Form>
     )
   }
