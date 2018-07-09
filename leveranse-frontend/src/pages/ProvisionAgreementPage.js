@@ -9,6 +9,7 @@ import '../assets/css/site.css'
 import TargetPopulation from './population/TargetPopulation'
 import SurveyPopulation from './population/SurveyPopulation'
 import ValueDomainList from './valueDomain/ValueDomainList'
+import GenericVariableTest from './variable/GenericVariableTest'
 
 class ProvisionAgreementPage extends React.Component {
   state = {}
@@ -63,6 +64,12 @@ class ProvisionAgreementPage extends React.Component {
                     <NavLink to='/variable'>
                       <Icon name='compose' />
                       Opprett ny
+                    </NavLink>
+                  </Menu.Item>
+                  <Menu.Item name='genericVariableTest' active={activeItem === 'genericVariableTest'}>
+                    <NavLink to='/genericVariableTest'>
+                      <Icon name='compose' />
+                      Test generisk
                     </NavLink>
                   </Menu.Item>
                 </Menu>
@@ -123,6 +130,7 @@ class ProvisionAgreementPage extends React.Component {
                 <Route path='/provisionAgreement'
                        render={(props) => <ProvisionAgreement {...props} isNewProvisionAgreement={true} />} />
                 <Route path='/variable' component={Variable} />
+                <Route path='/genericVariableTest' component={GenericVariableTest} />
                 <Route path='/unitType' component={UnitType} />
                 <Route path='/valueDomain' component={ValueDomainList} />
                 <Route path='/population/targetPopulation' component={TargetPopulation} />
