@@ -14,11 +14,9 @@ const objectInfo = {
   name_EN: 'Variable',
   name_NO: 'Variabel',
   name_NO_definitive: 'Variabelen',
-  submitButtonText: 'Lagre variabel',
   formConfig: {
     unitType: {
       type: 'dropdownSingle',
-      stateMapping: '',
       values: tempUnitTypeOptions
     }
   }

@@ -31,6 +31,7 @@ export const buildNewState = (name, object) => {
             component[key] = []
           }
         }
+        //TODO: Add more checks when LDM-Team is further along
       })
     }
   })

@@ -19,13 +19,20 @@ class FormBuilder extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
+
+    this.objectName = this.props.helper.name_EN
+    this.objectNameLowerCase = this.props.helper.name_EN.toLowerCase()
+    this.objectNameNorwegian = this.props.helper.name_NO
+    this.objectNameNorwegianLowerCase = this.props.helper.name_NO.toLowerCase()
+    this.objectNameDefinitive = this.props.helper.name_NO_definitive
+    this.formConfig = this.props.helper.formConfig
   }
 
   componentDidMount () {
-    getManagedDomainJsonFromBackend(this.props.helper.name_EN).then((result) => {
+    getManagedDomainJsonFromBackend(this.objectName).then((result) => {
       // Should check here if we should build a new state or populate one with stored values (depending on if the user
       // has navigated through creating a new managed domain or fetching a stored one
-      this.setState(buildNewState(this.props.helper.name_EN, result))
+      this.setState(buildNewState(this.objectName, result))
     }).catch((reason) => {
       this.setState({response: reason})
     })
@@ -44,8 +51,8 @@ class FormBuilder extends React.Component {
         ...this.state.errors,
         [event.target.name]: ''
       },
-      [this.props.helper.name_EN.toLowerCase()]: {
-        ...this.state[this.props.helper.name_EN.toLowerCase()],
+      [this.objectNameLowerCase]: {
+        ...this.state[this.objectNameLowerCase],
         [event.target.name]: event.target.value
       }
     })
@@ -57,8 +64,8 @@ class FormBuilder extends React.Component {
         ...this.state.errors,
         [event.target.name]: ''
       },
-      [this.props.helper.name_EN.toLowerCase()]: {
-        ...this.state[this.props.helper.name_EN.toLowerCase()],
+      [this.objectNameLowerCase]: {
+        ...this.state[this.objectNameLowerCase],
         [event.target.name]: [{
           languageCode: 'nb',
           languageText: event.target.value
@@ -73,8 +80,8 @@ class FormBuilder extends React.Component {
         ...this.state.errors,
         [name]: ''
       },
-      [this.props.helper.name_EN.toLowerCase()]: {
-        ...this.state[this.props.helper.name_EN.toLowerCase()],
+      [this.objectNameLowerCase]: {
+        ...this.state[this.objectNameLowerCase],
         [name]: value
       }
     })
@@ -84,13 +91,13 @@ class FormBuilder extends React.Component {
     const errors = {}
 
     this.state.required.forEach((element) => {
-      if (this.props.helper.formConfig[element].hasOwnProperty('stateMapping')) {
-        if (this.props.helper.formConfig[element].stateMapping === 'multilingualText') {
-          if (!this.state[this.props.helper.name_EN.toLowerCase()][element][0].languageText) {
+      if (this.formConfig[element].hasOwnProperty('stateMapping')) {
+        if (this.formConfig[element].stateMapping === 'multilingualText') {
+          if (!this.state[this.objectNameLowerCase][element][0].languageText) {
             errors[element] = 'Feltet kan ikke være tomt'
           }
         } else {
-          if (!this.state[this.props.helper.name_EN.toLowerCase()][element]) {
+          if (!this.state[this.objectNameLowerCase][element]) {
             errors[element] = 'Feltet kan ikke være tomt'
           }
         }
@@ -118,8 +125,8 @@ class FormBuilder extends React.Component {
         waitingForResponse: true
       })
 
-      sendDataToBackend(this.props.helper.name_EN + '/' + this.state[this.props.helper.name_EN.toLowerCase()].id,
-        this.props.helper.name_NO_definitive, this.state[this.props.helper.name_EN.toLowerCase()]).then((result) => {
+      sendDataToBackend(this.objectName + '/' + this.state[this.objectNameLowerCase].id, this.objectNameDefinitive,
+        this.state[this.objectNameLowerCase]).then((result) => {
         this.setState({
           response: result,
           waitingForResponse: false
@@ -129,62 +136,66 @@ class FormBuilder extends React.Component {
   }
 
   render () {
-    const {helper} = this.props
     const {readOnlyMode, waitingForResponse, response, errors, form} = this.state
 
     return (
       <Form loading={typeof form === 'undefined' && typeof response === 'undefined'}>
-        <Header as='h2' dividing content={helper.name_NO} />
+        <Header as='h2' dividing content={this.objectNameNorwegian} />
 
         {typeof form !== 'undefined' ? editModeCheckbox(readOnlyMode, this.handleEditModeClick) : null}
-        {errorMessages(errors, helper.name_NO_definitive)}
+        {errorMessages(errors, this.objectNameDefinitive)}
         {responseMessage(response)}
 
         {typeof form !== 'undefined' && Object.keys(form).map((item, index) => {
-          let itemInNorwegian = translateToNorwegian[item]
+          let info = {
+            index: index,
+            item: item,
+            itemInNorwegian: translateToNorwegian[item],
+            readOnlyMode: readOnlyMode,
+            errors: errors
+          }
 
-          if (helper.formConfig.hasOwnProperty(item) && helper.formConfig[item].type !== 'autofilled') {
-            if (helper.formConfig[item].type === 'textArea') {
+          if (this.formConfig.hasOwnProperty(item) && this.formConfig[item].type !== 'autofilled') {
+            if (this.formConfig[item].type === 'text') {
               if (commonFormComponents[item].stateMapping === 'multilingualText') {
                 return (
-                  formFieldTextArea(index, item, itemInNorwegian, readOnlyMode, errors, this.handleInputChangeDeep,
-                    this.state[helper.name_EN.toLowerCase()][item][0].languageText)
+                  formFieldText(info, this.handleInputChangeDeep,
+                    this.state[this.objectNameLowerCase][item][0].languageText)
                 )
               } else {
                 return (
-                  formFieldTextArea(index, item, itemInNorwegian, readOnlyMode, errors, this.handleInputChange,
-                    this.state[helper.name_EN.toLowerCase()][item])
+                  formFieldText(info, this.handleInputChange,
+                    this.state[this.objectNameLowerCase][item])
                 )
               }
             }
 
-            if (helper.formConfig[item].type === 'dropdownSingle') {
+            if (this.formConfig[item].type === 'textArea') {
+              if (commonFormComponents[item].stateMapping === 'multilingualText') {
+                return (
+                  formFieldTextArea(info, this.handleInputChangeDeep, this.state[this.objectNameLowerCase][item][0].languageText)
+                )
+              } else {
+                return (
+                  formFieldTextArea(info, this.handleInputChange, this.state[this.objectNameLowerCase][item])
+                )
+              }
+            }
+
+            if (this.formConfig[item].type === 'dropdownSingle') {
               return (
-                formFieldDropdownSingle(index, item, itemInNorwegian, readOnlyMode, errors,
-                  ((event, {value}) => this.handleDropdownChange(value, item)), helper.formConfig[item].values)
+                formFieldDropdownSingle(info, ((event, {value}) => this.handleDropdownChange(value, item)), this.formConfig[item].values)
               )
-            }
-
-            if (helper.formConfig[item].type === 'text') {
-              if (commonFormComponents[item].stateMapping === 'multilingualText') {
-                return (
-                  formFieldText(index, item, itemInNorwegian, readOnlyMode, errors, this.handleInputChangeDeep,
-                    this.state[helper.name_EN.toLowerCase()][item][0].languageText)
-                )
-              } else {
-                return (
-                  formFieldText(index, item, itemInNorwegian, readOnlyMode, errors, this.handleInputChange,
-                    this.state[helper.name_EN.toLowerCase()][item])
-                )
-              }
             }
 
             //TODO: Add more generic form components
           }
         })}
 
-        {typeof form !== 'undefined' ? <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
-                                               content={helper.submitButtonText} onClick={this.saveToBackend} /> : null}
+        {typeof form !== 'undefined' ?
+          <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
+                  content={'Lagre ' + this.objectNameNorwegianLowerCase} onClick={this.saveToBackend} />
+          : null}
       </Form>
     )
   }

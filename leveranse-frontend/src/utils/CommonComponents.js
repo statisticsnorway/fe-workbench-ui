@@ -13,7 +13,7 @@ export const editModeCheckbox = (readOnlyMode, action) => {
 export const errorMessages = (errors, name) => {
   return (
     errors !== undefined && Object.keys(errors).length !== 0 && !Object.values(errors).every(i => (i === '')) ?
-      <Message icon='warning' header={name + ' ble ikke lagret'} content={'Rett opp i feilene og prøv igjen'}
+      <Message icon='warning' header={name + ' ble ikke lagret'} content={'Rett opp feilene og prøv igjen'}
                color='yellow' /> : null
   )
 }
@@ -27,32 +27,36 @@ export const responseMessage = (response) => {
   )
 }
 
-export const formFieldTextArea = (index, item, itemInNorwegian, readOnlyMode, errors, action, value) => {
+export const formFieldTextArea = (info, action, value) => {
   return (
-    <Form.Field key={index} error={!!errors[item]}>
-      <Form.TextArea autoHeight name={item} label={itemInNorwegian} placeholder={itemInNorwegian}
-                     readOnly={readOnlyMode} onChange={action} value={value} />
-      {errors[item] && <InlineError text={errors[item]} />}
+    <Form.Field key={info.index} error={!!info.errors[info.item]}>
+      <Form.TextArea autoHeight name={info.item} label={info.itemInNorwegian} placeholder={info.itemInNorwegian}
+                     readOnly={info.readOnlyMode} onChange={action} value={value} />
+      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
     </Form.Field>
   )
 }
 
-export const formFieldText = (index, item, itemInNorwegian, readOnlyMode, errors, action, value) => {
+export const formFieldText = (info, action, value) => {
   return (
-    <Form.Field key={index} error={!!errors[item]}>
-      <label>{itemInNorwegian}</label>
-      <Input name={item} placeholder={itemInNorwegian} readOnly={readOnlyMode} onChange={action} value={value} />
-      {errors[item] && <InlineError text={errors[item]} />}
+    <Form.Field key={info.index} error={!!info.errors[info.item]}>
+      <label>{info.itemInNorwegian}</label>
+      <Input name={info.item} placeholder={info.itemInNorwegian} readOnly={info.readOnlyMode} onChange={action}
+             value={value} />
+      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
     </Form.Field>
   )
 }
 
-export const formFieldDropdownSingle = (index, item, itemInNorwegian, readOnlyMode, errors, action, values) => {
+export const formFieldDropdownSingle = (info, action, values) => {
   return (
-    <Form.Field key={index} error={!!errors[item]}>
-      <label>{itemInNorwegian}</label>
-      <Dropdown placeholder={itemInNorwegian} selection options={values} disabled={readOnlyMode} onChange={action} />
-      {errors[item] && <InlineError text={errors[item]} />}
+    <Form.Field key={info.index} error={!!info.errors[info.item]}>
+      <label>{info.itemInNorwegian}</label>
+      <Dropdown placeholder={info.itemInNorwegian} selection options={values} disabled={info.readOnlyMode}
+                onChange={action} />
+      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
     </Form.Field>
   )
 }
+
+//TODO: Add more form fields

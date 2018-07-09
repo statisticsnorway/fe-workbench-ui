@@ -1,3 +1,5 @@
+//TODO: Clean this up when LDM-Team is further along
+
 export const commonFormComponents = {
   name: {
     type: 'text',
