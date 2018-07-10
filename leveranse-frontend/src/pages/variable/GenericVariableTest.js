@@ -18,6 +18,7 @@ const objectInfo = {
     unitType: {
       type: 'dropdownSingle',
       stateMapping: '',
+      renderOrder: 1,
       values: tempUnitTypeOptions
     }
   }

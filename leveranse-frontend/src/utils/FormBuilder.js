@@ -32,7 +32,7 @@ class FormBuilder extends React.Component {
     getManagedDomainJsonFromBackend(this.objectName).then((result) => {
       // Should check here if we should build a new state or populate one with stored values (depending on if the user
       // has navigated through creating a new managed domain or fetching a stored one
-      this.setState(buildNewState(this.objectName, result))
+      this.setState(buildNewState(this.objectName, this.formConfig, result))
     }).catch((reason) => {
       this.setState({response: reason})
     })

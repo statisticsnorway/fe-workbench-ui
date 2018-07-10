@@ -3,11 +3,13 @@
 export const commonFormComponents = {
   name: {
     type: 'text',
-    stateMapping: 'multilingualText'
+    stateMapping: 'multilingualText',
+    renderOrder: 3
   },
   description: {
     type: 'textArea',
-    stateMapping: 'multilingualText'
+    stateMapping: 'multilingualText',
+    renderOrder: 2
   },
   administrativeDetails: {
     type: 'autofilled'

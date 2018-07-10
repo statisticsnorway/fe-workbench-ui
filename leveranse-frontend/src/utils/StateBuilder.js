@@ -1,12 +1,14 @@
 import moment from 'moment'
 
-export const buildNewState = (name, object) => {
+export const buildNewState = (name, formConfig, object) => {
   let state = {}
   let component = {}
+  let form = []
+  let sortedForm = {}
 
   Object.entries(object.definitions).forEach(([key, value]) => {
     if (typeof value === 'object' && key === name) {
-      state['form'] = value.properties
+      form = value.properties
       state['required'] = value.required
 
       Object.entries(value.properties).forEach(([key, value]) => {
@@ -36,9 +38,27 @@ export const buildNewState = (name, object) => {
     }
   })
 
+  Object.entries(formConfig).forEach(([key, value]) => {
+    if (value.hasOwnProperty('renderOrder')) {
+      form[key].renderOrder = value.renderOrder
+    } else {
+      form[key].renderOrder = 0
+    }
+  })
+
+  Object.keys(form).map((data) => {
+    return [data, form[data]]
+  }).sort((a, b) => parseInt(b[1].renderOrder) - parseInt(a[1].renderOrder)).forEach((object) => {
+    sortedForm = {
+      ...sortedForm,
+      [object[0]]: object[1]
+    }
+  })
+
   const uuidv1 = require('uuid/v1')
   component['id'] = uuidv1()
 
+  state['form'] = sortedForm
   state[name.toLowerCase()] = component
   state['readOnlyMode'] = false
   state['response'] = {}
