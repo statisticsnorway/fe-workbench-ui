@@ -1,6 +1,10 @@
 import React from 'react'
 import { Checkbox, Container, Dropdown, Form, Input, Message } from 'semantic-ui-react'
-import InlineError from '../pages/messages/InlineError'
+import PropTypes from 'prop-types'
+
+const InlineError = ({text}) => (
+  <span style={{color: '#db2828'}}>{text}</span>
+)
 
 export const editModeCheckbox = (readOnlyMode, action) => {
   return (
@@ -60,3 +64,7 @@ export const formFieldDropdownSingle = (info, action, values) => {
 }
 
 //TODO: Add more form fields
+
+InlineError.propTypes = {
+  text: PropTypes.string.isRequired
+}

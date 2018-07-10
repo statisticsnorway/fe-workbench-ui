@@ -1,3 +1,5 @@
+//TODO: Add more translations and clean it up
+
 export const translateToNorwegian = {
   administrativeDetails: 'Administrative detaljer',
   administrativeStatus: 'Administrativ status',
@@ -13,5 +15,9 @@ export const translateToNorwegian = {
   lastUpdatedBy: 'Sist oppdatert av',
   validFrom: 'Gyldig fra',
   validUntil: 'Gyldig til',
-  unitType: 'Enhetstype'
+  unitType: 'Enhetstype',
+  populationType : 'Populasjonstype',
+  referencePeriod : 'Referanseperiode',
+  geography : 'Geografi',
+  respondantUnitType : 'Enhetstype for respondant'
 }

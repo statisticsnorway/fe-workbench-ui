@@ -9,7 +9,8 @@ import '../assets/css/site.css'
 import TargetPopulation from './population/TargetPopulation'
 import SurveyPopulation from './population/SurveyPopulation'
 import ValueDomainList from './valueDomain/ValueDomainList'
-import GenericVariableTest from './variable/GenericVariableTest'
+import { domains } from '../pageBuilderTest/utilities/DomainConfigurations'
+import PageBuilder from '../pageBuilderTest/builders/PageBuilder'
 
 class ProvisionAgreementPage extends React.Component {
   state = {}
@@ -66,12 +67,6 @@ class ProvisionAgreementPage extends React.Component {
                       Opprett ny
                     </NavLink>
                   </Menu.Item>
-                  <Menu.Item name='genericVariableTest' active={activeItem === 'genericVariableTest'}>
-                    <NavLink to='/genericVariableTest'>
-                      <Icon name='compose' />
-                      Test generisk
-                    </NavLink>
-                  </Menu.Item>
                 </Menu>
                 <Menu fluid vertical>
                   <Menu.Item header>Verdiområde</Menu.Item>
@@ -122,6 +117,22 @@ class ProvisionAgreementPage extends React.Component {
                     </Dropdown.Menu>
                   </Dropdown>
                 </Menu>
+                <Menu fluid vertical>
+                  <Menu.Item header>Generisk testing</Menu.Item>
+                  <Dropdown item text='Test'>
+                    <Dropdown.Menu>
+                      {Object.keys(domains).map((item, index) => {
+                        return (
+                          <Dropdown.Item key={index}>
+                            <NavLink to={'/generic/' + item}>
+                              {domains[item].name_NO}
+                            </NavLink>
+                          </Dropdown.Item>
+                        )
+                      })}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Menu>
               </Segment>
             </Grid.Column>
             <Grid.Column width={12} floated='right'>
@@ -130,11 +141,16 @@ class ProvisionAgreementPage extends React.Component {
                 <Route path='/provisionAgreement'
                        render={(props) => <ProvisionAgreement {...props} isNewProvisionAgreement={true} />} />
                 <Route path='/variable' component={Variable} />
-                <Route path='/genericVariableTest' component={GenericVariableTest} />
                 <Route path='/unitType' component={UnitType} />
                 <Route path='/valueDomain' component={ValueDomainList} />
                 <Route path='/population/targetPopulation' component={TargetPopulation} />
                 <Route path='/population/surveyPopulation' component={SurveyPopulation} />
+                {Object.keys(domains).map((item) => {
+                  let madePath = '/generic/' + item
+                  return (
+                    <Route path={madePath} render={() => <PageBuilder domain={domains[item]}/>} />
+                  )
+                })}
               </Segment>
             </Grid.Column>
           </Grid>

@@ -1,14 +1,12 @@
 //TODO: Clean this up when LDM-Team is further along
 
-export const commonFormComponents = {
+export const formConfiguration = {
   name: {
     type: 'text',
-    stateMapping: 'multilingualText',
-    renderOrder: 3
+    renderOrder: 1
   },
   description: {
     type: 'textArea',
-    stateMapping: 'multilingualText',
     renderOrder: 2
   },
   administrativeDetails: {

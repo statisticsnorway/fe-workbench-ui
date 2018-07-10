@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Button, Form, Header } from 'semantic-ui-react'
 import {
   editModeCheckbox,
@@ -7,32 +8,29 @@ import {
   formFieldText,
   formFieldTextArea,
   responseMessage
-} from './CommonComponents'
-import { translateToNorwegian } from './CommonTranslations'
-import { getManagedDomainJsonFromBackend, sendDataToBackend } from './Common'
+} from '../utilities/FormComponents'
+import { translateToNorwegian } from '../utilities/Translation'
+import { getDomainStructure, sendDomainData } from '../utilities/DataExchange'
 import { buildNewState } from './StateBuilder'
-import { commonFormComponents } from './CommonFormComponents'
-
-/* eslint-disable array-callback-return */
 
 class FormBuilder extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
 
-    this.objectName = this.props.helper.name_EN
-    this.objectNameLowerCase = this.props.helper.name_EN.toLowerCase()
-    this.objectNameNorwegian = this.props.helper.name_NO
-    this.objectNameNorwegianLowerCase = this.props.helper.name_NO.toLowerCase()
-    this.objectNameDefinitive = this.props.helper.name_NO_definitive
-    this.formConfig = this.props.helper.formConfig
+    this.objectName = this.props.domain.name_EN
+    this.objectNameLowerCase = this.props.domain.name_EN.toLowerCase()
+    this.objectNameNorwegian = this.props.domain.name_NO
+    this.objectNameNorwegianLowerCase = this.props.domain.name_NO.toLowerCase()
+    this.objectNameDefinitive = this.props.domain.name_NO_definitive
+    this.formConfig = this.props.domain.formConfig
+    this.user = this.props.authentication.user.username
   }
 
   componentDidMount () {
-    getManagedDomainJsonFromBackend(this.objectName).then((result) => {
-      // Should check here if we should build a new state or populate one with stored values (depending on if the user
-      // has navigated through creating a new managed domain or fetching a stored one
-      this.setState(buildNewState(this.objectName, this.formConfig, result))
+    getDomainStructure(this.objectName).then((result) => {
+      // Should check here if we should build a new state or populate one with stored values
+      this.setState(buildNewState(this.objectName, this.formConfig, this.user, result))
     }).catch((reason) => {
       this.setState({response: reason})
     })
@@ -91,15 +89,13 @@ class FormBuilder extends React.Component {
     const errors = {}
 
     this.state.required.forEach((element) => {
-      if (this.formConfig[element].hasOwnProperty('stateMapping')) {
-        if (this.formConfig[element].stateMapping === 'multilingualText') {
-          if (!this.state[this.objectNameLowerCase][element][0].languageText) {
-            errors[element] = 'Feltet kan ikke være tomt'
-          }
-        } else {
-          if (!this.state[this.objectNameLowerCase][element]) {
-            errors[element] = 'Feltet kan ikke være tomt'
-          }
+      if (this.state.form[element].hasOwnProperty('items') && this.state.form[element].items.hasOwnProperty('$ref') && this.state.form[element].items.$ref === '#/definitions/MultilingualText') {
+        if (!this.state[this.objectNameLowerCase][element][0].languageText) {
+          errors[element] = 'Feltet kan ikke være tomt'
+        }
+      } else {
+        if (!this.state[this.objectNameLowerCase][element]) {
+          errors[element] = 'Feltet kan ikke være tomt'
         }
       }
     })
@@ -125,7 +121,7 @@ class FormBuilder extends React.Component {
         waitingForResponse: true
       })
 
-      sendDataToBackend(this.objectName + '/' + this.state[this.objectNameLowerCase].id, this.objectNameDefinitive,
+      sendDomainData(this.objectName + '/' + this.state[this.objectNameLowerCase].id, this.objectNameDefinitive,
         this.state[this.objectNameLowerCase]).then((result) => {
         this.setState({
           response: result,
@@ -162,7 +158,7 @@ class FormBuilder extends React.Component {
 
           if (this.formConfig.hasOwnProperty(item) && this.formConfig[item].type !== 'autofilled') {
             if (this.formConfig[item].type === 'text') {
-              if (commonFormComponents[item].stateMapping === 'multilingualText') {
+              if (form[item].hasOwnProperty('items') && form[item].items.hasOwnProperty('$ref') && form[item].items.$ref === '#/definitions/MultilingualText') {
                 return (
                   formFieldText(info, this.handleInputChangeDeep,
                     this.state[this.objectNameLowerCase][item][0].languageText)
@@ -176,7 +172,7 @@ class FormBuilder extends React.Component {
             }
 
             if (this.formConfig[item].type === 'textArea') {
-              if (commonFormComponents[item].stateMapping === 'multilingualText') {
+              if (form[item].hasOwnProperty('items') && form[item].items.hasOwnProperty('$ref') && form[item].items.$ref === '#/definitions/MultilingualText') {
                 return (
                   formFieldTextArea(info, this.handleInputChangeDeep, this.state[this.objectNameLowerCase][item][0].languageText)
                 )
@@ -208,4 +204,13 @@ class FormBuilder extends React.Component {
   }
 }
 
-export default FormBuilder
+function mapStateToProps(state) {
+  const {authentication} = state
+
+  return {
+    authentication
+  }
+}
+
+const connectedFormBuilder = connect(mapStateToProps)(FormBuilder)
+export {connectedFormBuilder as FormBuilder}

@@ -252,47 +252,6 @@ export const deleteDataInBackend = (path, text, id) => {
   })
 }
 
-export const getManagedDomainJsonFromBackend = (managedDomain) => {
-  return new Promise((resolve, reject) => {
-    let url
-    let result
-
-    url = process.env.REACT_APP_BACKENDHOST + managedDomain + '?schema'
-
-    axios.get(url, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => {
-      if (response.status === 200) {
-        resolve(response.data)
-      } else {
-        result = {
-          color: 'orange',
-          header: 'Kan ikke hente \'' + managedDomain + '\' informasjon fra server',
-          text: response.statusText + ' (' + url + ')',
-          icon: 'error'
-        }
-
-        reject(result)
-      }
-    }).catch((error) => {
-      if (error.response) {
-        console.log(error.response.data)
-      }
-
-      result = {
-        color: 'red',
-        header: 'Kan ikke hente \'' + managedDomain + '\' informasjon fra server',
-        text: error.message + ' (' + url + ')',
-        icon: 'warning'
-      }
-
-      reject(result)
-    })
-  })
-}
-
 export const editModeCheckbox = (readOnlyMode, action) => {
   return (
     <Container textAlign='right'>
