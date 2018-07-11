@@ -114,11 +114,11 @@ function prepareDataForBackend (state) {
   return data
 }
 
-export const getDataFromBackend = (path, data, state) => {
+export const getDataFromBackend = (path, state) => {
   return new Promise((resolve) => {
     let url
     let newState = {}
-    url = process.env.REACT_APP_BACKENDHOST + path + data
+    url = process.env.REACT_APP_BACKENDHOST + path
 
     axios.get(url, {
       headers: {
@@ -127,7 +127,7 @@ export const getDataFromBackend = (path, data, state) => {
     }).then((response) => {
       if (response.status === 200) {
         newState = {
-          informationProviderList: response.data
+          data: response.data
         }
       } else {
         newState = {
