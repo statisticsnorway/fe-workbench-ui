@@ -1,52 +1,54 @@
-import moment from 'moment'
+import { lowerCaseFirst } from '../utilities/Helpers'
 
 export const buildNewState = (name, formConfig, user, object) => {
   let state = {}
   let component = {}
-  let form = []
+  let form = object.definitions[name].properties
   let sortedForm = {}
 
-  Object.entries(object.definitions).forEach(([key, value]) => {
-    if (typeof value === 'object' && key === name) {
-      form = value.properties
-      state['required'] = value.required
-
-      Object.entries(value.properties).forEach(([key, value]) => {
-        if (key === 'createdBy') {
-          component[key] = user
-        } else {
-          if (typeof formConfig[key] !== 'undefined' && formConfig[key].type === 'autofilled' && formConfig[key].hasOwnProperty('value')) {
-            component[key] = formConfig[key].value
+  Object.entries(form).forEach(([key, value]) => {
+    if (key === 'createdBy') {
+      component[key] = user
+    } else {
+      if (typeof formConfig[key] !== 'undefined' && formConfig[key].type === 'autofilled' && formConfig[key].hasOwnProperty('value')) {
+        component[key] = formConfig[key].value
+      } else {
+        if (value.type === 'string') {
+          if (value.hasOwnProperty('format') && value.format === 'date-time') {
+            component[key] = null
           } else {
-            if (value.type === 'string') {
-              if (typeof value.format !== 'undefined' && value.format === 'date-time') {
-                component[key] = moment().toJSON()
-              } else {
-                component[key] = ''
-              }
-            } else if (typeof value.type !== 'undefined' && value.type === 'array') {
-              if (typeof value.items !== 'undefined' && value.items['$ref'] === '#/definitions/MultilingualText') {
-                component[key] = [{
-                  languageCode: 'nb',
-                  languageText: ''
-                }]
-              } else if (typeof value.items !== 'undefined' && value.items['$ref'] === '#/definitions/AdministrativeDetails') {
-                component[key] = [{
-                  administrativeDetailType: '',
-                  values: []
-                }]
-              } else {
-                component[key] = []
-              }
-            }
-            //TODO: Add more checks when LDM-Team is further along
+            component[key] = ''
           }
         }
-      })
+
+        if (value.type === 'array') {
+          if (value.items.hasOwnProperty('$ref')) {
+            if (value.items['$ref'] === '#/definitions/MultilingualText') {
+              component[key] = [{
+                languageCode: 'nb',
+                languageText: ''
+              }]
+            }
+
+            if (value.items['$ref'] === '#/definitions/AdministrativeDetails') {
+              component[key] = [{
+                administrativeDetailType: '',
+                values: []
+              }]
+            }
+          } else {
+            component[key] = []
+          }
+        }
+
+        if (value.type === 'boolean') {
+          component[key] = ''
+        }
+
+        //TODO: Add more checks when LDM-Team is further along
+      }
     }
   })
-
-
 
   Object.entries(formConfig).forEach(([key, value]) => {
     if (value.hasOwnProperty('renderOrder')) {
@@ -68,7 +70,8 @@ export const buildNewState = (name, formConfig, user, object) => {
   const uuidv1 = require('uuid/v1')
   component['id'] = uuidv1()
 
-  state[name.toLowerCase()] = component
+  state[lowerCaseFirst(name)] = component
+  state['required'] = object.definitions[name].required
   state['form'] = sortedForm
   state['readOnlyMode'] = false
   state['response'] = {}
@@ -78,7 +81,7 @@ export const buildNewState = (name, formConfig, user, object) => {
   return state
 }
 
-export const populateState = (name, object) => {
+export const populateState = () => {
   // This is for when fetching a stored object and filling the state with its values
 }
 

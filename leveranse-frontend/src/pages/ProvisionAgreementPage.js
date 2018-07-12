@@ -9,7 +9,7 @@ import '../assets/css/site.css'
 import TargetPopulation from './population/TargetPopulation'
 import SurveyPopulation from './population/SurveyPopulation'
 import ValueDomainList from './valueDomain/ValueDomainList'
-import { domains } from '../pageBuilderTest/utilities/DomainConfigurations'
+import { domains } from '../pageBuilderTest/utilities/DomainConfiguration'
 import PageBuilder from '../pageBuilderTest/builders/PageBuilder'
 
 class ProvisionAgreementPage extends React.Component {
@@ -125,7 +125,7 @@ class ProvisionAgreementPage extends React.Component {
                         return (
                           <Dropdown.Item key={index}>
                             <NavLink to={'/generic/' + item}>
-                              {domains[item].name_NO}
+                              {domains[item].nameInNorwegian}
                             </NavLink>
                           </Dropdown.Item>
                         )
@@ -148,7 +148,7 @@ class ProvisionAgreementPage extends React.Component {
                 {Object.keys(domains).map((item) => {
                   let madePath = '/generic/' + item
                   return (
-                    <Route path={madePath} render={() => <PageBuilder domain={domains[item]}/>} />
+                    <Route key={item} path={madePath} render={() => <PageBuilder domain={domains[item]} />} />
                   )
                 })}
               </Segment>

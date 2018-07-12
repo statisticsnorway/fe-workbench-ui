@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import { Button, Form, Header } from 'semantic-ui-react'
 import {
   editModeCheckbox,
-  errorMessages,
+  errorMessages, formFieldBoolean,
+  formFieldDate,
+  formFieldDropdownMultiple,
   formFieldDropdownSingle,
   formFieldText,
   formFieldTextArea,
@@ -12,17 +14,18 @@ import {
 import { translateToNorwegian } from '../utilities/Translation'
 import { getDomainStructure, sendDomainData } from '../utilities/DataExchange'
 import { buildNewState } from './StateBuilder'
+import { lowerCaseFirst } from '../utilities/Helpers'
 
 class FormBuilder extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
 
-    this.objectName = this.props.domain.name_EN
-    this.objectNameLowerCase = this.props.domain.name_EN.toLowerCase()
-    this.objectNameNorwegian = this.props.domain.name_NO
-    this.objectNameNorwegianLowerCase = this.props.domain.name_NO.toLowerCase()
-    this.objectNameDefinitive = this.props.domain.name_NO_definitive
+    this.objectName = this.props.domain.name
+    this.objectNameLowerCase = lowerCaseFirst(this.props.domain.name)
+    this.objectNameNorwegian = this.props.domain.nameInNorwegian
+    this.objectNameNorwegianLowerCase = lowerCaseFirst(this.props.domain.nameInNorwegian)
+    this.objectNameDefinitive = this.props.domain.nameDefinitive
     this.formConfig = this.props.domain.formConfig
     this.user = this.props.authentication.user.username
   }
@@ -85,11 +88,33 @@ class FormBuilder extends React.Component {
     })
   }
 
+  handleDateChange (name, date) {
+    this.setState({
+      errors: {
+        ...this.state.errors,
+        [name]: ''
+      },
+      [this.objectNameLowerCase]: {
+        ...this.state[this.objectNameLowerCase],
+        [name]: date
+      }
+    })
+  }
+
+  handleBooleanChange (name) {
+    this.setState({
+      [this.objectNameLowerCase]: {
+        ...this.state[this.objectNameLowerCase],
+        [name]: !this.state[this.objectNameLowerCase][name]
+      }
+    })
+  }
+
   validateInputData = () => {
     const errors = {}
 
     this.state.required.forEach((element) => {
-      if (this.state.form[element].hasOwnProperty('items') && this.state.form[element].items.hasOwnProperty('$ref') && this.state.form[element].items.$ref === '#/definitions/MultilingualText') {
+      if (this.state.form[element].type === 'array' && this.state.form[element].items.hasOwnProperty('$ref') && this.state.form[element].items.$ref === '#/definitions/MultilingualText') {
         if (!this.state[this.objectNameLowerCase][element][0].languageText) {
           errors[element] = 'Feltet kan ikke være tomt'
         }
@@ -114,6 +139,8 @@ class FormBuilder extends React.Component {
   }
 
   saveToBackend = () => {
+    //TODO: Set autofilled states before validating and sending to backend
+
     if (this.validationOk()) {
       this.setState({
         readOnlyMode: true,
@@ -157,39 +184,48 @@ class FormBuilder extends React.Component {
           }
 
           if (this.formConfig.hasOwnProperty(item) && this.formConfig[item].type !== 'autofilled') {
-            if (this.formConfig[item].type === 'text') {
+            let value = this.state[this.objectNameLowerCase][item]
+            let deepValue
+            let type = this.formConfig[item].type
+            let values = this.formConfig[item].values
+
+            if (type === 'text') {
               if (form[item].hasOwnProperty('items') && form[item].items.hasOwnProperty('$ref') && form[item].items.$ref === '#/definitions/MultilingualText') {
-                return (
-                  formFieldText(info, this.handleInputChangeDeep,
-                    this.state[this.objectNameLowerCase][item][0].languageText)
-                )
+                deepValue = this.state[this.objectNameLowerCase][item][0].languageText
+
+                return formFieldText(info, this.handleInputChangeDeep, deepValue)
               } else {
-                return (
-                  formFieldText(info, this.handleInputChange,
-                    this.state[this.objectNameLowerCase][item])
-                )
+                return formFieldText(info, this.handleInputChange, value)
               }
             }
 
-            if (this.formConfig[item].type === 'textArea') {
+            if (type === 'textArea') {
               if (form[item].hasOwnProperty('items') && form[item].items.hasOwnProperty('$ref') && form[item].items.$ref === '#/definitions/MultilingualText') {
-                return (
-                  formFieldTextArea(info, this.handleInputChangeDeep, this.state[this.objectNameLowerCase][item][0].languageText)
-                )
+                deepValue = this.state[this.objectNameLowerCase][item][0].languageText
+
+                return formFieldTextArea(info, this.handleInputChangeDeep, deepValue)
               } else {
-                return (
-                  formFieldTextArea(info, this.handleInputChange, this.state[this.objectNameLowerCase][item])
-                )
+                return formFieldTextArea(info, this.handleInputChange, value)
               }
             }
 
-            if (this.formConfig[item].type === 'dropdownSingle') {
-              return (
-                formFieldDropdownSingle(info, ((event, {value}) => this.handleDropdownChange(value, item)), this.formConfig[item].values)
-              )
+            if (type === 'dropdownSingle') {
+              return formFieldDropdownSingle(info, ((event, {value}) => this.handleDropdownChange(value, item)), values)
             }
 
-            //TODO: Add more generic form components
+            if (type === 'dropdownMultiple') {
+              return formFieldDropdownMultiple(info, ((event, {value}) => this.handleDropdownChange(value, item)), values)
+            }
+
+            if (type === 'date-time') {
+              return formFieldDate(info, (this.handleDateChange.bind(this, item)), value)
+            }
+
+            if (type === 'boolean') {
+              return formFieldBoolean(info, (this.handleBooleanChange.bind(this, item)), value)
+            }
+
+            //TODO: Add more form components
           }
         })}
 
@@ -204,7 +240,7 @@ class FormBuilder extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   const {authentication} = state
 
   return {
@@ -213,4 +249,4 @@ function mapStateToProps(state) {
 }
 
 const connectedFormBuilder = connect(mapStateToProps)(FormBuilder)
-export {connectedFormBuilder as FormBuilder}
+export { connectedFormBuilder as FormBuilder }

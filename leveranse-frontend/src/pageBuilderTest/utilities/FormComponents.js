@@ -1,6 +1,12 @@
 import React from 'react'
+import DatePicker from 'react-datepicker'
 import { Checkbox, Container, Dropdown, Form, Input, Message } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
+import * as moment from 'moment'
+import 'moment/min/locales'
+import 'react-datepicker/dist/react-datepicker.css'
+
+moment.locale('nb')
 
 const InlineError = ({text}) => (
   <span style={{color: '#db2828'}}>{text}</span>
@@ -59,6 +65,36 @@ export const formFieldDropdownSingle = (info, action, values) => {
       <Dropdown placeholder={info.itemInNorwegian} selection options={values} disabled={info.readOnlyMode}
                 onChange={action} />
       {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
+    </Form.Field>
+  )
+}
+
+export const formFieldDropdownMultiple = (info, action, values) => {
+  return (
+    <Form.Field key={info.index} error={!!info.errors[info.item]}>
+      <label>{info.itemInNorwegian}</label>
+      <Dropdown placeholder={info.itemInNorwegian} multiple selection options={values} disabled={info.readOnlyMode}
+                onChange={action} />
+      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
+    </Form.Field>
+  )
+}
+
+export const formFieldDate = (info, action, value) => {
+  return (
+    <Form.Field key={info.index} error={!!info.errors[info.item]}>
+      <label>{info.itemInNorwegian}</label>
+      <DatePicker selected={value === '' ? null : value} onChange={action} dateFormat='DD/MM/YYYY'
+                  placeholderText={info.itemInNorwegian} disabled={info.readOnlyMode} locale='nb' />
+      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
+    </Form.Field>
+  )
+}
+
+export const formFieldBoolean = (info, action, value) => {
+  return (
+    <Form.Field key={info.index} error={!!info.errors[info.item]}>
+      <Checkbox label={info.itemInNorwegian} name={info.item} onChange={action} checked={value === '' ? false : value} />
     </Form.Field>
   )
 }

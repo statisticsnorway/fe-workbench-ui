@@ -1,4 +1,4 @@
-//TODO: Add more translations and clean it up
+//TODO: Add more translations and clean it up (or maybe even fetch one from the backend? That way business can decide translations
 
 export const translateToNorwegian = {
   administrativeDetails: 'Administrative detaljer',
@@ -16,8 +16,38 @@ export const translateToNorwegian = {
   validFrom: 'Gyldig fra',
   validUntil: 'Gyldig til',
   unitType: 'Enhetstype',
-  populationType : 'Populasjonstype',
-  referencePeriod : 'Referanseperiode',
-  geography : 'Geografi',
-  respondantUnitType : 'Enhetstype for respondant'
+  populationType: 'Populasjonstype',
+  referencePeriod: 'Referanseperiode',
+  geography: 'Geografi',
+  respondantUnitType: 'Enhetstype for respondant',
+  agentType: 'Aktørtype',
+  parentAgent: 'Foreldreaktør',
+  variable: 'Variabel',
+  population: 'Populasjon',
+  targetPopulation: 'Målpopulasjon',
+  surveyPopulation: 'Undersøkelsespopulasjon',
+  role: 'Rolle',
+  agent: 'Aktør',
+  unitDataStructure: 'Enhetsdatastruktur',
+  identifierComponent: 'Identifikatorkomponent',
+  identifierComponents: 'Identifikatorkomponenter',
+  measureComponent: 'Målekomponent',
+  measureComponents: 'Målekomponenter',
+  attributeComponent: 'Attributtkomponent',
+  attributeComponents: 'Attributtkomponenter',
+  temporalityType: 'Temporalitetstype',
+  planDate: 'Plandato',
+  protocol: 'Protokoll',
+  protocolType: 'Protokolltype',
+  format: 'Format',
+  representedVariable: 'Representert variabel',
+  isUnique: 'Er unik?',
+  isComposite: 'Er sammensatt?',
+  assignmentStatus: 'Oppdragsstatus',
+  attachmentLevel: 'Vedleggsnivå',
+  exchangeChannel: 'Utvekslingskanal',
+  exchangeType: 'Utvekslingstype',
+  substantiveValueDomain: 'Substantiv verdidomene',
+  instanceVariable: 'Instansiert variabel',
+  sentinelValueDomain: 'Sentinel verdidomene'
 }
