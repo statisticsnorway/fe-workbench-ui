@@ -103,7 +103,7 @@ export const formConfigurations = {
   agent: {
     agentType: {
       type: 'text',
-      renderOder: 3
+      renderOrder: 3
     },
     parentAgent: {
       type: 'text',
@@ -163,11 +163,11 @@ export const formConfigurations = {
     ...component,
     assignmentStatus: {
       type: 'text',
-      renderOder: 5
+      renderOrder: 5
     },
     attachmentLevel: {
       type: 'text',
-      renderOder: 6
+      renderOrder: 6
     }
   },
   exchangeChannel: {
