@@ -1,4 +1,9 @@
 import { lowerCaseFirst } from '../utilities/Helpers'
+import * as moment from 'moment'
+import 'moment/min/locales'
+
+moment.locale('nb')
+const uuidv1 = require('uuid/v1')
 
 export const buildNewState = (name, formConfig, user, object) => {
   let state = {}
@@ -6,12 +11,31 @@ export const buildNewState = (name, formConfig, user, object) => {
   let form = object.definitions[name].properties
   let sortedForm = {}
 
+  component['administrativeDetails'] = [{
+    administrativeDetailType: '',
+    values: []
+  }]
+  component['administrativeStatus'] = ''
+  component['createdBy'] = user
+  component['createdDate'] = moment()
+  component['id'] = uuidv1()
+  component['lastUpdatedBy'] = ''
+  component['lastUpdatedDate'] = null
+  component['validFrom'] = null
+  component['validUntil'] = null
+  component['version'] = '1.0'
+  component['versionRationale'] = [{
+    languageCode: 'nb',
+    languageText: ''
+  }]
+  component['versionValidFrom'] = moment()
+
   Object.entries(form).forEach(([key, value]) => {
-    if (key === 'createdBy') {
-      component[key] = user
-    } else {
-      if (typeof formConfig[key] !== 'undefined' && formConfig[key].type === 'autofilled' && formConfig[key].hasOwnProperty('value')) {
-        component[key] = formConfig[key].value
+    if (typeof formConfig[key] !== 'undefined') {
+      if (formConfig[key].type === 'autofilled') {
+        if (formConfig[key].hasOwnProperty('value')) {
+          component[key] = formConfig[key].value
+        }
       } else {
         if (value.type === 'string') {
           if (value.hasOwnProperty('format') && value.format === 'date-time') {
@@ -27,13 +51,6 @@ export const buildNewState = (name, formConfig, user, object) => {
               component[key] = [{
                 languageCode: 'nb',
                 languageText: ''
-              }]
-            }
-
-            if (value.items['$ref'] === '#/definitions/AdministrativeDetails') {
-              component[key] = [{
-                administrativeDetailType: '',
-                values: []
               }]
             }
           } else {
@@ -66,9 +83,6 @@ export const buildNewState = (name, formConfig, user, object) => {
       [object[0]]: object[1]
     }
   })
-
-  const uuidv1 = require('uuid/v1')
-  component['id'] = uuidv1()
 
   state[lowerCaseFirst(name)] = component
   state['required'] = object.definitions[name].required
