@@ -98,4 +98,15 @@ export const formFieldBoolean = (info, action, value) => {
   )
 }
 
+export const formFieldSearchModal = (info, action, value) => {
+  return (
+    <Form.Field key={info.index} error={!!info.errors[info.item]}>
+      <label>{info.itemInNorwegian}</label>
+      {/*TODO Create the search modal*/}
+      <Input name={info.item} placeholder={info.itemInNorwegian} readOnly={true} onChange={action} value={value}
+             action={{color: 'teal', labelPosition: 'right', icon: 'search', content: 'Søk og velg'}} />
+    </Form.Field>
+  )
+}
+
 //TODO: Add more form fields

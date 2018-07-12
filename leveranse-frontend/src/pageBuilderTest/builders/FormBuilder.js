@@ -6,7 +6,7 @@ import {
   errorMessages, formFieldBoolean,
   formFieldDate,
   formFieldDropdownMultiple,
-  formFieldDropdownSingle,
+  formFieldDropdownSingle, formFieldSearchModal,
   formFieldText,
   formFieldTextArea,
   responseMessage
@@ -32,7 +32,7 @@ class FormBuilder extends React.Component {
 
   componentDidMount () {
     getDomainStructure(this.objectName).then((result) => {
-      // Should check here if we should build a new state or populate one with stored values
+      //TODO: Add check for creating a new instance of the domain og fetching one to update it
       this.setState(buildNewState(this.objectName, this.formConfig, this.user, result))
     }).catch((reason) => {
       this.setState({response: reason})
@@ -223,6 +223,10 @@ class FormBuilder extends React.Component {
 
             if (type === 'boolean') {
               return formFieldBoolean(info, (this.handleBooleanChange.bind(this, item)), value)
+            }
+
+            if (type === 'search') {
+              return formFieldSearchModal(info, this.handleInputChange, value)
             }
 
             //TODO: Add more form components

@@ -1,5 +1,5 @@
 import {
-  tempAttributeComponentOptions,
+  tempAttributeComponentOptions, tempExchangeChannelOptions,
   tempIdentifierComponentOptions,
   tempMeasureComponentOptions, tempPopulationOptions,
   tempProtocolOptions,
@@ -174,6 +174,42 @@ export const formConfigurations = {
       type: 'dropdownSingle',
       renderOrder: 4,
       values: tempProtocolOptions
+    }
+  },
+  provisionAgreement: {
+    informationProvider: {
+      type: 'search',
+      renderOrder: 3,
+      values: ''
+    },
+    regulation: {
+      type: 'text',
+      renderOrder: 4
+    },
+    status: {
+      type: 'text',
+      renderOrder: 5
+    },
+    valuation: {
+      type: 'text',
+      renderOrder: 6
+    },
+    changeManagement: {
+      type: 'textArea',
+      renderOrder: 7
+    },
+    informationSource: {
+      type: 'text',
+      renderOrder: 8
+    },
+    exchangeChannel: {
+      type: 'dropdownSingle',
+      renderOrder: 9,
+      values: tempExchangeChannelOptions
+    },
+    frequency: {
+      type: 'text',
+      renderOrder: 10
     }
   }
 }

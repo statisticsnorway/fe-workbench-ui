@@ -60,4 +60,10 @@ export const tempSentinelValueDomainOptions = [
   {key: '3', text: 'Test 3', value: '/SentinelValueDomain/' + uuidv1()}
 ]
 
+export const tempExchangeChannelOptions = [
+  {key: '1', text: 'Test 1', value: '/ExchangeChannel/' + uuidv1()},
+  {key: '2', text: 'Test 2', value: '/ExchangeChannel/' + uuidv1()},
+  {key: '3', text: 'Test 3', value: '/ExchangeChannel/' + uuidv1()}
+]
+
 //TODO: Fetch the data from KLASS and other places

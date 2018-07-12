@@ -49,5 +49,13 @@ export const translateToNorwegian = {
   exchangeType: 'Utvekslingstype',
   substantiveValueDomain: 'Substantiv verdidomene',
   instanceVariable: 'Instansiert variabel',
-  sentinelValueDomain: 'Sentinel verdidomene'
+  sentinelValueDomain: 'Sentinel verdidomene',
+  informationProvider: 'Informasjonsleverandør',
+  regulation: 'Hjemmelsgrunnlag',
+  provisionAgreement: 'Leveranseavtale',
+  status: 'Status',
+  valuation: 'Verdivurdering',
+  changeManagement: 'Endringshåndtering',
+  informationSource: 'Informasjonskilde',
+  frequency: 'Hyppighet'
 }
