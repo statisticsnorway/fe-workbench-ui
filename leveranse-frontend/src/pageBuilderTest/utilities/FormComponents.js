@@ -1,7 +1,6 @@
 import React from 'react'
 import DatePicker from 'react-datepicker'
 import { Checkbox, Container, Dropdown, Form, Input, Message } from 'semantic-ui-react'
-import PropTypes from 'prop-types'
 import * as moment from 'moment'
 import 'moment/min/locales'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -100,7 +99,3 @@ export const formFieldBoolean = (info, action, value) => {
 }
 
 //TODO: Add more form fields
-
-InlineError.propTypes = {
-  text: PropTypes.string.isRequired
-}
