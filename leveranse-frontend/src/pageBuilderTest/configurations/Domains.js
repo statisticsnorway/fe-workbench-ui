@@ -1,10 +1,15 @@
 import {
-  tempAttributeComponentOptions, tempExchangeChannelOptions,
+  tempAttributeComponentOptions,
+  tempExchangeChannelOptions,
   tempIdentifierComponentOptions,
-  tempMeasureComponentOptions, tempPopulationOptions,
+  tempMeasureComponentOptions,
+  tempPopulationOptions,
   tempProtocolOptions,
-  tempRepresentedVariableOptions, tempSentinelValueDomainOptions, tempSubstantiveValueDomainOptions,
-  tempUnitTypeOptions, tempVariableOptions
+  tempRepresentedVariableOptions,
+  tempSentinelValueDomainOptions,
+  tempSubstantiveValueDomainOptions,
+  tempUnitTypeOptions,
+  tempVariableOptions
 } from '../utilities/FormData'
 
 const population = {

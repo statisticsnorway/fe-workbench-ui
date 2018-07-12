@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import { Button, Form, Header } from 'semantic-ui-react'
 import {
   editModeCheckbox,
-  errorMessages, formFieldBoolean,
+  errorMessages,
+  formFieldBoolean,
   formFieldDate,
   formFieldDropdownMultiple,
-  formFieldDropdownSingle, formFieldSearchModal,
+  formFieldDropdownSingle,
+  formFieldSearchModal,
   formFieldText,
   formFieldTextArea,
   responseMessage
@@ -114,7 +116,9 @@ class FormBuilder extends React.Component {
     const errors = {}
 
     this.state.required.forEach((element) => {
-      if (this.state.form[element].type === 'array' && this.state.form[element].items.hasOwnProperty('$ref') && this.state.form[element].items.$ref === '#/definitions/MultilingualText') {
+      let type = this.state.form[element].type
+
+      if (type === 'array' && this.state.form[element].items.hasOwnProperty('$ref') && this.state.form[element].items.$ref === '#/definitions/MultilingualText') {
         if (!this.state[this.objectNameLowerCase][element][0].languageText) {
           errors[element] = 'Feltet kan ikke være tomt'
         }
@@ -148,8 +152,12 @@ class FormBuilder extends React.Component {
         waitingForResponse: true
       })
 
-      sendDomainData(this.objectName + '/' + this.state[this.objectNameLowerCase].id, this.objectNameDefinitive,
-        this.state[this.objectNameLowerCase]).then((result) => {
+      let name = this.objectName
+      let nameLowerCase = this.state[this.objectNameLowerCase]
+      let nameDefinitive = this.objectNameDefinitive
+      let id = this.state[this.objectNameLowerCase].id
+
+      sendDomainData(name + '/' + id, nameDefinitive, nameLowerCase).then((result) => {
         this.setState({
           response: result,
           waitingForResponse: false
@@ -175,19 +183,18 @@ class FormBuilder extends React.Component {
         {responseMessage(response)}
 
         {typeof form !== 'undefined' && Object.keys(form).map((item, index) => {
-          let info = {
-            index: index,
-            item: item,
-            itemInNorwegian: translateToNorwegian[item],
-            readOnlyMode: readOnlyMode,
-            errors: errors
-          }
-
           if (this.formConfig.hasOwnProperty(item) && this.formConfig[item].type !== 'autofilled') {
-            let value = this.state[this.objectNameLowerCase][item]
-            let deepValue
+            let info = {
+              index: index,
+              item: item,
+              itemInNorwegian: translateToNorwegian[item],
+              readOnlyMode: readOnlyMode,
+              errors: errors
+            }
             let type = this.formConfig[item].type
+            let value = this.state[this.objectNameLowerCase][item]
             let values = this.formConfig[item].values
+            let deepValue
 
             if (type === 'text') {
               if (form[item].hasOwnProperty('items') && form[item].items.hasOwnProperty('$ref') && form[item].items.$ref === '#/definitions/MultilingualText') {

@@ -93,7 +93,8 @@ export const formFieldDate = (info, action, value) => {
 export const formFieldBoolean = (info, action, value) => {
   return (
     <Form.Field key={info.index} error={!!info.errors[info.item]}>
-      <Checkbox label={info.itemInNorwegian} name={info.item} onChange={action} checked={value === '' ? false : value} />
+      <Checkbox label={info.itemInNorwegian} name={info.item} onChange={action}
+                checked={value === '' ? false : value} />
     </Form.Field>
   )
 }
