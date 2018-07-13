@@ -5,14 +5,16 @@ export const enums = {
   CONTENT: {
     CANNOT_FETCH: 'Kan ikke hente',
     CORRECT_ERRORS: 'Rett opp feilene og prøv igjen',
+    DATE_EMPTY: 'Datofeltet kan ikke være blankt',
+    DROPDOWN_EMPTY: 'Minst et valg må velges fra nedtrekksmenyen',
     EDIT_MODE: 'Redigeringsmodus',
     INFORMATION_FROM_SERVER: 'informasjon fra server',
     SAVE: 'Lagre',
     SEARCH: 'Søk',
-    FIELD_NOT_EMPTY: 'Feltet kan ikke være tomt',
+    FIELD_EMPTY: 'Tekstfeltet kan ikke være blankt',
     WAS_NOT_SAVED: 'ble ikke lagret',
-    WAS_SAVED: 'ble lagred',
-    WAS_UPDATED: 'ble oppdated'
+    WAS_SAVED: 'ble lagret',
+    WAS_UPDATED: 'ble oppdatert'
   },
   PROPERTY: {
     ADMINISTRATIVE_STATUS: 'administrativeStatus',

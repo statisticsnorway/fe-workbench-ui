@@ -21,7 +21,7 @@ import { enums } from '../utilities/Enums'
 import * as moment from 'moment'
 import 'moment/min/locales'
 
-moment.locale('nb')
+moment.locale(enums.LANGUAGE_CODE.NORWEGIAN)
 
 class FormBuilder extends React.Component {
   constructor (props) {
@@ -126,14 +126,34 @@ class FormBuilder extends React.Component {
 
     this.state.required.forEach((element) => {
       let type = this.state.form[element].type
+      let formConfigType = this.formConfig[element].type
 
-      if (type === enums.TYPE.ARRAY && this.state.form[element].items.hasOwnProperty(enums.PROPERTY.REF) && this.state.form[element].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
+      if (type === enums.TYPE.ARRAY && this.state.form[element].items.hasOwnProperty(enums.PROPERTY.REF) &&
+        this.state.form[element].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
         if (!this.state[this.objectNameLowerCase][element][0].languageText) {
-          errors[element] = enums.CONTENT.FIELD_NOT_EMPTY
+          if (formConfigType === enums.TYPE.DROPDOWN_SINGLE || formConfigType === enums.TYPE.DROPDOWN_MULTIPLE) {
+            errors[element] = enums.CONTENT.DROPDOWN_EMPTY
+          } else {
+            errors[element] = enums.CONTENT.FIELD_EMPTY
+          }
         }
       } else {
         if (!this.state[this.objectNameLowerCase][element]) {
-          errors[element] = enums.CONTENT.FIELD_NOT_EMPTY
+          if (formConfigType === enums.TYPE.DROPDOWN_SINGLE || formConfigType === enums.TYPE.DROPDOWN_MULTIPLE) {
+            errors[element] = enums.CONTENT.DROPDOWN_EMPTY
+          } else {
+            errors[element] = enums.CONTENT.FIELD_EMPTY
+          }
+        }
+      }
+    })
+
+    Object.keys(this.state[this.objectNameLowerCase]).forEach((key) => {
+      let type = this.formConfig[key].type
+
+      if (type === enums.TYPE.DATE) {
+        if (!this.state[this.objectNameLowerCase][key]) {
+          errors[key] = enums.CONTENT.DATE_EMPTY
         }
       }
     })
@@ -152,8 +172,6 @@ class FormBuilder extends React.Component {
   }
 
   saveToBackend = () => {
-    //TODO: Set autofilled states before validating and sending to backend
-
     this.setState({
       [this.objectNameLowerCase]: {
         ...this.state[this.objectNameLowerCase],
@@ -185,8 +203,6 @@ class FormBuilder extends React.Component {
           errors: {},
           waitingForResponse: true
         }, () => {
-          console.log(this.state[this.objectNameLowerCase].version)
-
           let name = this.objectName
           let data = this.state[this.objectNameLowerCase]
           let nameDefinitive = this.objectNameDefinitive
@@ -235,7 +251,9 @@ class FormBuilder extends React.Component {
 
             switch (type) {
               case enums.TYPE.TEXT:
-                if (form[item].hasOwnProperty(enums.PROPERTY.ITEMS) && form[item].items.hasOwnProperty(enums.PROPERTY.REF) && form[item].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
+                if (form[item].hasOwnProperty(enums.PROPERTY.ITEMS) &&
+                  form[item].items.hasOwnProperty(enums.PROPERTY.REF) &&
+                  form[item].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
                   deepValue = this.state[this.objectNameLowerCase][item][0].languageText
 
                   return formFieldText(info, this.handleInputChangeDeep, deepValue)
@@ -244,7 +262,9 @@ class FormBuilder extends React.Component {
                 }
 
               case enums.TYPE.TEXT_AREA:
-                if (form[item].hasOwnProperty(enums.PROPERTY.ITEMS) && form[item].items.hasOwnProperty(enums.PROPERTY.REF) && form[item].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
+                if (form[item].hasOwnProperty(enums.PROPERTY.ITEMS) &&
+                  form[item].items.hasOwnProperty(enums.PROPERTY.REF) &&
+                  form[item].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
                   deepValue = this.state[this.objectNameLowerCase][item][0].languageText
 
                   return formFieldTextArea(info, this.handleInputChangeDeep, deepValue)
@@ -268,13 +288,15 @@ class FormBuilder extends React.Component {
                 return formFieldSearchModal(info, this.handleInputChange, value)
 
               //TODO: Add more form components
+
+              default:
             }
           }
         })}
 
         {typeof form !== 'undefined' ?
           <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
-                  content={enums.CONTENT.SAVE +' ' + this.objectNameNorwegianLowerCase} onClick={this.saveToBackend} />
+                  content={enums.CONTENT.SAVE + ' ' + this.objectNameNorwegianLowerCase} onClick={this.saveToBackend} />
           : null}
 
         <Button onClick={this.handleButtonClick} content={'Test'} />

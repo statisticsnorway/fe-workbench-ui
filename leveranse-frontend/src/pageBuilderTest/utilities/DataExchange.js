@@ -79,14 +79,17 @@ export const sendDomainData = (path, text, data) => {
         }
       }
     }).catch((error) => {
+      let additionalErrorText
+
       if (error.response) {
-        console.log(error.response.data)
+        additionalErrorText = error.response.data
       }
 
       newState = {
         color: 'red',
         header: text + ' ' + enums.CONTENT.WAS_NOT_SAVED,
         text: error.message + ' (' + url + ')',
+        additionalText: additionalErrorText,
         icon: 'warning'
       }
     }).then(() => {

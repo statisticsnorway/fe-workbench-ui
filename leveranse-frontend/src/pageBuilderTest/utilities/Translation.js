@@ -1,4 +1,4 @@
-//TODO: Add more translations and clean it up (or maybe even fetch one from the backend? That way business can decide translations
+//TODO: Add more translations and clean it up (or maybe even fetch one from the backend? That way business can decide translations)
 
 export const translateToNorwegian = {
   administrativeDetails: 'Administrative detaljer',

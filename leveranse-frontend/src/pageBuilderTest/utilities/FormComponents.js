@@ -1,6 +1,6 @@
 import React from 'react'
 import DatePicker from 'react-datepicker'
-import { Checkbox, Container, Dropdown, Form, Input, Message } from 'semantic-ui-react'
+import { Checkbox, Container, Dropdown, Form, Icon, Input, Message } from 'semantic-ui-react'
 import * as moment from 'moment'
 import 'moment/min/locales'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -32,8 +32,14 @@ export const responseMessage = (response) => {
   return (
     response !== undefined ?
       Object.keys(response).length !== 0 ?
-        <Message icon={response.icon} header={response.header} content={response.text}
-                 color={response.color} /> : null : null
+        <Message icon color={response.color}>
+          <Icon name={response.icon} />
+          <Message.Content>
+            <Message.Header>{response.header}</Message.Header>
+            <p>{response.text}</p>
+            {typeof response.additionalText !== 'undefined' ? <p>{response.additionalText}</p> : null}
+          </Message.Content>
+        </Message> : null : null
   )
 }
 

@@ -38,32 +38,32 @@ export const buildNewState = (name, formConfig, user, object) => {
           component[key] = formConfig[key].value
         }
       } else {
-        if (value.type === enums.TYPE.STRING) {
-          if (value.hasOwnProperty(enums.PROPERTY.FORMAT) && value.format === enums.TYPE.DATE) {
-            component[key] = null
-          } else {
+        switch (value.type) {
+          case enums.TYPE.STRING:
             component[key] = ''
-          }
-        }
+            break
 
-        if (value.type === enums.TYPE.ARRAY) {
-          if (value.items.hasOwnProperty(enums.PROPERTY.REF)) {
-            if (value.items[enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
-              component[key] = [{
-                languageCode: enums.LANGUAGE_CODE.NORWEGIAN,
-                languageText: ''
-              }]
+          case (enums.TYPE.ARRAY):
+            if (value.items.hasOwnProperty(enums.PROPERTY.REF)) {
+              if (value.items[enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
+                component[key] = [{
+                  languageCode: enums.LANGUAGE_CODE.NORWEGIAN,
+                  languageText: ''
+                }]
+              }
+            } else {
+              component[key] = []
             }
-          } else {
-            component[key] = []
-          }
-        }
+            break
 
-        if (value.type === enums.TYPE.BOOLEAN) {
-          component[key] = ''
-        }
+          case (enums.TYPE.BOOLEAN):
+            component[key] = ''
+            break
 
-        //TODO: Add more checks when LDM-Team is further along
+          //TODO: Add more checks when LDM-Team is further along
+
+          default:
+        }
       }
     }
   })
@@ -95,9 +95,3 @@ export const buildNewState = (name, formConfig, user, object) => {
 
   return state
 }
-
-export const populateState = () => {
-  // This is for when fetching a stored object and filling the state with its values
-}
-
-
