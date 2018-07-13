@@ -90,8 +90,6 @@ class LoginPage extends React.Component {
               </Message>
               }
               <Button color='blue' fluid size='large'>Login</Button>
-              <Divider horizontal>Or</Divider>
-              <Link to="/register" className="btn btn-link">Register</Link>
             </Form>
           </Grid.Column>
         </Grid>

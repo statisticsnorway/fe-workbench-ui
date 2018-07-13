@@ -6,7 +6,6 @@ import {SingleDatePicker} from 'react-dates'
 import {
   editModeCheckbox,
   errorMessages,
-  fetchAllSubjectsFromExternalApi,
   responseMessages
 } from '../../utils/Common'
 import {alertActions, provisionAgreementActions} from '../../actions'
@@ -18,8 +17,6 @@ import '../../assets/css/site.css'
 import InformationProviderModal from "../informationProvider/InformationProviderModal";
 
 moment.locale('nb')
-
-const allSubjectsOptions = fetchAllSubjectsFromExternalApi()
 
 class ProvisionAgreementDesc extends Component {
   constructor(props) {

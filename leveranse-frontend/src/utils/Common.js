@@ -12,7 +12,7 @@ export const fetchMainSubjectsFromExternalApi = () => {
   axios.get(url).then((response) => {
     mainSubjects = response.data
   }).catch((error) => {
-    console.log(error)
+    console.log("Testing 1...........", error)
   }).then(() => {
     for (let key in mainSubjects) {
       mainSubjectsOptions.push({
@@ -24,53 +24,6 @@ export const fetchMainSubjectsFromExternalApi = () => {
   })
 
   return mainSubjectsOptions
-}
-
-export const fetchAllSubjectsFromExternalApi = () => {
-  let mainSubjects
-  let subSubjects
-  let organizedSubSubjects
-  let organizedSubjectsOptions = []
-  let allSubjectsOptions = []
-  let url
-
-  url = process.env.REACT_APP_SSB_SUBJECTS
-
-  axios.get(url).then((response) => {
-    mainSubjects = response.data
-  }).catch((error) => {
-    console.log(error)
-  }).then(() => {
-    for (let mainSubjectsKey in mainSubjects) {
-      // eslint-disable-next-line
-      axios.get(url + mainSubjects[mainSubjectsKey]['id']).then((response) => {
-        subSubjects = response.data
-
-        for (let subSubjectsKey in subSubjects) {
-          let key = mainSubjectsKey + subSubjectsKey
-          let text = mainSubjects[mainSubjectsKey]['text'] + ' - ' + subSubjects[subSubjectsKey]['text']
-
-          allSubjectsOptions.push({key: key, text: text, value: text})
-
-          organizedSubSubjects = {
-            ...organizedSubSubjects,
-            [subSubjects[subSubjectsKey]['text']]: [subSubjects[subSubjectsKey]['text']]
-          }
-        }
-
-        organizedSubjectsOptions.push({
-          mainSubject: mainSubjects[mainSubjectsKey]['text'], subSubjects: organizedSubSubjects
-        })
-      }).catch((error) => {
-        console.log(error)
-      })
-    }
-  })
-
-//  Organized all subsubjects per mainsubject (might be useful for a cleaner dropdown at a later stage
-//  console.log(organizedSubjects)
-
-  return allSubjectsOptions
 }
 
 export const fetchListOptions = (url) => {
@@ -94,7 +47,7 @@ export const fetchListOptions = (url) => {
       console.log('Noe gikk galt ved henting av data')
     }
   }).catch((error) => {
-    console.log(error)
+    //console.log(error)
   })
 
   return theList

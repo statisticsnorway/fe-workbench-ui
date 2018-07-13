@@ -1,21 +1,13 @@
 import React from 'react'
-import {Button, Grid, Item, Segment, Portal, Image, Icon} from 'semantic-ui-react'
+import { Grid, Item, Image, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {userActions} from '../../actions/index'
 import ProvisionAgreementPage from '../ProvisionAgreementPage'
 import ssb_logo from '../../assets/ssb_logo.png'
 
 class HomePage extends React.Component {
 
-  state = {open: false}
-
-  handleClick = () => this.setState({open: !this.state.open})
-
-  handleClose = () => this.setState({open: false})
-
   render() {
-    const {open} = this.state
     const {user} = this.props
     return (
       <div>
