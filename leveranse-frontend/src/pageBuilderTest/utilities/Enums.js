@@ -6,6 +6,7 @@ export const enums = {
     CANNOT_FETCH: 'Kan ikke hente',
     CORRECT_ERRORS: 'Rett opp feilene og prøv igjen',
     DATE_EMPTY: 'Datofeltet kan ikke være blankt',
+    DETAILS: 'Detaljer',
     DROPDOWN_EMPTY: 'Minst et valg må velges fra nedtrekksmenyen',
     EDIT_MODE: 'Redigeringsmodus',
     INFORMATION_FROM_SERVER: 'informasjon fra server',

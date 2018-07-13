@@ -8,7 +8,7 @@ export const translateToNorwegian = {
   createdBy: 'Opprettet av',
   version: 'Versjon',
   versionValidFrom: 'Versjon gyldig fra',
-  versionRationale: 'Versjon gyldig til',
+  versionRationale: 'Versjons begrunnelse',
   lastUpdatedDate: 'Sist oppdatert',
   lastUpdatedBy: 'Sist oppdatert av',
   validFrom: 'Gyldig fra',
