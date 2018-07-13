@@ -1,5 +1,3 @@
-//TODO: Add more translations and clean it up (or maybe even fetch one from the backend? That way business can decide translations)
-
 export const translateToNorwegian = {
   administrativeDetails: 'Administrative detaljer',
   administrativeStatus: 'Administrativ status',
@@ -57,5 +55,23 @@ export const translateToNorwegian = {
   valuation: 'Verdivurdering',
   changeManagement: 'Endringshåndtering',
   informationSource: 'Informasjonskilde',
-  frequency: 'Hyppighet'
+  frequency: 'Hyppighet',
+  agentInRole: 'Aktører med rolle',
+  agentInRoles: 'Aktør med roller',
+  agents: 'Aktører',
+  klassURL: 'KLASS url',
+  valueDomain: 'Verdidomene',
+  describedValueDomain: 'Beskrevet verdidomene',
+  enumeratedValueDomain: 'Oppregnet verdidomene',
+  dataType: 'Datatype',
+  unitOfMeasure: 'Måleenhet',
+  minValue: 'Minimumsverdi',
+  maxValue: 'Maksimumsverdi',
+  minLength: 'Minimumlengde',
+  maxLength: 'Maksimumlengde',
+  minDecimals: 'Minimum antall desimaler',
+  maxDecimals: 'Maksimum antall desimaler',
+  optional: 'Valgfri?'
 }
+
+//TODO: Add more translations and clean it up (or maybe even fetch one from the backend? That way business can decide translations)

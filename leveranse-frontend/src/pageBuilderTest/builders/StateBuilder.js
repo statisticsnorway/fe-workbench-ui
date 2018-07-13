@@ -57,10 +57,14 @@ export const buildNewState = (name, formConfig, user, object) => {
             break
 
           case (enums.TYPE.BOOLEAN):
+            component[key] = false
+            break
+
+          case (enums.TYPE.NUMBER):
             component[key] = ''
             break
 
-          //TODO: Add more checks when LDM-Team is further along
+          //TODO: Add more checks
 
           default:
         }

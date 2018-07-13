@@ -1,49 +1,58 @@
 import {
+  tempAgentInRolesOptions, tempAgentOptions,
   tempAttributeComponentOptions,
   tempExchangeChannelOptions,
   tempIdentifierComponentOptions,
   tempMeasureComponentOptions,
   tempPopulationOptions,
   tempProtocolOptions,
-  tempRepresentedVariableOptions,
+  tempRepresentedVariableOptions, tempRoleOptions,
   tempSentinelValueDomainOptions,
   tempSubstantiveValueDomainOptions,
-  tempUnitTypeOptions,
+  tempUnitTypeOptions, tempValueDomainOptions,
   tempVariableOptions
 } from '../utilities/FormData'
+import { enums } from '../utilities/Enums'
 
 const population = {
   populationType: {
-    type: 'autofilled',
+    type: enums.TYPE.AUTOFILLED,
     value: ''
   },
   referencePeriod: {
-    type: 'text',
+    type: enums.TYPE.TEXT,
     renderOrder: 3
   },
   geography: {
-    type: 'text',
+    type: enums.TYPE.TEXT,
     renderOrder: 4
   },
   unitType: {
-    type: 'dropdownSingle',
+    type: enums.TYPE.DROPDOWN_SINGLE,
     renderOrder: 5,
     values: tempUnitTypeOptions
   },
   respondantUnitType: {
-    type: 'dropdownSingle',
+    type: enums.TYPE.DROPDOWN_SINGLE,
     renderOrder: 6,
     values: tempUnitTypeOptions
   }
 }
 
+const valueDomain = {
+  dataType: {
+    type: enums.TYPE.TEXT,
+    renderOrder: 3
+  }
+}
+
 const component = {
   format: {
-    type: 'text',
+    type: enums.TYPE.TEXT,
     renderOrder: 3
   },
   representedVariable: {
-    type: 'dropdownSingle',
+    type: enums.TYPE.DROPDOWN_SINGLE,
     renderOrder: 4,
     values: tempRepresentedVariableOptions
   }
@@ -52,35 +61,35 @@ const component = {
 export const formConfigurations = {
   variable: {
     unitType: {
-      type: 'dropdownSingle',
+      type: enums.TYPE.DROPDOWN_SINGLE,
       renderOrder: 3,
       values: tempUnitTypeOptions
     }
   },
   representedVariable: {
     variable: {
-      type: 'dropdownSingle',
+      type: enums.TYPE.DROPDOWN_SINGLE,
       renderOrder: 3,
       values: tempVariableOptions
     },
     substantiveValueDomain: {
-      type: 'dropdownSingle',
+      type: enums.TYPE.DROPDOWN_SINGLE,
       values: tempSubstantiveValueDomainOptions
     }
   },
   instanceVariable: {
     representedVariable: {
-      type: 'dropdownSingle',
+      type: enums.TYPE.DROPDOWN_SINGLE,
       renderOrder: 3,
       values: tempRepresentedVariableOptions
     },
     population: {
-      type: 'dropdownSingle',
+      type: enums.TYPE.DROPDOWN_SINGLE,
       renderOrder: 4,
       values: tempPopulationOptions
     },
     sentinelValueDomain: {
-      type: 'dropdownSingle',
+      type: enums.TYPE.DROPDOWN_SINGLE,
       renderOrder: 5,
       values: tempSentinelValueDomainOptions
     }
@@ -99,45 +108,103 @@ export const formConfigurations = {
       value: 'targetPopulation'
     }
   },
+  describedValueDomain: {
+    ...valueDomain,
+    unitOfMeasure: {
+      type: enums.TYPE.TEXT,
+      renderOrder: 4
+    },
+    minValue: {
+      type: enums.TYPE.NUMBER,
+      renderOrder: 5
+    },
+    maxValue: {
+      type: enums.TYPE.NUMBER,
+      renderOrder: 6
+    },
+    minLength: {
+      type: enums.TYPE.NUMBER,
+      renderOrder: 7
+    },
+    maxLength: {
+      type: enums.TYPE.NUMBER,
+      renderOrder: 8
+    },
+    minDecimals: {
+      type: enums.TYPE.NUMBER,
+      renderOrder: 9
+    },
+    maxDecimals: {
+      type: enums.TYPE.NUMBER,
+      renderOrder: 10
+    },
+    optional: {
+      type: enums.TYPE.BOOLEAN,
+      renderOrder: 11
+    }
+  },
+  substantiveValueDomain: {
+    ...valueDomain,
+    valueDomain: {
+      type: enums.TYPE.DROPDOWN_SINGLE,
+      renderOrder: 4,
+      values: tempValueDomainOptions
+    }
+  },
+  sentinelValueDomain: {
+    ...valueDomain,
+    valueDomain: {
+     type: enums.TYPE.DROPDOWN_SINGLE,
+     renderOrder: 4,
+     values: tempValueDomainOptions
+    }
+  },
+  enumeratedValueDomain: {
+    ...valueDomain,
+    klassUrl: {
+      type: enums.TYPE.TEXT,
+      renderOrder: 4
+    }
+  },
   role: {},
   agent: {
     agentType: {
-      type: 'text',
+      type: enums.TYPE.TEXT,
       renderOrder: 3
     },
     parentAgent: {
-      type: 'text',
+      type: enums.TYPE.TEXT,
       renderOrder: 4
     }
   },
   unitDataStructure: {
     identifierComponents: {
-      type: 'dropdownMultiple',
+      type: enums.TYPE.DROPDOWN_MULTIPLE,
       renderOrder: 3,
       values: tempIdentifierComponentOptions
     },
     measureComponents: {
-      type: 'dropdownMultiple',
+      type: enums.TYPE.DROPDOWN_MULTIPLE,
       renderOrder: 4,
       values: tempMeasureComponentOptions
     },
     attributeComponents: {
-      type: 'dropdownMultiple',
+      type: enums.TYPE.DROPDOWN_MULTIPLE,
       renderOrder: 5,
       values: tempAttributeComponentOptions
     },
     temporalityType: {
-      type: 'text',
+      type: enums.TYPE.TEXT,
       renderOrder: 6
     },
     planDate: {
-      type: 'date-time',
+      type: enums.TYPE.DATE,
       renderOrder: 7
     }
   },
   protocol: {
     protocolType: {
-      type: 'text',
+      type: enums.TYPE.TEXT,
       renderOrder: 3
     }
   },
@@ -147,121 +214,141 @@ export const formConfigurations = {
   identifierComponent: {
     ...component,
     role: {
-      type: 'text',
+      type: enums.TYPE.TEXT,
       renderOrder: 5
     },
     isUnique: {
-      type: 'boolean',
+      type: enums.TYPE.BOOLEAN,
       renderOrder: 6
     },
     isComposite: {
-      type: 'boolean',
+      type: enums.TYPE.BOOLEAN,
       renderOrder: 7
     }
   },
   attributeComponent: {
     ...component,
     assignmentStatus: {
-      type: 'text',
+      type: enums.TYPE.TEXT,
       renderOrder: 5
     },
     attachmentLevel: {
-      type: 'text',
+      type: enums.TYPE.TEXT,
       renderOrder: 6
     }
   },
   exchangeChannel: {
     exchangeType: {
-      type: 'text',
+      type: enums.TYPE.TEXT,
       renderOrder: 3
     },
     protocol: {
-      type: 'dropdownSingle',
+      type: enums.TYPE.DROPDOWN_SINGLE,
       renderOrder: 4,
       values: tempProtocolOptions
     }
   },
   provisionAgreement: {
     informationProvider: {
-      type: 'search',
+      type: enums.TYPE.SEARCH,
       renderOrder: 3,
       values: ''
     },
     regulation: {
-      type: 'text',
+      type: enums.TYPE.TEXT,
       renderOrder: 4
     },
     status: {
-      type: 'text',
+      type: enums.TYPE.TEXT,
       renderOrder: 5
     },
     valuation: {
-      type: 'text',
+      type: enums.TYPE.TEXT,
       renderOrder: 6
     },
     changeManagement: {
-      type: 'textArea',
+      type: enums.TYPE.TEXT_AREA,
       renderOrder: 7
     },
     informationSource: {
-      type: 'text',
+      type: enums.TYPE.TEXT,
       renderOrder: 8
     },
     exchangeChannel: {
-      type: 'dropdownSingle',
+      type: enums.TYPE.DROPDOWN_SINGLE,
       renderOrder: 9,
       values: tempExchangeChannelOptions
     },
     frequency: {
-      type: 'text',
+      type: enums.TYPE.TEXT,
       renderOrder: 10
+    }
+  },
+  unitType: {},
+  informationProvider: {
+    agentInRoles: {
+      type: enums.TYPE.DROPDOWN_SINGLE,
+      renderOrder: 3,
+      values: tempAgentInRolesOptions
+    }
+  },
+  agentInRole: {
+    role: {
+      type: enums.TYPE.DROPDOWN_SINGLE,
+      renderOrder: 3,
+      values: tempRoleOptions
+    },
+    agents: {
+      type: enums.TYPE.DROPDOWN_MULTIPLE,
+      renderOrder: 4,
+      values: tempAgentOptions
     }
   }
 }
 
 export const commonFormConfigurations = {
   name: {
-    type: 'text',
+    type: enums.TYPE.TEXT,
     renderOrder: 1
   },
   description: {
-    type: 'textArea',
+    type: enums.TYPE.TEXT_AREA,
     renderOrder: 2
   },
   administrativeDetails: {
-    type: 'autofilled'
+    type: enums.TYPE.AUTOFILLED
   },
   administrativeStatus: {
-    type: 'autofilled'
+    type: enums.TYPE.AUTOFILLED
   },
   id: {
-    type: 'autofilled'
+    type: enums.TYPE.AUTOFILLED
   },
   createdDate: {
-    type: 'autofilled'
+    type: enums.TYPE.AUTOFILLED
   },
   createdBy: {
-    type: 'autofilled'
+    type: enums.TYPE.AUTOFILLED
   },
   version: {
-    type: 'autofilled'
+    type: enums.TYPE.AUTOFILLED
   },
   versionValidFrom: {
-    type: 'autofilled'
+    type: enums.TYPE.AUTOFILLED
   },
   versionRationale: {
-    type: 'autofilled'
+    type: enums.TYPE.AUTOFILLED
   },
   lastUpdatedDate: {
-    type: 'autofilled'
+    type: enums.TYPE.AUTOFILLED
   },
   lastUpdatedBy: {
-    type: 'autofilled'
+    type: enums.TYPE.AUTOFILLED
   },
   validFrom: {
-    type: 'autofilled'
+    type: enums.TYPE.AUTOFILLED
   },
   validUntil: {
-    type: 'autofilled'
+    type: enums.TYPE.AUTOFILLED
   }
 }

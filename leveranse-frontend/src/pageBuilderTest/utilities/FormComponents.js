@@ -106,6 +106,17 @@ export const formFieldBoolean = (info, action, value) => {
   )
 }
 
+export const formFieldNumber = (info, action, value) => {
+  return (
+    <Form.Field key={info.index} error={!!info.errors[info.item]}>
+      <label>{info.itemInNorwegian}</label>
+      <Input name={info.item} placeholder={info.itemInNorwegian} readOnly={info.readOnlyMode} onChange={action}
+             value={value} type='number' />
+      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
+    </Form.Field>
+  )
+}
+
 export const formFieldSearchModal = (info, action, value) => {
   return (
     <Form.Field key={info.index} error={!!info.errors[info.item]}>

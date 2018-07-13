@@ -7,7 +7,7 @@ import {
   formFieldBoolean,
   formFieldDate,
   formFieldDropdownMultiple,
-  formFieldDropdownSingle,
+  formFieldDropdownSingle, formFieldNumber,
   formFieldSearchModal,
   formFieldText,
   formFieldTextArea,
@@ -16,7 +16,7 @@ import {
 import { translateToNorwegian } from '../utilities/Translation'
 import { getDomainStructure, sendDomainData } from '../utilities/DataExchange'
 import { buildNewState } from './StateBuilder'
-import { lowerCaseFirst } from '../utilities/Helpers'
+import { isNumericOrEmptyString, lowerCaseFirst } from '../utilities/Helpers'
 import { enums } from '../utilities/Enums'
 import * as moment from 'moment'
 import 'moment/min/locales'
@@ -117,6 +117,19 @@ class FormBuilder extends React.Component {
     })
   }
 
+  handleNumberChange = (event) => {
+    this.setState({
+      errors: {
+        ...this.state.errors,
+        [event.target.name]: ''
+      },
+      [this.objectNameLowerCase]: {
+        ...this.state[this.objectNameLowerCase],
+        [event.target.name]: parseFloat(event.target.value)
+      }
+    })
+  }
+
   setVersion () {
     return (Number.parseFloat(this.state[this.objectNameLowerCase].version) + 0.1).toFixed(1)
   }
@@ -154,6 +167,12 @@ class FormBuilder extends React.Component {
       if (type === enums.TYPE.DATE) {
         if (!this.state[this.objectNameLowerCase][key]) {
           errors[key] = enums.CONTENT.DATE_EMPTY
+        }
+      }
+
+      if (type === enums.TYPE.NUMBER) {
+        if (!isNumericOrEmptyString(this.state[this.objectNameLowerCase][key])) {
+          errors[key] = enums.CONTENT.NOT_A_NUMBER
         }
       }
     })
@@ -286,6 +305,9 @@ class FormBuilder extends React.Component {
 
               case enums.TYPE.SEARCH:
                 return formFieldSearchModal(info, this.handleInputChange, value)
+
+              case enums.TYPE.NUMBER:
+                return formFieldNumber(info, this.handleNumberChange, value)
 
               //TODO: Add more form components
 

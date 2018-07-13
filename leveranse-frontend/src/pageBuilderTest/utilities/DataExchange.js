@@ -47,7 +47,6 @@ export const sendDomainData = (path, text, data) => {
     let url
     let newState = {}
 
-    JSON.stringify(data)
     url = process.env.REACT_APP_BACKENDHOST + path
 
     axios.put(url, data, {

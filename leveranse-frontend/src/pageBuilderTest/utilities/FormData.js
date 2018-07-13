@@ -1,9 +1,9 @@
 const uuidv1 = require('uuid/v1')
 
 export const tempUnitTypeOptions = [
-  {key: '1', text: 'Person', value: '/UnitType/' + uuidv1()},
-  {key: '2', text: 'Husholdning', value: '/UnitType/' + uuidv1()},
-  {key: '3', text: 'Virksomhet', value: '/UnitType/' + uuidv1()}
+  {key: '1', text: 'Test 1', value: '/UnitType/' + uuidv1()},
+  {key: '2', text: 'Test 2', value: '/UnitType/' + uuidv1()},
+  {key: '3', text: 'Test 3', value: '/UnitType/' + uuidv1()}
 ]
 
 export const tempVariableOptions = [
@@ -60,10 +60,34 @@ export const tempSentinelValueDomainOptions = [
   {key: '3', text: 'Test 3', value: '/SentinelValueDomain/' + uuidv1()}
 ]
 
+export const tempValueDomainOptions = [
+  {key: '1', text: 'Test 1', value: '/ValueDomain/' + uuidv1()},
+  {key: '2', text: 'Test 2', value: '/ValueDomain/' + uuidv1()},
+  {key: '3', text: 'Test 3', value: '/ValueDomain/' + uuidv1()}
+]
+
 export const tempExchangeChannelOptions = [
   {key: '1', text: 'Test 1', value: '/ExchangeChannel/' + uuidv1()},
   {key: '2', text: 'Test 2', value: '/ExchangeChannel/' + uuidv1()},
   {key: '3', text: 'Test 3', value: '/ExchangeChannel/' + uuidv1()}
+]
+
+export const tempAgentInRolesOptions = [
+  {key: '1', text: 'Test 1', value: '/AgentInRoles/' + uuidv1()},
+  {key: '2', text: 'Test 2', value: '/AgentInRoles/' + uuidv1()},
+  {key: '3', text: 'Test 3', value: '/AgentInRoles/' + uuidv1()}
+]
+
+export const tempRoleOptions = [
+  {key: '1', text: 'Test 1', value: '/Role/' + uuidv1()},
+  {key: '2', text: 'Test 2', value: '/Role/' + uuidv1()},
+  {key: '3', text: 'Test 3', value: '/Role/' + uuidv1()}
+]
+
+export const tempAgentOptions = [
+  {key: '1', text: 'Test 1', value: '/Agent/' + uuidv1()},
+  {key: '2', text: 'Test 2', value: '/Agent/' + uuidv1()},
+  {key: '3', text: 'Test 3', value: '/Agent/' + uuidv1()}
 ]
 
 //TODO: Fetch the data from KLASS and other places

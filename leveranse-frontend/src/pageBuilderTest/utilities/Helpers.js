@@ -11,3 +11,11 @@ export function findLastUppercaseWord (string) {
 
   return words[words.length - 1]
 }
+
+export function isNumericOrEmptyString (value) {
+  if (value === '') {
+    return true
+  } else {
+    return !isNaN(parseFloat(value)) && isFinite(value)
+  }
+}
