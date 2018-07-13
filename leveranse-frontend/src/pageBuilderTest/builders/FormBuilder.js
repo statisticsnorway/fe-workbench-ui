@@ -17,6 +17,7 @@ import { translateToNorwegian } from '../utilities/Translation'
 import { getDomainStructure, sendDomainData } from '../utilities/DataExchange'
 import { buildNewState } from './StateBuilder'
 import { lowerCaseFirst } from '../utilities/Helpers'
+import { enums } from '../utilities/Enums'
 import * as moment from 'moment'
 import 'moment/min/locales'
 
@@ -74,7 +75,7 @@ class FormBuilder extends React.Component {
       [this.objectNameLowerCase]: {
         ...this.state[this.objectNameLowerCase],
         [event.target.name]: [{
-          languageCode: 'nb',
+          languageCode: enums.LANGUAGE_CODE.NORWEGIAN,
           languageText: event.target.value
         }]
       }
@@ -126,13 +127,13 @@ class FormBuilder extends React.Component {
     this.state.required.forEach((element) => {
       let type = this.state.form[element].type
 
-      if (type === 'array' && this.state.form[element].items.hasOwnProperty('$ref') && this.state.form[element].items.$ref === '#/definitions/MultilingualText') {
+      if (type === enums.TYPE.ARRAY && this.state.form[element].items.hasOwnProperty(enums.PROPERTY.REF) && this.state.form[element].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
         if (!this.state[this.objectNameLowerCase][element][0].languageText) {
-          errors[element] = 'Feltet kan ikke være tomt'
+          errors[element] = enums.CONTENT.FIELD_NOT_EMPTY
         }
       } else {
         if (!this.state[this.objectNameLowerCase][element]) {
-          errors[element] = 'Feltet kan ikke være tomt'
+          errors[element] = enums.CONTENT.FIELD_NOT_EMPTY
         }
       }
     })
@@ -166,7 +167,7 @@ class FormBuilder extends React.Component {
         validFrom: moment(),
         validUntil: moment().add(1, 'years'),
         versionRationale: [{
-          languageCode: 'nb',
+          languageCode: enums.LANGUAGE_CODE.NORWEGIAN,
           languageText: ''
         }],
         versionValidFrom: moment()
@@ -219,7 +220,7 @@ class FormBuilder extends React.Component {
         {responseMessage(response)}
 
         {typeof form !== 'undefined' && Object.keys(form).map((item, index) => {
-          if (this.formConfig.hasOwnProperty(item) && this.formConfig[item].type !== 'autofilled') {
+          if (this.formConfig.hasOwnProperty(item) && this.formConfig[item].type !== enums.TYPE.AUTOFILLED) {
             let info = {
               index: index,
               item: item,
@@ -232,53 +233,48 @@ class FormBuilder extends React.Component {
             let values = this.formConfig[item].values
             let deepValue
 
-            if (type === 'text') {
-              if (form[item].hasOwnProperty('items') && form[item].items.hasOwnProperty('$ref') && form[item].items.$ref === '#/definitions/MultilingualText') {
-                deepValue = this.state[this.objectNameLowerCase][item][0].languageText
+            switch (type) {
+              case enums.TYPE.TEXT:
+                if (form[item].hasOwnProperty(enums.PROPERTY.ITEMS) && form[item].items.hasOwnProperty(enums.PROPERTY.REF) && form[item].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
+                  deepValue = this.state[this.objectNameLowerCase][item][0].languageText
 
-                return formFieldText(info, this.handleInputChangeDeep, deepValue)
-              } else {
-                return formFieldText(info, this.handleInputChange, value)
-              }
+                  return formFieldText(info, this.handleInputChangeDeep, deepValue)
+                } else {
+                  return formFieldText(info, this.handleInputChange, value)
+                }
+
+              case enums.TYPE.TEXT_AREA:
+                if (form[item].hasOwnProperty(enums.PROPERTY.ITEMS) && form[item].items.hasOwnProperty(enums.PROPERTY.REF) && form[item].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
+                  deepValue = this.state[this.objectNameLowerCase][item][0].languageText
+
+                  return formFieldTextArea(info, this.handleInputChangeDeep, deepValue)
+                } else {
+                  return formFieldTextArea(info, this.handleInputChange, value)
+                }
+
+              case enums.TYPE.DROPDOWN_SINGLE:
+                return formFieldDropdownSingle(info, ((event, {value}) => this.handleDropdownChange(value, item)), values)
+
+              case enums.TYPE.DROPDOWN_MULTIPLE:
+                return formFieldDropdownMultiple(info, ((event, {value}) => this.handleDropdownChange(value, item)), values)
+
+              case enums.TYPE.DATE:
+                return formFieldDate(info, (this.handleDateChange.bind(this, item)), value)
+
+              case enums.TYPE.BOOLEAN:
+                return formFieldBoolean(info, (this.handleBooleanChange.bind(this, item)), value)
+
+              case enums.TYPE.SEARCH:
+                return formFieldSearchModal(info, this.handleInputChange, value)
+
+              //TODO: Add more form components
             }
-
-            if (type === 'textArea') {
-              if (form[item].hasOwnProperty('items') && form[item].items.hasOwnProperty('$ref') && form[item].items.$ref === '#/definitions/MultilingualText') {
-                deepValue = this.state[this.objectNameLowerCase][item][0].languageText
-
-                return formFieldTextArea(info, this.handleInputChangeDeep, deepValue)
-              } else {
-                return formFieldTextArea(info, this.handleInputChange, value)
-              }
-            }
-
-            if (type === 'dropdownSingle') {
-              return formFieldDropdownSingle(info, ((event, {value}) => this.handleDropdownChange(value, item)), values)
-            }
-
-            if (type === 'dropdownMultiple') {
-              return formFieldDropdownMultiple(info, ((event, {value}) => this.handleDropdownChange(value, item)), values)
-            }
-
-            if (type === 'date-time') {
-              return formFieldDate(info, (this.handleDateChange.bind(this, item)), value)
-            }
-
-            if (type === 'boolean') {
-              return formFieldBoolean(info, (this.handleBooleanChange.bind(this, item)), value)
-            }
-
-            if (type === 'search') {
-              return formFieldSearchModal(info, this.handleInputChange, value)
-            }
-
-            //TODO: Add more form components
           }
         })}
 
         {typeof form !== 'undefined' ?
           <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
-                  content={'Lagre ' + this.objectNameNorwegianLowerCase} onClick={this.saveToBackend} />
+                  content={enums.CONTENT.SAVE +' ' + this.objectNameNorwegianLowerCase} onClick={this.saveToBackend} />
           : null}
 
         <Button onClick={this.handleButtonClick} content={'Test'} />

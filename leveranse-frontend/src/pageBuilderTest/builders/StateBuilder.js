@@ -1,8 +1,9 @@
 import { lowerCaseFirst } from '../utilities/Helpers'
+import { enums } from '../utilities/Enums'
 import * as moment from 'moment'
 import 'moment/min/locales'
 
-moment.locale('nb')
+moment.locale(enums.LANGUAGE_CODE.NORWEGIAN)
 const uuidv1 = require('uuid/v1')
 
 export const buildNewState = (name, formConfig, user, object) => {
@@ -11,45 +12,45 @@ export const buildNewState = (name, formConfig, user, object) => {
   let form = object.definitions[name].properties
   let sortedForm = {}
 
-  component['administrativeDetails'] = [{
+  component[enums.PROPERTY.ADMINISTRATIVE_DETAILS] = [{
     administrativeDetailType: '',
     values: []
   }]
-  component['administrativeStatus'] = ''
-  component['createdBy'] = user
-  component['createdDate'] = moment()
-  component['id'] = uuidv1()
-  component['lastUpdatedBy'] = ''
-  component['lastUpdatedDate'] = null
-  component['validFrom'] = null
-  component['validUntil'] = null
-  component['version'] = '0.9'
-  component['versionRationale'] = [{
-    languageCode: 'nb',
+  component[enums.PROPERTY.ADMINISTRATIVE_STATUS] = ''
+  component[enums.PROPERTY.CREATED_BY] = user
+  component[enums.PROPERTY.CREATED_DATE] = moment()
+  component[enums.PROPERTY.ID] = uuidv1()
+  component[enums.PROPERTY.LAST_UPDATED_BY] = ''
+  component[enums.PROPERTY.LAST_UPDATED_DATE] = null
+  component[enums.PROPERTY.VALID_FROM] = null
+  component[enums.PROPERTY.VALID_UNTIL] = null
+  component[enums.PROPERTY.VERSION] = '0.9'
+  component[enums.PROPERTY.VERSION_RATIONALE] = [{
+    languageCode: enums.LANGUAGE_CODE.NORWEGIAN,
     languageText: ''
   }]
-  component['versionValidFrom'] = null
+  component[enums.PROPERTY.VERSION_VALID_FROM] = null
 
   Object.entries(form).forEach(([key, value]) => {
     if (typeof formConfig[key] !== 'undefined') {
-      if (formConfig[key].type === 'autofilled') {
-        if (formConfig[key].hasOwnProperty('value')) {
+      if (formConfig[key].type === enums.TYPE.AUTOFILLED) {
+        if (formConfig[key].hasOwnProperty(enums.PROPERTY.VALUE)) {
           component[key] = formConfig[key].value
         }
       } else {
-        if (value.type === 'string') {
-          if (value.hasOwnProperty('format') && value.format === 'date-time') {
+        if (value.type === enums.TYPE.STRING) {
+          if (value.hasOwnProperty(enums.PROPERTY.FORMAT) && value.format === enums.TYPE.DATE) {
             component[key] = null
           } else {
             component[key] = ''
           }
         }
 
-        if (value.type === 'array') {
-          if (value.items.hasOwnProperty('$ref')) {
-            if (value.items['$ref'] === '#/definitions/MultilingualText') {
+        if (value.type === enums.TYPE.ARRAY) {
+          if (value.items.hasOwnProperty(enums.PROPERTY.REF)) {
+            if (value.items[enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
               component[key] = [{
-                languageCode: 'nb',
+                languageCode: enums.LANGUAGE_CODE.NORWEGIAN,
                 languageText: ''
               }]
             }
@@ -58,7 +59,7 @@ export const buildNewState = (name, formConfig, user, object) => {
           }
         }
 
-        if (value.type === 'boolean') {
+        if (value.type === enums.TYPE.BOOLEAN) {
           component[key] = ''
         }
 
@@ -68,7 +69,7 @@ export const buildNewState = (name, formConfig, user, object) => {
   })
 
   Object.entries(formConfig).forEach(([key, value]) => {
-    if (value.hasOwnProperty('renderOrder')) {
+    if (value.hasOwnProperty(enums.PROPERTY.RENDER_ORDER)) {
       form[key].renderOrder = value.renderOrder
     } else {
       form[key].renderOrder = 100
@@ -85,12 +86,12 @@ export const buildNewState = (name, formConfig, user, object) => {
   })
 
   state[lowerCaseFirst(name)] = component
-  state['required'] = object.definitions[name].required
-  state['form'] = sortedForm
-  state['readOnlyMode'] = false
-  state['response'] = {}
-  state['errors'] = {}
-  state['waitingForResponse'] = false
+  state[enums.STATE.REQUIRED] = object.definitions[name].required
+  state[enums.STATE.FORM] = sortedForm
+  state[enums.STATE.READ_ONLY_MODE] = false
+  state[enums.STATE.RESPONSE] = {}
+  state[enums.STATE.ERRORS] = {}
+  state[enums.STATE.WAITING_FOR_RESPONSE] = false
 
   return state
 }

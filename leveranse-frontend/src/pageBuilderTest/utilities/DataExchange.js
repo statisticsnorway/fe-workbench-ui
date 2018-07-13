@@ -1,11 +1,12 @@
 import axios from 'axios'
+import { enums } from './Enums'
 
 export const getDomainStructure = (domain) => {
   return new Promise((resolve, reject) => {
     let url
     let result
 
-    url = process.env.REACT_APP_BACKENDHOST + domain + '?schema'
+    url = process.env.REACT_APP_BACKENDHOST + domain + enums.URL_AFFIX.SCHEMA
 
     axios.get(url, {
       headers: {
@@ -17,7 +18,7 @@ export const getDomainStructure = (domain) => {
       } else {
         result = {
           color: 'orange',
-          header: 'Kan ikke hente \'' + domain + '\' informasjon fra server',
+          header: enums.CONTENT.CANNOT_FETCH + ' \'' + domain + '\' ' + enums.CONTENT.INFORMATION_FROM_SERVER,
           text: response.statusText + ' (' + url + ')',
           icon: 'error'
         }
@@ -31,7 +32,7 @@ export const getDomainStructure = (domain) => {
 
       result = {
         color: 'red',
-        header: 'Kan ikke hente \'' + domain + '\' informasjon fra server',
+        header: enums.CONTENT.CANNOT_FETCH + ' \'' + domain + '\' ' + enums.CONTENT.INFORMATION_FROM_SERVER,
         text: error.message + ' (' + url + ')',
         icon: 'warning'
       }
@@ -58,21 +59,21 @@ export const sendDomainData = (path, text, data) => {
       if (response.status === 201) {
         newState = {
           color: 'green',
-          header: text + ' ble lagret',
+          header: text + ' ' + enums.CONTENT.WAS_SAVED,
           text: response.statusText,
           icon: 'check'
         }
       } else if (response.status === 200) {
         newState = {
           color: 'green',
-          header: text + ' ble oppdatert',
+          header: text + ' ' + enums.CONTENT.WAS_UPDATED,
           text: response.statusText,
           icon: 'check'
         }
       } else {
         newState = {
           color: 'orange',
-          header: text + ' ble ikke lagret',
+          header: text + ' ' + enums.CONTENT.WAS_NOT_SAVED,
           text: response.statusText + ' (' + url + ')',
           icon: 'warning'
         }
@@ -84,7 +85,7 @@ export const sendDomainData = (path, text, data) => {
 
       newState = {
         color: 'red',
-        header: text + ' ble ikke lagret',
+        header: text + ' ' + enums.CONTENT.WAS_NOT_SAVED,
         text: error.message + ' (' + url + ')',
         icon: 'warning'
       }

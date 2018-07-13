@@ -4,6 +4,7 @@ import { Checkbox, Container, Dropdown, Form, Input, Message } from 'semantic-ui
 import * as moment from 'moment'
 import 'moment/min/locales'
 import 'react-datepicker/dist/react-datepicker.css'
+import { enums } from './Enums'
 
 moment.locale('nb')
 
@@ -14,7 +15,7 @@ const InlineError = ({text}) => (
 export const editModeCheckbox = (readOnlyMode, action) => {
   return (
     <Container textAlign='right'>
-      <Checkbox toggle checked={!readOnlyMode} onClick={action} icon='edit' label='Redigeringsmodus' />
+      <Checkbox toggle checked={!readOnlyMode} onClick={action} icon='edit' label={enums.CONTENT.EDIT_MODE} />
     </Container>
   )
 }
@@ -22,7 +23,7 @@ export const editModeCheckbox = (readOnlyMode, action) => {
 export const errorMessages = (errors, name) => {
   return (
     errors !== undefined && Object.keys(errors).length !== 0 && !Object.values(errors).every(i => (i === '')) ?
-      <Message icon='warning' header={name + ' ble ikke lagret'} content={'Rett opp feilene og prøv igjen'}
+      <Message icon='warning' header={name + ' ' + enums.CONTENT.WAS_NOT_SAVED} content={enums.CONTENT.CORRECT_ERRORS}
                color='yellow' /> : null
   )
 }
@@ -105,7 +106,7 @@ export const formFieldSearchModal = (info, action, value) => {
       <label>{info.itemInNorwegian}</label>
       {/*TODO Create the search modal*/}
       <Input name={info.item} placeholder={info.itemInNorwegian} readOnly={true} onChange={action} value={value}
-             action={{color: 'teal', labelPosition: 'right', icon: 'search', content: 'Søk og velg'}} />
+             action={{color: 'teal', labelPosition: 'right', icon: 'search', content: enums.CONTENT.SEARCH}} />
     </Form.Field>
   )
 }
