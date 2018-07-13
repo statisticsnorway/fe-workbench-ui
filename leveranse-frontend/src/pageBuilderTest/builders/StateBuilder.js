@@ -23,12 +23,12 @@ export const buildNewState = (name, formConfig, user, object) => {
   component['lastUpdatedDate'] = null
   component['validFrom'] = null
   component['validUntil'] = null
-  component['version'] = '1.0'
+  component['version'] = '0.9'
   component['versionRationale'] = [{
     languageCode: 'nb',
     languageText: ''
   }]
-  component['versionValidFrom'] = moment()
+  component['versionValidFrom'] = null
 
   Object.entries(form).forEach(([key, value]) => {
     if (typeof formConfig[key] !== 'undefined') {

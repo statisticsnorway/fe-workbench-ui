@@ -17,6 +17,10 @@ import { translateToNorwegian } from '../utilities/Translation'
 import { getDomainStructure, sendDomainData } from '../utilities/DataExchange'
 import { buildNewState } from './StateBuilder'
 import { lowerCaseFirst } from '../utilities/Helpers'
+import * as moment from 'moment'
+import 'moment/min/locales'
+
+moment.locale('nb')
 
 class FormBuilder extends React.Component {
   constructor (props) {
@@ -112,6 +116,10 @@ class FormBuilder extends React.Component {
     })
   }
 
+  setVersion () {
+    return (Number.parseFloat(this.state[this.objectNameLowerCase].version) + 0.1).toFixed(1)
+  }
+
   validateInputData = () => {
     const errors = {}
 
@@ -145,25 +153,53 @@ class FormBuilder extends React.Component {
   saveToBackend = () => {
     //TODO: Set autofilled states before validating and sending to backend
 
-    if (this.validationOk()) {
-      this.setState({
-        readOnlyMode: true,
-        errors: {},
-        waitingForResponse: true
-      })
+    this.setState({
+      [this.objectNameLowerCase]: {
+        ...this.state[this.objectNameLowerCase],
+        administrativeDetails: [{
+          administrativeDetailType: '',
+          values: []
+        }],
+        administrativeStatus: '',
+        lastUpdatedBy: this.user,
+        lastUpdatedDate: moment(),
+        validFrom: moment(),
+        validUntil: moment().add(1, 'years'),
+        versionRationale: [{
+          languageCode: 'nb',
+          languageText: ''
+        }],
+        versionValidFrom: moment()
+      }
+    }, () => {
+      if (this.validationOk()) {
+        let updatedVersion = this.setVersion()
 
-      let name = this.objectName
-      let nameLowerCase = this.state[this.objectNameLowerCase]
-      let nameDefinitive = this.objectNameDefinitive
-      let id = this.state[this.objectNameLowerCase].id
-
-      sendDomainData(name + '/' + id, nameDefinitive, nameLowerCase).then((result) => {
         this.setState({
-          response: result,
-          waitingForResponse: false
+          [this.objectNameLowerCase]: {
+            ...this.state[this.objectNameLowerCase],
+            version: updatedVersion
+          },
+          readOnlyMode: true,
+          errors: {},
+          waitingForResponse: true
+        }, () => {
+          console.log(this.state[this.objectNameLowerCase].version)
+
+          let name = this.objectName
+          let data = this.state[this.objectNameLowerCase]
+          let nameDefinitive = this.objectNameDefinitive
+          let id = this.state[this.objectNameLowerCase].id
+
+          sendDomainData(name + '/' + id, nameDefinitive, data).then((result) => {
+            this.setState({
+              response: result,
+              waitingForResponse: false
+            })
+          })
         })
-      })
-    }
+      }
+    })
   }
 
   handleButtonClick = () => {
