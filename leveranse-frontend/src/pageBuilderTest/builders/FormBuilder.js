@@ -316,6 +316,8 @@ class FormBuilder extends React.Component {
                   default:
                 }
               }
+
+              return null
             })}
 
             {typeof form !== 'undefined' ?
@@ -359,6 +361,8 @@ class FormBuilder extends React.Component {
                   </List.Item>
                 )
               }
+
+              return null
             })}
             </List>
           </Grid.Column>
