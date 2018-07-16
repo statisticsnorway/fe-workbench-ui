@@ -7,7 +7,8 @@ import {
   formFieldBoolean,
   formFieldDate,
   formFieldDropdownMultiple,
-  formFieldDropdownSingle, formFieldNumber,
+  formFieldDropdownSingle,
+  formFieldNumber,
   formFieldSearchModal,
   formFieldText,
   formFieldTextArea,
@@ -322,7 +323,8 @@ class FormBuilder extends React.Component {
 
             {typeof form !== 'undefined' ?
               <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
-                      content={enums.CONTENT.SAVE + ' ' + this.objectNameNorwegianLowerCase} onClick={this.saveToBackend} />
+                      content={enums.CONTENT.SAVE + ' ' + this.objectNameNorwegianLowerCase}
+                      onClick={this.saveToBackend} />
               : null}
 
             <Button onClick={this.handleButtonClick} content={'Test'} />
@@ -330,40 +332,40 @@ class FormBuilder extends React.Component {
           <Grid.Column width={6}>
             <Header as='h3' content={enums.CONTENT.DETAILS} />
             <List relaxed>
-            {typeof form !== 'undefined' && Object.keys(this.formConfig).map((item, index) => {
-              if (this.formConfig[item].type === enums.TYPE.AUTOFILLED) {
-                let content
+              {typeof form !== 'undefined' && Object.keys(this.formConfig).map((item, index) => {
+                if (this.formConfig[item].type === enums.TYPE.AUTOFILLED) {
+                  let content
 
-                if (form[item].type === enums.TYPE.ARRAY && form[item].hasOwnProperty(enums.PROPERTY.ITEMS) &&
-                  form[item].items.hasOwnProperty(enums.PROPERTY.REF) &&
-                  form[item].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
+                  if (form[item].type === enums.TYPE.ARRAY && form[item].hasOwnProperty(enums.PROPERTY.ITEMS) &&
+                    form[item].items.hasOwnProperty(enums.PROPERTY.REF) &&
+                    form[item].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
                     content = this.state[this.objectNameLowerCase][item][0].languageText
-                }
-
-                if (form[item].type === enums.TYPE.STRING) {
-                  if (form[item].hasOwnProperty(enums.PROPERTY.FORMAT) && form[item].format === enums.TYPE.DATE) {
-                    let date = moment(this.state[this.objectNameLowerCase][item])
-
-                    if (date.isValid()) {
-                      content = date.format('LLL')
-                    } else {
-                      content = ''
-                    }
-                  } else {
-                    content = this.state[this.objectNameLowerCase][item]
                   }
+
+                  if (form[item].type === enums.TYPE.STRING) {
+                    if (form[item].hasOwnProperty(enums.PROPERTY.FORMAT) && form[item].format === enums.TYPE.DATE) {
+                      let date = moment(this.state[this.objectNameLowerCase][item])
+
+                      if (date.isValid()) {
+                        content = date.format('LLL')
+                      } else {
+                        content = ''
+                      }
+                    } else {
+                      content = this.state[this.objectNameLowerCase][item]
+                    }
+                  }
+
+                  return (
+                    <List.Item key={index}>
+                      <List.Header>{translateToNorwegian[item]}</List.Header>
+                      {content}
+                    </List.Item>
+                  )
                 }
 
-                return (
-                  <List.Item key={index}>
-                    <List.Header>{translateToNorwegian[item]}</List.Header>
-                    {content}
-                  </List.Item>
-                )
-              }
-
-              return null
-            })}
+                return null
+              })}
             </List>
           </Grid.Column>
         </Grid>

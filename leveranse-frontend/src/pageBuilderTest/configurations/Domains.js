@@ -1,15 +1,18 @@
 import {
-  tempAgentInRolesOptions, tempAgentOptions,
+  tempAgentInRolesOptions,
+  tempAgentOptions,
   tempAttributeComponentOptions,
   tempExchangeChannelOptions,
   tempIdentifierComponentOptions,
   tempMeasureComponentOptions,
   tempPopulationOptions,
   tempProtocolOptions,
-  tempRepresentedVariableOptions, tempRoleOptions,
+  tempRepresentedVariableOptions,
+  tempRoleOptions,
   tempSentinelValueDomainOptions,
   tempSubstantiveValueDomainOptions,
-  tempUnitTypeOptions, tempValueDomainOptions,
+  tempUnitTypeOptions,
+  tempValueDomainOptions,
   tempVariableOptions
 } from '../utilities/FormData'
 import { enums } from '../utilities/Enums'
@@ -154,9 +157,9 @@ export const formConfigurations = {
   sentinelValueDomain: {
     ...valueDomain,
     valueDomain: {
-     type: enums.TYPE.DROPDOWN_SINGLE,
-     renderOrder: 4,
-     values: tempValueDomainOptions
+      type: enums.TYPE.DROPDOWN_SINGLE,
+      renderOrder: 4,
+      values: tempValueDomainOptions
     }
   },
   enumeratedValueDomain: {
