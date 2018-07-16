@@ -1,6 +1,6 @@
 import React from 'react'
 import DatePicker from 'react-datepicker'
-import { Checkbox, Container, Dropdown, Form, Icon, Input, Message } from 'semantic-ui-react'
+import { Checkbox, Container, Dropdown, Form, Icon, Input, Message, TextArea } from 'semantic-ui-react'
 import * as moment from 'moment'
 import 'moment/min/locales'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -46,8 +46,9 @@ export const responseMessage = (response) => {
 export const formFieldTextArea = (info, action, value) => {
   return (
     <Form.Field key={info.index} error={!!info.errors[info.item]}>
-      <Form.TextArea autoHeight name={info.item} label={info.itemInNorwegian} placeholder={info.itemInNorwegian}
-                     readOnly={info.readOnlyMode} onChange={action} value={value} />
+      <label>{info.itemInNorwegian}</label>
+      <TextArea autoHeight name={info.item} placeholder={info.itemInNorwegian} readOnly={info.readOnlyMode}
+                onChange={action} value={value} />
       {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
     </Form.Field>
   )
@@ -124,6 +125,7 @@ export const formFieldSearchModal = (info, action, value) => {
       {/*TODO Create the search modal*/}
       <Input name={info.item} placeholder={info.itemInNorwegian} readOnly={true} onChange={action} value={value}
              action={{color: 'teal', labelPosition: 'right', icon: 'search', content: enums.CONTENT.SEARCH}} />
+      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
     </Form.Field>
   )
 }

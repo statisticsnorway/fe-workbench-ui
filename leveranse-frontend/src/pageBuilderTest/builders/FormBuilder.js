@@ -155,6 +155,8 @@ class FormBuilder extends React.Component {
         if (!this.state[this.objectNameLowerCase][element]) {
           if (formConfigType === enums.TYPE.DROPDOWN_SINGLE || formConfigType === enums.TYPE.DROPDOWN_MULTIPLE) {
             errors[element] = enums.CONTENT.DROPDOWN_EMPTY
+          } else if (formConfigType === enums.TYPE.SEARCH) {
+            errors[element] = enums.CONTENT.SEARCH_EMPTY
           } else {
             errors[element] = enums.CONTENT.FIELD_EMPTY
           }

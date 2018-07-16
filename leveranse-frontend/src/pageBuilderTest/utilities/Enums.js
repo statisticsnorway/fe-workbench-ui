@@ -13,6 +13,7 @@ export const enums = {
     NOT_A_NUMBER: 'Verdien er ikke et gyldig tall',
     SAVE: 'Lagre',
     SEARCH: 'Søk',
+    SEARCH_EMPTY: 'Feltet kan ikke være blankt',
     FIELD_EMPTY: 'Tekstfeltet kan ikke være blankt',
     WAS_NOT_SAVED: 'ble ikke lagret',
     WAS_SAVED: 'ble lagret',
