@@ -48,14 +48,6 @@ class LoginPage extends React.Component {
             <Header as='h2' color='blue' textAlign='center'>
               Innlogging
             </Header>
-            {alert.type === 'alert-success' && alert.message &&
-            <Message positive onDismiss={this.handleDismiss}><Message.Header>{alert.message}</Message.Header>
-            </Message>
-            }
-            {alert.type === 'alert-danger' && alert.message &&
-            <Message negative onDismiss={this.handleDismiss}><Message.Header>{alert.message}</Message.Header>
-            </Message>
-            }
             <Form name="form" onSubmit={this.handleSubmit} loading={loading} size='large'>
               <Form.Field error={submitted && !username}>
                 <Form.Input

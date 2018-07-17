@@ -1,6 +1,6 @@
 import React from 'react'
 import {LoginPage} from '../pages/loginPage/LoginPage'
-import {mount} from 'enzyme'
+import {mount, shallow} from 'enzyme'
 import configureStore from 'redux-mock-store'
 
 describe('verify login page', () => {
@@ -13,19 +13,16 @@ describe('verify login page', () => {
   })
 
   it('render the connected(LoginPage) component', () => {
-    container = mount(<LoginPage store={store}/>)
+    container = shallow(<LoginPage store={store}/>)
     expect(container.length).toEqual(1)
   });
 
   it('check login button is clickable', () => {
-    let props;
-    props = {
-      alert: {
-        type: ''
-      }
-    };
+    let alert = {
+      type: ''
+    }
     const mockOnClick = jest.fn();
-    container = mount(<LoginPage store={store} alert={{type: ''}}/>)
+    container = mount(<LoginPage store={store} alert={alert}/>)
     const loginButton = container.find('button');
     loginButton.simulate('click')
   })
