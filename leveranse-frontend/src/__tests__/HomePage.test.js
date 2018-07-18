@@ -14,7 +14,7 @@ describe('verify Home page', () => {
   })
 
   it('render HomePage component', () => {
-    container = shallow(<HomePage store={store} user={initialState} authenticatiuo/>)
+    container = shallow(<HomePage store={store} user={initialState} />)
     expect(container.length).toEqual(1)
   });
 })
