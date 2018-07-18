@@ -18,11 +18,8 @@ describe('verify login page', () => {
   });
 
   it('check login button is clickable', () => {
-    let alert = {
-      type: ''
-    }
     const mockOnClick = jest.fn();
-    container = mount(<LoginPage store={store} alert={alert}/>)
+    container = mount(<LoginPage store={store} />)
     const loginButton = container.find('button');
     loginButton.simulate('click')
   })
