@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test component using snapshot 1`] = `
+<div
+  className="ui container"
+>
+  <div
+    className="ui centered one column grid"
+  >
+    <div
+      className="top aligned row"
+    >
+      <div
+        className="column"
+      >
+        <div
+          className="ui container"
+        />
+      </div>
+    </div>
+    <div
+      className="top aligned row"
+    >
+      <div
+        className="column"
+      >
+        <div
+          className="ui container"
+        >
+          <img
+            className="ui large centered image"
+            src="ssb_logo.png"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="ui massive secondary center aligned segment"
+  >
+    Velkommen til Arbeidsbenk
+  </div>
+  <div
+    className="ui container"
+    style={
+      Object {
+        "textAlign": "center",
+      }
+    }
+  >
+    <button
+      className="ui huge primary button"
+      disabled={undefined}
+      onClick={[Function]}
+      role="button"
+      tabIndex={undefined}
+    >
+      Login
+    </button>
+  </div>
+</div>
+`;

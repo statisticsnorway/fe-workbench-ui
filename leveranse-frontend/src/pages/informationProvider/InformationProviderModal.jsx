@@ -18,10 +18,9 @@ class InformationProviderModal extends React.Component {
   }
 
   componentDidMount() {
-    let informationSourceId = "79945ada-de3e-4742-82c0-98d908beec7b"
-    getDataFromBackend('InformationProvider/', informationSourceId, this.state.informationProviderList).then((result) => {
+    getDataFromBackend('InformationProvider/', this.state.informationProviderList).then((result) => {
       this.setState(prevState => ({
-        informationProviderList: [...prevState.informationProviderList, result.informationProviderList],
+        informationProviderList: [...prevState.informationProviderList, result.data],
         waitingForResponse: false
       }))
     })
@@ -40,7 +39,9 @@ class InformationProviderModal extends React.Component {
 
     const regex = new RegExp('^' + escapedValue, 'i');
 
-    return this.state.informationProviderList.filter(provider => regex.test(provider.description[0].languageText));
+    return this.state.informationProviderList.filter(
+      provider =>
+        regex.test(provider[0].description[0].languageText));
   }
 
   getSuggestionValue(suggestion) {
@@ -51,12 +52,12 @@ class InformationProviderModal extends React.Component {
     this.setState({
       infoProviderModalOpen: false
     })
-    return suggestion.name[0].languageText;
+    return suggestion[0].name[0].languageText;
   }
 
   renderSuggestion(suggestion) {
     return (
-      <span>{suggestion.name[0].languageText}----{suggestion.description[0].languageText}</span>
+      <span>{suggestion[0].name[0].languageText}----{suggestion[0].description[0].languageText}</span>
     );
   }
 
