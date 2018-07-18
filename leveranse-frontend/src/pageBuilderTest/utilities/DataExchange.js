@@ -96,3 +96,41 @@ export const sendDomainData = (path, text, data) => {
     })
   })
 }
+
+export const getDataFromKlass = (url, type) => {
+  return new Promise((resolve, reject) => {
+    let result
+
+    axios.get(url, {
+      headers: {
+        'Content-Type': type
+      }
+    }).then((response) => {
+      if (response.status === 200) {
+        resolve(response.data)
+      } else {
+        result = {
+          color: 'orange',
+          header: enums.CONTENT.CANNOT_FETCH + ' ' + enums.CONTENT.INFORMATION_FROM_KLASS,
+          text: response.statusText + ' (' + url + ')',
+          icon: 'error'
+        }
+
+        reject(result)
+      }
+    }).catch((error) => {
+      if (error.response) {
+        console.log(error.response.data)
+      }
+
+      result = {
+        color: 'red',
+        header: enums.CONTENT.CANNOT_FETCH + ' ' + enums.CONTENT.INFORMATION_FROM_KLASS,
+        text: error.message + ' (' + url + ')',
+        icon: 'warning'
+      }
+
+      reject(result)
+    })
+  })
+}

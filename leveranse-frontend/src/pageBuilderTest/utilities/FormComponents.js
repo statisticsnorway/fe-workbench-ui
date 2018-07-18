@@ -8,7 +8,7 @@ import { enums } from './Enums'
 
 moment.locale('nb')
 
-const InlineError = ({text}) => (
+export const InlineError = ({text}) => (
   <span style={{color: '#db2828'}}>{text}</span>
 )
 
@@ -43,11 +43,11 @@ export const responseMessage = (response) => {
   )
 }
 
-export const formFieldTextArea = (info, action, value) => {
+export const formFieldTextArea = (info, action, value, readOnlyMode) => {
   return (
     <Form.Field key={info.index} error={!!info.errors[info.item]}>
       <label>{info.itemInNorwegian}</label>
-      <TextArea autoHeight name={info.item} placeholder={info.itemInNorwegian} readOnly={info.readOnlyMode}
+      <TextArea autoHeight name={info.item} placeholder={info.itemInNorwegian} readOnly={readOnlyMode}
                 onChange={action} value={value} />
       {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
     </Form.Field>

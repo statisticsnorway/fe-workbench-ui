@@ -165,7 +165,7 @@ export const formConfigurations = {
   enumeratedValueDomain: {
     ...valueDomain,
     klassUrl: {
-      type: enums.TYPE.TEXT,
+      type: enums.TYPE.KLASS_URL,
       renderOrder: 4
     }
   },

@@ -13,8 +13,8 @@ export const buildNewState = (name, formConfig, user, object) => {
   let sortedForm = {}
 
   component[enums.PROPERTY.ADMINISTRATIVE_DETAILS] = [{
-    administrativeDetailType: '',
-    values: []
+    [enums.PROPERTY.ADMINISTRATIVE_DETAIL_TYPE]: '',
+    [enums.PROPERTY.VALUES]: []
   }]
   component[enums.PROPERTY.ADMINISTRATIVE_STATUS] = ''
   component[enums.PROPERTY.CREATED_BY] = user
@@ -26,8 +26,8 @@ export const buildNewState = (name, formConfig, user, object) => {
   component[enums.PROPERTY.VALID_UNTIL] = null
   component[enums.PROPERTY.VERSION] = '0.9'
   component[enums.PROPERTY.VERSION_RATIONALE] = [{
-    languageCode: enums.LANGUAGE_CODE.NORWEGIAN,
-    languageText: ''
+    [enums.PROPERTY.LANGUAGE_CODE]: enums.LANGUAGE_CODE.NORWEGIAN,
+    [enums.PROPERTY.LANGUAGE_TEXT]: ''
   }]
   component[enums.PROPERTY.VERSION_VALID_FROM] = null
 
@@ -47,8 +47,8 @@ export const buildNewState = (name, formConfig, user, object) => {
             if (value.items.hasOwnProperty(enums.PROPERTY.REF)) {
               if (value.items[enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
                 component[key] = [{
-                  languageCode: enums.LANGUAGE_CODE.NORWEGIAN,
-                  languageText: ''
+                  [enums.PROPERTY.LANGUAGE_CODE]: enums.LANGUAGE_CODE.NORWEGIAN,
+                  [enums.PROPERTY.LANGUAGE_TEXT]: ''
                 }]
               }
             } else {

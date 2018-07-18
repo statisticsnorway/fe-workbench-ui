@@ -21,6 +21,7 @@ import { isNumericOrEmptyString, lowerCaseFirst } from '../utilities/Helpers'
 import { enums } from '../utilities/Enums'
 import * as moment from 'moment'
 import 'moment/min/locales'
+import FormFieldKlassUrl from '../components/FormFieldKlassUrl'
 
 moment.locale(enums.LANGUAGE_CODE.NORWEGIAN)
 
@@ -76,8 +77,8 @@ class FormBuilder extends React.Component {
       [this.objectNameLowerCase]: {
         ...this.state[this.objectNameLowerCase],
         [event.target.name]: [{
-          languageCode: enums.LANGUAGE_CODE.NORWEGIAN,
-          languageText: event.target.value
+          [enums.PROPERTY.LANGUAGE_CODE]: enums.LANGUAGE_CODE.NORWEGIAN,
+          [enums.PROPERTY.LANGUAGE_TEXT]: event.target.value
         }]
       }
     })
@@ -131,8 +132,29 @@ class FormBuilder extends React.Component {
     })
   }
 
+  handleKlassUrlChange = (value) => {
+    let url = value.url
+    let description = value.description
+
+    this.setState({
+      errors: {
+        ...this.state.errors,
+        [enums.TYPE.KLASS_URL]: '',
+        [enums.PROPERTY.DESCRIPTION]: ''
+      },
+      [this.objectNameLowerCase]: {
+        ...this.state[this.objectNameLowerCase],
+        [enums.TYPE.KLASS_URL]: url,
+        [enums.PROPERTY.DESCRIPTION]: [{
+          [enums.PROPERTY.LANGUAGE_CODE]: enums.LANGUAGE_CODE.NORWEGIAN,
+          [enums.PROPERTY.LANGUAGE_TEXT]: description
+        }]
+      }
+    })
+  }
+
   setVersion () {
-    return (Number.parseFloat(this.state[this.objectNameLowerCase].version) + 0.1).toFixed(1)
+    return (Number.parseFloat(this.state[this.objectNameLowerCase][enums.PROPERTY.VERSION]) + 0.1).toFixed(1)
   }
 
   validateInputData = () => {
@@ -142,9 +164,9 @@ class FormBuilder extends React.Component {
       let type = this.state.form[element].type
       let formConfigType = this.formConfig[element].type
 
-      if (type === enums.TYPE.ARRAY && this.state.form[element].items.hasOwnProperty(enums.PROPERTY.REF) &&
-        this.state.form[element].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
-        if (!this.state[this.objectNameLowerCase][element][0].languageText) {
+      if (type === enums.TYPE.ARRAY && this.state.form[element][enums.PROPERTY.ITEMS].hasOwnProperty(enums.PROPERTY.REF) &&
+        this.state.form[element][enums.PROPERTY.ITEMS][enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
+        if (!this.state[this.objectNameLowerCase][element][0][enums.PROPERTY.LANGUAGE_TEXT]) {
           if (formConfigType === enums.TYPE.DROPDOWN_SINGLE || formConfigType === enums.TYPE.DROPDOWN_MULTIPLE) {
             errors[element] = enums.CONTENT.DROPDOWN_EMPTY
           } else {
@@ -153,12 +175,25 @@ class FormBuilder extends React.Component {
         }
       } else {
         if (!this.state[this.objectNameLowerCase][element]) {
-          if (formConfigType === enums.TYPE.DROPDOWN_SINGLE || formConfigType === enums.TYPE.DROPDOWN_MULTIPLE) {
-            errors[element] = enums.CONTENT.DROPDOWN_EMPTY
-          } else if (formConfigType === enums.TYPE.SEARCH) {
-            errors[element] = enums.CONTENT.SEARCH_EMPTY
-          } else {
-            errors[element] = enums.CONTENT.FIELD_EMPTY
+          switch(formConfigType) {
+            case enums.TYPE.DROPDOWN_SINGLE:
+              errors[element] = enums.CONTENT.DROPDOWN_EMPTY
+              break
+
+            case enums.TYPE.DROPDOWN_MULTIPLE:
+              errors[element] = enums.CONTENT.DROPDOWN_EMPTY
+              break
+
+            case enums.TYPE.SEARCH:
+              errors[element] = enums.CONTENT.SEARCH_EMPTY
+              break
+
+            case enums.TYPE.KLASS_URL:
+              errors[element] = enums.CONTENT.KLASS_URL_EMPTY
+              break
+
+            default:
+              errors[element] = enums.CONTENT.FIELD_EMPTY
           }
         }
       }
@@ -167,16 +202,32 @@ class FormBuilder extends React.Component {
     Object.keys(this.state[this.objectNameLowerCase]).forEach((key) => {
       let type = this.formConfig[key].type
 
-      if (type === enums.TYPE.DATE) {
-        if (!this.state[this.objectNameLowerCase][key]) {
-          errors[key] = enums.CONTENT.DATE_EMPTY
-        }
-      }
+      switch (type) {
+        case enums.TYPE.DATE:
+          if (!this.state[this.objectNameLowerCase][key]) {
+            errors[key] = enums.CONTENT.DATE_EMPTY
+          }
+          break
 
-      if (type === enums.TYPE.NUMBER) {
-        if (!isNumericOrEmptyString(this.state[this.objectNameLowerCase][key])) {
-          errors[key] = enums.CONTENT.NOT_A_NUMBER
-        }
+        case enums.TYPE.NUMBER:
+          if (!isNumericOrEmptyString(this.state[this.objectNameLowerCase][key])) {
+            errors[key] = enums.CONTENT.NOT_A_NUMBER
+          }
+          break
+
+        case enums.TYPE.KLASS_URL:
+          let url = this.state[this.objectNameLowerCase][key]
+          let description = this.state[this.objectNameLowerCase][enums.PROPERTY.DESCRIPTION][0][enums.PROPERTY.LANGUAGE_TEXT]
+
+          if (url.endsWith('selectCodes=')) {
+            errors[key] = enums.CONTENT.KLASS_INVALID.CODES
+          }
+          if (description.endsWith('/')) {
+            errors[enums.PROPERTY.DESCRIPTION] = enums.CONTENT.KLASS_INVALID.DESCRIPTION
+          }
+          break
+
+        default:
       }
     })
 
@@ -193,24 +244,24 @@ class FormBuilder extends React.Component {
     return Object.keys(errors).length === 0
   }
 
-  saveToBackend = () => {
+  inititateSave = () => {
     this.setState({
       [this.objectNameLowerCase]: {
         ...this.state[this.objectNameLowerCase],
-        administrativeDetails: [{
-          administrativeDetailType: '',
-          values: []
+        [enums.PROPERTY.ADMINISTRATIVE_DETAILS]: [{
+          [enums.PROPERTY.ADMINISTRATIVE_DETAIL_TYPE]: '',
+          [enums.PROPERTY.VALUES]: []
         }],
-        administrativeStatus: '',
-        lastUpdatedBy: this.user,
-        lastUpdatedDate: moment(),
-        validFrom: moment(),
-        validUntil: moment().add(1, 'years'),
-        versionRationale: [{
-          languageCode: enums.LANGUAGE_CODE.NORWEGIAN,
-          languageText: ''
+        [enums.PROPERTY.ADMINISTRATIVE_STATUS]: '',
+        [enums.PROPERTY.LAST_UPDATED_BY]: this.user,
+        [enums.PROPERTY.LAST_UPDATED_DATE]: moment(),
+        [enums.PROPERTY.VALID_FROM]: moment(),
+        [enums.PROPERTY.VALID_UNTIL]: moment().add(1, 'years'),
+        [enums.PROPERTY.VERSION_RATIONALE]: [{
+          [enums.PROPERTY.LANGUAGE_CODE]: enums.LANGUAGE_CODE.NORWEGIAN,
+          [enums.PROPERTY.LANGUAGE_TEXT]: ''
         }],
-        versionValidFrom: moment()
+        [enums.PROPERTY.VERSION_VALID_FROM]: moment()
       }
     }, () => {
       if (this.validationOk()) {
@@ -219,7 +270,7 @@ class FormBuilder extends React.Component {
         this.setState({
           [this.objectNameLowerCase]: {
             ...this.state[this.objectNameLowerCase],
-            version: updatedVersion
+            [enums.PROPERTY.VERSION]: updatedVersion
           },
           readOnlyMode: true,
           errors: {},
@@ -228,7 +279,7 @@ class FormBuilder extends React.Component {
           let name = this.objectName
           let data = this.state[this.objectNameLowerCase]
           let nameDefinitive = this.objectNameDefinitive
-          let id = this.state[this.objectNameLowerCase].id
+          let id = this.state[this.objectNameLowerCase][enums.PROPERTY.ID]
 
           sendDomainData(name + '/' + id, nameDefinitive, data).then((result) => {
             this.setState({
@@ -276,9 +327,9 @@ class FormBuilder extends React.Component {
                 switch (type) {
                   case enums.TYPE.TEXT:
                     if (form[item].hasOwnProperty(enums.PROPERTY.ITEMS) &&
-                      form[item].items.hasOwnProperty(enums.PROPERTY.REF) &&
-                      form[item].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
-                      deepValue = this.state[this.objectNameLowerCase][item][0].languageText
+                      form[item][enums.PROPERTY.ITEMS].hasOwnProperty(enums.PROPERTY.REF) &&
+                      form[item][enums.PROPERTY.ITEMS][enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
+                      deepValue = this.state[this.objectNameLowerCase][item][0][enums.PROPERTY.LANGUAGE_TEXT]
 
                       return formFieldText(info, this.handleInputChangeDeep, deepValue)
                     } else {
@@ -287,13 +338,17 @@ class FormBuilder extends React.Component {
 
                   case enums.TYPE.TEXT_AREA:
                     if (form[item].hasOwnProperty(enums.PROPERTY.ITEMS) &&
-                      form[item].items.hasOwnProperty(enums.PROPERTY.REF) &&
-                      form[item].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
-                      deepValue = this.state[this.objectNameLowerCase][item][0].languageText
+                      form[item][enums.PROPERTY.ITEMS].hasOwnProperty(enums.PROPERTY.REF) &&
+                      form[item][enums.PROPERTY.ITEMS][enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
+                      deepValue = this.state[this.objectNameLowerCase][item][0][enums.PROPERTY.LANGUAGE_TEXT]
 
-                      return formFieldTextArea(info, this.handleInputChangeDeep, deepValue)
+                      if (this.state[this.objectNameLowerCase].hasOwnProperty(enums.TYPE.KLASS_URL)) {
+                        return formFieldTextArea(info, this.handleInputChangeDeep, deepValue, true)
+                      } else {
+                        return formFieldTextArea(info, this.handleInputChangeDeep, deepValue, info.readOnlyMode)
+                      }
                     } else {
-                      return formFieldTextArea(info, this.handleInputChange, value)
+                      return formFieldTextArea(info, this.handleInputChange, value, info.readOnlyMode)
                     }
 
                   case enums.TYPE.DROPDOWN_SINGLE:
@@ -314,6 +369,9 @@ class FormBuilder extends React.Component {
                   case enums.TYPE.NUMBER:
                     return formFieldNumber(info, this.handleNumberChange, value)
 
+                  case enums.TYPE.KLASS_URL:
+                    return <FormFieldKlassUrl key={info.item} info={info} onUpdate={this.handleKlassUrlChange} />
+
                   //TODO: Add more form components
 
                   default:
@@ -322,26 +380,18 @@ class FormBuilder extends React.Component {
 
               return null
             })}
-
-            {typeof form !== 'undefined' ?
-              <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
-                      content={enums.CONTENT.SAVE + ' ' + this.objectNameNorwegianLowerCase}
-                      onClick={this.saveToBackend} />
-              : null}
-
-            <Button onClick={this.handleButtonClick} content={'Test'} />
           </Grid.Column>
           <Grid.Column width={6}>
             <Header as='h3' content={enums.CONTENT.DETAILS} />
-            <List relaxed>
+            <List relaxed='very'>
               {typeof form !== 'undefined' && Object.keys(this.formConfig).map((item, index) => {
                 if (this.formConfig[item].type === enums.TYPE.AUTOFILLED) {
                   let content
 
                   if (form[item].type === enums.TYPE.ARRAY && form[item].hasOwnProperty(enums.PROPERTY.ITEMS) &&
-                    form[item].items.hasOwnProperty(enums.PROPERTY.REF) &&
-                    form[item].items.$ref === enums.REFERENCE.MULTILINGUAL_TEXT) {
-                    content = this.state[this.objectNameLowerCase][item][0].languageText
+                    form[item][enums.PROPERTY.ITEMS].hasOwnProperty(enums.PROPERTY.REF) &&
+                    form[item][enums.PROPERTY.ITEMS][enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
+                    content = this.state[this.objectNameLowerCase][item][0][enums.PROPERTY.LANGUAGE_TEXT]
                   }
 
                   if (form[item].type === enums.TYPE.STRING) {
@@ -369,6 +419,17 @@ class FormBuilder extends React.Component {
                 return null
               })}
             </List>
+          </Grid.Column>
+        </Grid>
+        <Grid>
+          <Grid.Column>
+            {typeof form !== 'undefined' ?
+              <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
+                      content={enums.CONTENT.SAVE + ' ' + this.objectNameNorwegianLowerCase}
+                      onClick={this.inititateSave} />
+              : null}
+
+            <Button onClick={this.handleButtonClick} content={'Test'} />
           </Grid.Column>
         </Grid>
       </Form>
