@@ -10,7 +10,9 @@ export const enums = {
     DETAILS: 'Detaljer',
     DROPDOWN_EMPTY: 'Minst et valg må velges fra nedtrekksmenyen',
     EDIT_MODE: 'Redigeringsmodus',
+    FIELD_EMPTY: 'Tekstfeltet kan ikke være blankt',
     FILTER_TABLE_DATA: 'Filtrerer tabellen etter navn',
+    FOUND_NOTHING: 'Fant ingen',
     GENERATE_KLASS_URL: 'Generer Klass url',
     INFORMATION_FROM_KLASS: 'informasjon fra Klass',
     INFORMATION_FROM_SERVER: 'informasjon fra server',
@@ -24,12 +26,20 @@ export const enums = {
     SAVE: 'Lagre',
     SEARCH: 'Søk',
     SEARCH_EMPTY: 'Feltet kan ikke være blankt',
-    FIELD_EMPTY: 'Tekstfeltet kan ikke være blankt',
+    TABLE: {
+      LOADING: 'Laster...',
+      NEXT: 'Neste',
+      OF: 'av',
+      PAGE: 'Side',
+      PREVIOUS: 'Forrige',
+      ROWS: 'rader',
+    },
     USE_COMPLETE_LIST: 'Bruk fullstendig liste',
     USE_LATEST_LIST: 'Bruk alltid nyeste utgave av liste',
     WAS_NOT_SAVED: 'ble ikke lagret',
     WAS_SAVED: 'ble lagret',
-    WAS_UPDATED: 'ble oppdatert'
+    WAS_UPDATED: 'ble oppdatert',
+    WITH_NAME: 'med navnet'
   },
   HTTP_HEADERS: {
     JSON: 'application/json',

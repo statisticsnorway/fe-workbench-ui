@@ -69,10 +69,10 @@ class TableBuilder extends React.Component {
   render () {
     const {search, tableData, tableColumns, loadingTable} = this.state
     let filteredTableData = tableData
-    let noDataText = 'Fant ingen ' + this.tableNameNorwegianPluralLowerCase
+    let noDataText = enums.CONTENT.FOUND_NOTHING + ' ' + this.tableNameNorwegianPluralLowerCase
 
     if (search) {
-      noDataText = 'Fant ingen ' + this.tableNameNorwegianPluralLowerCase + ' med navnet: \'' + search + '\''
+      noDataText = enums.CONTENT.FOUND_NOTHING + ' ' + this.tableNameNorwegianPluralLowerCase + ' ' + enums.CONTENT.WITH_NAME + ': \'' + search + '\''
 
       filteredTableData = tableData.filter(row => {
         return row.name.toUpperCase().includes(search.toUpperCase())
@@ -105,12 +105,12 @@ class TableBuilder extends React.Component {
           columns={tableColumns}
           defaultPageSize={10}
           noDataText={noDataText}
-          previousText='Forrige'
-          nextText='Neste'
-          loadingText='Laster...'
-          pageText='Side'
-          ofText='av'
-          rowsText='rader'
+          previousText={enums.CONTENT.TABLE.PREVIOUS}
+          nextText={enums.CONTENT.TABLE.NEXT}
+          loadingText={enums.CONTENT.TABLE.LOADING}
+          pageText={enums.CONTENT.TABLE.PAGE}
+          ofText={enums.CONTENT.TABLE.OF}
+          rowsText={enums.CONTENT.TABLE.ROWS}
           className='-striped -highlight'
         />
 
