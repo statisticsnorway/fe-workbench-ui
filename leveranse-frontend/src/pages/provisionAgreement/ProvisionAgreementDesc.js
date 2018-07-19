@@ -6,7 +6,6 @@ import {SingleDatePicker} from 'react-dates'
 import {
   editModeCheckbox,
   errorMessages,
-  fetchAllSubjectsFromExternalApi,
   responseMessages
 } from '../../utils/Common'
 import {alertActions, provisionAgreementActions} from '../../actions'
@@ -18,8 +17,6 @@ import '../../assets/css/site.css'
 import InformationProviderModal from "../informationProvider/InformationProviderModal";
 
 moment.locale('nb')
-
-const allSubjectsOptions = fetchAllSubjectsFromExternalApi()
 
 class ProvisionAgreementDesc extends Component {
   constructor(props) {
@@ -44,7 +41,7 @@ class ProvisionAgreementDesc extends Component {
         versionValidFrom: moment().toJSON(),
         validFrom: moment().toJSON(),
         createdDate: moment().toJSON(),
-        createdBy: this.props.authentication.user.username,
+        createdBy: this.props.authentication.user,
         informationProvider: '',
         regulation: '',
         status: '',
@@ -219,15 +216,13 @@ class ProvisionAgreementDesc extends Component {
         ...this.state.provisionAgreement,
         informationProvider: "/InformationProvider/" + informationProvider.id
       },
-      selectedInformationProvider: informationProvider.name[0].languageText
+      selectedInformationProvider: informationProvider[0].name[0].languageText
     })
   }
 
   render() {
     const {errors, response, readOnlyMode, waitingForResponse, provisionAgreement} = this.state
     const {alert, provisionAgreementId} = this.props
-    console.log("Selected PA: ", this.state.provisionAgreement)
-    console.log("Selected InfoProvider: ", this.state.selectedInformationProvider)
     return (
       <Form>
         <Header as='h2' dividing content={'Leveransebeskrivelse'}/>
@@ -330,14 +325,6 @@ class ProvisionAgreementDesc extends Component {
                     disabled={readOnlyMode}/>
           {errors.regulation && <InlineError text={errors.regulation}/>}
         </Form.Field>
-
-        {/* <Form.Field error={!!errors.exchangeChannel}>
-          <label>Kanal(er)</label>
-          <Dropdown placeholder='Kanal(er)' multiple selection options={tempExchangeChannelOptions}
-                    onChange={(event, {value}) => this.handleDropdownChange(value, 'exchangeChannel')}
-                    disabled={readOnlyMode}/>
-          {errors.exchangeChannel && <InlineError text={errors.exchangeChannel}/>}
-        </Form.Field>*/}
 
         <Form.Field error={!!errors.protocols}>
           <label>Protokoll(er)</label>

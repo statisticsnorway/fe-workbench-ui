@@ -4,12 +4,7 @@ import 'semantic-ui-css/semantic.min.css'
 import { Provider } from 'react-redux'
 
 import { store } from './helpers'
-import { App } from './app'
-
-// setup fake backend
-import { configureFakeBackend } from './helpers'
-
-configureFakeBackend()
+import App from './app/App'
 
 ReactDOM.render(
   <Provider store={store}>

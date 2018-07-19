@@ -8,9 +8,6 @@ class LoginPage extends React.Component {
   constructor (props) {
     super(props)
 
-    // reset login status
-    this.props.dispatch(userActions.logout())
-
     this.state = {
       username: '',
       password: '',
@@ -51,14 +48,6 @@ class LoginPage extends React.Component {
             <Header as='h2' color='blue' textAlign='center'>
               Innlogging
             </Header>
-            {alert.type === 'alert-success' && alert.message &&
-            <Message positive onDismiss={this.handleDismiss}><Message.Header>{alert.message}</Message.Header>
-            </Message>
-            }
-            {alert.type === 'alert-danger' && alert.message &&
-            <Message negative onDismiss={this.handleDismiss}><Message.Header>{alert.message}</Message.Header>
-            </Message>
-            }
             <Form name="form" onSubmit={this.handleSubmit} loading={loading} size='large'>
               <Form.Field error={submitted && !username}>
                 <Form.Input
@@ -93,8 +82,6 @@ class LoginPage extends React.Component {
               </Message>
               }
               <Button color='blue' fluid size='large'>Login</Button>
-              <Divider horizontal>Or</Divider>
-              <Link to="/register" className="btn btn-link">Register</Link>
             </Form>
           </Grid.Column>
         </Grid>

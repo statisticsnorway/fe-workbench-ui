@@ -1,9 +1,9 @@
-import { userConstants } from '../constants'
+import {userConstants} from '../constants'
 
-let user = JSON.parse(localStorage.getItem('user'))
-const initialState = user ? {loggedIn: true, user} : {}
 
-export function authentication (state = initialState, action) {
+const initialState = {loggedIn: true}
+
+export function authentication(state = initialState, action) {
   switch (action.type) {
     case userConstants.LOGIN_REQUEST:
       return {
@@ -16,8 +16,6 @@ export function authentication (state = initialState, action) {
         user: action.user
       }
     case userConstants.LOGIN_FAILURE:
-      return {}
-    case userConstants.LOGOUT:
       return {}
     default:
       return state

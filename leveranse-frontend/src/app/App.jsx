@@ -1,10 +1,6 @@
 import React from 'react'
-import { Message } from 'semantic-ui-react'
 import { Router, Route } from 'react-router-dom'
-import { connect } from 'react-redux'
-
 import { history } from '../helpers'
-import { alertActions } from '../actions'
 import { PrivateRoute } from '../components'
 import { HomePage } from '../pages/homePage'
 import { LoginPage } from '../pages/loginPage'
@@ -14,12 +10,6 @@ import WelcomePage from '../pages/WelcomePage'
 class App extends React.Component {
   constructor (props) {
     super(props)
-
-    const {dispatch} = this.props
-    history.listen((location, action) => {
-      // clear alert on location change
-      dispatch(alertActions.clear())
-    })
   }
 
   render () {
@@ -29,10 +19,9 @@ class App extends React.Component {
         <div>
           <Router history={history}>
             <div>
-              <PrivateRoute exact path="/home" component={HomePage}/>
+              <PrivateRoute path="/home" exact component={HomePage}/>
               <Route path='/' exact component={WelcomePage}/>
               <Route path='/login' exact component={LoginPage}/>
-              <Route path="/register" component={RegisterPage}/>
             </div>
           </Router>
         </div>
@@ -41,12 +30,4 @@ class App extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  const {alert} = state
-  return {
-    alert
-  }
-}
-
-const connectedApp = connect(mapStateToProps)(App)
-export { connectedApp as App }
+export default App

@@ -10,7 +10,6 @@ class WelcomePage extends React.Component {
   handleClick = () => {
     this.props.history.push('/login')
   }
-
   render () {
     return (
       <div className='ui container'>
