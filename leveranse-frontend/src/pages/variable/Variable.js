@@ -10,7 +10,7 @@ import {
 import InlineError from '../messages/InlineError'
 import moment from 'moment'
 
-const mainSubjectsOptions = fetchMainSubjectsFromExternalApi()
+// const mainSubjectsOptions = fetchMainSubjectsFromExternalApi()
 const uuidv1 = require('uuid/v1')
 
 class Variable extends React.Component {
