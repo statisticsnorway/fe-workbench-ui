@@ -120,6 +120,7 @@ export const sendDataToBackend = (path, text, state) => {
         'Content-Type': 'application/json'
       }
     }).then((response) => {
+      // Right now dc-metadata returns 200 regardless of updated og created
       if (response.status === 201) {
         newState = {
           color: 'green',

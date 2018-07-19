@@ -9,6 +9,8 @@ import '../assets/css/site.css'
 import TargetPopulation from './population/TargetPopulation'
 import SurveyPopulation from './population/SurveyPopulation'
 import ValueDomainList from './valueDomain/ValueDomainList'
+import { domains } from '../pageBuilderTest/utilities/DomainConfiguration'
+import PageBuilder from '../pageBuilderTest/builders/PageBuilder'
 
 class ProvisionAgreementPage extends React.Component {
   state = {}
@@ -115,6 +117,22 @@ class ProvisionAgreementPage extends React.Component {
                     </Dropdown.Menu>
                   </Dropdown>
                 </Menu>
+                <Menu fluid vertical>
+                  <Menu.Item header>Generisk testing</Menu.Item>
+                  <Dropdown item text='Test'>
+                    <Dropdown.Menu>
+                      {Object.keys(domains).map((item, index) => {
+                        return (
+                          <Dropdown.Item key={index}>
+                            <NavLink to={'/generic/' + item}>
+                              {domains[item].nameInNorwegian}
+                            </NavLink>
+                          </Dropdown.Item>
+                        )
+                      })}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Menu>
               </Segment>
             </Grid.Column>
             <Grid.Column width={12} floated='right'>
@@ -127,6 +145,12 @@ class ProvisionAgreementPage extends React.Component {
                 <Route path='/valueDomain' component={ValueDomainList} />
                 <Route path='/population/targetPopulation' component={TargetPopulation} />
                 <Route path='/population/surveyPopulation' component={SurveyPopulation} />
+                {Object.keys(domains).map((item) => {
+                  let madePath = '/generic/' + item
+                  return (
+                    <Route key={item} path={madePath} render={() => <PageBuilder domain={domains[item]} />} />
+                  )
+                })}
               </Segment>
             </Grid.Column>
           </Grid>

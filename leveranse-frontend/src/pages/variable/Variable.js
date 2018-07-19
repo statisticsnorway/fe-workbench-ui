@@ -11,6 +11,7 @@ import InlineError from '../messages/InlineError'
 import moment from 'moment'
 
 const mainSubjectsOptions = fetchMainSubjectsFromExternalApi()
+const uuidv1 = require('uuid/v1')
 
 class Variable extends React.Component {
   constructor (props) {
@@ -51,7 +52,6 @@ class Variable extends React.Component {
       waitingForResponse: false
     }
 
-    const uuidv1 = require('uuid/v1')
     this.state.variable.id = uuidv1()
 
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -222,12 +222,12 @@ class Variable extends React.Component {
 }
 
 const tempUnitTypeOptions = [
-  {key: '1', text: 'Person', value: 'Person'},
-  {key: '2', text: 'Husholdning', value: 'Husholdning'},
-  {key: '3', text: 'Virksomhet', value: 'Virksomhet'}
+  {key: '1', text: 'Person', value: '/UnitType/' + uuidv1()},
+  {key: '2', text: 'Husholdning', value: '/UnitType/' + uuidv1()},
+  {key: '3', text: 'Virksomhet', value: '/UnitType/' + uuidv1()}
 ]
 
-const tempOrderlyOptions = [
+/*const tempOrderlyOptions = [
   {key: '1', text: 'Mann', value: 'Mann'},
   {key: '2', text: 'Kvinne', value: 'Kvinne'},
   {key: '3', text: '[ingenting]', value: null}
@@ -236,6 +236,6 @@ const tempOrderlyOptions = [
 const tempDescribedOptions = [
   {key: '1', text: 'Heltall større enn 0', value: 'Heltall større enn 0'},
   {key: '2', text: '[ingenting]', value: null}
-]
+]*/
 
 export default Variable
