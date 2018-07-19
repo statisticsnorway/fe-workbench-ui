@@ -11,6 +11,8 @@ import SurveyPopulation from './population/SurveyPopulation'
 import ValueDomainList from './valueDomain/ValueDomainList'
 import { domains } from '../pageBuilderTest/utilities/DomainConfiguration'
 import PageBuilder from '../pageBuilderTest/builders/PageBuilder'
+import { tables } from '../pageBuilderTest/utilities/TableConfiguration'
+import TableBuilder from '../pageBuilderTest/builders/TableBuilder'
 
 class ProvisionAgreementPage extends React.Component {
   state = {}
@@ -119,13 +121,26 @@ class ProvisionAgreementPage extends React.Component {
                 </Menu>
                 <Menu fluid vertical>
                   <Menu.Item header>Generisk testing</Menu.Item>
-                  <Dropdown item text='Test'>
+                  <Dropdown item text='Opprett ny'>
                     <Dropdown.Menu>
                       {Object.keys(domains).map((item, index) => {
                         return (
                           <Dropdown.Item key={index}>
                             <NavLink to={'/generic/' + item}>
                               {domains[item].nameInNorwegian}
+                            </NavLink>
+                          </Dropdown.Item>
+                        )
+                      })}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <Dropdown item text='Vis alle'>
+                    <Dropdown.Menu>
+                      {Object.keys(tables).map((item, index) => {
+                        return (
+                          <Dropdown.Item key={index}>
+                            <NavLink to={'/generic/' + item + '/all'}>
+                              {tables[item].namePlural}
                             </NavLink>
                           </Dropdown.Item>
                         )
@@ -148,7 +163,14 @@ class ProvisionAgreementPage extends React.Component {
                 {Object.keys(domains).map((item) => {
                   let madePath = '/generic/' + item
                   return (
-                    <Route key={item} path={madePath} render={() => <PageBuilder domain={domains[item]} />} />
+                    <Route key={item} path={madePath} exact render={() => <PageBuilder domain={domains[item]} />} />
+                  )
+                })}
+                {Object.keys(tables).map((item) => {
+                  let madePath = '/generic/' + item + '/all'
+                  let key = item + 'Table'
+                  return (
+                    <Route key={key} path={madePath} exact render={() => <TableBuilder table={tables[item]} />} />
                   )
                 })}
               </Segment>
