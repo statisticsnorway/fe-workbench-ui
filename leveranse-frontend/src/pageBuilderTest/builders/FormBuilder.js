@@ -36,7 +36,7 @@ class FormBuilder extends React.Component {
     this.objectNameNorwegianLowerCase = lowerCaseFirst(this.props.domain.nameInNorwegian)
     this.objectNameDefinitive = this.props.domain.nameDefinitive
     this.formConfig = this.props.domain.formConfig
-    this.user = this.props.authentication.user.username
+    this.user = this.props.authentication.user
   }
 
   componentDidMount () {
