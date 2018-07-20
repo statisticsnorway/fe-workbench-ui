@@ -2,30 +2,6 @@ import React from 'react'
 import axios from 'axios'
 import { Checkbox, Container, Message } from 'semantic-ui-react'
 
-export const fetchMainSubjectsFromExternalApi = () => {
-  let mainSubjectsOptions = []
-  let mainSubjects
-  let url
-
-  url = process.env.REACT_APP_SSB_SUBJECTS
-
-  axios.get(url).then((response) => {
-    mainSubjects = response.data
-  }).catch((error) => {
-    console.log("Testing 1...........", error)
-  }).then(() => {
-    for (let key in mainSubjects) {
-      mainSubjectsOptions.push({
-        key: mainSubjects[key]['id'],
-        text: mainSubjects[key]['text'],
-        value: mainSubjects[key]['text']
-      })
-    }
-  })
-
-  return mainSubjectsOptions
-}
-
 export const fetchListOptions = (url) => {
   let theRespons
   let theList = []
@@ -39,7 +15,7 @@ export const fetchListOptions = (url) => {
       for (let key in theRespons) {
         theList.push({
           key: theRespons[key]['id'],
-          text: theRespons[key]['name'],
+          text: theRespons[key]['name'][0].languageText,
           value: theRespons[key]['id']
         })
       }

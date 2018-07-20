@@ -29,13 +29,6 @@ class ProvisionAgreementsList extends React.Component {
     })
   }
 
-  renderCell(row) {
-    if (row.original.selected === true) {
-      return (<div style={{cursor: 'default', fontWeight: 'bold'}}>{row.value}</div>)
-    }
-    return (<div style={{cursor: 'default', fontWeight: 'normal'}}>{row.value}</div>)
-  }
-
   selectProvisionAgreement(e, state, column, rowInfo, instance) {
     if (this.state.selectedIndex != -1) {
       let ProvisionAgreementOld = this.state.provisionAgreements[this.state.selectedIndex]
@@ -63,15 +56,15 @@ class ProvisionAgreementsList extends React.Component {
     const data = this.state.provisionAgreements
     const columns = [{
       Header: 'Name',
-      accessor: 'name[0].languageText'// String-based value accessors!
+      accessor: 'name[0].languageText'
     }, {
       Header: 'Description',
       accessor: 'description[0].languageText'
     }, {
-      Header: 'Duration From', // Required because our accessor is not a string
+      Header: 'Duration From',
       accessor: 'validFrom'
     }, {
-      Header: 'Duration To', // Required because our accessor is not a string
+      Header: 'Duration To',
       accessor: 'validTo'
     }]
 
@@ -92,7 +85,7 @@ class ProvisionAgreementsList extends React.Component {
                   filterable
                   defaultPageSize={10}
                   style={{
-                    height: '400px' //To adjust table height. Adds scroll to the table
+                    height: '400px'
                   }}
                   className='-striped -highlight'
                   showPaginationTop
