@@ -9,7 +9,7 @@ class PageBuilder extends React.Component {
 
   render () {
     return (
-      <FormBuilder domain={this.domain} />
+      <FormBuilder domain={this.domain} id={this.props.params} />
     )
   }
 }

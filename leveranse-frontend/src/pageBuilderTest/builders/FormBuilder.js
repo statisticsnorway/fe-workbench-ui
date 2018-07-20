@@ -16,7 +16,7 @@ import {
 } from '../utilities/FormComponents'
 import { translateToNorwegian } from '../utilities/Translation'
 import { getDomainData, sendDomainData } from '../utilities/DataExchange'
-import { buildNewState } from './StateBuilder'
+import { buildDomainState } from './StateBuilder'
 import { isNumericOrEmptyString, lowerCaseFirst } from '../utilities/Helpers'
 import { enums } from '../utilities/Enums'
 import * as moment from 'moment'
@@ -28,8 +28,9 @@ moment.locale(enums.LANGUAGE_CODE.NORWEGIAN)
 class FormBuilder extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {ready: false}
 
+    this.id = this.props.id.id
     this.objectName = this.props.domain.name
     this.objectNameLowerCase = lowerCaseFirst(this.props.domain.name)
     this.objectNameNorwegian = this.props.domain.nameInNorwegian
@@ -41,8 +42,18 @@ class FormBuilder extends React.Component {
 
   componentDidMount () {
     getDomainData(this.objectName, enums.URL_AFFIX.SCHEMA).then((result) => {
-      //TODO: Add check for creating a new instance of the domain og fetching one to update it
-      this.setState(buildNewState(this.objectName, this.formConfig, this.user, result))
+      if (this.id === 'new') {
+        buildDomainState(this.objectName, this.formConfig, this.user, result, this.id).then((result) => {
+          this.setState(result, () => {this.setState({ready: true})})
+        })
+      } else {
+        //TODO: There is a bug, if you are on a page with fetched data and directly click to make a new instance of the
+        // same domain you are on, it will not reload the component.
+        buildDomainState(this.objectName, this.formConfig, this.user, result, this.id).then((result) => {
+          this.setState(result, () => {this.setState({ready: true})})
+        })
+      }
+
     }).catch((reason) => {
       this.setState({response: reason})
     })
@@ -298,10 +309,10 @@ class FormBuilder extends React.Component {
   }
 
   render () {
-    const {readOnlyMode, waitingForResponse, response, errors, form} = this.state
+    const {readOnlyMode, waitingForResponse, response, errors, form, ready} = this.state
 
     return (
-      <Form loading={typeof form === 'undefined' && typeof response === 'undefined'}>
+      <Form loading={typeof form === 'undefined' && typeof response === 'undefined' && ready}>
         <Header as='h2' dividing content={this.objectNameNorwegian} />
 
         <Grid>
@@ -310,7 +321,7 @@ class FormBuilder extends React.Component {
             {errorMessages(errors, this.objectNameDefinitive)}
             {responseMessage(response)}
 
-            {typeof form !== 'undefined' && Object.keys(form).map((item, index) => {
+            {ready && typeof form !== 'undefined' && Object.keys(form).map((item, index) => {
               if (this.formConfig.hasOwnProperty(item) && this.formConfig[item].type !== enums.TYPE.AUTOFILLED) {
                 let info = {
                   index: index,
@@ -384,7 +395,7 @@ class FormBuilder extends React.Component {
           <Grid.Column width={6}>
             <Header as='h3' content={enums.CONTENT.DETAILS} />
             <List relaxed='very'>
-              {typeof form !== 'undefined' && Object.keys(this.formConfig).map((item, index) => {
+              {ready && typeof form !== 'undefined' && Object.keys(this.formConfig).map((item, index) => {
                 if (this.formConfig[item].type === enums.TYPE.AUTOFILLED) {
                   let content
 
