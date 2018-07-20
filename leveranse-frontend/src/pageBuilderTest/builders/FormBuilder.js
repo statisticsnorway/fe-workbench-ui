@@ -312,7 +312,7 @@ class FormBuilder extends React.Component {
     const {readOnlyMode, waitingForResponse, response, errors, form, ready} = this.state
 
     return (
-      <Form loading={typeof form === 'undefined' && typeof response === 'undefined' && ready}>
+      <Form loading={typeof form === 'undefined' && typeof response === 'undefined'}>
         <Header as='h2' dividing content={this.objectNameNorwegian} />
 
         <Grid>

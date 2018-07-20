@@ -121,14 +121,18 @@ class TableBuilder extends React.Component {
     const {search, tableData, tableColumns, loadingTable, response} = this.state
 
     let filteredTableData = tableData
-    let noDataText = enums.CONTENT.FOUND_NOTHING + ' ' + this.tableNameNorwegianPluralLowerCase
+    let noDataText = ''
 
-    if (search) {
-      noDataText = enums.CONTENT.FOUND_NOTHING + ' ' + this.tableNameNorwegianPluralLowerCase + ' ' + enums.CONTENT.WITH_NAME + ': \'' + search + '\''
+    if (!loadingTable) {
+      noDataText = enums.CONTENT.FOUND_NOTHING + ' ' + this.tableNameNorwegianPluralLowerCase
 
-      filteredTableData = tableData.filter(row => {
-        return row.name.toUpperCase().includes(search.toUpperCase())
-      })
+      if (search) {
+        noDataText = enums.CONTENT.FOUND_NOTHING + ' ' + this.tableNameNorwegianPluralLowerCase + ' ' + enums.CONTENT.WITH_NAME + ': \'' + search + '\''
+
+        filteredTableData = tableData.filter(row => {
+          return row.name.toUpperCase().includes(search.toUpperCase())
+        })
+      }
     }
 
     return (
