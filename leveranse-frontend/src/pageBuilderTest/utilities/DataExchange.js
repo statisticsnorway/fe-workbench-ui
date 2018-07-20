@@ -1,12 +1,12 @@
 import axios from 'axios'
 import { enums } from './Enums'
 
-export const getDomainStructure = (domain) => {
+export const getDomainData = (domain, type, id = '') => {
   return new Promise((resolve, reject) => {
     let url
     let result
 
-    url = process.env.REACT_APP_BACKENDHOST + domain + enums.URL_AFFIX.SCHEMA
+    url = process.env.REACT_APP_BACKENDHOST + domain + type + id
 
     axios.get(url, {
       headers: {
@@ -26,14 +26,17 @@ export const getDomainStructure = (domain) => {
         reject(result)
       }
     }).catch((error) => {
+      let additionalErrorText
+
       if (error.response) {
-        console.log(error.response.data)
+        additionalErrorText = error.response.data
       }
 
       result = {
         color: 'red',
         header: enums.CONTENT.CANNOT_FETCH + ' \'' + domain + '\' ' + enums.CONTENT.INFORMATION_FROM_SERVER,
         text: error.message + ' (' + url + ')',
+        additionalText: additionalErrorText,
         icon: 'warning'
       }
 

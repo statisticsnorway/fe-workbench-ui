@@ -15,7 +15,7 @@ import {
   responseMessage
 } from '../utilities/FormComponents'
 import { translateToNorwegian } from '../utilities/Translation'
-import { getDomainStructure, sendDomainData } from '../utilities/DataExchange'
+import { getDomainData, sendDomainData } from '../utilities/DataExchange'
 import { buildNewState } from './StateBuilder'
 import { isNumericOrEmptyString, lowerCaseFirst } from '../utilities/Helpers'
 import { enums } from '../utilities/Enums'
@@ -40,7 +40,7 @@ class FormBuilder extends React.Component {
   }
 
   componentDidMount () {
-    getDomainStructure(this.objectName).then((result) => {
+    getDomainData(this.objectName, enums.URL_AFFIX.SCHEMA).then((result) => {
       //TODO: Add check for creating a new instance of the domain og fetching one to update it
       this.setState(buildNewState(this.objectName, this.formConfig, this.user, result))
     }).catch((reason) => {
@@ -175,7 +175,7 @@ class FormBuilder extends React.Component {
         }
       } else {
         if (!this.state[this.objectNameLowerCase][element]) {
-          switch(formConfigType) {
+          switch (formConfigType) {
             case enums.TYPE.DROPDOWN_SINGLE:
               errors[element] = enums.CONTENT.DROPDOWN_EMPTY
               break

@@ -4,6 +4,12 @@ import { Button, Divider, Header, Icon, Input, Popup } from 'semantic-ui-react'
 import { enums } from '../utilities/Enums'
 import { lowerCaseFirst } from '../utilities/Helpers'
 import { NavLink } from 'react-router-dom'
+import { getDomainData } from '../utilities/DataExchange'
+import * as moment from 'moment'
+import 'moment/min/locales'
+import { responseMessage } from '../utilities/FormComponents'
+
+moment.locale(enums.LANGUAGE_CODE.NORWEGIAN)
 
 class TableBuilder extends React.Component {
   constructor (props) {
@@ -11,9 +17,11 @@ class TableBuilder extends React.Component {
     this.state = {
       search: '',
       tableData: [],
-      loadingTable: false
+      loadingTable: true,
+      response: ''
     }
 
+    this.tableName = this.props.table.name
     this.domainName = lowerCaseFirst(this.props.table.name)
     this.tableNameNorwegianLowerCase = lowerCaseFirst(this.props.table.nameInNorwegian)
     this.tableNameNorwegianPlural = this.props.table.namePlural
@@ -56,6 +64,49 @@ class TableBuilder extends React.Component {
     this.state.tableColumns = tableColumns
   }
 
+  componentDidMount () {
+    getDomainData(this.tableName, enums.URL_AFFIX.LIST).then((result) => {
+      let tableColumns = this.state.tableColumns
+      let tableData = []
+
+      for (let i = 0, l = result.length; i < l; i++) {
+        let tableObject = {}
+
+        tableObject[enums.PROPERTY.ID] = result[i][enums.PROPERTY.ID]
+
+        for (let ii = 0, ll = tableColumns.length; ii < ll; ii++) {
+          if (result[i].hasOwnProperty(tableColumns[ii].accessor)) {
+            if (result[i][tableColumns[ii].accessor].constructor === Array) {
+              tableObject[tableColumns[ii].accessor] = result[i][tableColumns[ii].accessor][0][enums.PROPERTY.LANGUAGE_TEXT]
+            } else if (tableColumns[ii].accessor === enums.PROPERTY.LAST_UPDATED_DATE) {
+              let date = moment(result[i][tableColumns[ii].accessor])
+
+              if (date.isValid()) {
+                tableObject[tableColumns[ii].accessor] = date.format('LLL')
+              } else {
+                tableObject[tableColumns[ii].accessor] = result[i][tableColumns[ii].accessor]
+              }
+            } else {
+              tableObject[tableColumns[ii].accessor] = result[i][tableColumns[ii].accessor]
+            }
+          }
+        }
+
+        tableData.push(tableObject)
+      }
+
+      this.setState({
+        tableData: tableData,
+        loadingTable: false
+      })
+    }).catch((reason) => {
+      this.setState({
+        response: reason,
+        loadingTable: false
+      })
+    })
+  }
+
   searchInputOnChange = (event) => {
     this.setState({
       search: event.target.value
@@ -67,7 +118,8 @@ class TableBuilder extends React.Component {
   }
 
   render () {
-    const {search, tableData, tableColumns, loadingTable} = this.state
+    const {search, tableData, tableColumns, loadingTable, response} = this.state
+
     let filteredTableData = tableData
     let noDataText = enums.CONTENT.FOUND_NOTHING + ' ' + this.tableNameNorwegianPluralLowerCase
 
@@ -96,6 +148,8 @@ class TableBuilder extends React.Component {
         </NavLink>
 
         <Divider hidden />
+
+        {responseMessage(response)}
 
         <ReactTable
           sortable

@@ -32,7 +32,7 @@ export const enums = {
       OF: 'av',
       PAGE: 'Side',
       PREVIOUS: 'Forrige',
-      ROWS: 'rader',
+      ROWS: 'rader'
     },
     USE_COMPLETE_LIST: 'Bruk fullstendig liste',
     USE_LATEST_LIST: 'Bruk alltid nyeste utgave av liste',
@@ -97,6 +97,8 @@ export const enums = {
     TEXT_AREA: 'textArea'
   },
   URL_AFFIX: {
-    SCHEMA: '?schema'
+    SCHEMA: '?schema',
+    LIST: '/',
+    ID: '/'
   }
 }
