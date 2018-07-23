@@ -3,7 +3,6 @@ import { Button, Dropdown, Form, Header, Input } from 'semantic-ui-react'
 import {
   editModeCheckbox,
   errorMessages,
-  fetchMainSubjectsFromExternalApi,
   responseMessages,
   sendDataToBackend
 } from '../../utils/Common'
