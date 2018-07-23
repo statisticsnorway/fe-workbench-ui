@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Form, Grid, Header, List } from 'semantic-ui-react'
+import { Button, Divider, Form, Grid, Header, List, Segment } from 'semantic-ui-react'
 import {
   editModeCheckbox,
   errorMessages,
@@ -15,8 +15,8 @@ import {
   responseMessage
 } from '../utilities/FormComponents'
 import { translateToNorwegian } from '../utilities/Translation'
-import { getDomainStructure, sendDomainData } from '../utilities/DataExchange'
-import { buildNewState } from './StateBuilder'
+import { getDomainData, sendDomainData } from '../utilities/DataExchange'
+import { buildDomainState } from './StateBuilder'
 import { isNumericOrEmptyString, lowerCaseFirst } from '../utilities/Helpers'
 import { enums } from '../utilities/Enums'
 import * as moment from 'moment'
@@ -28,8 +28,11 @@ moment.locale(enums.LANGUAGE_CODE.NORWEGIAN)
 class FormBuilder extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      ready: false
+    }
 
+    this.id = this.props.id.id
     this.objectName = this.props.domain.name
     this.objectNameLowerCase = lowerCaseFirst(this.props.domain.name)
     this.objectNameNorwegian = this.props.domain.nameInNorwegian
@@ -40,11 +43,15 @@ class FormBuilder extends React.Component {
   }
 
   componentDidMount () {
-    getDomainStructure(this.objectName).then((result) => {
-      //TODO: Add check for creating a new instance of the domain og fetching one to update it
-      this.setState(buildNewState(this.objectName, this.formConfig, this.user, result))
+    getDomainData(this.objectName, enums.URL_AFFIX.SCHEMA).then((result) => {
+      //TODO: There is a bug, if you are on a domain page with fetched data and directly click to make a new instance of the same domain you are on, it will not reload the component.
+      buildDomainState(this.objectName, this.formConfig, this.user, result, this.id).then((result) => {
+        this.setState(result, () => {this.setState({ready: true})})
+      })
     }).catch((reason) => {
-      this.setState({response: reason})
+      this.setState({
+        response: reason
+      })
     })
   }
 
@@ -175,7 +182,7 @@ class FormBuilder extends React.Component {
         }
       } else {
         if (!this.state[this.objectNameLowerCase][element]) {
-          switch(formConfigType) {
+          switch (formConfigType) {
             case enums.TYPE.DROPDOWN_SINGLE:
               errors[element] = enums.CONTENT.DROPDOWN_EMPTY
               break
@@ -292,147 +299,159 @@ class FormBuilder extends React.Component {
     })
   }
 
-  handleButtonClick = () => {
+  stateToConsoleForTesting = () => {
+    console.log('State:')
     console.log(this.state)
+    console.log('formConfig:')
     console.log(this.formConfig)
   }
 
   render () {
-    const {readOnlyMode, waitingForResponse, response, errors, form} = this.state
+    const {readOnlyMode, waitingForResponse, response, errors, form, ready} = this.state
 
     return (
-      <Form loading={typeof form === 'undefined' && typeof response === 'undefined'}>
-        <Header as='h2' dividing content={this.objectNameNorwegian} />
+      <Segment basic loading={typeof response === 'undefined'}>
+        <Header as='h2' dividing>
+          {this.objectNameNorwegian}
+        </Header>
 
-        <Grid>
-          <Grid.Column width={10}>
-            {typeof form !== 'undefined' ? editModeCheckbox(readOnlyMode, this.handleEditModeClick) : null}
-            {errorMessages(errors, this.objectNameDefinitive)}
-            {responseMessage(response)}
+        {ready && typeof form !== 'undefined' ? editModeCheckbox(readOnlyMode, this.handleEditModeClick) : null}
 
-            {typeof form !== 'undefined' && Object.keys(form).map((item, index) => {
-              if (this.formConfig.hasOwnProperty(item) && this.formConfig[item].type !== enums.TYPE.AUTOFILLED) {
-                let info = {
-                  index: index,
-                  item: item,
-                  itemInNorwegian: translateToNorwegian[item],
-                  readOnlyMode: readOnlyMode,
-                  errors: errors
-                }
-                let type = this.formConfig[item].type
-                let value = this.state[this.objectNameLowerCase][item]
-                let values = this.formConfig[item].values
-                let deepValue
+        {ready && typeof form !== 'undefined' ? <Divider hidden className='smallerDivider' /> : null}
 
-                switch (type) {
-                  case enums.TYPE.TEXT:
-                    if (form[item].hasOwnProperty(enums.PROPERTY.ITEMS) &&
-                      form[item][enums.PROPERTY.ITEMS].hasOwnProperty(enums.PROPERTY.REF) &&
-                      form[item][enums.PROPERTY.ITEMS][enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
-                      deepValue = this.state[this.objectNameLowerCase][item][0][enums.PROPERTY.LANGUAGE_TEXT]
+        {errorMessages(errors, this.objectNameDefinitive)}
+        {responseMessage(response)}
 
-                      return formFieldText(info, this.handleInputChangeDeep, deepValue)
-                    } else {
-                      return formFieldText(info, this.handleInputChange, value)
-                    }
-
-                  case enums.TYPE.TEXT_AREA:
-                    if (form[item].hasOwnProperty(enums.PROPERTY.ITEMS) &&
-                      form[item][enums.PROPERTY.ITEMS].hasOwnProperty(enums.PROPERTY.REF) &&
-                      form[item][enums.PROPERTY.ITEMS][enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
-                      deepValue = this.state[this.objectNameLowerCase][item][0][enums.PROPERTY.LANGUAGE_TEXT]
-
-                      if (this.state[this.objectNameLowerCase].hasOwnProperty(enums.TYPE.KLASS_URL)) {
-                        return formFieldTextArea(info, this.handleInputChangeDeep, deepValue, true)
-                      } else {
-                        return formFieldTextArea(info, this.handleInputChangeDeep, deepValue, info.readOnlyMode)
-                      }
-                    } else {
-                      return formFieldTextArea(info, this.handleInputChange, value, info.readOnlyMode)
-                    }
-
-                  case enums.TYPE.DROPDOWN_SINGLE:
-                    return formFieldDropdownSingle(info, ((event, {value}) => this.handleDropdownChange(value, item)), values)
-
-                  case enums.TYPE.DROPDOWN_MULTIPLE:
-                    return formFieldDropdownMultiple(info, ((event, {value}) => this.handleDropdownChange(value, item)), values)
-
-                  case enums.TYPE.DATE:
-                    return formFieldDate(info, (this.handleDateChange.bind(this, item)), value)
-
-                  case enums.TYPE.BOOLEAN:
-                    return formFieldBoolean(info, (this.handleBooleanChange.bind(this, item)), value)
-
-                  case enums.TYPE.SEARCH:
-                    return formFieldSearchModal(info, this.handleInputChange, value)
-
-                  case enums.TYPE.NUMBER:
-                    return formFieldNumber(info, this.handleNumberChange, value)
-
-                  case enums.TYPE.KLASS_URL:
-                    return <FormFieldKlassUrl key={info.item} info={info} onUpdate={this.handleKlassUrlChange} />
-
-                  //TODO: Add more form components
-
-                  default:
-                }
-              }
-
-              return null
-            })}
-          </Grid.Column>
-          <Grid.Column width={6}>
-            <Header as='h3' content={enums.CONTENT.DETAILS} />
-            <List relaxed='very'>
-              {typeof form !== 'undefined' && Object.keys(this.formConfig).map((item, index) => {
-                if (this.formConfig[item].type === enums.TYPE.AUTOFILLED) {
-                  let content
-
-                  if (form[item].type === enums.TYPE.ARRAY && form[item].hasOwnProperty(enums.PROPERTY.ITEMS) &&
-                    form[item][enums.PROPERTY.ITEMS].hasOwnProperty(enums.PROPERTY.REF) &&
-                    form[item][enums.PROPERTY.ITEMS][enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
-                    content = this.state[this.objectNameLowerCase][item][0][enums.PROPERTY.LANGUAGE_TEXT]
+        <Form>
+          <Grid>
+            <Grid.Column width={10}>
+              {ready && typeof form !== 'undefined' && Object.keys(form).map((item, index) => {
+                if (this.formConfig.hasOwnProperty(item) && this.formConfig[item].type !== enums.TYPE.AUTOFILLED) {
+                  let info = {
+                    index: index,
+                    item: item,
+                    itemInNorwegian: translateToNorwegian[item],
+                    readOnlyMode: readOnlyMode,
+                    errors: errors
                   }
+                  let type = this.formConfig[item].type
+                  let value = this.state[this.objectNameLowerCase][item]
+                  let values = this.formConfig[item].values
+                  let deepValue
 
-                  if (form[item].type === enums.TYPE.STRING) {
-                    if (form[item].hasOwnProperty(enums.PROPERTY.FORMAT) && form[item].format === enums.TYPE.DATE) {
-                      let date = moment(this.state[this.objectNameLowerCase][item])
+                  switch (type) {
+                    case enums.TYPE.TEXT:
+                      if (form[item].hasOwnProperty(enums.PROPERTY.ITEMS) &&
+                        form[item][enums.PROPERTY.ITEMS].hasOwnProperty(enums.PROPERTY.REF) &&
+                        form[item][enums.PROPERTY.ITEMS][enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
+                        deepValue = this.state[this.objectNameLowerCase][item][0][enums.PROPERTY.LANGUAGE_TEXT]
 
-                      if (date.isValid()) {
-                        content = date.format('LLL')
+                        return formFieldText(info, this.handleInputChangeDeep, deepValue)
                       } else {
-                        content = ''
+                        return formFieldText(info, this.handleInputChange, value)
                       }
-                    } else {
-                      content = this.state[this.objectNameLowerCase][item]
-                    }
-                  }
 
-                  return (
-                    <List.Item key={index}>
-                      <List.Header>{translateToNorwegian[item]}</List.Header>
-                      {content}
-                    </List.Item>
-                  )
+                    case enums.TYPE.TEXT_AREA:
+                      if (form[item].hasOwnProperty(enums.PROPERTY.ITEMS) &&
+                        form[item][enums.PROPERTY.ITEMS].hasOwnProperty(enums.PROPERTY.REF) &&
+                        form[item][enums.PROPERTY.ITEMS][enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
+                        deepValue = this.state[this.objectNameLowerCase][item][0][enums.PROPERTY.LANGUAGE_TEXT]
+
+                        if (this.state[this.objectNameLowerCase].hasOwnProperty(enums.TYPE.KLASS_URL)) {
+                          return formFieldTextArea(info, this.handleInputChangeDeep, deepValue, true)
+                        } else {
+                          return formFieldTextArea(info, this.handleInputChangeDeep, deepValue, info.readOnlyMode)
+                        }
+                      } else {
+                        return formFieldTextArea(info, this.handleInputChange, value, info.readOnlyMode)
+                      }
+
+                    case enums.TYPE.DROPDOWN_SINGLE:
+                      return formFieldDropdownSingle(info, ((event, {value}) => this.handleDropdownChange(value, item)), values)
+
+                    case enums.TYPE.DROPDOWN_MULTIPLE:
+                      return formFieldDropdownMultiple(info, ((event, {value}) => this.handleDropdownChange(value, item)), values)
+
+                    case enums.TYPE.DATE:
+                      return formFieldDate(info, (this.handleDateChange.bind(this, item)), value)
+
+                    case enums.TYPE.BOOLEAN:
+                      return formFieldBoolean(info, (this.handleBooleanChange.bind(this, item)), value)
+
+                    case enums.TYPE.SEARCH:
+                      return formFieldSearchModal(info, this.handleInputChange, value)
+
+                    case enums.TYPE.NUMBER:
+                      return formFieldNumber(info, this.handleNumberChange, value)
+
+                    case enums.TYPE.KLASS_URL:
+                      return <FormFieldKlassUrl key={info.item} info={info} onUpdate={this.handleKlassUrlChange} />
+
+                    //TODO: Add more form components
+
+                    default:
+                  }
                 }
 
                 return null
               })}
-            </List>
-          </Grid.Column>
-        </Grid>
-        <Grid>
-          <Grid.Column>
-            {typeof form !== 'undefined' ?
-              <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
-                      content={enums.CONTENT.SAVE + ' ' + this.objectNameNorwegianLowerCase}
-                      onClick={this.inititateSave} />
-              : null}
+            </Grid.Column>
 
-            <Button onClick={this.handleButtonClick} content={'Test'} />
-          </Grid.Column>
-        </Grid>
-      </Form>
+            <Grid.Column width={6}>
+              {ready && typeof form !== 'undefined' ? <Header as='h3' content={enums.CONTENT.DETAILS} /> : null}
+
+              <List relaxed='very'>
+                {ready && typeof form !== 'undefined' && Object.keys(this.formConfig).map((item, index) => {
+                  if (this.formConfig[item].type === enums.TYPE.AUTOFILLED) {
+                    let content
+
+                    if (form[item].type === enums.TYPE.ARRAY && form[item].hasOwnProperty(enums.PROPERTY.ITEMS) &&
+                      form[item][enums.PROPERTY.ITEMS].hasOwnProperty(enums.PROPERTY.REF) &&
+                      form[item][enums.PROPERTY.ITEMS][enums.PROPERTY.REF] === enums.REFERENCE.MULTILINGUAL_TEXT) {
+                      content = this.state[this.objectNameLowerCase][item][0][enums.PROPERTY.LANGUAGE_TEXT]
+                    }
+
+                    if (form[item].type === enums.TYPE.STRING) {
+                      if (form[item].hasOwnProperty(enums.PROPERTY.FORMAT) && form[item].format === enums.TYPE.DATE) {
+                        let date = moment(this.state[this.objectNameLowerCase][item])
+
+                        if (date.isValid()) {
+                          content = date.format('LLL')
+                        } else {
+                          content = ''
+                        }
+                      } else {
+                        content = this.state[this.objectNameLowerCase][item]
+                      }
+                    }
+
+                    return (
+                      <List.Item key={index}>
+                        <List.Header>{translateToNorwegian[item]}</List.Header>
+                        {content}
+                      </List.Item>
+                    )
+                  }
+
+                  return null
+                })}
+              </List>
+            </Grid.Column>
+          </Grid>
+
+          <Grid>
+            <Grid.Column>
+              {ready ?
+                <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
+                        content={enums.CONTENT.SAVE + ' ' + this.objectNameNorwegianLowerCase}
+                        onClick={this.inititateSave} />
+                : null}
+
+              <Button color='pink' onClick={this.stateToConsoleForTesting} content={'Vis state i konsoll'} />
+            </Grid.Column>
+          </Grid>
+        </Form>
+      </Segment>
     )
   }
 }

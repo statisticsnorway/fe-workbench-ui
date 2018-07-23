@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dropdown, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
-import { BrowserRouter, NavLink, Route } from 'react-router-dom'
+import { BrowserRouter, Link, NavLink, Route } from 'react-router-dom'
 import ProvisionAgreement from './provisionAgreement/ProvisionAgreement'
 import Variable from './variable/Variable'
 import ProvisionAgreementsList from './provisionAgreement/ProvisionAgreementsList'
@@ -11,6 +11,8 @@ import SurveyPopulation from './population/SurveyPopulation'
 import ValueDomainList from './valueDomain/ValueDomainList'
 import { domains } from '../pageBuilderTest/utilities/DomainConfiguration'
 import PageBuilder from '../pageBuilderTest/builders/PageBuilder'
+import { tables } from '../pageBuilderTest/utilities/TableConfiguration'
+import TableBuilder from '../pageBuilderTest/builders/TableBuilder'
 
 class ProvisionAgreementPage extends React.Component {
   state = {}
@@ -119,13 +121,26 @@ class ProvisionAgreementPage extends React.Component {
                 </Menu>
                 <Menu fluid vertical>
                   <Menu.Item header>Generisk testing</Menu.Item>
-                  <Dropdown item text='Test'>
+                  <Dropdown item text='Opprett ny'>
                     <Dropdown.Menu>
                       {Object.keys(domains).map((item, index) => {
                         return (
                           <Dropdown.Item key={index}>
-                            <NavLink to={'/generic/' + item}>
+                            <Link to={'/generic/' + item + '/new'}>
                               {domains[item].nameInNorwegian}
+                            </Link>
+                          </Dropdown.Item>
+                        )
+                      })}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <Dropdown item text='Vis alle'>
+                    <Dropdown.Menu>
+                      {Object.keys(tables).map((item, index) => {
+                        return (
+                          <Dropdown.Item key={index}>
+                            <NavLink to={'/generic/' + item}>
+                              {tables[item].namePlural}
                             </NavLink>
                           </Dropdown.Item>
                         )
@@ -146,9 +161,17 @@ class ProvisionAgreementPage extends React.Component {
                 <Route path='/population/targetPopulation' component={TargetPopulation} />
                 <Route path='/population/surveyPopulation' component={SurveyPopulation} />
                 {Object.keys(domains).map((item) => {
-                  let madePath = '/generic/' + item
+                  let madePath = '/generic/' + item + '/:id'
                   return (
-                    <Route key={item} path={madePath} render={() => <PageBuilder domain={domains[item]} />} />
+                    <Route key={item} path={madePath} exact
+                           render={({match}) => (<PageBuilder domain={domains[item]} params={match.params} />)} />
+                  )
+                })}
+                {Object.keys(tables).map((item) => {
+                  let madePath = '/generic/' + item
+                  let key = item + 'Table'
+                  return (
+                    <Route key={key} path={madePath} exact render={() => <TableBuilder table={tables[item]} />} />
                   )
                 })}
               </Segment>

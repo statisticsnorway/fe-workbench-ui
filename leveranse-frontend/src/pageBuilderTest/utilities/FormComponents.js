@@ -15,6 +15,7 @@ export const InlineError = ({text}) => (
 export const editModeCheckbox = (readOnlyMode, action) => {
   return (
     <Container fluid textAlign='right'>
+      <Icon name={readOnlyMode ? 'lock' : 'lock open'} color={readOnlyMode ? 'red' : 'green'} />
       <Checkbox toggle checked={!readOnlyMode} onClick={action} icon='edit' label={enums.CONTENT.EDIT_MODE} />
     </Container>
   )

@@ -5,10 +5,14 @@ export const enums = {
   CONTENT: {
     CANNOT_FETCH: 'Kan ikke hente',
     CORRECT_ERRORS: 'Rett opp feilene og prøv igjen',
+    CREATE_NEW: 'Opprett ny',
     DATE_EMPTY: 'Datofeltet kan ikke være blankt',
     DETAILS: 'Detaljer',
     DROPDOWN_EMPTY: 'Minst et valg må velges fra nedtrekksmenyen',
     EDIT_MODE: 'Redigeringsmodus',
+    FIELD_EMPTY: 'Tekstfeltet kan ikke være blankt',
+    FILTER_TABLE_DATA: 'Filtrerer tabellen etter navn',
+    FOUND_NOTHING: 'Fant ingen',
     GENERATE_KLASS_URL: 'Generer Klass url',
     INFORMATION_FROM_KLASS: 'informasjon fra Klass',
     INFORMATION_FROM_SERVER: 'informasjon fra server',
@@ -22,12 +26,20 @@ export const enums = {
     SAVE: 'Lagre',
     SEARCH: 'Søk',
     SEARCH_EMPTY: 'Feltet kan ikke være blankt',
-    FIELD_EMPTY: 'Tekstfeltet kan ikke være blankt',
+    TABLE: {
+      LOADING: 'Laster...',
+      NEXT: 'Neste',
+      OF: 'av',
+      PAGE: 'Side',
+      PREVIOUS: 'Forrige',
+      ROWS: 'rader'
+    },
     USE_COMPLETE_LIST: 'Bruk fullstendig liste',
     USE_LATEST_LIST: 'Bruk alltid nyeste utgave av liste',
     WAS_NOT_SAVED: 'ble ikke lagret',
     WAS_SAVED: 'ble lagret',
-    WAS_UPDATED: 'ble oppdatert'
+    WAS_UPDATED: 'ble oppdatert',
+    WITH_NAME: 'med navnet'
   },
   HTTP_HEADERS: {
     JSON: 'application/json',
@@ -39,6 +51,7 @@ export const enums = {
     ADMINISTRATIVE_DETAILS: 'administrativeDetails',
     CREATED_BY: 'createdBy',
     CREATED_DATE: 'createdDate',
+    DATATYPE: 'dataType',
     DESCRIPTION: 'description',
     FORMAT: 'format',
     ID: 'id',
@@ -47,6 +60,7 @@ export const enums = {
     LANGUAGE_TEXT: 'languageText',
     LAST_UPDATED_BY: 'lastUpdatedBy',
     LAST_UPDATED_DATE: 'lastUpdatedDate',
+    NAME: 'name',
     REF: '$ref',
     RENDER_ORDER: 'renderOrder',
     VALID_FROM: 'validFrom',
@@ -83,6 +97,8 @@ export const enums = {
     TEXT_AREA: 'textArea'
   },
   URL_AFFIX: {
-    SCHEMA: '?schema'
+    SCHEMA: '?schema',
+    LIST: '/',
+    ID: '/'
   }
 }

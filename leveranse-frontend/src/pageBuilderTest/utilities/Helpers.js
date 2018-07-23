@@ -12,6 +12,30 @@ export function findLastUppercaseWord (string) {
   return words[words.length - 1]
 }
 
+export function makeNorwegianWordDefinitive (string) {
+  let word = string
+
+  if (string.slice(-1) === 'e') {
+    word = string + 'n'
+  } else {
+    word = string + 'en'
+  }
+
+  return word
+}
+
+export function makeNorwegianWordPlural (string) {
+  let word = string
+
+  if (string.slice(-1) === 'e') {
+    word = string + 'r'
+  } else {
+    word = string + 'er'
+  }
+
+  return word
+}
+
 export function isNumericOrEmptyString (value) {
   if (value === '') {
     return true

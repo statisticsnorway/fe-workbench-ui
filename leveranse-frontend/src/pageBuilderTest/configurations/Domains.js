@@ -14,7 +14,7 @@ import {
   tempUnitTypeOptions,
   tempValueDomainOptions,
   tempVariableOptions
-} from '../utilities/FormData'
+} from '../utilities/TemporaryData'
 import { enums } from '../utilities/Enums'
 
 const population = {
@@ -60,6 +60,8 @@ const component = {
     values: tempRepresentedVariableOptions
   }
 }
+
+const tableHeaders = [enums.PROPERTY.NAME, enums.PROPERTY.DESCRIPTION]
 
 export const formConfigurations = {
   variable: {
@@ -306,6 +308,24 @@ export const formConfigurations = {
       renderOrder: 4,
       values: tempAgentOptions
     }
+  }
+}
+
+export const tableConfigurations = {
+  unitType: {
+    headers: tableHeaders.concat([enums.PROPERTY.ADMINISTRATIVE_STATUS, enums.PROPERTY.LAST_UPDATED_DATE])
+  },
+  enumeratedValueDomain: {
+    headers: tableHeaders.concat([enums.PROPERTY.DATATYPE])
+  },
+  substantiveValueDomain: {
+    headers: tableHeaders.concat([enums.PROPERTY.DATATYPE])
+  },
+  sentinelValueDomain: {
+    headers: tableHeaders.concat([enums.PROPERTY.DATATYPE])
+  },
+  describedValueDomain: {
+    headers: tableHeaders.concat([enums.PROPERTY.DATATYPE])
   }
 }
 

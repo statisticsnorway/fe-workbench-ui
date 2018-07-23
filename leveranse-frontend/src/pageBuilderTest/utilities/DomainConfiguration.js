@@ -1,15 +1,9 @@
 import { translateToNorwegian } from './Translation'
 import { commonFormConfigurations, formConfigurations } from '../configurations/Domains'
-import { findLastUppercaseWord, upperCaseFirst } from './Helpers'
+import { findLastUppercaseWord, makeNorwegianWordDefinitive, upperCaseFirst } from './Helpers'
 
-function buildConfiguration (name, nameInNorwegian, formConfig) {
-  let nameDefinitive
-
-  if (nameInNorwegian.slice(-1) === 'e') {
-    nameDefinitive = nameInNorwegian + 'n'
-  } else {
-    nameDefinitive = nameInNorwegian + 'en'
-  }
+function buildDomainConfiguration (name, nameInNorwegian, formConfig) {
+  let nameDefinitive = makeNorwegianWordDefinitive(nameInNorwegian)
 
   return {
     name: name,
@@ -31,7 +25,7 @@ Object.entries(formConfigurations).forEach(([key, value]) => {
     name = upperCaseFirst(key)
   }
 
-  configurations[key] = buildConfiguration(name, translateToNorwegian[key], value)
+  configurations[key] = buildDomainConfiguration(name, translateToNorwegian[key], value)
 
   Object.entries(commonFormConfigurations).forEach(([key, value]) => {
     configurations[domainKey].formConfig[key] = value
