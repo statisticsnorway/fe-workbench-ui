@@ -115,6 +115,8 @@ export const buildDomainState = (name, formConfig, user, object, id) => {
         resolve(state)
       }).catch((reason) => {
         state[enums.STATE.RESPONSE] = reason
+
+        resolve(state)
       })
     }
   })

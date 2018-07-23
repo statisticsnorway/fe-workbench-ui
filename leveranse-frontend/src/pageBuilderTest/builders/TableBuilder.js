@@ -113,7 +113,7 @@ class TableBuilder extends React.Component {
     })
   }
 
-  handleButtonClick = () => {
+  stateToConsoleForTesting = () => {
     console.log(this.state)
   }
 
@@ -127,7 +127,8 @@ class TableBuilder extends React.Component {
       noDataText = enums.CONTENT.FOUND_NOTHING + ' ' + this.tableNameNorwegianPluralLowerCase
 
       if (search) {
-        noDataText = enums.CONTENT.FOUND_NOTHING + ' ' + this.tableNameNorwegianPluralLowerCase + ' ' + enums.CONTENT.WITH_NAME + ': \'' + search + '\''
+        noDataText = enums.CONTENT.FOUND_NOTHING + ' ' + this.tableNameNorwegianPluralLowerCase + ' ' +
+          enums.CONTENT.WITH_NAME + ': \'' + search + '\''
 
         filteredTableData = tableData.filter(row => {
           return row.name.toUpperCase().includes(search.toUpperCase())
@@ -146,14 +147,13 @@ class TableBuilder extends React.Component {
           {enums.CONTENT.FILTER_TABLE_DATA}
         </Popup>
 
+        <Button color='pink' floated='right' onClick={this.stateToConsoleForTesting} content={'Vis state i konsoll'} />
         <NavLink to={'/generic/' + this.domainName}>
           <Button primary floated='right' icon='edit'
                   content={enums.CONTENT.CREATE_NEW + ' ' + this.tableNameNorwegianLowerCase} />
         </NavLink>
 
-        <Divider hidden />
-
-        {responseMessage(response)}
+        {response ? responseMessage(response) : <Divider hidden />}
 
         <ReactTable
           sortable
@@ -171,8 +171,6 @@ class TableBuilder extends React.Component {
           rowsText={enums.CONTENT.TABLE.ROWS}
           className='-striped -highlight'
         />
-
-        <Button onClick={this.handleButtonClick} content={'Test'} />
       </div>
     )
   }
