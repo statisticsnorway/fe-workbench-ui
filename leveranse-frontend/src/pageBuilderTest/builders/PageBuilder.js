@@ -4,7 +4,7 @@ import { getDomainData } from '../utilities/DataExchange'
 import { upperCaseFirst } from '../utilities/Helpers'
 import { enums } from '../utilities/Enums'
 import { responseMessage } from '../utilities/FormComponents'
-import { Container, Message } from 'semantic-ui-react'
+import { Container, Dimmer, Header, List, Loader, Message } from 'semantic-ui-react'
 
 class PageBuilder extends React.Component {
   constructor (props) {
@@ -71,24 +71,35 @@ class PageBuilder extends React.Component {
     const {errors, ready} = this.state
 
     return (
-      <div>
-        {ready && errors.length !== 0 ?
-          <Message info icon='warning'
-                   header={enums.CONTENT.CANNOT_GENERATE + '\'' + this.domain.nameInNorwegian + '\''}
-                   content={enums.CONTENT.CANNOT_FETCH_DROPDOWN_VALUES} />
-          : null
-        }
+      <Container>
+        <Dimmer active={!ready} inverted>
+          <Loader inverted inline='centered' />
+        </Dimmer>
 
-        {ready && errors.length !== 0 && Object.keys(errors).map((item) => {
-          return (
-            <Container key={item}>
-              {responseMessage(errors[item])}
-            </Container>
-          )
-        })}
+        {!ready ? <Header as='h2' dividing content={this.domain.nameInNorwegian} /> : null}
+
+        {ready && errors.length !== 0 ?
+          <div>
+            <Header as='h2' dividing content={this.domain.nameInNorwegian} />
+
+            <Message info icon='warning'
+                     header={enums.CONTENT.CANNOT_GENERATE + '\'' + this.domain.nameInNorwegian + '\''}
+                     content={enums.CONTENT.CANNOT_FETCH_DROPDOWN_VALUES} />
+
+            <List>
+              {Object.keys(errors).map((item) => {
+                return (
+                  <List.Item key={item}>
+                    {responseMessage(errors[item])}
+                  </List.Item>
+                )
+              })}
+            </List>
+          </div>
+        : null}
 
         {ready && errors.length === 0 ? <FormBuilder domain={this.domain} id={this.props.params} /> : null}
-      </div>
+      </Container>
     )
   }
 }

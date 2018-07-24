@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactTable from 'react-table'
-import { Button, Divider, Header, Icon, Input, Popup } from 'semantic-ui-react'
+import { Button, Container, Dimmer, Divider, Header, Icon, Input, Loader, Popup } from 'semantic-ui-react'
 import { enums } from '../utilities/Enums'
 import { lowerCaseFirst } from '../utilities/Helpers'
 import { NavLink } from 'react-router-dom'
@@ -113,10 +113,6 @@ class TableBuilder extends React.Component {
     })
   }
 
-  stateToConsoleForTesting = () => {
-    console.log(this.state)
-  }
-
   render () {
     const {search, tableData, tableColumns, loadingTable, response} = this.state
 
@@ -137,7 +133,11 @@ class TableBuilder extends React.Component {
     }
 
     return (
-      <div>
+      <Container>
+        <Dimmer active={loadingTable} inverted>
+          <Loader inverted inline='centered' />
+        </Dimmer>
+
         <Header as='h2' dividing content={this.tableNameNorwegianPlural} />
 
         <Popup trigger={<Input icon='search' placeholder={enums.CONTENT.SEARCH} value={search}
@@ -147,8 +147,7 @@ class TableBuilder extends React.Component {
           {enums.CONTENT.FILTER_TABLE_DATA}
         </Popup>
 
-        <Button color='pink' floated='right' onClick={this.stateToConsoleForTesting} content={'Vis state i konsoll'} />
-        <NavLink to={'/generic/' + this.domainName}>
+        <NavLink to={'/generic/' + this.domainName + '/new'}>
           <Button primary floated='right' icon='edit'
                   content={enums.CONTENT.CREATE_NEW + ' ' + this.tableNameNorwegianLowerCase} />
         </NavLink>
@@ -158,7 +157,6 @@ class TableBuilder extends React.Component {
         <ReactTable
           sortable
           data={filteredTableData}
-          loading={loadingTable}
           resizable={false}
           columns={tableColumns}
           defaultPageSize={10}
@@ -171,7 +169,7 @@ class TableBuilder extends React.Component {
           rowsText={enums.CONTENT.TABLE.ROWS}
           className='-striped -highlight'
         />
-      </div>
+      </Container>
     )
   }
 }
