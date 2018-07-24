@@ -22,7 +22,9 @@ class PageBuilder extends React.Component {
     let counter = 0
 
     for (let property in this.domain.formConfig) {
-      if (this.domain.formConfig[property].type === enums.TYPE.DROPDOWN_SINGLE || this.domain.formConfig[property].type === enums.TYPE.DROPDOWN_MULTIPLE) {
+      let type = this.domain.formConfig[property].type
+      
+      if (type === enums.TYPE.DROPDOWN_SINGLE || type === enums.TYPE.DROPDOWN_MULTIPLE) {
         let name = upperCaseFirst(property)
 
         getDomainData(name, enums.URL_AFFIX.LIST).then((result) => {
