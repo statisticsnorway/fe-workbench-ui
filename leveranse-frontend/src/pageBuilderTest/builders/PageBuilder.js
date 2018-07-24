@@ -20,10 +20,11 @@ class PageBuilder extends React.Component {
   componentDidMount () {
     let errors = []
     let counter = 0
+    let formConfigLength = Object.keys(this.domain.formConfig).length
 
     for (let property in this.domain.formConfig) {
       let type = this.domain.formConfig[property].type
-      
+
       if (type === enums.TYPE.DROPDOWN_SINGLE || type === enums.TYPE.DROPDOWN_MULTIPLE) {
         let name = upperCaseFirst(property)
 
@@ -39,11 +40,12 @@ class PageBuilder extends React.Component {
 
             theList.push(object)
           }
+
           this.domain.formConfig[property].values = theList
 
           counter++
 
-          if (counter === Object.keys(this.domain.formConfig).length) {
+          if (counter === formConfigLength) {
             this.setState({errors: errors}, () => {this.setState({ready: true})})
           }
         }).catch((reason) => {
@@ -51,14 +53,14 @@ class PageBuilder extends React.Component {
 
           counter++
 
-          if (counter === Object.keys(this.domain.formConfig).length) {
+          if (counter === formConfigLength) {
             this.setState({errors: errors}, () => {this.setState({ready: true})})
           }
         })
       } else {
         counter++
 
-        if (counter === Object.keys(this.domain.formConfig).length) {
+        if (counter === formConfigLength) {
           this.setState({errors: errors}, () => {this.setState({ready: true})})
         }
       }
