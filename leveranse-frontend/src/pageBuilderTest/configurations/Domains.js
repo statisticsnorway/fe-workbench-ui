@@ -1,20 +1,3 @@
-import {
-  tempAgentInRolesOptions,
-  tempAgentOptions,
-  tempAttributeComponentOptions,
-  tempExchangeChannelOptions,
-  tempIdentifierComponentOptions,
-  tempMeasureComponentOptions,
-  tempPopulationOptions,
-  tempProtocolOptions,
-  tempRepresentedVariableOptions,
-  tempRoleOptions,
-  tempSentinelValueDomainOptions,
-  tempSubstantiveValueDomainOptions,
-  tempUnitTypeOptions,
-  tempValueDomainOptions,
-  tempVariableOptions
-} from '../utilities/TemporaryData'
 import { enums } from '../utilities/Enums'
 
 const population = {
@@ -32,13 +15,11 @@ const population = {
   },
   unitType: {
     type: enums.TYPE.DROPDOWN_SINGLE,
-    renderOrder: 5,
-    values: tempUnitTypeOptions
+    renderOrder: 5
   },
   respondantUnitType: {
     type: enums.TYPE.DROPDOWN_SINGLE,
-    renderOrder: 6,
-    values: tempUnitTypeOptions
+    renderOrder: 6
   }
 }
 
@@ -56,8 +37,7 @@ const component = {
   },
   representedVariable: {
     type: enums.TYPE.DROPDOWN_SINGLE,
-    renderOrder: 4,
-    values: tempRepresentedVariableOptions
+    renderOrder: 4
   }
 }
 
@@ -67,36 +47,31 @@ export const formConfigurations = {
   variable: {
     unitType: {
       type: enums.TYPE.DROPDOWN_SINGLE,
-      renderOrder: 3,
-      values: tempUnitTypeOptions
+      renderOrder: 3
     }
   },
   representedVariable: {
     variable: {
       type: enums.TYPE.DROPDOWN_SINGLE,
-      renderOrder: 3,
-      values: tempVariableOptions
+      renderOrder: 3
     },
     substantiveValueDomain: {
       type: enums.TYPE.DROPDOWN_SINGLE,
-      values: tempSubstantiveValueDomainOptions
+      renderOrder: 4
     }
   },
   instanceVariable: {
     representedVariable: {
       type: enums.TYPE.DROPDOWN_SINGLE,
-      renderOrder: 3,
-      values: tempRepresentedVariableOptions
+      renderOrder: 3
     },
     population: {
       type: enums.TYPE.DROPDOWN_SINGLE,
-      renderOrder: 4,
-      values: tempPopulationOptions
+      renderOrder: 4
     },
     sentinelValueDomain: {
       type: enums.TYPE.DROPDOWN_SINGLE,
-      renderOrder: 5,
-      values: tempSentinelValueDomainOptions
+      renderOrder: 5
     }
   },
   surveyPopulation: {
@@ -152,16 +127,14 @@ export const formConfigurations = {
     ...valueDomain,
     valueDomain: {
       type: enums.TYPE.DROPDOWN_SINGLE,
-      renderOrder: 4,
-      values: tempValueDomainOptions
+      renderOrder: 4
     }
   },
   sentinelValueDomain: {
     ...valueDomain,
     valueDomain: {
       type: enums.TYPE.DROPDOWN_SINGLE,
-      renderOrder: 4,
-      values: tempValueDomainOptions
+      renderOrder: 4
     }
   },
   enumeratedValueDomain: {
@@ -185,18 +158,15 @@ export const formConfigurations = {
   unitDataStructure: {
     identifierComponents: {
       type: enums.TYPE.DROPDOWN_MULTIPLE,
-      renderOrder: 3,
-      values: tempIdentifierComponentOptions
+      renderOrder: 3
     },
     measureComponents: {
       type: enums.TYPE.DROPDOWN_MULTIPLE,
-      renderOrder: 4,
-      values: tempMeasureComponentOptions
+      renderOrder: 4
     },
     attributeComponents: {
       type: enums.TYPE.DROPDOWN_MULTIPLE,
-      renderOrder: 5,
-      values: tempAttributeComponentOptions
+      renderOrder: 5
     },
     temporalityType: {
       type: enums.TYPE.TEXT,
@@ -249,8 +219,7 @@ export const formConfigurations = {
     },
     protocol: {
       type: enums.TYPE.DROPDOWN_SINGLE,
-      renderOrder: 4,
-      values: tempProtocolOptions
+      renderOrder: 4
     }
   },
   provisionAgreement: {
@@ -281,8 +250,7 @@ export const formConfigurations = {
     },
     exchangeChannel: {
       type: enums.TYPE.DROPDOWN_SINGLE,
-      renderOrder: 9,
-      values: tempExchangeChannelOptions
+      renderOrder: 9
     },
     frequency: {
       type: enums.TYPE.TEXT,
@@ -293,20 +261,17 @@ export const formConfigurations = {
   informationProvider: {
     agentInRoles: {
       type: enums.TYPE.DROPDOWN_SINGLE,
-      renderOrder: 3,
-      values: tempAgentInRolesOptions
+      renderOrder: 3
     }
   },
   agentInRole: {
     role: {
       type: enums.TYPE.DROPDOWN_SINGLE,
-      renderOrder: 3,
-      values: tempRoleOptions
+      renderOrder: 3
     },
     agents: {
       type: enums.TYPE.DROPDOWN_MULTIPLE,
-      renderOrder: 4,
-      values: tempAgentOptions
+      renderOrder: 4
     }
   }
 }

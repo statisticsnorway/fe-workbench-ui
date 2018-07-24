@@ -4,6 +4,8 @@ export const enums = {
   },
   CONTENT: {
     CANNOT_FETCH: 'Kan ikke hente',
+    CANNOT_FETCH_DROPDOWN_VALUES: 'Klarte ikke å hente verdiene til nedtrekkslisten(e), se hvilke, og hvorfor, i beskjeden(e) under',
+    CANNOT_GENERATE: 'Kan ikke generere skjemaet for',
     CORRECT_ERRORS: 'Rett opp feilene og prøv igjen',
     CREATE_NEW: 'Opprett ny',
     DATE_EMPTY: 'Datofeltet kan ikke være blankt',
