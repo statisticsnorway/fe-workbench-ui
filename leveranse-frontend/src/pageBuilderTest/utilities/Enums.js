@@ -27,6 +27,7 @@ export const enums = {
     NOT_A_NUMBER: 'Verdien er ikke et gyldig tall',
     SAVE: 'Lagre',
     SEARCH: 'Søk',
+    SEARCH_AND_CHOOSE: 'Søk og velg',
     SEARCH_EMPTY: 'Feltet kan ikke være blankt',
     TABLE: {
       LOADING: 'Laster...',
@@ -94,6 +95,7 @@ export const enums = {
     KLASS_URL: 'klassUrl',
     NUMBER: 'number',
     SEARCH: 'search',
+    SEARCH_MODAL_RETURN: 'searchModalReturn',
     STRING: 'string',
     TEXT: 'text',
     TEXT_AREA: 'textArea'

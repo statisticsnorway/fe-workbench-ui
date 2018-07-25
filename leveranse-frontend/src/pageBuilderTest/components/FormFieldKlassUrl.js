@@ -11,6 +11,7 @@ class FormFieldKlassUrl extends React.Component {
     let url = value.url
 
     this.setState({[enums.TYPE.KLASS_URL]: url})
+
     this.props.onUpdate(value)
   }
 
