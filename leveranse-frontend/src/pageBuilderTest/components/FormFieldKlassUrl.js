@@ -23,11 +23,16 @@ class FormFieldKlassUrl extends React.Component {
           <label>{info.itemInNorwegian}</label>
           <Popup
             trigger={<Input name={info.item} placeholder={info.itemInNorwegian} readOnly={true}
-                            value={this.state[enums.TYPE.KLASS_URL]} />}
+                            value={this.state[enums.TYPE.KLASS_URL]}
+                            action={{
+                              color: 'teal', labelPosition: 'right', icon: 'globe',
+                              content: enums.CONTENT.GENERATE_KLASS_URL,
+                              onClick: (() => this.Klass.handleAccordionClick())
+                            }} />}
             content={this.state[enums.TYPE.KLASS_URL]} flowing hoverable hideOnScroll position='top center' />
           {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
         </Form.Field>
-        <Klass url={this.onUpdate} />
+        <Klass url={this.onUpdate} ref={Klass => {this.Klass = Klass}} />
       </div>
     )
   }

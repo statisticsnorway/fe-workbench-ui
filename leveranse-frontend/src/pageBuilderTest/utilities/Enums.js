@@ -15,7 +15,7 @@ export const enums = {
     FIELD_EMPTY: 'Tekstfeltet kan ikke være blankt',
     FILTER_TABLE_DATA: 'Filtrerer tabellen etter navn',
     FOUND_NOTHING: 'Fant ingen',
-    GENERATE_KLASS_URL: 'Generer Klass url',
+    GENERATE_KLASS_URL: 'Lag Klass url',
     INFORMATION_FROM_KLASS: 'informasjon fra Klass',
     INFORMATION_FROM_SERVER: 'informasjon fra server',
     KLASS_SEARCH: 'Søk etter kodeverk i Klass',
