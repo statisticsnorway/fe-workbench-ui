@@ -18,9 +18,7 @@ const formField = (info, input) => {
   )
 }
 
-export const InlineError = ({text}) => (
-  <span style={{color: '#db2828'}}>{text}</span>
-)
+export const InlineError = ({text}) => (<span style={{color: '#db2828'}}>{text}</span>)
 
 export const editModeCheckbox = (readOnlyMode, action) => {
   return (
@@ -58,36 +56,35 @@ export const formFieldTextArea = (info, action, value, readOnlyMode) => {
   const input = <TextArea autoHeight name={info.item} placeholder={info.itemInNorwegian} readOnly={readOnlyMode}
                           onChange={action} value={value} />
 
-  return (formField(info, input)
-  )
+  return formField(info, input)
 }
 
 export const formFieldText = (info, action, value) => {
   const input = <Input name={info.item} placeholder={info.itemInNorwegian} readOnly={info.readOnlyMode}
                        onChange={action} value={value} />
 
-  return (formField(info, input))
+  return formField(info, input)
 }
 
 export const formFieldDropdownSingle = (info, action, values) => {
   const input = <Dropdown placeholder={info.itemInNorwegian} selection options={values} disabled={info.readOnlyMode}
                           onChange={action} />
 
-  return (formField(info, input))
+  return formField(info, input)
 }
 
 export const formFieldDropdownMultiple = (info, action, values) => {
   const input = <Dropdown placeholder={info.itemInNorwegian} multiple selection options={values}
                           disabled={info.readOnlyMode} onChange={action} />
 
-  return (formField(info, input))
+  return formField(info, input)
 }
 
 export const formFieldDate = (info, action, value) => {
   const input = <DatePicker selected={value === '' ? null : value} onChange={action} dateFormat='DD/MM/YYYY'
                             placeholderText={info.itemInNorwegian} disabled={info.readOnlyMode} locale='nb' />
 
-  return (formField(info, input))
+  return formField(info, input)
 }
 
 export const formFieldBoolean = (info, action, value) => {
@@ -103,19 +100,5 @@ export const formFieldNumber = (info, action, value) => {
   const input = <Input name={info.item} placeholder={info.itemInNorwegian} readOnly={info.readOnlyMode}
                        onChange={action} value={value} type='number' />
 
-  return (formField(info, input))
+  return formField(info, input)
 }
-
-export const formFieldSearchModal = (info, action, value) => {
-  return (
-    <Form.Field key={info.index} error={!!info.errors[info.item]}>
-      <label>{info.itemInNorwegian}</label>
-      {/*TODO Create the search modal*/}
-      <Input name={info.item} placeholder={info.itemInNorwegian} readOnly={true} onChange={action} value={value}
-             action={{color: 'teal', labelPosition: 'right', icon: 'search', content: enums.CONTENT.SEARCH}} />
-      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
-    </Form.Field>
-  )
-}
-
-//TODO: Add more form fields

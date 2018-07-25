@@ -9,7 +9,6 @@ import {
   formFieldDropdownMultiple,
   formFieldDropdownSingle,
   formFieldNumber,
-  formFieldSearchModal,
   formFieldText,
   formFieldTextArea,
   responseMessage
@@ -22,6 +21,7 @@ import { enums } from '../utilities/Enums'
 import * as moment from 'moment'
 import 'moment/min/locales'
 import FormFieldKlassUrl from '../components/FormFieldKlassUrl'
+import FormFieldSearchModal from '../components/FormFieldSearchModal'
 
 moment.locale(enums.LANGUAGE_CODE.NORWEGIAN)
 
@@ -44,7 +44,9 @@ class FormBuilder extends React.Component {
 
   componentDidMount () {
     getDomainData(this.objectName, enums.URL_AFFIX.SCHEMA).then((result) => {
-      //TODO: There is a bug, if you are on a domain page with fetched data and directly click to make a new instance of the same domain you are on, it will not reload the component.
+      //TODO: There is a bug, if you are on a domain page with fetched data and directly click to make a new instance
+      // of the same domain you are on, it will not reload the component. It may be possible to use
+      // componentWillMount() {resetComponent()} or something to that effect.
       buildDomainState(this.objectName, this.formConfig, this.user, result, this.id).then((result) => {
         this.setState(result, () => {this.setState({ready: true})})
       })
@@ -156,6 +158,22 @@ class FormBuilder extends React.Component {
           [enums.PROPERTY.LANGUAGE_CODE]: enums.LANGUAGE_CODE.NORWEGIAN,
           [enums.PROPERTY.LANGUAGE_TEXT]: description
         }]
+      }
+    })
+  }
+
+  handleSearchModalChange = (value) => {
+    let url = value.url
+    let property = value.domain
+
+    this.setState({
+      errors: {
+        ...this.state.errors,
+        [property]: ''
+      },
+      [this.objectNameLowerCase]: {
+        ...this.state[this.objectNameLowerCase],
+        [property]: url
       }
     })
   }
@@ -377,7 +395,8 @@ class FormBuilder extends React.Component {
                           return formFieldBoolean(info, (this.handleBooleanChange.bind(this, item)), value)
 
                         case enums.TYPE.SEARCH:
-                          return formFieldSearchModal(info, this.handleInputChange, value)
+                          return <FormFieldSearchModal key={info.item} info={info}
+                                                       onUpdate={this.handleSearchModalChange} />
 
                         case enums.TYPE.NUMBER:
                           return formFieldNumber(info, this.handleNumberChange, value)
@@ -446,7 +465,7 @@ class FormBuilder extends React.Component {
               </Grid>
             </Form>
           </div>
-        : null}
+          : null}
       </Container>
     )
   }
