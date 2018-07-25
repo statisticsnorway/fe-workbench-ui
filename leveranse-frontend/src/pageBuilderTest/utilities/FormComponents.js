@@ -8,6 +8,16 @@ import { enums } from './Enums'
 
 moment.locale('nb')
 
+const formField = (info, input) => {
+  return (
+    <Form.Field key={info.index} error={!!info.errors[info.item]}>
+      <label>{info.itemInNorwegian}</label>
+      {input}
+      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
+    </Form.Field>
+  )
+}
+
 export const InlineError = ({text}) => (
   <span style={{color: '#db2828'}}>{text}</span>
 )
@@ -45,78 +55,55 @@ export const responseMessage = (response) => {
 }
 
 export const formFieldTextArea = (info, action, value, readOnlyMode) => {
-  return (
-    <Form.Field key={info.index} error={!!info.errors[info.item]}>
-      <label>{info.itemInNorwegian}</label>
-      <TextArea autoHeight name={info.item} placeholder={info.itemInNorwegian} readOnly={readOnlyMode}
-                onChange={action} value={value} />
-      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
-    </Form.Field>
+  const input = <TextArea autoHeight name={info.item} placeholder={info.itemInNorwegian} readOnly={readOnlyMode}
+                          onChange={action} value={value} />
+
+  return (formField(info, input)
   )
 }
 
 export const formFieldText = (info, action, value) => {
-  return (
-    <Form.Field key={info.index} error={!!info.errors[info.item]}>
-      <label>{info.itemInNorwegian}</label>
-      <Input name={info.item} placeholder={info.itemInNorwegian} readOnly={info.readOnlyMode} onChange={action}
-             value={value} />
-      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
-    </Form.Field>
-  )
+  const input = <Input name={info.item} placeholder={info.itemInNorwegian} readOnly={info.readOnlyMode}
+                       onChange={action} value={value} />
+
+  return (formField(info, input))
 }
 
 export const formFieldDropdownSingle = (info, action, values) => {
-  return (
-    <Form.Field key={info.index} error={!!info.errors[info.item]}>
-      <label>{info.itemInNorwegian}</label>
-      <Dropdown placeholder={info.itemInNorwegian} selection options={values} disabled={info.readOnlyMode}
-                onChange={action} />
-      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
-    </Form.Field>
-  )
+  const input = <Dropdown placeholder={info.itemInNorwegian} selection options={values} disabled={info.readOnlyMode}
+                          onChange={action} />
+
+  return (formField(info, input))
 }
 
 export const formFieldDropdownMultiple = (info, action, values) => {
-  return (
-    <Form.Field key={info.index} error={!!info.errors[info.item]}>
-      <label>{info.itemInNorwegian}</label>
-      <Dropdown placeholder={info.itemInNorwegian} multiple selection options={values} disabled={info.readOnlyMode}
-                onChange={action} />
-      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
-    </Form.Field>
-  )
+  const input = <Dropdown placeholder={info.itemInNorwegian} multiple selection options={values}
+                          disabled={info.readOnlyMode} onChange={action} />
+
+  return (formField(info, input))
 }
 
 export const formFieldDate = (info, action, value) => {
-  return (
-    <Form.Field key={info.index} error={!!info.errors[info.item]}>
-      <label>{info.itemInNorwegian}</label>
-      <DatePicker selected={value === '' ? null : value} onChange={action} dateFormat='DD/MM/YYYY'
-                  placeholderText={info.itemInNorwegian} disabled={info.readOnlyMode} locale='nb' />
-      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
-    </Form.Field>
-  )
+  const input = <DatePicker selected={value === '' ? null : value} onChange={action} dateFormat='DD/MM/YYYY'
+                            placeholderText={info.itemInNorwegian} disabled={info.readOnlyMode} locale='nb' />
+
+  return (formField(info, input))
 }
 
 export const formFieldBoolean = (info, action, value) => {
   return (
     <Form.Field key={info.index} error={!!info.errors[info.item]}>
       <Checkbox label={info.itemInNorwegian} name={info.item} onChange={action}
-                checked={value === '' ? false : value} />
+                checked={value === '' ? false : value} disabled={info.readOnlyMode} />
     </Form.Field>
   )
 }
 
 export const formFieldNumber = (info, action, value) => {
-  return (
-    <Form.Field key={info.index} error={!!info.errors[info.item]}>
-      <label>{info.itemInNorwegian}</label>
-      <Input name={info.item} placeholder={info.itemInNorwegian} readOnly={info.readOnlyMode} onChange={action}
-             value={value} type='number' />
-      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
-    </Form.Field>
-  )
+  const input = <Input name={info.item} placeholder={info.itemInNorwegian} readOnly={info.readOnlyMode}
+                       onChange={action} value={value} type='number' />
+
+  return (formField(info, input))
 }
 
 export const formFieldSearchModal = (info, action, value) => {

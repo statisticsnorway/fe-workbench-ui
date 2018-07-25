@@ -1,17 +1,5 @@
 import React from 'react'
-import {
-  Accordion,
-  Button,
-  Checkbox,
-  Container,
-  Divider,
-  Form,
-  Grid,
-  Icon,
-  Input,
-  List,
-  Segment
-} from 'semantic-ui-react'
+import { Accordion, Checkbox, Container, Divider, Form, Grid, Icon, Input, List, Segment } from 'semantic-ui-react'
 import { enums } from '../utilities/Enums'
 import { getDataFromKlass } from '../utilities/DataExchange'
 import { responseMessage } from '../utilities/FormComponents'
@@ -216,21 +204,12 @@ class Klass extends React.Component {
     })
   }
 
-  handleButtonClick = () => {
-    console.log(this.state)
-  }
-
   render () {
     const {open, response, classificationFamilies, deepAccordionIndex, deeperAccordionIndex} = this.state
 
     return (
       <Accordion fluid className='noMargin'>
-        <Accordion.Title active={open} onClick={this.handleAccordionClick}>
-          <Button toggle icon active={open} labelPosition='right'>
-            {enums.CONTENT.GENERATE_KLASS_URL}
-            <Icon name={open ? 'down arrow' : 'right arrow'} />
-          </Button>
-        </Accordion.Title>
+        <Accordion.Title active={open} />
         <Accordion.Content active={open}>
           <Segment>
             {responseMessage(response)}
@@ -258,7 +237,7 @@ class Klass extends React.Component {
                     <Accordion.Content active={deepAccordionIndex === familyName}>
                       <Segment>
                         <Accordion fluid className='noMargin'>
-                          {typeof classifications !== 'undefined' && Object.keys(classifications).map((deepItem, deepIndex) => {
+                          {typeof classifications !== 'undefined' && Object.keys(classifications).map((deepItem) => {
                             let classificationName = classificationFamilies[mainIndex].classifications[deepItem].name
                             let completeList = classificationFamilies[mainIndex].classifications[deepItem].completeList
                             let latestList = classificationFamilies[mainIndex].classifications[deepItem].latestList
@@ -292,7 +271,7 @@ class Klass extends React.Component {
                                   {typeof codes !== 'undefined' && codes.length !== 0 ?
                                     <Segment>
                                       <List>
-                                        {Object.keys(codes).map((deepestItem, deepestIndex) => {
+                                        {Object.keys(codes).map((deepestItem) => {
                                           let code = classificationFamilies[mainIndex].classifications[deepItem].codes[deepestItem].code
                                           let name = classificationFamilies[mainIndex].classifications[deepItem].codes[deepestItem].name
                                           let codeName = code + ' - ' + name
@@ -320,7 +299,6 @@ class Klass extends React.Component {
                 )
               })}
             </Accordion>
-            <Button onClick={this.handleButtonClick} content={'Test'} />
           </Segment>
         </Accordion.Content>
       </Accordion>
