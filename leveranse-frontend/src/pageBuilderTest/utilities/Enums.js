@@ -4,6 +4,8 @@ export const enums = {
   },
   CONTENT: {
     CANNOT_FETCH: 'Kan ikke hente',
+    CANNOT_FETCH_DROPDOWN_VALUES: 'Klarte ikke å hente verdiene til nedtrekkslisten(e), se hvilke, og hvorfor, i beskjeden(e) under',
+    CANNOT_GENERATE: 'Kan ikke generere skjemaet for',
     CORRECT_ERRORS: 'Rett opp feilene og prøv igjen',
     CREATE_NEW: 'Opprett ny',
     DATE_EMPTY: 'Datofeltet kan ikke være blankt',
@@ -13,7 +15,7 @@ export const enums = {
     FIELD_EMPTY: 'Tekstfeltet kan ikke være blankt',
     FILTER_TABLE_DATA: 'Filtrerer tabellen etter navn',
     FOUND_NOTHING: 'Fant ingen',
-    GENERATE_KLASS_URL: 'Generer Klass url',
+    GENERATE_KLASS_URL: 'Lag Klass url',
     INFORMATION_FROM_KLASS: 'informasjon fra Klass',
     INFORMATION_FROM_SERVER: 'informasjon fra server',
     KLASS_SEARCH: 'Søk etter kodeverk i Klass',
