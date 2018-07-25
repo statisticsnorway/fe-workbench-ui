@@ -102,17 +102,3 @@ export const formFieldNumber = (info, action, value) => {
 
   return formField(info, input)
 }
-
-export const formFieldSearchModal = (info, action, value) => {
-  return (
-    <Form.Field key={info.index} error={!!info.errors[info.item]}>
-      <label>{info.itemInNorwegian}</label>
-      {/*TODO Create the search modal*/}
-      <Input name={info.item} placeholder={info.itemInNorwegian} readOnly={true} onChange={action} value={value}
-             action={{color: 'teal', labelPosition: 'right', icon: 'search', content: enums.CONTENT.SEARCH}} />
-      {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
-    </Form.Field>
-  )
-}
-
-//TODO: Add more form fields
