@@ -321,12 +321,20 @@ class FormBuilder extends React.Component {
     const {readOnlyMode, waitingForResponse, response, errors, form, ready} = this.state
 
     return (
-      <Container>
+      <Container fluid>
         <Dimmer active={typeof response === 'undefined'} inverted>
           <Loader inverted inline='centered' />
         </Dimmer>
 
         <Header as='h2' dividing content={this.objectNameNorwegian} />
+
+        {ready && typeof form !== 'undefined' ?
+          <div>
+            {editModeCheckbox(readOnlyMode, this.handleEditModeClick)}
+            <Divider hidden />
+          </div>
+          : null
+        }
 
         {errorMessages(errors, this.objectNameDefinitive)}
 
@@ -334,13 +342,9 @@ class FormBuilder extends React.Component {
 
         {ready && typeof form !== 'undefined' ?
           <div>
-            {editModeCheckbox(readOnlyMode, this.handleEditModeClick)}
-
-            <Divider hidden className='smallerDivider' />
-
             <Form>
               <Grid>
-                <Grid.Column width={10}>
+                <Grid.Column width={6}>
                   {Object.keys(form).map((item, index) => {
                     if (this.formConfig.hasOwnProperty(item) && this.formConfig[item].type !== enums.TYPE.AUTOFILLED) {
                       let info = {
@@ -414,7 +418,9 @@ class FormBuilder extends React.Component {
                   })}
                 </Grid.Column>
 
-                <Grid.Column width={6}>
+                <Grid.Column width={1}/>
+
+                <Grid.Column width={9}>
                   <Header as='h3' content={enums.CONTENT.DETAILS} />
 
                   <List relaxed='very'>

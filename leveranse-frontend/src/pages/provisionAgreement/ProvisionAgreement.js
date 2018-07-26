@@ -14,9 +14,9 @@ class ProvisionAgreement extends React.Component {
           isNewProvisionAgreement={this.props.isNewProvisionAgreement} /></Tab.Pane>
       },
       {menuItem: 'Kontaktpersoner', render: () => <Tab.Pane><ContactPerson /></Tab.Pane>},
-      {menuItem: 'Leveranseformat', render: () => <Tab.Pane>Leveranseformat Content</Tab.Pane>},
-      {menuItem: 'Dokumenter', render: () => <Tab.Pane>Documenter Content</Tab.Pane>},
-      {menuItem: 'Forventede leveranser', render: () => <Tab.Pane>Forventede leveranser Content</Tab.Pane>}
+      {menuItem: 'Leveranseformat', render: () => <Tab.Pane>Leveranseformat innhold</Tab.Pane>},
+      {menuItem: 'Dokumenter', render: () => <Tab.Pane>Dokumenter innhold</Tab.Pane>},
+      {menuItem: 'Forventede leveranser', render: () => <Tab.Pane>Forventede leveranser innhold</Tab.Pane>}
     ]
 
     return (

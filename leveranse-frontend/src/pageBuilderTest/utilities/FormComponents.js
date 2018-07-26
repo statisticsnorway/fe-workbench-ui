@@ -22,7 +22,7 @@ export const InlineError = ({text}) => (<span style={{color: '#db2828'}}>{text}<
 
 export const editModeCheckbox = (readOnlyMode, action) => {
   return (
-    <Container fluid textAlign='right'>
+    <Container fluid>
       <Icon name={readOnlyMode ? 'lock' : 'lock open'} color={readOnlyMode ? 'red' : 'green'} />
       <Checkbox toggle checked={!readOnlyMode} onClick={action} icon='edit' label={enums.CONTENT.EDIT_MODE} />
     </Container>
@@ -33,7 +33,8 @@ export const errorMessages = (errors, name) => {
   return (
     errors !== undefined && Object.keys(errors).length !== 0 && !Object.values(errors).every(i => (i === '')) ?
       <Message icon='warning' header={name + ' ' + enums.CONTENT.WAS_NOT_SAVED} content={enums.CONTENT.CORRECT_ERRORS}
-               color='yellow' /> : null
+               color='yellow' />
+      : null
   )
 }
 
@@ -43,12 +44,15 @@ export const responseMessage = (response) => {
       Object.keys(response).length !== 0 ?
         <Message icon color={response.color}>
           <Icon name={response.icon} />
+
           <Message.Content>
             <Message.Header>{response.header}</Message.Header>
             <p>{response.text}</p>
             {typeof response.additionalText !== 'undefined' ? <p>{response.additionalText}</p> : null}
           </Message.Content>
-        </Message> : null : null
+        </Message>
+        : null
+      : null
   )
 }
 
@@ -82,7 +86,8 @@ export const formFieldDropdownMultiple = (info, action, values) => {
 
 export const formFieldDate = (info, action, value) => {
   const input = <DatePicker selected={value === '' ? null : value} onChange={action} dateFormat='DD/MM/YYYY'
-                            placeholderText={info.itemInNorwegian} disabled={info.readOnlyMode} locale='nb' />
+                            placeholderText={info.itemInNorwegian} disabled={info.readOnlyMode} locale='nb'
+                            dropdownMode='select' />
 
   return formField(info, input)
 }
