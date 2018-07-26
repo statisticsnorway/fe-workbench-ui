@@ -2,13 +2,12 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import moment from 'moment'
 import {Button, Dropdown, Form, Header, Input, TextArea, Message} from 'semantic-ui-react'
-import {SingleDatePicker} from 'react-dates'
 import {
   editModeCheckbox,
   errorMessages,
   responseMessages
 } from '../../utils/Common'
-import {alertActions, provisionAgreementActions} from '../../actions'
+import { provisionAgreementActions } from '../../actions'
 import {connect} from 'react-redux'
 import 'react-dates/lib/css/_datepicker.css'
 import 'react-dates/initialize'
@@ -221,8 +220,8 @@ class ProvisionAgreementDesc extends Component {
   }
 
   render() {
-    const {errors, response, readOnlyMode, waitingForResponse, provisionAgreement} = this.state
-    const {alert, provisionAgreementId} = this.props
+    const { errors, response, readOnlyMode, waitingForResponse, provisionAgreement } = this.state
+    const { alert } = this.props
     return (
       <Form>
         <Header as='h2' dividing content={'Leveransebeskrivelse'}/>
