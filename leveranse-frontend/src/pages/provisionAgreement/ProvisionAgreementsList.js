@@ -1,13 +1,13 @@
 import React from 'react'
-import {Grid, Header, Message, Segment} from 'semantic-ui-react'
+import { Header, Message, Segment } from 'semantic-ui-react'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-import {getDataFromBackend} from "../../utils/Common";
+import { getDataFromBackend } from '../../utils/Common'
 
 let selectedProvisionalAgreement
 
 class ProvisionAgreementsList extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       provisionAgreements: [],
@@ -15,11 +15,12 @@ class ProvisionAgreementsList extends React.Component {
       loading: true,
       response: {}
     }
+
     this.selectProvisionAgreement = this.selectProvisionAgreement.bind(this)
     this.onClickProvisionAgreement = this.onClickProvisionAgreement.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     getDataFromBackend('ProvisionAgreement/', this.state.provisionAgreements).then((result) => {
       this.setState(prevState => ({
         provisionAgreements: [...prevState.provisionAgreements, result.data],
@@ -29,8 +30,8 @@ class ProvisionAgreementsList extends React.Component {
     })
   }
 
-  selectProvisionAgreement(e, state, column, rowInfo, instance) {
-    if (this.state.selectedIndex != -1) {
+  selectProvisionAgreement (e, state, column, rowInfo, instance) {
+    if (this.state.selectedIndex !== -1) {
       let ProvisionAgreementOld = this.state.provisionAgreements[this.state.selectedIndex]
       ProvisionAgreementOld.selected = false
     }
@@ -45,13 +46,13 @@ class ProvisionAgreementsList extends React.Component {
     this.setState({selectedIndex: rowInfo.index})
   }
 
-  onClickProvisionAgreement(id) {
+  onClickProvisionAgreement (id) {
     getDataFromBackend('ProvisionAgreement/' + id, this.state.provisionAgreements).then((result) => {
       selectedProvisionalAgreement = result.data
     })
   }
 
-  render() {
+  render () {
     const {response, loading} = this.state
     const data = this.state.provisionAgreements
     const columns = [{
@@ -69,40 +70,32 @@ class ProvisionAgreementsList extends React.Component {
     }]
 
     return (
-      <div>
-        <Grid container stackable>
-          <Grid.Row columns={1}>
-            <Grid.Column width={16}>
-              <Segment loading={loading}>
-                <Header as='h3' content='Leveranseavtaler' dividing />
-                {Object.keys(response).length !== 0 ?
-                  <Message icon={response.icon} color={response.color} header={response.header}
-                           content={response.content} /> : null}
-                {loading ? null : <ReactTable
-                  data={data[0]}
-                  columns={columns}
-                  noDataText='No data!'
-                  filterable
-                  defaultPageSize={10}
-                  style={{
-                    height: '400px'
-                  }}
-                  className='-striped -highlight'
-                  showPaginationTop
-                  showPaginationBottom
-                  getTdProps={(state, rowInfo, column, instance) => {
-                    return {
-                      onClick: e => {
-                        this.selectProvisionAgreement(e, state, column, rowInfo, instance)
-                      }
-                    }
-                  }}
-                />}
-              </Segment>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </div>
+      <Segment loading={loading}>
+        <Header as='h3' content='Leveranseavtaler' dividing />
+        {Object.keys(response).length !== 0 ?
+          <Message icon={response.icon} color={response.color} header={response.header}
+                   content={response.content} /> : null}
+        {loading ? null : <ReactTable
+          data={data[0]}
+          columns={columns}
+          noDataText='No data!'
+          filterable
+          defaultPageSize={10}
+          style={{
+            height: '400px'
+          }}
+          className='-striped -highlight'
+          showPaginationTop
+          showPaginationBottom
+          getTdProps={(state, rowInfo, column, instance) => {
+            return {
+              onClick: e => {
+                this.selectProvisionAgreement(e, state, column, rowInfo, instance)
+              }
+            }
+          }}
+        />}
+      </Segment>
     )
   }
 }
