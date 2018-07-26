@@ -40,6 +40,7 @@ class ProvisionAgreementsList extends React.Component {
 
     if (provisionAgreement != null) {
       let PA = this.onClickProvisionAgreement(provisionAgreement.id)
+      console.log('PA selected for editing/viewing: ', PA)
     } else {
       console.log('Error retrieving PA from PA list')
     }
@@ -50,6 +51,7 @@ class ProvisionAgreementsList extends React.Component {
     getDataFromBackend('ProvisionAgreement/' + id, this.state.provisionAgreements).then((result) => {
       selectedProvisionalAgreement = result.data
     })
+    console.log("Retrieved PA from backend: ", selectedProvisionalAgreement)
   }
 
   render () {
