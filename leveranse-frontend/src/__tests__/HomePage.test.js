@@ -1,6 +1,6 @@
 import React from 'react'
 import {HomePage} from '../pages/homePage/HomePage'
-import ProvisionAgreementPage from '../pages/ProvisionAgreementPage'
+import WorkbenchPage from '../pages/WorkbenchPage'
 import {Header, Menu} from 'semantic-ui-react'
 import {mount, shallow} from 'enzyme'
 import configureStore from 'redux-mock-store'
@@ -21,15 +21,13 @@ describe('verify Home page', () => {
   });
 
   it('render menus option', () => {
-    container = mount(<Router><ProvisionAgreementPage/></Router>)
-    expect(container.find(Menu).length).toEqual(7);
+    container = mount(<Router><WorkbenchPage/></Router>)
+    expect(container.find(Menu).length).toEqual(6);
     const menus = container.find(Menu)
     //delete console.log
     //console.log(menus.at(0).text());
     expect(menus.at(0).text()).toContain('Hjem')
     expect(menus.at(0).text()).toContain('Opprett ny')
-    expect(menus.at(0).text()).toContain('Kopier')
-    expect(menus.at(0).text()).toContain('Slett')
 
     expect(menus.at(1).text()).toContain('Variabel')
     expect(menus.at(1).text()).toContain('Opprett ny')
@@ -45,7 +43,7 @@ describe('verify Home page', () => {
   });
 
   it('verify home section (List og ProvisionAgreements)', () =>{
-    container = mount(<Router><ProvisionAgreementPage/></Router>)
+    container = mount(<Router><WorkbenchPage/></Router>)
     const menus = container.find(Menu)
     const provisionAgreementSection = menus.at(0)
     delete console.log
@@ -55,7 +53,7 @@ describe('verify Home page', () => {
   });
 
   it('verify create provisionAgreement section', () =>{
-    container = mount(<Router><ProvisionAgreementPage/></Router>)
+    container = mount(<Router><WorkbenchPage/></Router>)
     const menus = container.find(Menu)
     const provisionAgreementSection = menus.at(0)
     delete console.log

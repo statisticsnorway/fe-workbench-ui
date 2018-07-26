@@ -78,7 +78,7 @@ class ProvisionAgreementDesc extends Component {
     } else {
       let url
 
-      url = process.env.REACT_APP_BACKENDHOST  + '/provisionAgreement/' + this.props.provisionAgreementId
+      url = process.env.REACT_APP_BACKENDHOST  + '/ProvisionAgreement/' + this.props.provisionAgreementId
 
       axios.get(url)
         .then((response) => {
