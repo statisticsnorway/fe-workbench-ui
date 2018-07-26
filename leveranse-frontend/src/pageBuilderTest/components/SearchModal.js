@@ -74,6 +74,7 @@ class SearchModal extends React.Component {
       <Modal open={searchModalOpen} onClose={this.handleSearchModalClose} dimmer='inverted' centered={false}
              size='tiny'>
         <Modal.Header content={enums.CONTENT.SEARCH_AND_CHOOSE + ' ' + this.nameInNorwegian} />
+
         <Modal.Content>
           {typeof response === 'undefined' && ready ?
             <Search

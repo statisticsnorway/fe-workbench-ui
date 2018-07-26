@@ -210,6 +210,7 @@ class Klass extends React.Component {
     return (
       <Accordion fluid className='noMargin'>
         <Accordion.Title active={open} />
+
         <Accordion.Content active={open}>
           <Segment>
             {responseMessage(response)}
@@ -234,6 +235,7 @@ class Klass extends React.Component {
                       {deepAccordionIndex === familyName ? <Icon name='minus' /> : <Icon name='plus' />}
                       {familyName} ({numberOfClassifications})
                     </Accordion.Title>
+
                     <Accordion.Content active={deepAccordionIndex === familyName}>
                       <Segment>
                         <Accordion fluid className='noMargin'>
@@ -252,6 +254,7 @@ class Klass extends React.Component {
                                     <Icon name='caret right' />}
                                   {classificationName}
                                 </Accordion.Title>
+
                                 <Accordion.Content active={deeperAccordionIndex === classificationName}>
                                   <Grid columns={2}>
                                     <Grid.Column>
@@ -259,6 +262,7 @@ class Klass extends React.Component {
                                                 onChange={(event, {index = mainIndex, item = deepItem, list = 'completeList'}) =>
                                                   this.handleListCheckbox(index, item, list)} />
                                     </Grid.Column>
+
                                     <Grid.Column>
                                       <Container fluid textAlign='right'>
                                         <Checkbox label={enums.CONTENT.USE_LATEST_LIST} checked={latestList}

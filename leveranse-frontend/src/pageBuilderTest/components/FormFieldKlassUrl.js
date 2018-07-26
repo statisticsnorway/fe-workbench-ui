@@ -22,6 +22,7 @@ class FormFieldKlassUrl extends React.Component {
       <div>
         <Form.Field key={info.index} error={!!info.errors[info.item]}>
           <label>{info.itemInNorwegian}</label>
+
           <Popup
             trigger={<Input name={info.item} placeholder={info.itemInNorwegian} readOnly={true}
                             value={this.state[enums.TYPE.KLASS_URL]}
@@ -31,8 +32,10 @@ class FormFieldKlassUrl extends React.Component {
                               onClick: (() => this.Klass.handleAccordionClick())
                             }} />}
             content={this.state[enums.TYPE.KLASS_URL]} flowing hoverable hideOnScroll position='top center' />
+
           {info.errors[info.item] && <InlineError text={info.errors[info.item]} />}
         </Form.Field>
+
         <Klass url={this.onUpdate} ref={Klass => {this.Klass = Klass}} />
       </div>
     )

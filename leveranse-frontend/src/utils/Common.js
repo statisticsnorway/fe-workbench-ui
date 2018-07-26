@@ -31,11 +31,11 @@ export const fetchListOptions = (url) => {
 function prepareDataForBackend (state) {
   let data = state
 
-/*  for (let attribute in data) {
-    if (data[attribute] === '') {
-      data[attribute] = null
-    }
-  }*/
+  /*  for (let attribute in data) {
+      if (data[attribute] === '') {
+        data[attribute] = null
+      }
+    }*/
 
   JSON.stringify(data)
 
@@ -182,7 +182,7 @@ export const deleteDataInBackend = (path, text, id) => {
 
 export const editModeCheckbox = (readOnlyMode, action) => {
   return (
-    <Container textAlign='right'>
+    <Container textAlign='right' fluid>
       <Checkbox toggle checked={!readOnlyMode} onClick={action} icon='edit' label='Redigeringsmodus' />
     </Container>
   )

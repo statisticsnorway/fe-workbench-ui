@@ -71,7 +71,7 @@ class PageBuilder extends React.Component {
     const {errors, ready} = this.state
 
     return (
-      <Container>
+      <Container fluid>
         <Dimmer active={!ready} inverted>
           <Loader inverted inline='centered' />
         </Dimmer>

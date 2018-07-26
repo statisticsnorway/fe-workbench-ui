@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Divider, Header, Icon, Input, Popup, Button, Modal } from 'semantic-ui-react'
+import { Divider, Header, Icon, Input, Popup } from 'semantic-ui-react'
 import ReactTable from 'react-table'
 import ValueDomainModal from './ValueDomainModal'
 
@@ -171,7 +171,7 @@ class ValueDomainList extends Component {
   }
 
   render () {
-    const {search, tableData, loadingTable, selectedValueDomainId} = this.state
+    const {search, tableData, selectedValueDomainId} = this.state
     let filteredTableData = tableData
 
     if (search) {
@@ -211,7 +211,7 @@ class ValueDomainList extends Component {
           className='-striped -highlight'
         />
 
-      </div> )
+      </div>)
   }
 }
 
