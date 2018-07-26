@@ -102,9 +102,12 @@ class InformationProviderModal extends React.Component {
     };
     return (
       <Modal trigger={<Button primary floated='right' content='select'
-                              onClick={this.props.getInfoProvider}></Button>} open={infoProviderModalOpen}
-             onClose={this.handleInfoProviderModalClose} dimmer='inverted' centered={false} closeOnEscape={false}
-             closeOnRootNodeClick={false}>
+                              onClick={this.props.getInfoProvider}></Button>}
+             open={infoProviderModalOpen}
+             onClose={this.handleInfoProviderModalClose}
+             dimmer='inverted'
+             centered={false}
+             closeOnEscape={true}>
         <Modal.Header content='Velge Leverandør'/>
         <Modal.Content>
           <Form>

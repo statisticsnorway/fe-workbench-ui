@@ -7,8 +7,7 @@ export const fetchListOptions = (url) => {
   let theList = []
 
   axios.get(url).then((response) => {
-    console.log(response)
-    if (response.status === 200) {
+     if (response.status === 200) {
       theRespons = response.data
       console.log('response.data')
       console.log(response.data)
