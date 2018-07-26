@@ -147,7 +147,7 @@ class UnitTypeModal extends React.Component {
       <Modal trigger={<Button primary floated='right' icon='edit' content='Registrer ny enhetstype'
                               onClick={this.props.handleIsNewUnitType} />} open={unitTypeModalOpen}
              onClose={this.handleUnitTypeModalClose} dimmer='inverted' centered={false} closeOnEscape={false}
-             closeOnRootNodeClick={false}>
+             closeOnDocumentClick={false} closeOnDimmerClick={false}>
         <Modal.Header content='Enhetstype' />
         <Modal.Content>
           <Form>

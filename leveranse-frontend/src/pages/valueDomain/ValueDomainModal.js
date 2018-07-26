@@ -11,10 +11,10 @@ const datatypeOptions = [
   {key: '4', text: 'Dato', value: 'Dato'}
 ]
 
-const dateformatOptions = [
+/*const dateformatOptions = [
   {key: '1', text: 'YYYY-MM-DD', value: 'YYYY-MM-DD'},
   {key: '2', text: 'DD/MM/YY', value: 'DD/MM/YY'}
-]
+]*/
 
 const unitOfMeasurementeOptions = [
   {key: '1', text: '000Kr', value: '000Kr'},
@@ -117,7 +117,7 @@ class ValueDomain extends Component {
     this.setState({
       valueDomain: {
         ...this.state.valueDomain,
-        [event.target.name]: event.target.type === 'number' ? parseInt(event.target.value) : event.target.value
+        [event.target.name]: event.target.type === 'number' ? parseInt(event.target.value, 10) : event.target.value
       }
     })
   }
@@ -229,7 +229,7 @@ class ValueDomain extends Component {
                               onClick={this.props.handleIsNewValueDomain}/>}
              open={this.state.valueDomainModalOpen}
              onClose={this.handleValueDomainModalClose} dimmer='inverted' centered={false} closeOnEscape={true}
-             closeOnRootNodeClick={false}>
+             closeOnDocumentClick={false} closeOnDimmerClick={false}>
         <Modal.Header content='Verdiområde'/>
         <Modal.Content>
           <Form>

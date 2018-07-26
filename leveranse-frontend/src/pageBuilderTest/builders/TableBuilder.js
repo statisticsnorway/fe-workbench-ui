@@ -133,7 +133,7 @@ class TableBuilder extends React.Component {
     }
 
     return (
-      <Container>
+      <Container fluid>
         <Dimmer active={loadingTable} inverted>
           <Loader inverted inline='centered' />
         </Dimmer>

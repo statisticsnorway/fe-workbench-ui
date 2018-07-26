@@ -1,6 +1,5 @@
 import React from 'react'
-import { Button, Form, Grid, Header, Message, Divider } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Button, Form, Grid, Header, Message } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { userActions } from '../../actions/index'
 
@@ -37,7 +36,7 @@ class LoginPage extends React.Component {
 
   render () {
     const {username, password, submitted, loading} = this.state
-    const {alert} = this.props
+//    const {alert} = this.props
 
     return (
       <div>
@@ -48,7 +47,7 @@ class LoginPage extends React.Component {
             <Header as='h2' color='blue' textAlign='center'>
               Innlogging
             </Header>
-            <Form name="form" onSubmit={this.handleSubmit} loading={loading} size='large'>
+            <Form name='form' onSubmit={this.handleSubmit} loading={loading} size='large'>
               <Form.Field error={submitted && !username}>
                 <Form.Input
                   fluid
@@ -59,7 +58,7 @@ class LoginPage extends React.Component {
                   name='username'
                   placeholder='username'
                   value={username}
-                  onChange={this.handleChange}/>
+                  onChange={this.handleChange} />
               </Form.Field>
               {submitted && !username &&
               <Message negative><Message.Header>Username is required</Message.Header>
@@ -75,7 +74,7 @@ class LoginPage extends React.Component {
                   name='password'
                   placeholder='Passord'
                   value={password}
-                  onChange={this.handleChange}/>
+                  onChange={this.handleChange} />
               </Form.Field>
               {submitted && !password &&
               <Message negative><Message.Header>Password is required</Message.Header>

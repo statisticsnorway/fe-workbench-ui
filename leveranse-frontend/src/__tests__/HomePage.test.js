@@ -7,7 +7,7 @@ import configureStore from 'redux-mock-store'
 import {BrowserRouter as Router} from 'react-router-dom';
 
 describe('verify Home page', () => {
-  const initialState = { authentication: { user: "mockUser@ssb.no" } }
+  const initialState = {authentication: {user: 'mockUser@ssb.no'}}
   const mockStore = configureStore()
   let store, container
 

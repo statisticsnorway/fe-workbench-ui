@@ -14,12 +14,8 @@ import PageBuilder from '../pageBuilderTest/builders/PageBuilder'
 import { tables } from '../pageBuilderTest/utilities/TableConfiguration'
 import TableBuilder from '../pageBuilderTest/builders/TableBuilder'
 
-class ProvisionAgreementPage extends React.Component {
+class WorkbenchPage extends React.Component {
   state = {}
-
-  handleSubmit (event) {
-    event.preventDefault()
-  }
 
   render () {
     const {activeItem} = this.state
@@ -28,7 +24,7 @@ class ProvisionAgreementPage extends React.Component {
       <BrowserRouter>
         <div>
           <Grid stackable padded>
-            <Grid.Column width={4}>
+            <Grid.Column width={3}>
               <Segment inverted tertiary>
                 <Menu fluid vertical>
                   <Menu.Item header>Leveranseavtale</Menu.Item>
@@ -45,19 +41,6 @@ class ProvisionAgreementPage extends React.Component {
                     <NavLink to='/provisionAgreement'>
                       <Icon name='compose' />
                       Opprett ny
-                    </NavLink>
-                  </Menu.Item>
-                  <Menu.Item name='copyProvisionAgreement' active={activeItem === 'copyProvisionAgreement'}>
-                    <NavLink to='/copyProvisionAgreement'>
-                      <Icon name='copy' />
-                      Kopier
-                    </NavLink>
-                  </Menu.Item>
-                  <Menu.Item name='deleteProvisionAgreement'
-                             active={activeItem === 'deleteProvisionAgreement'}>
-                    <NavLink to='/deleteProvisionAgreement'>
-                      <Icon name='trash' />
-                      Slett
                     </NavLink>
                   </Menu.Item>
                 </Menu>
@@ -111,17 +94,8 @@ class ProvisionAgreementPage extends React.Component {
                   </Dropdown>
                 </Menu>
                 <Menu fluid vertical>
-                  <Dropdown item text='Annet'>
-                    <Dropdown.Menu>
-                      <Dropdown.Item icon='edit' text='Endre profil' />
-                      <Dropdown.Item icon='globe' text='Velg språk' />
-                      <Dropdown.Item icon='settings' text='Kontoinnstillinger' />
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Menu>
-                <Menu fluid vertical>
                   <Menu.Item header>Generisk testing</Menu.Item>
-                  <Dropdown item text='Opprett ny'>
+                  <Dropdown item text='Opprett ny' scrolling>
                     <Dropdown.Menu>
                       {Object.keys(domains).map((item, index) => {
                         return (
@@ -150,7 +124,7 @@ class ProvisionAgreementPage extends React.Component {
                 </Menu>
               </Segment>
             </Grid.Column>
-            <Grid.Column width={12} floated='right'>
+            <Grid.Column width={13}>
               <Segment inverted tertiary>
                 <Route path='/home' component={ProvisionAgreementsList} />
                 <Route path='/provisionAgreement'
@@ -183,4 +157,4 @@ class ProvisionAgreementPage extends React.Component {
   }
 }
 
-export default ProvisionAgreementPage
+export default WorkbenchPage
