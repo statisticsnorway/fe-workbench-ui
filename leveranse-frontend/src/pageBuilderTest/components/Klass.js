@@ -70,7 +70,7 @@ class Klass extends React.Component {
 
     this.fetchCodesFromKlass(index, item)
 
-    //TODO: Should use https://github.com/kolodny/immutability-helper
+    //TODO: Should use https://github.com/kolodny/immutability-helper (think this is what is making the component lag)
     if (list === 'completeList' && boolean) {
       this.setState({
         classificationFamilies: {
@@ -110,7 +110,7 @@ class Klass extends React.Component {
   handleCodesListCheckbox (index, item, code) {
     let boolean = this.state.classificationFamilies[index].classifications[item].codes[code].checked
 
-    //TODO: Should use https://github.com/kolodny/immutability-helper
+    //TODO: Should use https://github.com/kolodny/immutability-helper (think this is what is making the component lag)
     this.setState({
       classificationFamilies: {
         ...this.state.classificationFamilies,
@@ -186,7 +186,7 @@ class Klass extends React.Component {
         codes[i].checked = false
       }
 
-      //TODO: Should use https://github.com/kolodny/immutability-helper
+      //TODO: Should use https://github.com/kolodny/immutability-helper (think this is what is making the component lag)
       this.setState({
         classificationFamilies: {
           ...this.state.classificationFamilies,
