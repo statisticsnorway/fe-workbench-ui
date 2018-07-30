@@ -96,7 +96,7 @@ class PageBuilder extends React.Component {
               })}
             </List>
           </div>
-        : null}
+          : null}
 
         {ready && errors.length === 0 ? <FormBuilder domain={this.domain} id={this.props.params} /> : null}
       </Container>

@@ -6,7 +6,7 @@ import 'moment/min/locales'
 import 'react-datepicker/dist/react-datepicker.css'
 import { enums } from './Enums'
 
-moment.locale('nb')
+moment.locale(enums.LANGUAGE_CODE.NORWEGIAN)
 
 const formField = (info, input) => {
   return (

@@ -19,6 +19,7 @@ const configurations = {}
 
 Object.entries(tableConfigurations).forEach(([key, value]) => {
   let name
+  let headers = []
 
   if (findLastUppercaseWord(key) === 'Population') {
     name = findLastUppercaseWord(upperCaseFirst(key))
@@ -26,15 +27,11 @@ Object.entries(tableConfigurations).forEach(([key, value]) => {
     name = upperCaseFirst(key)
   }
 
-  let headers = []
-
   value.headers.forEach((element) => {
     headers.push({name: translateToNorwegian[element], accessor: element})
   })
 
-  let tableConfig = {
-    headers: headers
-  }
+  let tableConfig = {headers: headers}
 
   configurations[key] = buildTableConfiguration(name, translateToNorwegian[key], tableConfig)
 })

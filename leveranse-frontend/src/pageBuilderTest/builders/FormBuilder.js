@@ -28,9 +28,7 @@ moment.locale(enums.LANGUAGE_CODE.NORWEGIAN)
 class FormBuilder extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      ready: false
-    }
+    this.state = {ready: false}
 
     this.id = this.props.id.id
     this.objectName = this.props.domain.name
@@ -51,9 +49,7 @@ class FormBuilder extends React.Component {
         this.setState(result, () => {this.setState({ready: true})})
       })
     }).catch((reason) => {
-      this.setState({
-        response: reason
-      })
+      this.setState({response: reason})
     })
   }
 
@@ -406,7 +402,7 @@ class FormBuilder extends React.Component {
                           return formFieldNumber(info, this.handleNumberChange, value)
 
                         case enums.TYPE.KLASS_URL:
-                          return <FormFieldKlassUrl key={info.item} info={info} onUpdate={this.handleKlassUrlChange} />
+                          return <FormFieldKlassUrl key={info.item} info={info} onUpdate={this.handleKlassUrlChange} value={value} />
 
                         //TODO: Add more form components
 
@@ -418,7 +414,7 @@ class FormBuilder extends React.Component {
                   })}
                 </Grid.Column>
 
-                <Grid.Column width={1}/>
+                <Grid.Column width={1} />
 
                 <Grid.Column width={9}>
                   <Header as='h3' content={enums.CONTENT.DETAILS} />
