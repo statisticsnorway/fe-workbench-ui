@@ -42,6 +42,55 @@ function prepareDataForBackend (state) {
   return data
 }
 
+export const getDataFromBackendAsList= (path, state) => {
+  return new Promise((resolve) => {
+    let url
+    let newState = {}
+    url = process.env.REACT_APP_BACKENDHOST + path
+    let theList = []
+
+    axios.get(url, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => {
+      if (response.status === 200) {
+
+        for (let key in response.data) {
+          theList.push({
+            key: response.data[key]['id'],
+            text: response.data[key]['name'][0].languageText,
+            value: response.data[key]['id']
+          })
+        }
+        newState = {
+          data: theList
+        }
+      } else {
+        newState = {
+          color: 'orange',
+          header: 'kan ikke hente ' + path + ' fra server',
+          text: response.statusText + ' (' + url + ')',
+          icon: 'error'
+        }
+      }
+    }).catch((error) => {
+      if (error.response) {
+        console.log(error.response.data)
+      }
+      newState = {
+        color: 'red',
+        header: 'kan ikke hente ' + path + ' fra server',
+        text: error.message + ' (' + url + ')',
+        icon: 'warning'
+      }
+    }).then(() => {
+      resolve(newState)
+    })
+  })
+}
+
+
 export const getDataFromBackend = (path, state) => {
   return new Promise((resolve) => {
     let url
