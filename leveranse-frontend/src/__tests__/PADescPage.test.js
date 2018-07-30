@@ -1,7 +1,7 @@
 import React from 'react'
-import {ProvisionAgreementDesc} from '../pages/provisionAgreement/ProvisionAgreementDesc'
-import {mount, shallow} from 'enzyme'
-import {Checkbox} from 'semantic-ui-react'
+import { ProvisionAgreementDesc } from '../pages/provisionAgreement/ProvisionAgreementDesc'
+import { mount, shallow } from 'enzyme'
+import { Checkbox } from 'semantic-ui-react'
 import configureStore from 'redux-mock-store'
 
 describe('verify ProvsiionAgreement Description page', () => {
@@ -15,7 +15,7 @@ describe('verify ProvsiionAgreement Description page', () => {
 
   test('render ProvisionAgreement Description component', async () => {
     store = mockStore(initialState)
-    container = shallow(<ProvisionAgreementDesc store={store}/>)
+    container = shallow(<ProvisionAgreementDesc store={store} />)
     await flushPromises();
 
     expect(container.length).toEqual(1)
@@ -26,7 +26,7 @@ describe('verify ProvsiionAgreement Description page', () => {
     container = mount(<ProvisionAgreementDesc store={store}
                                               authentication={initialState}
                                               alert={initialState}
-                                              isNewProvisionAgreement={true}/>)
+                                              isNewProvisionAgreement={true} />)
     await flushPromises();
 
     const editOption = container.find(Checkbox)

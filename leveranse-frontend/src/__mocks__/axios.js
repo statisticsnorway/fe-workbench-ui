@@ -1,5 +1,5 @@
-import {data as InformationProvider} from './InformationProvider.json';
-import {data as Role} from './Role.json';
+import { data as InformationProvider } from './InformationProvider.json';
+import { data as Role } from './Role.json';
 
 const INFO_PROVIDER_BACKEND_ENDPOINT = 'http://localhost:9090/data/InformationProvider/';
 const ROLE_BACKEND_ENDPOINT = 'http://localhost:9090/data/Role/';

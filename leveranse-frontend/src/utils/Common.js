@@ -42,7 +42,7 @@ function prepareDataForBackend (state) {
   return data
 }
 
-export const getDataFromBackendAsList= (path, state) => {
+export const getDataFromBackendAsList = (path, state) => {
   return new Promise((resolve) => {
     let url
     let newState = {}
