@@ -2,10 +2,18 @@ import React, { Component } from 'react'
 import { Button, Dropdown, Icon, Table, Checkbox } from 'semantic-ui-react'
 import { fetchListOptions } from '../../utils/Common'
 
-const fetchRoleUrl = process.env.REACT_APP_BACKENDHOST + 'Role/'
-const roleOptions = fetchListOptions(fetchRoleUrl)
+let roleOptions = []
+let fetchRoleUrl = process.env.REACT_APP_BACKENDHOST + 'Role/'
 
 class AgentTable extends Component {
+  constructor (props) {
+    super(props)
+  }
+
+  componentWillMount () {
+    roleOptions = fetchListOptions(fetchRoleUrl)
+  }
+
   render () {
     const editMode = this.props.editMode
 
@@ -79,8 +87,6 @@ class AgentRow extends Component {
 
   render () {
     const editMode = this.state.readOnlyMode
-    console.log("Agent: ", this.props.agent)
-
     return (
       <tr>
         <td>
