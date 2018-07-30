@@ -1,24 +1,17 @@
 import React, { Component } from 'react'
 import { Button, Dropdown, Icon, Table, Checkbox } from 'semantic-ui-react'
-import { getDataFromBackendAsList } from '../../utils/Common'
+import { fetchListOptions } from '../../utils/Common'
 
 let RoleOptions = []
 
 class AgentTable extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      roles: RoleOptions
-    }
   }
 
-  componentDidMount () {
-    getDataFromBackendAsList('Role/', this.state.roles).then((result) => {
-      this.setState(prevState => ({
-        roles: [ ...prevState.roles, result.data ],
-      }))
-      RoleOptions = result.data
-    })
+  componentWillMount () {
+    let fetchRoleUrl = process.env.REACT_APP_BACKENDHOST + 'Role/'
+    RoleOptions = fetchListOptions(fetchRoleUrl)
   }
 
   render () {
@@ -72,17 +65,7 @@ class AgentRow extends Component {
     super(props)
     this.state = {
       readOnlyMode: false,
-      roles: []
     }
-  }
-
-  componentDidMount () {
-    getDataFromBackendAsList('Role/', this.state.roles).then((result) => {
-      this.setState(prevState => ({
-        roles: [ ...prevState.roles, result.data ],
-      }))
-      RoleOptions = result.data
-    })
   }
 
   editModeHandleClick = () => {
