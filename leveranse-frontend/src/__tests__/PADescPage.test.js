@@ -11,20 +11,25 @@ describe('verify ProvsiionAgreement Description page', () => {
   }
   const mockStore = configureStore()
   let store, container
+  const flushPromises = () => new Promise(resolve => setImmediate(resolve));
 
-  test('render ProvisionAgreement Description component',  () => {
+  test('render ProvisionAgreement Description component', async () => {
     store = mockStore(initialState)
     container = shallow(<ProvisionAgreementDesc store={store}/>)
+    await flushPromises();
+
     expect(container.length).toEqual(1)
   });
 
-  /*test('verify edit option is active by default', (done) => {
+  test('verify edit option is active by default', async () => {
     store = mockStore(initialState)
     container = mount(<ProvisionAgreementDesc store={store}
                                               authentication={initialState}
                                               alert={initialState}
                                               isNewProvisionAgreement={true}/>)
+    await flushPromises();
+
     const editOption = container.find(Checkbox)
     expect(editOption.text()).toEqual("Redigeringsmodus");
-  });*/
+  });
 })
