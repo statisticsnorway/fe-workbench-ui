@@ -5,6 +5,7 @@ import 'moment/min/locales'
 import { getDomainData } from '../utilities/DataExchange'
 
 moment.locale(enums.LANGUAGE_CODE.NORWEGIAN)
+
 const uuidv1 = require('uuid/v1')
 
 export const buildDomainState = (name, formConfig, user, object, id) => {

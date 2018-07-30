@@ -5,7 +5,16 @@ import Klass from './Klass'
 import { enums } from '../utilities/Enums'
 
 class FormFieldKlassUrl extends React.Component {
-  state = {[enums.TYPE.KLASS_URL]: ''}
+  constructor (props) {
+    super(props)
+    this.state = {
+      [enums.TYPE.KLASS_URL]: ''
+    }
+
+    if (this.props.value !== '') {
+      this.state[enums.TYPE.KLASS_URL] = this.props.value
+    }
+  }
 
   onUpdate = (value) => {
     let url = value.url

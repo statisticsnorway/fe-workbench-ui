@@ -46,15 +46,20 @@ class SearchModal extends React.Component {
     const re = new RegExp(_.escapeRegExp(value), 'i')
     const isMatch = result => re.test(result.title)
 
-    this.setState({filteredSearchList: _.filter(this.state.searchList, isMatch), selectedResult: value})
+    this.setState({
+      filteredSearchList: _.filter(this.state.searchList, isMatch),
+      selectedResult: value
+    })
   }
 
   handleResultSelect = (event, {result}) => {
     let url = '/' + this.domainUppercase + '/' + result.id
-
     let text = {title: result.title, url: url, description: result.description, domain: this.domain}
 
-    this.setState({selectedResult: result.title, searchModalOpen: false})
+    this.setState({
+      selectedResult: result.title,
+      searchModalOpen: false
+    })
 
     this.props.text(text)
   }

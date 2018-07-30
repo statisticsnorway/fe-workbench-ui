@@ -108,9 +108,7 @@ class TableBuilder extends React.Component {
   }
 
   searchInputOnChange = (event) => {
-    this.setState({
-      search: event.target.value
-    })
+    this.setState({search: event.target.value})
   }
 
   render () {
