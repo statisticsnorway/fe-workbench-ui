@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Button, Dropdown, Icon, Table, Checkbox } from 'semantic-ui-react'
 import { fetchListOptions } from '../../utils/Common'
 
-let RoleOptions = []
+let roleOptions = []
+let fetchRoleUrl = process.env.REACT_APP_BACKENDHOST + 'Role/'
 
 class AgentTable extends Component {
   constructor (props) {
@@ -10,8 +11,7 @@ class AgentTable extends Component {
   }
 
   componentWillMount () {
-    let fetchRoleUrl = process.env.REACT_APP_BACKENDHOST + 'Role/'
-    RoleOptions = fetchListOptions(fetchRoleUrl)
+    roleOptions = fetchListOptions(fetchRoleUrl)
   }
 
   render () {
@@ -64,7 +64,7 @@ class AgentRow extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      readOnlyMode: false,
+      readOnlyMode: false
     }
   }
 
@@ -94,7 +94,7 @@ class AgentRow extends Component {
                     readOnly={!this.state.readOnlyMode} />
         </td>
         <td>
-          <Dropdown placeholder='Velg rolle' selection options={RoleOptions}
+          <Dropdown placeholder='Velg rolle' selection options={roleOptions}
                     id={this.props.agent.id} value={this.props.agent.roleId || ''}
                     onChange={(event, {id, value}) => this.props.onAgentTableUpdateDropdown(id, 'roleId', value)}
                     disabled={editMode} />
