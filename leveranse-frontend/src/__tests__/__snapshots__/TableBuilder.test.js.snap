@@ -1,0 +1,5510 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableBuilder page renders one of itself 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <TableBuilder
+    table={
+        Object {
+            "name": "UnitType",
+            "nameDefinitive": "Enhetstypen",
+            "nameInNorwegian": "Enhetstype",
+            "namePlural": "Enhetstyper",
+            "tableConfig": Object {
+              "headers": Array [
+                Object {
+                  "accessor": "name",
+                  "name": "Navn",
+                },
+                Object {
+                  "accessor": "description",
+                  "name": "Beskrivelse",
+                },
+                Object {
+                  "accessor": "administrativeStatus",
+                  "name": "Administrativ status",
+                },
+                Object {
+                  "accessor": "lastUpdatedDate",
+                  "name": "Sist oppdatert",
+                },
+              ],
+            },
+          }
+    }
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <Dimmer
+          active={true}
+          inverted={true}
+>
+          <Loader
+                    inline="centered"
+                    inverted={true}
+          />
+</Dimmer>,
+        <Header
+          as="h2"
+          content="Enhetstyper"
+          dividing={true}
+/>,
+        <Popup
+          flowing={true}
+          hideOnScroll={true}
+          hoverable={true}
+          keepInViewPort={true}
+          on="hover"
+          position="right center"
+          trigger={
+                    <Input
+                              icon="search"
+                              onChange={[Function]}
+                              placeholder="Søk"
+                              type="text"
+                              value=""
+                    />
+          }
+>
+          <Icon
+                    as="i"
+                    color="blue"
+                    name="info circle"
+          />
+          Filtrerer tabellen etter navn
+</Popup>,
+        <NavLink
+          activeClassName="active"
+          aria-current="page"
+          to="/generic/unitType/new"
+>
+          <Button
+                    as="button"
+                    content="Opprett ny enhetstype"
+                    floated="right"
+                    icon="edit"
+                    primary={true}
+                    role="button"
+          />
+</NavLink>,
+        <Divider
+          hidden={true}
+/>,
+        <ReactTable
+          AggregatedComponent={[Function]}
+          ExpanderComponent={[Function]}
+          FilterComponent={[Function]}
+          LoadingComponent={[Function]}
+          NextComponent={undefined}
+          NoDataComponent={[Function]}
+          PadRowComponent={[Function]}
+          PaginationComponent={[Function]}
+          PivotComponent={undefined}
+          PivotValueComponent={[Function]}
+          PreviousComponent={undefined}
+          ResizerComponent={[Function]}
+          TableComponent={[Function]}
+          TbodyComponent={[Function]}
+          TdComponent={[Function]}
+          TfootComponent={[Function]}
+          ThComponent={[Function]}
+          TheadComponent={[Function]}
+          TrComponent={[Function]}
+          TrGroupComponent={[Function]}
+          aggregatedKey="_aggregated"
+          className="-striped -highlight"
+          collapseOnDataChange={true}
+          collapseOnPageChange={true}
+          collapseOnSortingChange={true}
+          column={
+                    Object {
+                              "Aggregated": undefined,
+                              "Cell": undefined,
+                              "Expander": undefined,
+                              "Filter": undefined,
+                              "Footer": undefined,
+                              "Header": undefined,
+                              "Pivot": undefined,
+                              "PivotValue": undefined,
+                              "aggregate": undefined,
+                              "className": "",
+                              "filterAll": false,
+                              "filterMethod": undefined,
+                              "filterable": undefined,
+                              "footerClassName": "",
+                              "footerStyle": Object {},
+                              "getFooterProps": [Function],
+                              "getHeaderProps": [Function],
+                              "getProps": [Function],
+                              "headerClassName": "",
+                              "headerStyle": Object {},
+                              "minWidth": 100,
+                              "resizable": undefined,
+                              "show": true,
+                              "sortMethod": undefined,
+                              "sortable": undefined,
+                              "style": Object {},
+                            }
+          }
+          columns={
+                    Array [
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Navn",
+                                "accessor": "name",
+                              },
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Beskrivelse",
+                                "accessor": "description",
+                              },
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Administrativ status",
+                                "accessor": "administrativeStatus",
+                              },
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Sist oppdatert",
+                                "accessor": "lastUpdatedDate",
+                              },
+                            ]
+          }
+          data={Array []}
+          defaultExpanded={Object {}}
+          defaultFilterMethod={[Function]}
+          defaultFiltered={Array []}
+          defaultPageSize={10}
+          defaultResized={Array []}
+          defaultSortDesc={false}
+          defaultSortMethod={[Function]}
+          defaultSorted={Array []}
+          expanderDefaults={
+                    Object {
+                              "filterable": false,
+                              "resizable": false,
+                              "sortable": false,
+                              "width": 35,
+                            }
+          }
+          filterable={false}
+          freezeWhenExpanded={false}
+          getLoadingProps={[Function]}
+          getNoDataProps={[Function]}
+          getPaginationProps={[Function]}
+          getProps={[Function]}
+          getResizerProps={[Function]}
+          getTableProps={[Function]}
+          getTbodyProps={[Function]}
+          getTdProps={[Function]}
+          getTfootProps={[Function]}
+          getTfootTdProps={[Function]}
+          getTfootTrProps={[Function]}
+          getTheadFilterProps={[Function]}
+          getTheadFilterThProps={[Function]}
+          getTheadFilterTrProps={[Function]}
+          getTheadGroupProps={[Function]}
+          getTheadGroupThProps={[Function]}
+          getTheadGroupTrProps={[Function]}
+          getTheadProps={[Function]}
+          getTheadThProps={[Function]}
+          getTheadTrProps={[Function]}
+          getTrGroupProps={[Function]}
+          getTrProps={[Function]}
+          groupedByPivotKey="_groupedByPivot"
+          indexKey="_index"
+          loading={false}
+          loadingText="Laster..."
+          multiSort={true}
+          nestingLevelKey="_nestingLevel"
+          nextText="Neste"
+          noDataText=""
+          ofText="av"
+          onExpandedChange={undefined}
+          onFetchData={[Function]}
+          onFilteredChange={undefined}
+          onPageChange={undefined}
+          onPageSizeChange={undefined}
+          onResizedChange={undefined}
+          onSortedChange={undefined}
+          originalKey="_original"
+          pageSizeOptions={
+                    Array [
+                              5,
+                              10,
+                              20,
+                              25,
+                              50,
+                              100,
+                            ]
+          }
+          pageText="Side"
+          pivotBy={undefined}
+          pivotDefaults={Object {}}
+          pivotIDKey="_pivotID"
+          pivotValKey="_pivotVal"
+          previousText="Forrige"
+          resizable={false}
+          resolveData={[Function]}
+          rowsText="rader"
+          showPageJump={true}
+          showPageSizeOptions={true}
+          showPagination={true}
+          showPaginationBottom={true}
+          showPaginationTop={false}
+          sortable={true}
+          style={Object {}}
+          subRowsKey="_subRows"
+/>,
+      ],
+      "fluid": true,
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "active": true,
+          "children": <Loader
+            inline="centered"
+            inverted={true}
+/>,
+          "inverted": true,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "inline": "centered",
+            "inverted": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "as": "h2",
+          "content": "Enhetstyper",
+          "dividing": true,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            <Icon
+              as="i"
+              color="blue"
+              name="info circle"
+/>,
+            "Filtrerer tabellen etter navn",
+          ],
+          "flowing": true,
+          "hideOnScroll": true,
+          "hoverable": true,
+          "keepInViewPort": true,
+          "on": "hover",
+          "position": "right center",
+          "trigger": <Input
+            icon="search"
+            onChange={[Function]}
+            placeholder="Søk"
+            type="text"
+            value=""
+/>,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "as": "i",
+              "color": "blue",
+              "name": "info circle",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "Filtrerer tabellen etter navn",
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "activeClassName": "active",
+          "aria-current": "page",
+          "children": <Button
+            as="button"
+            content="Opprett ny enhetstype"
+            floated="right"
+            icon="edit"
+            primary={true}
+            role="button"
+/>,
+          "to": "/generic/unitType/new",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "as": "button",
+            "content": "Opprett ny enhetstype",
+            "floated": "right",
+            "icon": "edit",
+            "primary": true,
+            "role": "button",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "hidden": true,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "AggregatedComponent": [Function],
+          "ExpanderComponent": [Function],
+          "FilterComponent": [Function],
+          "LoadingComponent": [Function],
+          "NextComponent": undefined,
+          "NoDataComponent": [Function],
+          "PadRowComponent": [Function],
+          "PaginationComponent": [Function],
+          "PivotComponent": undefined,
+          "PivotValueComponent": [Function],
+          "PreviousComponent": undefined,
+          "ResizerComponent": [Function],
+          "TableComponent": [Function],
+          "TbodyComponent": [Function],
+          "TdComponent": [Function],
+          "TfootComponent": [Function],
+          "ThComponent": [Function],
+          "TheadComponent": [Function],
+          "TrComponent": [Function],
+          "TrGroupComponent": [Function],
+          "aggregatedKey": "_aggregated",
+          "className": "-striped -highlight",
+          "collapseOnDataChange": true,
+          "collapseOnPageChange": true,
+          "collapseOnSortingChange": true,
+          "column": Object {
+            "Aggregated": undefined,
+            "Cell": undefined,
+            "Expander": undefined,
+            "Filter": undefined,
+            "Footer": undefined,
+            "Header": undefined,
+            "Pivot": undefined,
+            "PivotValue": undefined,
+            "aggregate": undefined,
+            "className": "",
+            "filterAll": false,
+            "filterMethod": undefined,
+            "filterable": undefined,
+            "footerClassName": "",
+            "footerStyle": Object {},
+            "getFooterProps": [Function],
+            "getHeaderProps": [Function],
+            "getProps": [Function],
+            "headerClassName": "",
+            "headerStyle": Object {},
+            "minWidth": 100,
+            "resizable": undefined,
+            "show": true,
+            "sortMethod": undefined,
+            "sortable": undefined,
+            "style": Object {},
+          },
+          "columns": Array [
+            Object {
+              "Cell": [Function],
+              "Header": "Navn",
+              "accessor": "name",
+            },
+            Object {
+              "Cell": [Function],
+              "Header": "Beskrivelse",
+              "accessor": "description",
+            },
+            Object {
+              "Cell": [Function],
+              "Header": "Administrativ status",
+              "accessor": "administrativeStatus",
+            },
+            Object {
+              "Cell": [Function],
+              "Header": "Sist oppdatert",
+              "accessor": "lastUpdatedDate",
+            },
+          ],
+          "data": Array [],
+          "defaultExpanded": Object {},
+          "defaultFilterMethod": [Function],
+          "defaultFiltered": Array [],
+          "defaultPageSize": 10,
+          "defaultResized": Array [],
+          "defaultSortDesc": false,
+          "defaultSortMethod": [Function],
+          "defaultSorted": Array [],
+          "expanderDefaults": Object {
+            "filterable": false,
+            "resizable": false,
+            "sortable": false,
+            "width": 35,
+          },
+          "filterable": false,
+          "freezeWhenExpanded": false,
+          "getLoadingProps": [Function],
+          "getNoDataProps": [Function],
+          "getPaginationProps": [Function],
+          "getProps": [Function],
+          "getResizerProps": [Function],
+          "getTableProps": [Function],
+          "getTbodyProps": [Function],
+          "getTdProps": [Function],
+          "getTfootProps": [Function],
+          "getTfootTdProps": [Function],
+          "getTfootTrProps": [Function],
+          "getTheadFilterProps": [Function],
+          "getTheadFilterThProps": [Function],
+          "getTheadFilterTrProps": [Function],
+          "getTheadGroupProps": [Function],
+          "getTheadGroupThProps": [Function],
+          "getTheadGroupTrProps": [Function],
+          "getTheadProps": [Function],
+          "getTheadThProps": [Function],
+          "getTheadTrProps": [Function],
+          "getTrGroupProps": [Function],
+          "getTrProps": [Function],
+          "groupedByPivotKey": "_groupedByPivot",
+          "indexKey": "_index",
+          "loading": false,
+          "loadingText": "Laster...",
+          "multiSort": true,
+          "nestingLevelKey": "_nestingLevel",
+          "nextText": "Neste",
+          "noDataText": "",
+          "ofText": "av",
+          "onExpandedChange": undefined,
+          "onFetchData": [Function],
+          "onFilteredChange": undefined,
+          "onPageChange": undefined,
+          "onPageSizeChange": undefined,
+          "onResizedChange": undefined,
+          "onSortedChange": undefined,
+          "originalKey": "_original",
+          "pageSizeOptions": Array [
+            5,
+            10,
+            20,
+            25,
+            50,
+            100,
+          ],
+          "pageText": "Side",
+          "pivotBy": undefined,
+          "pivotDefaults": Object {},
+          "pivotIDKey": "_pivotID",
+          "pivotValKey": "_pivotVal",
+          "previousText": "Forrige",
+          "resizable": false,
+          "resolveData": [Function],
+          "rowsText": "rader",
+          "showPageJump": true,
+          "showPageSizeOptions": true,
+          "showPagination": true,
+          "showPaginationBottom": true,
+          "showPaginationTop": false,
+          "sortable": true,
+          "style": Object {},
+          "subRowsKey": "_subRows",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <Dimmer
+            active={true}
+            inverted={true}
+>
+            <Loader
+                        inline="centered"
+                        inverted={true}
+            />
+</Dimmer>,
+          <Header
+            as="h2"
+            content="Enhetstyper"
+            dividing={true}
+/>,
+          <Popup
+            flowing={true}
+            hideOnScroll={true}
+            hoverable={true}
+            keepInViewPort={true}
+            on="hover"
+            position="right center"
+            trigger={
+                        <Input
+                                    icon="search"
+                                    onChange={[Function]}
+                                    placeholder="Søk"
+                                    type="text"
+                                    value=""
+                        />
+            }
+>
+            <Icon
+                        as="i"
+                        color="blue"
+                        name="info circle"
+            />
+            Filtrerer tabellen etter navn
+</Popup>,
+          <NavLink
+            activeClassName="active"
+            aria-current="page"
+            to="/generic/unitType/new"
+>
+            <Button
+                        as="button"
+                        content="Opprett ny enhetstype"
+                        floated="right"
+                        icon="edit"
+                        primary={true}
+                        role="button"
+            />
+</NavLink>,
+          <Divider
+            hidden={true}
+/>,
+          <ReactTable
+            AggregatedComponent={[Function]}
+            ExpanderComponent={[Function]}
+            FilterComponent={[Function]}
+            LoadingComponent={[Function]}
+            NextComponent={undefined}
+            NoDataComponent={[Function]}
+            PadRowComponent={[Function]}
+            PaginationComponent={[Function]}
+            PivotComponent={undefined}
+            PivotValueComponent={[Function]}
+            PreviousComponent={undefined}
+            ResizerComponent={[Function]}
+            TableComponent={[Function]}
+            TbodyComponent={[Function]}
+            TdComponent={[Function]}
+            TfootComponent={[Function]}
+            ThComponent={[Function]}
+            TheadComponent={[Function]}
+            TrComponent={[Function]}
+            TrGroupComponent={[Function]}
+            aggregatedKey="_aggregated"
+            className="-striped -highlight"
+            collapseOnDataChange={true}
+            collapseOnPageChange={true}
+            collapseOnSortingChange={true}
+            column={
+                        Object {
+                                    "Aggregated": undefined,
+                                    "Cell": undefined,
+                                    "Expander": undefined,
+                                    "Filter": undefined,
+                                    "Footer": undefined,
+                                    "Header": undefined,
+                                    "Pivot": undefined,
+                                    "PivotValue": undefined,
+                                    "aggregate": undefined,
+                                    "className": "",
+                                    "filterAll": false,
+                                    "filterMethod": undefined,
+                                    "filterable": undefined,
+                                    "footerClassName": "",
+                                    "footerStyle": Object {},
+                                    "getFooterProps": [Function],
+                                    "getHeaderProps": [Function],
+                                    "getProps": [Function],
+                                    "headerClassName": "",
+                                    "headerStyle": Object {},
+                                    "minWidth": 100,
+                                    "resizable": undefined,
+                                    "show": true,
+                                    "sortMethod": undefined,
+                                    "sortable": undefined,
+                                    "style": Object {},
+                                  }
+            }
+            columns={
+                        Array [
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Navn",
+                                      "accessor": "name",
+                                    },
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Beskrivelse",
+                                      "accessor": "description",
+                                    },
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Administrativ status",
+                                      "accessor": "administrativeStatus",
+                                    },
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Sist oppdatert",
+                                      "accessor": "lastUpdatedDate",
+                                    },
+                                  ]
+            }
+            data={Array []}
+            defaultExpanded={Object {}}
+            defaultFilterMethod={[Function]}
+            defaultFiltered={Array []}
+            defaultPageSize={10}
+            defaultResized={Array []}
+            defaultSortDesc={false}
+            defaultSortMethod={[Function]}
+            defaultSorted={Array []}
+            expanderDefaults={
+                        Object {
+                                    "filterable": false,
+                                    "resizable": false,
+                                    "sortable": false,
+                                    "width": 35,
+                                  }
+            }
+            filterable={false}
+            freezeWhenExpanded={false}
+            getLoadingProps={[Function]}
+            getNoDataProps={[Function]}
+            getPaginationProps={[Function]}
+            getProps={[Function]}
+            getResizerProps={[Function]}
+            getTableProps={[Function]}
+            getTbodyProps={[Function]}
+            getTdProps={[Function]}
+            getTfootProps={[Function]}
+            getTfootTdProps={[Function]}
+            getTfootTrProps={[Function]}
+            getTheadFilterProps={[Function]}
+            getTheadFilterThProps={[Function]}
+            getTheadFilterTrProps={[Function]}
+            getTheadGroupProps={[Function]}
+            getTheadGroupThProps={[Function]}
+            getTheadGroupTrProps={[Function]}
+            getTheadProps={[Function]}
+            getTheadThProps={[Function]}
+            getTheadTrProps={[Function]}
+            getTrGroupProps={[Function]}
+            getTrProps={[Function]}
+            groupedByPivotKey="_groupedByPivot"
+            indexKey="_index"
+            loading={false}
+            loadingText="Laster..."
+            multiSort={true}
+            nestingLevelKey="_nestingLevel"
+            nextText="Neste"
+            noDataText=""
+            ofText="av"
+            onExpandedChange={undefined}
+            onFetchData={[Function]}
+            onFilteredChange={undefined}
+            onPageChange={undefined}
+            onPageSizeChange={undefined}
+            onResizedChange={undefined}
+            onSortedChange={undefined}
+            originalKey="_original"
+            pageSizeOptions={
+                        Array [
+                                    5,
+                                    10,
+                                    20,
+                                    25,
+                                    50,
+                                    100,
+                                  ]
+            }
+            pageText="Side"
+            pivotBy={undefined}
+            pivotDefaults={Object {}}
+            pivotIDKey="_pivotID"
+            pivotValKey="_pivotVal"
+            previousText="Forrige"
+            resizable={false}
+            resolveData={[Function]}
+            rowsText="rader"
+            showPageJump={true}
+            showPageSizeOptions={true}
+            showPagination={true}
+            showPaginationBottom={true}
+            showPaginationTop={false}
+            sortable={true}
+            style={Object {}}
+            subRowsKey="_subRows"
+/>,
+        ],
+        "fluid": true,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "active": true,
+            "children": <Loader
+              inline="centered"
+              inverted={true}
+/>,
+            "inverted": true,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "inline": "centered",
+              "inverted": true,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "as": "h2",
+            "content": "Enhetstyper",
+            "dividing": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <Icon
+                as="i"
+                color="blue"
+                name="info circle"
+/>,
+              "Filtrerer tabellen etter navn",
+            ],
+            "flowing": true,
+            "hideOnScroll": true,
+            "hoverable": true,
+            "keepInViewPort": true,
+            "on": "hover",
+            "position": "right center",
+            "trigger": <Input
+              icon="search"
+              onChange={[Function]}
+              placeholder="Søk"
+              type="text"
+              value=""
+/>,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "as": "i",
+                "color": "blue",
+                "name": "info circle",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "Filtrerer tabellen etter navn",
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "activeClassName": "active",
+            "aria-current": "page",
+            "children": <Button
+              as="button"
+              content="Opprett ny enhetstype"
+              floated="right"
+              icon="edit"
+              primary={true}
+              role="button"
+/>,
+            "to": "/generic/unitType/new",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "as": "button",
+              "content": "Opprett ny enhetstype",
+              "floated": "right",
+              "icon": "edit",
+              "primary": true,
+              "role": "button",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "hidden": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "AggregatedComponent": [Function],
+            "ExpanderComponent": [Function],
+            "FilterComponent": [Function],
+            "LoadingComponent": [Function],
+            "NextComponent": undefined,
+            "NoDataComponent": [Function],
+            "PadRowComponent": [Function],
+            "PaginationComponent": [Function],
+            "PivotComponent": undefined,
+            "PivotValueComponent": [Function],
+            "PreviousComponent": undefined,
+            "ResizerComponent": [Function],
+            "TableComponent": [Function],
+            "TbodyComponent": [Function],
+            "TdComponent": [Function],
+            "TfootComponent": [Function],
+            "ThComponent": [Function],
+            "TheadComponent": [Function],
+            "TrComponent": [Function],
+            "TrGroupComponent": [Function],
+            "aggregatedKey": "_aggregated",
+            "className": "-striped -highlight",
+            "collapseOnDataChange": true,
+            "collapseOnPageChange": true,
+            "collapseOnSortingChange": true,
+            "column": Object {
+              "Aggregated": undefined,
+              "Cell": undefined,
+              "Expander": undefined,
+              "Filter": undefined,
+              "Footer": undefined,
+              "Header": undefined,
+              "Pivot": undefined,
+              "PivotValue": undefined,
+              "aggregate": undefined,
+              "className": "",
+              "filterAll": false,
+              "filterMethod": undefined,
+              "filterable": undefined,
+              "footerClassName": "",
+              "footerStyle": Object {},
+              "getFooterProps": [Function],
+              "getHeaderProps": [Function],
+              "getProps": [Function],
+              "headerClassName": "",
+              "headerStyle": Object {},
+              "minWidth": 100,
+              "resizable": undefined,
+              "show": true,
+              "sortMethod": undefined,
+              "sortable": undefined,
+              "style": Object {},
+            },
+            "columns": Array [
+              Object {
+                "Cell": [Function],
+                "Header": "Navn",
+                "accessor": "name",
+              },
+              Object {
+                "Cell": [Function],
+                "Header": "Beskrivelse",
+                "accessor": "description",
+              },
+              Object {
+                "Cell": [Function],
+                "Header": "Administrativ status",
+                "accessor": "administrativeStatus",
+              },
+              Object {
+                "Cell": [Function],
+                "Header": "Sist oppdatert",
+                "accessor": "lastUpdatedDate",
+              },
+            ],
+            "data": Array [],
+            "defaultExpanded": Object {},
+            "defaultFilterMethod": [Function],
+            "defaultFiltered": Array [],
+            "defaultPageSize": 10,
+            "defaultResized": Array [],
+            "defaultSortDesc": false,
+            "defaultSortMethod": [Function],
+            "defaultSorted": Array [],
+            "expanderDefaults": Object {
+              "filterable": false,
+              "resizable": false,
+              "sortable": false,
+              "width": 35,
+            },
+            "filterable": false,
+            "freezeWhenExpanded": false,
+            "getLoadingProps": [Function],
+            "getNoDataProps": [Function],
+            "getPaginationProps": [Function],
+            "getProps": [Function],
+            "getResizerProps": [Function],
+            "getTableProps": [Function],
+            "getTbodyProps": [Function],
+            "getTdProps": [Function],
+            "getTfootProps": [Function],
+            "getTfootTdProps": [Function],
+            "getTfootTrProps": [Function],
+            "getTheadFilterProps": [Function],
+            "getTheadFilterThProps": [Function],
+            "getTheadFilterTrProps": [Function],
+            "getTheadGroupProps": [Function],
+            "getTheadGroupThProps": [Function],
+            "getTheadGroupTrProps": [Function],
+            "getTheadProps": [Function],
+            "getTheadThProps": [Function],
+            "getTheadTrProps": [Function],
+            "getTrGroupProps": [Function],
+            "getTrProps": [Function],
+            "groupedByPivotKey": "_groupedByPivot",
+            "indexKey": "_index",
+            "loading": false,
+            "loadingText": "Laster...",
+            "multiSort": true,
+            "nestingLevelKey": "_nestingLevel",
+            "nextText": "Neste",
+            "noDataText": "",
+            "ofText": "av",
+            "onExpandedChange": undefined,
+            "onFetchData": [Function],
+            "onFilteredChange": undefined,
+            "onPageChange": undefined,
+            "onPageSizeChange": undefined,
+            "onResizedChange": undefined,
+            "onSortedChange": undefined,
+            "originalKey": "_original",
+            "pageSizeOptions": Array [
+              5,
+              10,
+              20,
+              25,
+              50,
+              100,
+            ],
+            "pageText": "Side",
+            "pivotBy": undefined,
+            "pivotDefaults": Object {},
+            "pivotIDKey": "_pivotID",
+            "pivotValKey": "_pivotVal",
+            "previousText": "Forrige",
+            "resizable": false,
+            "resolveData": [Function],
+            "rowsText": "rader",
+            "showPageJump": true,
+            "showPageSizeOptions": true,
+            "showPagination": true,
+            "showPaginationBottom": true,
+            "showPaginationTop": false,
+            "sortable": true,
+            "style": Object {},
+            "subRowsKey": "_subRows",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`TableBuilder page renders one of itself 2`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <TableBuilder
+    table={
+        Object {
+            "name": "EnumeratedValueDomain",
+            "nameDefinitive": "Opplistet verdidomenen",
+            "nameInNorwegian": "Opplistet verdidomene",
+            "namePlural": "Opplistet verdidomener",
+            "tableConfig": Object {
+              "headers": Array [
+                Object {
+                  "accessor": "name",
+                  "name": "Navn",
+                },
+                Object {
+                  "accessor": "description",
+                  "name": "Beskrivelse",
+                },
+                Object {
+                  "accessor": "dataType",
+                  "name": "Datatype",
+                },
+              ],
+            },
+          }
+    }
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <Dimmer
+          active={true}
+          inverted={true}
+>
+          <Loader
+                    inline="centered"
+                    inverted={true}
+          />
+</Dimmer>,
+        <Header
+          as="h2"
+          content="Opplistet verdidomener"
+          dividing={true}
+/>,
+        <Popup
+          flowing={true}
+          hideOnScroll={true}
+          hoverable={true}
+          keepInViewPort={true}
+          on="hover"
+          position="right center"
+          trigger={
+                    <Input
+                              icon="search"
+                              onChange={[Function]}
+                              placeholder="Søk"
+                              type="text"
+                              value=""
+                    />
+          }
+>
+          <Icon
+                    as="i"
+                    color="blue"
+                    name="info circle"
+          />
+          Filtrerer tabellen etter navn
+</Popup>,
+        <NavLink
+          activeClassName="active"
+          aria-current="page"
+          to="/generic/enumeratedValueDomain/new"
+>
+          <Button
+                    as="button"
+                    content="Opprett ny opplistet verdidomene"
+                    floated="right"
+                    icon="edit"
+                    primary={true}
+                    role="button"
+          />
+</NavLink>,
+        <Divider
+          hidden={true}
+/>,
+        <ReactTable
+          AggregatedComponent={[Function]}
+          ExpanderComponent={[Function]}
+          FilterComponent={[Function]}
+          LoadingComponent={[Function]}
+          NextComponent={undefined}
+          NoDataComponent={[Function]}
+          PadRowComponent={[Function]}
+          PaginationComponent={[Function]}
+          PivotComponent={undefined}
+          PivotValueComponent={[Function]}
+          PreviousComponent={undefined}
+          ResizerComponent={[Function]}
+          TableComponent={[Function]}
+          TbodyComponent={[Function]}
+          TdComponent={[Function]}
+          TfootComponent={[Function]}
+          ThComponent={[Function]}
+          TheadComponent={[Function]}
+          TrComponent={[Function]}
+          TrGroupComponent={[Function]}
+          aggregatedKey="_aggregated"
+          className="-striped -highlight"
+          collapseOnDataChange={true}
+          collapseOnPageChange={true}
+          collapseOnSortingChange={true}
+          column={
+                    Object {
+                              "Aggregated": undefined,
+                              "Cell": undefined,
+                              "Expander": undefined,
+                              "Filter": undefined,
+                              "Footer": undefined,
+                              "Header": undefined,
+                              "Pivot": undefined,
+                              "PivotValue": undefined,
+                              "aggregate": undefined,
+                              "className": "",
+                              "filterAll": false,
+                              "filterMethod": undefined,
+                              "filterable": undefined,
+                              "footerClassName": "",
+                              "footerStyle": Object {},
+                              "getFooterProps": [Function],
+                              "getHeaderProps": [Function],
+                              "getProps": [Function],
+                              "headerClassName": "",
+                              "headerStyle": Object {},
+                              "minWidth": 100,
+                              "resizable": undefined,
+                              "show": true,
+                              "sortMethod": undefined,
+                              "sortable": undefined,
+                              "style": Object {},
+                            }
+          }
+          columns={
+                    Array [
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Navn",
+                                "accessor": "name",
+                              },
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Beskrivelse",
+                                "accessor": "description",
+                              },
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Datatype",
+                                "accessor": "dataType",
+                              },
+                            ]
+          }
+          data={Array []}
+          defaultExpanded={Object {}}
+          defaultFilterMethod={[Function]}
+          defaultFiltered={Array []}
+          defaultPageSize={10}
+          defaultResized={Array []}
+          defaultSortDesc={false}
+          defaultSortMethod={[Function]}
+          defaultSorted={Array []}
+          expanderDefaults={
+                    Object {
+                              "filterable": false,
+                              "resizable": false,
+                              "sortable": false,
+                              "width": 35,
+                            }
+          }
+          filterable={false}
+          freezeWhenExpanded={false}
+          getLoadingProps={[Function]}
+          getNoDataProps={[Function]}
+          getPaginationProps={[Function]}
+          getProps={[Function]}
+          getResizerProps={[Function]}
+          getTableProps={[Function]}
+          getTbodyProps={[Function]}
+          getTdProps={[Function]}
+          getTfootProps={[Function]}
+          getTfootTdProps={[Function]}
+          getTfootTrProps={[Function]}
+          getTheadFilterProps={[Function]}
+          getTheadFilterThProps={[Function]}
+          getTheadFilterTrProps={[Function]}
+          getTheadGroupProps={[Function]}
+          getTheadGroupThProps={[Function]}
+          getTheadGroupTrProps={[Function]}
+          getTheadProps={[Function]}
+          getTheadThProps={[Function]}
+          getTheadTrProps={[Function]}
+          getTrGroupProps={[Function]}
+          getTrProps={[Function]}
+          groupedByPivotKey="_groupedByPivot"
+          indexKey="_index"
+          loading={false}
+          loadingText="Laster..."
+          multiSort={true}
+          nestingLevelKey="_nestingLevel"
+          nextText="Neste"
+          noDataText=""
+          ofText="av"
+          onExpandedChange={undefined}
+          onFetchData={[Function]}
+          onFilteredChange={undefined}
+          onPageChange={undefined}
+          onPageSizeChange={undefined}
+          onResizedChange={undefined}
+          onSortedChange={undefined}
+          originalKey="_original"
+          pageSizeOptions={
+                    Array [
+                              5,
+                              10,
+                              20,
+                              25,
+                              50,
+                              100,
+                            ]
+          }
+          pageText="Side"
+          pivotBy={undefined}
+          pivotDefaults={Object {}}
+          pivotIDKey="_pivotID"
+          pivotValKey="_pivotVal"
+          previousText="Forrige"
+          resizable={false}
+          resolveData={[Function]}
+          rowsText="rader"
+          showPageJump={true}
+          showPageSizeOptions={true}
+          showPagination={true}
+          showPaginationBottom={true}
+          showPaginationTop={false}
+          sortable={true}
+          style={Object {}}
+          subRowsKey="_subRows"
+/>,
+      ],
+      "fluid": true,
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "active": true,
+          "children": <Loader
+            inline="centered"
+            inverted={true}
+/>,
+          "inverted": true,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "inline": "centered",
+            "inverted": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "as": "h2",
+          "content": "Opplistet verdidomener",
+          "dividing": true,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            <Icon
+              as="i"
+              color="blue"
+              name="info circle"
+/>,
+            "Filtrerer tabellen etter navn",
+          ],
+          "flowing": true,
+          "hideOnScroll": true,
+          "hoverable": true,
+          "keepInViewPort": true,
+          "on": "hover",
+          "position": "right center",
+          "trigger": <Input
+            icon="search"
+            onChange={[Function]}
+            placeholder="Søk"
+            type="text"
+            value=""
+/>,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "as": "i",
+              "color": "blue",
+              "name": "info circle",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "Filtrerer tabellen etter navn",
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "activeClassName": "active",
+          "aria-current": "page",
+          "children": <Button
+            as="button"
+            content="Opprett ny opplistet verdidomene"
+            floated="right"
+            icon="edit"
+            primary={true}
+            role="button"
+/>,
+          "to": "/generic/enumeratedValueDomain/new",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "as": "button",
+            "content": "Opprett ny opplistet verdidomene",
+            "floated": "right",
+            "icon": "edit",
+            "primary": true,
+            "role": "button",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "hidden": true,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "AggregatedComponent": [Function],
+          "ExpanderComponent": [Function],
+          "FilterComponent": [Function],
+          "LoadingComponent": [Function],
+          "NextComponent": undefined,
+          "NoDataComponent": [Function],
+          "PadRowComponent": [Function],
+          "PaginationComponent": [Function],
+          "PivotComponent": undefined,
+          "PivotValueComponent": [Function],
+          "PreviousComponent": undefined,
+          "ResizerComponent": [Function],
+          "TableComponent": [Function],
+          "TbodyComponent": [Function],
+          "TdComponent": [Function],
+          "TfootComponent": [Function],
+          "ThComponent": [Function],
+          "TheadComponent": [Function],
+          "TrComponent": [Function],
+          "TrGroupComponent": [Function],
+          "aggregatedKey": "_aggregated",
+          "className": "-striped -highlight",
+          "collapseOnDataChange": true,
+          "collapseOnPageChange": true,
+          "collapseOnSortingChange": true,
+          "column": Object {
+            "Aggregated": undefined,
+            "Cell": undefined,
+            "Expander": undefined,
+            "Filter": undefined,
+            "Footer": undefined,
+            "Header": undefined,
+            "Pivot": undefined,
+            "PivotValue": undefined,
+            "aggregate": undefined,
+            "className": "",
+            "filterAll": false,
+            "filterMethod": undefined,
+            "filterable": undefined,
+            "footerClassName": "",
+            "footerStyle": Object {},
+            "getFooterProps": [Function],
+            "getHeaderProps": [Function],
+            "getProps": [Function],
+            "headerClassName": "",
+            "headerStyle": Object {},
+            "minWidth": 100,
+            "resizable": undefined,
+            "show": true,
+            "sortMethod": undefined,
+            "sortable": undefined,
+            "style": Object {},
+          },
+          "columns": Array [
+            Object {
+              "Cell": [Function],
+              "Header": "Navn",
+              "accessor": "name",
+            },
+            Object {
+              "Cell": [Function],
+              "Header": "Beskrivelse",
+              "accessor": "description",
+            },
+            Object {
+              "Cell": [Function],
+              "Header": "Datatype",
+              "accessor": "dataType",
+            },
+          ],
+          "data": Array [],
+          "defaultExpanded": Object {},
+          "defaultFilterMethod": [Function],
+          "defaultFiltered": Array [],
+          "defaultPageSize": 10,
+          "defaultResized": Array [],
+          "defaultSortDesc": false,
+          "defaultSortMethod": [Function],
+          "defaultSorted": Array [],
+          "expanderDefaults": Object {
+            "filterable": false,
+            "resizable": false,
+            "sortable": false,
+            "width": 35,
+          },
+          "filterable": false,
+          "freezeWhenExpanded": false,
+          "getLoadingProps": [Function],
+          "getNoDataProps": [Function],
+          "getPaginationProps": [Function],
+          "getProps": [Function],
+          "getResizerProps": [Function],
+          "getTableProps": [Function],
+          "getTbodyProps": [Function],
+          "getTdProps": [Function],
+          "getTfootProps": [Function],
+          "getTfootTdProps": [Function],
+          "getTfootTrProps": [Function],
+          "getTheadFilterProps": [Function],
+          "getTheadFilterThProps": [Function],
+          "getTheadFilterTrProps": [Function],
+          "getTheadGroupProps": [Function],
+          "getTheadGroupThProps": [Function],
+          "getTheadGroupTrProps": [Function],
+          "getTheadProps": [Function],
+          "getTheadThProps": [Function],
+          "getTheadTrProps": [Function],
+          "getTrGroupProps": [Function],
+          "getTrProps": [Function],
+          "groupedByPivotKey": "_groupedByPivot",
+          "indexKey": "_index",
+          "loading": false,
+          "loadingText": "Laster...",
+          "multiSort": true,
+          "nestingLevelKey": "_nestingLevel",
+          "nextText": "Neste",
+          "noDataText": "",
+          "ofText": "av",
+          "onExpandedChange": undefined,
+          "onFetchData": [Function],
+          "onFilteredChange": undefined,
+          "onPageChange": undefined,
+          "onPageSizeChange": undefined,
+          "onResizedChange": undefined,
+          "onSortedChange": undefined,
+          "originalKey": "_original",
+          "pageSizeOptions": Array [
+            5,
+            10,
+            20,
+            25,
+            50,
+            100,
+          ],
+          "pageText": "Side",
+          "pivotBy": undefined,
+          "pivotDefaults": Object {},
+          "pivotIDKey": "_pivotID",
+          "pivotValKey": "_pivotVal",
+          "previousText": "Forrige",
+          "resizable": false,
+          "resolveData": [Function],
+          "rowsText": "rader",
+          "showPageJump": true,
+          "showPageSizeOptions": true,
+          "showPagination": true,
+          "showPaginationBottom": true,
+          "showPaginationTop": false,
+          "sortable": true,
+          "style": Object {},
+          "subRowsKey": "_subRows",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <Dimmer
+            active={true}
+            inverted={true}
+>
+            <Loader
+                        inline="centered"
+                        inverted={true}
+            />
+</Dimmer>,
+          <Header
+            as="h2"
+            content="Opplistet verdidomener"
+            dividing={true}
+/>,
+          <Popup
+            flowing={true}
+            hideOnScroll={true}
+            hoverable={true}
+            keepInViewPort={true}
+            on="hover"
+            position="right center"
+            trigger={
+                        <Input
+                                    icon="search"
+                                    onChange={[Function]}
+                                    placeholder="Søk"
+                                    type="text"
+                                    value=""
+                        />
+            }
+>
+            <Icon
+                        as="i"
+                        color="blue"
+                        name="info circle"
+            />
+            Filtrerer tabellen etter navn
+</Popup>,
+          <NavLink
+            activeClassName="active"
+            aria-current="page"
+            to="/generic/enumeratedValueDomain/new"
+>
+            <Button
+                        as="button"
+                        content="Opprett ny opplistet verdidomene"
+                        floated="right"
+                        icon="edit"
+                        primary={true}
+                        role="button"
+            />
+</NavLink>,
+          <Divider
+            hidden={true}
+/>,
+          <ReactTable
+            AggregatedComponent={[Function]}
+            ExpanderComponent={[Function]}
+            FilterComponent={[Function]}
+            LoadingComponent={[Function]}
+            NextComponent={undefined}
+            NoDataComponent={[Function]}
+            PadRowComponent={[Function]}
+            PaginationComponent={[Function]}
+            PivotComponent={undefined}
+            PivotValueComponent={[Function]}
+            PreviousComponent={undefined}
+            ResizerComponent={[Function]}
+            TableComponent={[Function]}
+            TbodyComponent={[Function]}
+            TdComponent={[Function]}
+            TfootComponent={[Function]}
+            ThComponent={[Function]}
+            TheadComponent={[Function]}
+            TrComponent={[Function]}
+            TrGroupComponent={[Function]}
+            aggregatedKey="_aggregated"
+            className="-striped -highlight"
+            collapseOnDataChange={true}
+            collapseOnPageChange={true}
+            collapseOnSortingChange={true}
+            column={
+                        Object {
+                                    "Aggregated": undefined,
+                                    "Cell": undefined,
+                                    "Expander": undefined,
+                                    "Filter": undefined,
+                                    "Footer": undefined,
+                                    "Header": undefined,
+                                    "Pivot": undefined,
+                                    "PivotValue": undefined,
+                                    "aggregate": undefined,
+                                    "className": "",
+                                    "filterAll": false,
+                                    "filterMethod": undefined,
+                                    "filterable": undefined,
+                                    "footerClassName": "",
+                                    "footerStyle": Object {},
+                                    "getFooterProps": [Function],
+                                    "getHeaderProps": [Function],
+                                    "getProps": [Function],
+                                    "headerClassName": "",
+                                    "headerStyle": Object {},
+                                    "minWidth": 100,
+                                    "resizable": undefined,
+                                    "show": true,
+                                    "sortMethod": undefined,
+                                    "sortable": undefined,
+                                    "style": Object {},
+                                  }
+            }
+            columns={
+                        Array [
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Navn",
+                                      "accessor": "name",
+                                    },
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Beskrivelse",
+                                      "accessor": "description",
+                                    },
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Datatype",
+                                      "accessor": "dataType",
+                                    },
+                                  ]
+            }
+            data={Array []}
+            defaultExpanded={Object {}}
+            defaultFilterMethod={[Function]}
+            defaultFiltered={Array []}
+            defaultPageSize={10}
+            defaultResized={Array []}
+            defaultSortDesc={false}
+            defaultSortMethod={[Function]}
+            defaultSorted={Array []}
+            expanderDefaults={
+                        Object {
+                                    "filterable": false,
+                                    "resizable": false,
+                                    "sortable": false,
+                                    "width": 35,
+                                  }
+            }
+            filterable={false}
+            freezeWhenExpanded={false}
+            getLoadingProps={[Function]}
+            getNoDataProps={[Function]}
+            getPaginationProps={[Function]}
+            getProps={[Function]}
+            getResizerProps={[Function]}
+            getTableProps={[Function]}
+            getTbodyProps={[Function]}
+            getTdProps={[Function]}
+            getTfootProps={[Function]}
+            getTfootTdProps={[Function]}
+            getTfootTrProps={[Function]}
+            getTheadFilterProps={[Function]}
+            getTheadFilterThProps={[Function]}
+            getTheadFilterTrProps={[Function]}
+            getTheadGroupProps={[Function]}
+            getTheadGroupThProps={[Function]}
+            getTheadGroupTrProps={[Function]}
+            getTheadProps={[Function]}
+            getTheadThProps={[Function]}
+            getTheadTrProps={[Function]}
+            getTrGroupProps={[Function]}
+            getTrProps={[Function]}
+            groupedByPivotKey="_groupedByPivot"
+            indexKey="_index"
+            loading={false}
+            loadingText="Laster..."
+            multiSort={true}
+            nestingLevelKey="_nestingLevel"
+            nextText="Neste"
+            noDataText=""
+            ofText="av"
+            onExpandedChange={undefined}
+            onFetchData={[Function]}
+            onFilteredChange={undefined}
+            onPageChange={undefined}
+            onPageSizeChange={undefined}
+            onResizedChange={undefined}
+            onSortedChange={undefined}
+            originalKey="_original"
+            pageSizeOptions={
+                        Array [
+                                    5,
+                                    10,
+                                    20,
+                                    25,
+                                    50,
+                                    100,
+                                  ]
+            }
+            pageText="Side"
+            pivotBy={undefined}
+            pivotDefaults={Object {}}
+            pivotIDKey="_pivotID"
+            pivotValKey="_pivotVal"
+            previousText="Forrige"
+            resizable={false}
+            resolveData={[Function]}
+            rowsText="rader"
+            showPageJump={true}
+            showPageSizeOptions={true}
+            showPagination={true}
+            showPaginationBottom={true}
+            showPaginationTop={false}
+            sortable={true}
+            style={Object {}}
+            subRowsKey="_subRows"
+/>,
+        ],
+        "fluid": true,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "active": true,
+            "children": <Loader
+              inline="centered"
+              inverted={true}
+/>,
+            "inverted": true,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "inline": "centered",
+              "inverted": true,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "as": "h2",
+            "content": "Opplistet verdidomener",
+            "dividing": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <Icon
+                as="i"
+                color="blue"
+                name="info circle"
+/>,
+              "Filtrerer tabellen etter navn",
+            ],
+            "flowing": true,
+            "hideOnScroll": true,
+            "hoverable": true,
+            "keepInViewPort": true,
+            "on": "hover",
+            "position": "right center",
+            "trigger": <Input
+              icon="search"
+              onChange={[Function]}
+              placeholder="Søk"
+              type="text"
+              value=""
+/>,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "as": "i",
+                "color": "blue",
+                "name": "info circle",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "Filtrerer tabellen etter navn",
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "activeClassName": "active",
+            "aria-current": "page",
+            "children": <Button
+              as="button"
+              content="Opprett ny opplistet verdidomene"
+              floated="right"
+              icon="edit"
+              primary={true}
+              role="button"
+/>,
+            "to": "/generic/enumeratedValueDomain/new",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "as": "button",
+              "content": "Opprett ny opplistet verdidomene",
+              "floated": "right",
+              "icon": "edit",
+              "primary": true,
+              "role": "button",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "hidden": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "AggregatedComponent": [Function],
+            "ExpanderComponent": [Function],
+            "FilterComponent": [Function],
+            "LoadingComponent": [Function],
+            "NextComponent": undefined,
+            "NoDataComponent": [Function],
+            "PadRowComponent": [Function],
+            "PaginationComponent": [Function],
+            "PivotComponent": undefined,
+            "PivotValueComponent": [Function],
+            "PreviousComponent": undefined,
+            "ResizerComponent": [Function],
+            "TableComponent": [Function],
+            "TbodyComponent": [Function],
+            "TdComponent": [Function],
+            "TfootComponent": [Function],
+            "ThComponent": [Function],
+            "TheadComponent": [Function],
+            "TrComponent": [Function],
+            "TrGroupComponent": [Function],
+            "aggregatedKey": "_aggregated",
+            "className": "-striped -highlight",
+            "collapseOnDataChange": true,
+            "collapseOnPageChange": true,
+            "collapseOnSortingChange": true,
+            "column": Object {
+              "Aggregated": undefined,
+              "Cell": undefined,
+              "Expander": undefined,
+              "Filter": undefined,
+              "Footer": undefined,
+              "Header": undefined,
+              "Pivot": undefined,
+              "PivotValue": undefined,
+              "aggregate": undefined,
+              "className": "",
+              "filterAll": false,
+              "filterMethod": undefined,
+              "filterable": undefined,
+              "footerClassName": "",
+              "footerStyle": Object {},
+              "getFooterProps": [Function],
+              "getHeaderProps": [Function],
+              "getProps": [Function],
+              "headerClassName": "",
+              "headerStyle": Object {},
+              "minWidth": 100,
+              "resizable": undefined,
+              "show": true,
+              "sortMethod": undefined,
+              "sortable": undefined,
+              "style": Object {},
+            },
+            "columns": Array [
+              Object {
+                "Cell": [Function],
+                "Header": "Navn",
+                "accessor": "name",
+              },
+              Object {
+                "Cell": [Function],
+                "Header": "Beskrivelse",
+                "accessor": "description",
+              },
+              Object {
+                "Cell": [Function],
+                "Header": "Datatype",
+                "accessor": "dataType",
+              },
+            ],
+            "data": Array [],
+            "defaultExpanded": Object {},
+            "defaultFilterMethod": [Function],
+            "defaultFiltered": Array [],
+            "defaultPageSize": 10,
+            "defaultResized": Array [],
+            "defaultSortDesc": false,
+            "defaultSortMethod": [Function],
+            "defaultSorted": Array [],
+            "expanderDefaults": Object {
+              "filterable": false,
+              "resizable": false,
+              "sortable": false,
+              "width": 35,
+            },
+            "filterable": false,
+            "freezeWhenExpanded": false,
+            "getLoadingProps": [Function],
+            "getNoDataProps": [Function],
+            "getPaginationProps": [Function],
+            "getProps": [Function],
+            "getResizerProps": [Function],
+            "getTableProps": [Function],
+            "getTbodyProps": [Function],
+            "getTdProps": [Function],
+            "getTfootProps": [Function],
+            "getTfootTdProps": [Function],
+            "getTfootTrProps": [Function],
+            "getTheadFilterProps": [Function],
+            "getTheadFilterThProps": [Function],
+            "getTheadFilterTrProps": [Function],
+            "getTheadGroupProps": [Function],
+            "getTheadGroupThProps": [Function],
+            "getTheadGroupTrProps": [Function],
+            "getTheadProps": [Function],
+            "getTheadThProps": [Function],
+            "getTheadTrProps": [Function],
+            "getTrGroupProps": [Function],
+            "getTrProps": [Function],
+            "groupedByPivotKey": "_groupedByPivot",
+            "indexKey": "_index",
+            "loading": false,
+            "loadingText": "Laster...",
+            "multiSort": true,
+            "nestingLevelKey": "_nestingLevel",
+            "nextText": "Neste",
+            "noDataText": "",
+            "ofText": "av",
+            "onExpandedChange": undefined,
+            "onFetchData": [Function],
+            "onFilteredChange": undefined,
+            "onPageChange": undefined,
+            "onPageSizeChange": undefined,
+            "onResizedChange": undefined,
+            "onSortedChange": undefined,
+            "originalKey": "_original",
+            "pageSizeOptions": Array [
+              5,
+              10,
+              20,
+              25,
+              50,
+              100,
+            ],
+            "pageText": "Side",
+            "pivotBy": undefined,
+            "pivotDefaults": Object {},
+            "pivotIDKey": "_pivotID",
+            "pivotValKey": "_pivotVal",
+            "previousText": "Forrige",
+            "resizable": false,
+            "resolveData": [Function],
+            "rowsText": "rader",
+            "showPageJump": true,
+            "showPageSizeOptions": true,
+            "showPagination": true,
+            "showPaginationBottom": true,
+            "showPaginationTop": false,
+            "sortable": true,
+            "style": Object {},
+            "subRowsKey": "_subRows",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`TableBuilder page renders one of itself 3`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <TableBuilder
+    table={
+        Object {
+            "name": "SubstantiveValueDomain",
+            "nameDefinitive": "Substantiv verdidomenen",
+            "nameInNorwegian": "Substantiv verdidomene",
+            "namePlural": "Substantiv verdidomener",
+            "tableConfig": Object {
+              "headers": Array [
+                Object {
+                  "accessor": "name",
+                  "name": "Navn",
+                },
+                Object {
+                  "accessor": "description",
+                  "name": "Beskrivelse",
+                },
+                Object {
+                  "accessor": "dataType",
+                  "name": "Datatype",
+                },
+              ],
+            },
+          }
+    }
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <Dimmer
+          active={true}
+          inverted={true}
+>
+          <Loader
+                    inline="centered"
+                    inverted={true}
+          />
+</Dimmer>,
+        <Header
+          as="h2"
+          content="Substantiv verdidomener"
+          dividing={true}
+/>,
+        <Popup
+          flowing={true}
+          hideOnScroll={true}
+          hoverable={true}
+          keepInViewPort={true}
+          on="hover"
+          position="right center"
+          trigger={
+                    <Input
+                              icon="search"
+                              onChange={[Function]}
+                              placeholder="Søk"
+                              type="text"
+                              value=""
+                    />
+          }
+>
+          <Icon
+                    as="i"
+                    color="blue"
+                    name="info circle"
+          />
+          Filtrerer tabellen etter navn
+</Popup>,
+        <NavLink
+          activeClassName="active"
+          aria-current="page"
+          to="/generic/substantiveValueDomain/new"
+>
+          <Button
+                    as="button"
+                    content="Opprett ny substantiv verdidomene"
+                    floated="right"
+                    icon="edit"
+                    primary={true}
+                    role="button"
+          />
+</NavLink>,
+        <Divider
+          hidden={true}
+/>,
+        <ReactTable
+          AggregatedComponent={[Function]}
+          ExpanderComponent={[Function]}
+          FilterComponent={[Function]}
+          LoadingComponent={[Function]}
+          NextComponent={undefined}
+          NoDataComponent={[Function]}
+          PadRowComponent={[Function]}
+          PaginationComponent={[Function]}
+          PivotComponent={undefined}
+          PivotValueComponent={[Function]}
+          PreviousComponent={undefined}
+          ResizerComponent={[Function]}
+          TableComponent={[Function]}
+          TbodyComponent={[Function]}
+          TdComponent={[Function]}
+          TfootComponent={[Function]}
+          ThComponent={[Function]}
+          TheadComponent={[Function]}
+          TrComponent={[Function]}
+          TrGroupComponent={[Function]}
+          aggregatedKey="_aggregated"
+          className="-striped -highlight"
+          collapseOnDataChange={true}
+          collapseOnPageChange={true}
+          collapseOnSortingChange={true}
+          column={
+                    Object {
+                              "Aggregated": undefined,
+                              "Cell": undefined,
+                              "Expander": undefined,
+                              "Filter": undefined,
+                              "Footer": undefined,
+                              "Header": undefined,
+                              "Pivot": undefined,
+                              "PivotValue": undefined,
+                              "aggregate": undefined,
+                              "className": "",
+                              "filterAll": false,
+                              "filterMethod": undefined,
+                              "filterable": undefined,
+                              "footerClassName": "",
+                              "footerStyle": Object {},
+                              "getFooterProps": [Function],
+                              "getHeaderProps": [Function],
+                              "getProps": [Function],
+                              "headerClassName": "",
+                              "headerStyle": Object {},
+                              "minWidth": 100,
+                              "resizable": undefined,
+                              "show": true,
+                              "sortMethod": undefined,
+                              "sortable": undefined,
+                              "style": Object {},
+                            }
+          }
+          columns={
+                    Array [
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Navn",
+                                "accessor": "name",
+                              },
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Beskrivelse",
+                                "accessor": "description",
+                              },
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Datatype",
+                                "accessor": "dataType",
+                              },
+                            ]
+          }
+          data={Array []}
+          defaultExpanded={Object {}}
+          defaultFilterMethod={[Function]}
+          defaultFiltered={Array []}
+          defaultPageSize={10}
+          defaultResized={Array []}
+          defaultSortDesc={false}
+          defaultSortMethod={[Function]}
+          defaultSorted={Array []}
+          expanderDefaults={
+                    Object {
+                              "filterable": false,
+                              "resizable": false,
+                              "sortable": false,
+                              "width": 35,
+                            }
+          }
+          filterable={false}
+          freezeWhenExpanded={false}
+          getLoadingProps={[Function]}
+          getNoDataProps={[Function]}
+          getPaginationProps={[Function]}
+          getProps={[Function]}
+          getResizerProps={[Function]}
+          getTableProps={[Function]}
+          getTbodyProps={[Function]}
+          getTdProps={[Function]}
+          getTfootProps={[Function]}
+          getTfootTdProps={[Function]}
+          getTfootTrProps={[Function]}
+          getTheadFilterProps={[Function]}
+          getTheadFilterThProps={[Function]}
+          getTheadFilterTrProps={[Function]}
+          getTheadGroupProps={[Function]}
+          getTheadGroupThProps={[Function]}
+          getTheadGroupTrProps={[Function]}
+          getTheadProps={[Function]}
+          getTheadThProps={[Function]}
+          getTheadTrProps={[Function]}
+          getTrGroupProps={[Function]}
+          getTrProps={[Function]}
+          groupedByPivotKey="_groupedByPivot"
+          indexKey="_index"
+          loading={false}
+          loadingText="Laster..."
+          multiSort={true}
+          nestingLevelKey="_nestingLevel"
+          nextText="Neste"
+          noDataText=""
+          ofText="av"
+          onExpandedChange={undefined}
+          onFetchData={[Function]}
+          onFilteredChange={undefined}
+          onPageChange={undefined}
+          onPageSizeChange={undefined}
+          onResizedChange={undefined}
+          onSortedChange={undefined}
+          originalKey="_original"
+          pageSizeOptions={
+                    Array [
+                              5,
+                              10,
+                              20,
+                              25,
+                              50,
+                              100,
+                            ]
+          }
+          pageText="Side"
+          pivotBy={undefined}
+          pivotDefaults={Object {}}
+          pivotIDKey="_pivotID"
+          pivotValKey="_pivotVal"
+          previousText="Forrige"
+          resizable={false}
+          resolveData={[Function]}
+          rowsText="rader"
+          showPageJump={true}
+          showPageSizeOptions={true}
+          showPagination={true}
+          showPaginationBottom={true}
+          showPaginationTop={false}
+          sortable={true}
+          style={Object {}}
+          subRowsKey="_subRows"
+/>,
+      ],
+      "fluid": true,
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "active": true,
+          "children": <Loader
+            inline="centered"
+            inverted={true}
+/>,
+          "inverted": true,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "inline": "centered",
+            "inverted": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "as": "h2",
+          "content": "Substantiv verdidomener",
+          "dividing": true,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            <Icon
+              as="i"
+              color="blue"
+              name="info circle"
+/>,
+            "Filtrerer tabellen etter navn",
+          ],
+          "flowing": true,
+          "hideOnScroll": true,
+          "hoverable": true,
+          "keepInViewPort": true,
+          "on": "hover",
+          "position": "right center",
+          "trigger": <Input
+            icon="search"
+            onChange={[Function]}
+            placeholder="Søk"
+            type="text"
+            value=""
+/>,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "as": "i",
+              "color": "blue",
+              "name": "info circle",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "Filtrerer tabellen etter navn",
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "activeClassName": "active",
+          "aria-current": "page",
+          "children": <Button
+            as="button"
+            content="Opprett ny substantiv verdidomene"
+            floated="right"
+            icon="edit"
+            primary={true}
+            role="button"
+/>,
+          "to": "/generic/substantiveValueDomain/new",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "as": "button",
+            "content": "Opprett ny substantiv verdidomene",
+            "floated": "right",
+            "icon": "edit",
+            "primary": true,
+            "role": "button",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "hidden": true,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "AggregatedComponent": [Function],
+          "ExpanderComponent": [Function],
+          "FilterComponent": [Function],
+          "LoadingComponent": [Function],
+          "NextComponent": undefined,
+          "NoDataComponent": [Function],
+          "PadRowComponent": [Function],
+          "PaginationComponent": [Function],
+          "PivotComponent": undefined,
+          "PivotValueComponent": [Function],
+          "PreviousComponent": undefined,
+          "ResizerComponent": [Function],
+          "TableComponent": [Function],
+          "TbodyComponent": [Function],
+          "TdComponent": [Function],
+          "TfootComponent": [Function],
+          "ThComponent": [Function],
+          "TheadComponent": [Function],
+          "TrComponent": [Function],
+          "TrGroupComponent": [Function],
+          "aggregatedKey": "_aggregated",
+          "className": "-striped -highlight",
+          "collapseOnDataChange": true,
+          "collapseOnPageChange": true,
+          "collapseOnSortingChange": true,
+          "column": Object {
+            "Aggregated": undefined,
+            "Cell": undefined,
+            "Expander": undefined,
+            "Filter": undefined,
+            "Footer": undefined,
+            "Header": undefined,
+            "Pivot": undefined,
+            "PivotValue": undefined,
+            "aggregate": undefined,
+            "className": "",
+            "filterAll": false,
+            "filterMethod": undefined,
+            "filterable": undefined,
+            "footerClassName": "",
+            "footerStyle": Object {},
+            "getFooterProps": [Function],
+            "getHeaderProps": [Function],
+            "getProps": [Function],
+            "headerClassName": "",
+            "headerStyle": Object {},
+            "minWidth": 100,
+            "resizable": undefined,
+            "show": true,
+            "sortMethod": undefined,
+            "sortable": undefined,
+            "style": Object {},
+          },
+          "columns": Array [
+            Object {
+              "Cell": [Function],
+              "Header": "Navn",
+              "accessor": "name",
+            },
+            Object {
+              "Cell": [Function],
+              "Header": "Beskrivelse",
+              "accessor": "description",
+            },
+            Object {
+              "Cell": [Function],
+              "Header": "Datatype",
+              "accessor": "dataType",
+            },
+          ],
+          "data": Array [],
+          "defaultExpanded": Object {},
+          "defaultFilterMethod": [Function],
+          "defaultFiltered": Array [],
+          "defaultPageSize": 10,
+          "defaultResized": Array [],
+          "defaultSortDesc": false,
+          "defaultSortMethod": [Function],
+          "defaultSorted": Array [],
+          "expanderDefaults": Object {
+            "filterable": false,
+            "resizable": false,
+            "sortable": false,
+            "width": 35,
+          },
+          "filterable": false,
+          "freezeWhenExpanded": false,
+          "getLoadingProps": [Function],
+          "getNoDataProps": [Function],
+          "getPaginationProps": [Function],
+          "getProps": [Function],
+          "getResizerProps": [Function],
+          "getTableProps": [Function],
+          "getTbodyProps": [Function],
+          "getTdProps": [Function],
+          "getTfootProps": [Function],
+          "getTfootTdProps": [Function],
+          "getTfootTrProps": [Function],
+          "getTheadFilterProps": [Function],
+          "getTheadFilterThProps": [Function],
+          "getTheadFilterTrProps": [Function],
+          "getTheadGroupProps": [Function],
+          "getTheadGroupThProps": [Function],
+          "getTheadGroupTrProps": [Function],
+          "getTheadProps": [Function],
+          "getTheadThProps": [Function],
+          "getTheadTrProps": [Function],
+          "getTrGroupProps": [Function],
+          "getTrProps": [Function],
+          "groupedByPivotKey": "_groupedByPivot",
+          "indexKey": "_index",
+          "loading": false,
+          "loadingText": "Laster...",
+          "multiSort": true,
+          "nestingLevelKey": "_nestingLevel",
+          "nextText": "Neste",
+          "noDataText": "",
+          "ofText": "av",
+          "onExpandedChange": undefined,
+          "onFetchData": [Function],
+          "onFilteredChange": undefined,
+          "onPageChange": undefined,
+          "onPageSizeChange": undefined,
+          "onResizedChange": undefined,
+          "onSortedChange": undefined,
+          "originalKey": "_original",
+          "pageSizeOptions": Array [
+            5,
+            10,
+            20,
+            25,
+            50,
+            100,
+          ],
+          "pageText": "Side",
+          "pivotBy": undefined,
+          "pivotDefaults": Object {},
+          "pivotIDKey": "_pivotID",
+          "pivotValKey": "_pivotVal",
+          "previousText": "Forrige",
+          "resizable": false,
+          "resolveData": [Function],
+          "rowsText": "rader",
+          "showPageJump": true,
+          "showPageSizeOptions": true,
+          "showPagination": true,
+          "showPaginationBottom": true,
+          "showPaginationTop": false,
+          "sortable": true,
+          "style": Object {},
+          "subRowsKey": "_subRows",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <Dimmer
+            active={true}
+            inverted={true}
+>
+            <Loader
+                        inline="centered"
+                        inverted={true}
+            />
+</Dimmer>,
+          <Header
+            as="h2"
+            content="Substantiv verdidomener"
+            dividing={true}
+/>,
+          <Popup
+            flowing={true}
+            hideOnScroll={true}
+            hoverable={true}
+            keepInViewPort={true}
+            on="hover"
+            position="right center"
+            trigger={
+                        <Input
+                                    icon="search"
+                                    onChange={[Function]}
+                                    placeholder="Søk"
+                                    type="text"
+                                    value=""
+                        />
+            }
+>
+            <Icon
+                        as="i"
+                        color="blue"
+                        name="info circle"
+            />
+            Filtrerer tabellen etter navn
+</Popup>,
+          <NavLink
+            activeClassName="active"
+            aria-current="page"
+            to="/generic/substantiveValueDomain/new"
+>
+            <Button
+                        as="button"
+                        content="Opprett ny substantiv verdidomene"
+                        floated="right"
+                        icon="edit"
+                        primary={true}
+                        role="button"
+            />
+</NavLink>,
+          <Divider
+            hidden={true}
+/>,
+          <ReactTable
+            AggregatedComponent={[Function]}
+            ExpanderComponent={[Function]}
+            FilterComponent={[Function]}
+            LoadingComponent={[Function]}
+            NextComponent={undefined}
+            NoDataComponent={[Function]}
+            PadRowComponent={[Function]}
+            PaginationComponent={[Function]}
+            PivotComponent={undefined}
+            PivotValueComponent={[Function]}
+            PreviousComponent={undefined}
+            ResizerComponent={[Function]}
+            TableComponent={[Function]}
+            TbodyComponent={[Function]}
+            TdComponent={[Function]}
+            TfootComponent={[Function]}
+            ThComponent={[Function]}
+            TheadComponent={[Function]}
+            TrComponent={[Function]}
+            TrGroupComponent={[Function]}
+            aggregatedKey="_aggregated"
+            className="-striped -highlight"
+            collapseOnDataChange={true}
+            collapseOnPageChange={true}
+            collapseOnSortingChange={true}
+            column={
+                        Object {
+                                    "Aggregated": undefined,
+                                    "Cell": undefined,
+                                    "Expander": undefined,
+                                    "Filter": undefined,
+                                    "Footer": undefined,
+                                    "Header": undefined,
+                                    "Pivot": undefined,
+                                    "PivotValue": undefined,
+                                    "aggregate": undefined,
+                                    "className": "",
+                                    "filterAll": false,
+                                    "filterMethod": undefined,
+                                    "filterable": undefined,
+                                    "footerClassName": "",
+                                    "footerStyle": Object {},
+                                    "getFooterProps": [Function],
+                                    "getHeaderProps": [Function],
+                                    "getProps": [Function],
+                                    "headerClassName": "",
+                                    "headerStyle": Object {},
+                                    "minWidth": 100,
+                                    "resizable": undefined,
+                                    "show": true,
+                                    "sortMethod": undefined,
+                                    "sortable": undefined,
+                                    "style": Object {},
+                                  }
+            }
+            columns={
+                        Array [
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Navn",
+                                      "accessor": "name",
+                                    },
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Beskrivelse",
+                                      "accessor": "description",
+                                    },
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Datatype",
+                                      "accessor": "dataType",
+                                    },
+                                  ]
+            }
+            data={Array []}
+            defaultExpanded={Object {}}
+            defaultFilterMethod={[Function]}
+            defaultFiltered={Array []}
+            defaultPageSize={10}
+            defaultResized={Array []}
+            defaultSortDesc={false}
+            defaultSortMethod={[Function]}
+            defaultSorted={Array []}
+            expanderDefaults={
+                        Object {
+                                    "filterable": false,
+                                    "resizable": false,
+                                    "sortable": false,
+                                    "width": 35,
+                                  }
+            }
+            filterable={false}
+            freezeWhenExpanded={false}
+            getLoadingProps={[Function]}
+            getNoDataProps={[Function]}
+            getPaginationProps={[Function]}
+            getProps={[Function]}
+            getResizerProps={[Function]}
+            getTableProps={[Function]}
+            getTbodyProps={[Function]}
+            getTdProps={[Function]}
+            getTfootProps={[Function]}
+            getTfootTdProps={[Function]}
+            getTfootTrProps={[Function]}
+            getTheadFilterProps={[Function]}
+            getTheadFilterThProps={[Function]}
+            getTheadFilterTrProps={[Function]}
+            getTheadGroupProps={[Function]}
+            getTheadGroupThProps={[Function]}
+            getTheadGroupTrProps={[Function]}
+            getTheadProps={[Function]}
+            getTheadThProps={[Function]}
+            getTheadTrProps={[Function]}
+            getTrGroupProps={[Function]}
+            getTrProps={[Function]}
+            groupedByPivotKey="_groupedByPivot"
+            indexKey="_index"
+            loading={false}
+            loadingText="Laster..."
+            multiSort={true}
+            nestingLevelKey="_nestingLevel"
+            nextText="Neste"
+            noDataText=""
+            ofText="av"
+            onExpandedChange={undefined}
+            onFetchData={[Function]}
+            onFilteredChange={undefined}
+            onPageChange={undefined}
+            onPageSizeChange={undefined}
+            onResizedChange={undefined}
+            onSortedChange={undefined}
+            originalKey="_original"
+            pageSizeOptions={
+                        Array [
+                                    5,
+                                    10,
+                                    20,
+                                    25,
+                                    50,
+                                    100,
+                                  ]
+            }
+            pageText="Side"
+            pivotBy={undefined}
+            pivotDefaults={Object {}}
+            pivotIDKey="_pivotID"
+            pivotValKey="_pivotVal"
+            previousText="Forrige"
+            resizable={false}
+            resolveData={[Function]}
+            rowsText="rader"
+            showPageJump={true}
+            showPageSizeOptions={true}
+            showPagination={true}
+            showPaginationBottom={true}
+            showPaginationTop={false}
+            sortable={true}
+            style={Object {}}
+            subRowsKey="_subRows"
+/>,
+        ],
+        "fluid": true,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "active": true,
+            "children": <Loader
+              inline="centered"
+              inverted={true}
+/>,
+            "inverted": true,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "inline": "centered",
+              "inverted": true,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "as": "h2",
+            "content": "Substantiv verdidomener",
+            "dividing": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <Icon
+                as="i"
+                color="blue"
+                name="info circle"
+/>,
+              "Filtrerer tabellen etter navn",
+            ],
+            "flowing": true,
+            "hideOnScroll": true,
+            "hoverable": true,
+            "keepInViewPort": true,
+            "on": "hover",
+            "position": "right center",
+            "trigger": <Input
+              icon="search"
+              onChange={[Function]}
+              placeholder="Søk"
+              type="text"
+              value=""
+/>,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "as": "i",
+                "color": "blue",
+                "name": "info circle",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "Filtrerer tabellen etter navn",
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "activeClassName": "active",
+            "aria-current": "page",
+            "children": <Button
+              as="button"
+              content="Opprett ny substantiv verdidomene"
+              floated="right"
+              icon="edit"
+              primary={true}
+              role="button"
+/>,
+            "to": "/generic/substantiveValueDomain/new",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "as": "button",
+              "content": "Opprett ny substantiv verdidomene",
+              "floated": "right",
+              "icon": "edit",
+              "primary": true,
+              "role": "button",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "hidden": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "AggregatedComponent": [Function],
+            "ExpanderComponent": [Function],
+            "FilterComponent": [Function],
+            "LoadingComponent": [Function],
+            "NextComponent": undefined,
+            "NoDataComponent": [Function],
+            "PadRowComponent": [Function],
+            "PaginationComponent": [Function],
+            "PivotComponent": undefined,
+            "PivotValueComponent": [Function],
+            "PreviousComponent": undefined,
+            "ResizerComponent": [Function],
+            "TableComponent": [Function],
+            "TbodyComponent": [Function],
+            "TdComponent": [Function],
+            "TfootComponent": [Function],
+            "ThComponent": [Function],
+            "TheadComponent": [Function],
+            "TrComponent": [Function],
+            "TrGroupComponent": [Function],
+            "aggregatedKey": "_aggregated",
+            "className": "-striped -highlight",
+            "collapseOnDataChange": true,
+            "collapseOnPageChange": true,
+            "collapseOnSortingChange": true,
+            "column": Object {
+              "Aggregated": undefined,
+              "Cell": undefined,
+              "Expander": undefined,
+              "Filter": undefined,
+              "Footer": undefined,
+              "Header": undefined,
+              "Pivot": undefined,
+              "PivotValue": undefined,
+              "aggregate": undefined,
+              "className": "",
+              "filterAll": false,
+              "filterMethod": undefined,
+              "filterable": undefined,
+              "footerClassName": "",
+              "footerStyle": Object {},
+              "getFooterProps": [Function],
+              "getHeaderProps": [Function],
+              "getProps": [Function],
+              "headerClassName": "",
+              "headerStyle": Object {},
+              "minWidth": 100,
+              "resizable": undefined,
+              "show": true,
+              "sortMethod": undefined,
+              "sortable": undefined,
+              "style": Object {},
+            },
+            "columns": Array [
+              Object {
+                "Cell": [Function],
+                "Header": "Navn",
+                "accessor": "name",
+              },
+              Object {
+                "Cell": [Function],
+                "Header": "Beskrivelse",
+                "accessor": "description",
+              },
+              Object {
+                "Cell": [Function],
+                "Header": "Datatype",
+                "accessor": "dataType",
+              },
+            ],
+            "data": Array [],
+            "defaultExpanded": Object {},
+            "defaultFilterMethod": [Function],
+            "defaultFiltered": Array [],
+            "defaultPageSize": 10,
+            "defaultResized": Array [],
+            "defaultSortDesc": false,
+            "defaultSortMethod": [Function],
+            "defaultSorted": Array [],
+            "expanderDefaults": Object {
+              "filterable": false,
+              "resizable": false,
+              "sortable": false,
+              "width": 35,
+            },
+            "filterable": false,
+            "freezeWhenExpanded": false,
+            "getLoadingProps": [Function],
+            "getNoDataProps": [Function],
+            "getPaginationProps": [Function],
+            "getProps": [Function],
+            "getResizerProps": [Function],
+            "getTableProps": [Function],
+            "getTbodyProps": [Function],
+            "getTdProps": [Function],
+            "getTfootProps": [Function],
+            "getTfootTdProps": [Function],
+            "getTfootTrProps": [Function],
+            "getTheadFilterProps": [Function],
+            "getTheadFilterThProps": [Function],
+            "getTheadFilterTrProps": [Function],
+            "getTheadGroupProps": [Function],
+            "getTheadGroupThProps": [Function],
+            "getTheadGroupTrProps": [Function],
+            "getTheadProps": [Function],
+            "getTheadThProps": [Function],
+            "getTheadTrProps": [Function],
+            "getTrGroupProps": [Function],
+            "getTrProps": [Function],
+            "groupedByPivotKey": "_groupedByPivot",
+            "indexKey": "_index",
+            "loading": false,
+            "loadingText": "Laster...",
+            "multiSort": true,
+            "nestingLevelKey": "_nestingLevel",
+            "nextText": "Neste",
+            "noDataText": "",
+            "ofText": "av",
+            "onExpandedChange": undefined,
+            "onFetchData": [Function],
+            "onFilteredChange": undefined,
+            "onPageChange": undefined,
+            "onPageSizeChange": undefined,
+            "onResizedChange": undefined,
+            "onSortedChange": undefined,
+            "originalKey": "_original",
+            "pageSizeOptions": Array [
+              5,
+              10,
+              20,
+              25,
+              50,
+              100,
+            ],
+            "pageText": "Side",
+            "pivotBy": undefined,
+            "pivotDefaults": Object {},
+            "pivotIDKey": "_pivotID",
+            "pivotValKey": "_pivotVal",
+            "previousText": "Forrige",
+            "resizable": false,
+            "resolveData": [Function],
+            "rowsText": "rader",
+            "showPageJump": true,
+            "showPageSizeOptions": true,
+            "showPagination": true,
+            "showPaginationBottom": true,
+            "showPaginationTop": false,
+            "sortable": true,
+            "style": Object {},
+            "subRowsKey": "_subRows",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`TableBuilder page renders one of itself 4`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <TableBuilder
+    table={
+        Object {
+            "name": "SentinelValueDomain",
+            "nameDefinitive": "Sentinel verdidomenen",
+            "nameInNorwegian": "Sentinel verdidomene",
+            "namePlural": "Sentinel verdidomener",
+            "tableConfig": Object {
+              "headers": Array [
+                Object {
+                  "accessor": "name",
+                  "name": "Navn",
+                },
+                Object {
+                  "accessor": "description",
+                  "name": "Beskrivelse",
+                },
+                Object {
+                  "accessor": "dataType",
+                  "name": "Datatype",
+                },
+              ],
+            },
+          }
+    }
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <Dimmer
+          active={true}
+          inverted={true}
+>
+          <Loader
+                    inline="centered"
+                    inverted={true}
+          />
+</Dimmer>,
+        <Header
+          as="h2"
+          content="Sentinel verdidomener"
+          dividing={true}
+/>,
+        <Popup
+          flowing={true}
+          hideOnScroll={true}
+          hoverable={true}
+          keepInViewPort={true}
+          on="hover"
+          position="right center"
+          trigger={
+                    <Input
+                              icon="search"
+                              onChange={[Function]}
+                              placeholder="Søk"
+                              type="text"
+                              value=""
+                    />
+          }
+>
+          <Icon
+                    as="i"
+                    color="blue"
+                    name="info circle"
+          />
+          Filtrerer tabellen etter navn
+</Popup>,
+        <NavLink
+          activeClassName="active"
+          aria-current="page"
+          to="/generic/sentinelValueDomain/new"
+>
+          <Button
+                    as="button"
+                    content="Opprett ny sentinel verdidomene"
+                    floated="right"
+                    icon="edit"
+                    primary={true}
+                    role="button"
+          />
+</NavLink>,
+        <Divider
+          hidden={true}
+/>,
+        <ReactTable
+          AggregatedComponent={[Function]}
+          ExpanderComponent={[Function]}
+          FilterComponent={[Function]}
+          LoadingComponent={[Function]}
+          NextComponent={undefined}
+          NoDataComponent={[Function]}
+          PadRowComponent={[Function]}
+          PaginationComponent={[Function]}
+          PivotComponent={undefined}
+          PivotValueComponent={[Function]}
+          PreviousComponent={undefined}
+          ResizerComponent={[Function]}
+          TableComponent={[Function]}
+          TbodyComponent={[Function]}
+          TdComponent={[Function]}
+          TfootComponent={[Function]}
+          ThComponent={[Function]}
+          TheadComponent={[Function]}
+          TrComponent={[Function]}
+          TrGroupComponent={[Function]}
+          aggregatedKey="_aggregated"
+          className="-striped -highlight"
+          collapseOnDataChange={true}
+          collapseOnPageChange={true}
+          collapseOnSortingChange={true}
+          column={
+                    Object {
+                              "Aggregated": undefined,
+                              "Cell": undefined,
+                              "Expander": undefined,
+                              "Filter": undefined,
+                              "Footer": undefined,
+                              "Header": undefined,
+                              "Pivot": undefined,
+                              "PivotValue": undefined,
+                              "aggregate": undefined,
+                              "className": "",
+                              "filterAll": false,
+                              "filterMethod": undefined,
+                              "filterable": undefined,
+                              "footerClassName": "",
+                              "footerStyle": Object {},
+                              "getFooterProps": [Function],
+                              "getHeaderProps": [Function],
+                              "getProps": [Function],
+                              "headerClassName": "",
+                              "headerStyle": Object {},
+                              "minWidth": 100,
+                              "resizable": undefined,
+                              "show": true,
+                              "sortMethod": undefined,
+                              "sortable": undefined,
+                              "style": Object {},
+                            }
+          }
+          columns={
+                    Array [
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Navn",
+                                "accessor": "name",
+                              },
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Beskrivelse",
+                                "accessor": "description",
+                              },
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Datatype",
+                                "accessor": "dataType",
+                              },
+                            ]
+          }
+          data={Array []}
+          defaultExpanded={Object {}}
+          defaultFilterMethod={[Function]}
+          defaultFiltered={Array []}
+          defaultPageSize={10}
+          defaultResized={Array []}
+          defaultSortDesc={false}
+          defaultSortMethod={[Function]}
+          defaultSorted={Array []}
+          expanderDefaults={
+                    Object {
+                              "filterable": false,
+                              "resizable": false,
+                              "sortable": false,
+                              "width": 35,
+                            }
+          }
+          filterable={false}
+          freezeWhenExpanded={false}
+          getLoadingProps={[Function]}
+          getNoDataProps={[Function]}
+          getPaginationProps={[Function]}
+          getProps={[Function]}
+          getResizerProps={[Function]}
+          getTableProps={[Function]}
+          getTbodyProps={[Function]}
+          getTdProps={[Function]}
+          getTfootProps={[Function]}
+          getTfootTdProps={[Function]}
+          getTfootTrProps={[Function]}
+          getTheadFilterProps={[Function]}
+          getTheadFilterThProps={[Function]}
+          getTheadFilterTrProps={[Function]}
+          getTheadGroupProps={[Function]}
+          getTheadGroupThProps={[Function]}
+          getTheadGroupTrProps={[Function]}
+          getTheadProps={[Function]}
+          getTheadThProps={[Function]}
+          getTheadTrProps={[Function]}
+          getTrGroupProps={[Function]}
+          getTrProps={[Function]}
+          groupedByPivotKey="_groupedByPivot"
+          indexKey="_index"
+          loading={false}
+          loadingText="Laster..."
+          multiSort={true}
+          nestingLevelKey="_nestingLevel"
+          nextText="Neste"
+          noDataText=""
+          ofText="av"
+          onExpandedChange={undefined}
+          onFetchData={[Function]}
+          onFilteredChange={undefined}
+          onPageChange={undefined}
+          onPageSizeChange={undefined}
+          onResizedChange={undefined}
+          onSortedChange={undefined}
+          originalKey="_original"
+          pageSizeOptions={
+                    Array [
+                              5,
+                              10,
+                              20,
+                              25,
+                              50,
+                              100,
+                            ]
+          }
+          pageText="Side"
+          pivotBy={undefined}
+          pivotDefaults={Object {}}
+          pivotIDKey="_pivotID"
+          pivotValKey="_pivotVal"
+          previousText="Forrige"
+          resizable={false}
+          resolveData={[Function]}
+          rowsText="rader"
+          showPageJump={true}
+          showPageSizeOptions={true}
+          showPagination={true}
+          showPaginationBottom={true}
+          showPaginationTop={false}
+          sortable={true}
+          style={Object {}}
+          subRowsKey="_subRows"
+/>,
+      ],
+      "fluid": true,
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "active": true,
+          "children": <Loader
+            inline="centered"
+            inverted={true}
+/>,
+          "inverted": true,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "inline": "centered",
+            "inverted": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "as": "h2",
+          "content": "Sentinel verdidomener",
+          "dividing": true,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            <Icon
+              as="i"
+              color="blue"
+              name="info circle"
+/>,
+            "Filtrerer tabellen etter navn",
+          ],
+          "flowing": true,
+          "hideOnScroll": true,
+          "hoverable": true,
+          "keepInViewPort": true,
+          "on": "hover",
+          "position": "right center",
+          "trigger": <Input
+            icon="search"
+            onChange={[Function]}
+            placeholder="Søk"
+            type="text"
+            value=""
+/>,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "as": "i",
+              "color": "blue",
+              "name": "info circle",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "Filtrerer tabellen etter navn",
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "activeClassName": "active",
+          "aria-current": "page",
+          "children": <Button
+            as="button"
+            content="Opprett ny sentinel verdidomene"
+            floated="right"
+            icon="edit"
+            primary={true}
+            role="button"
+/>,
+          "to": "/generic/sentinelValueDomain/new",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "as": "button",
+            "content": "Opprett ny sentinel verdidomene",
+            "floated": "right",
+            "icon": "edit",
+            "primary": true,
+            "role": "button",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "hidden": true,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "AggregatedComponent": [Function],
+          "ExpanderComponent": [Function],
+          "FilterComponent": [Function],
+          "LoadingComponent": [Function],
+          "NextComponent": undefined,
+          "NoDataComponent": [Function],
+          "PadRowComponent": [Function],
+          "PaginationComponent": [Function],
+          "PivotComponent": undefined,
+          "PivotValueComponent": [Function],
+          "PreviousComponent": undefined,
+          "ResizerComponent": [Function],
+          "TableComponent": [Function],
+          "TbodyComponent": [Function],
+          "TdComponent": [Function],
+          "TfootComponent": [Function],
+          "ThComponent": [Function],
+          "TheadComponent": [Function],
+          "TrComponent": [Function],
+          "TrGroupComponent": [Function],
+          "aggregatedKey": "_aggregated",
+          "className": "-striped -highlight",
+          "collapseOnDataChange": true,
+          "collapseOnPageChange": true,
+          "collapseOnSortingChange": true,
+          "column": Object {
+            "Aggregated": undefined,
+            "Cell": undefined,
+            "Expander": undefined,
+            "Filter": undefined,
+            "Footer": undefined,
+            "Header": undefined,
+            "Pivot": undefined,
+            "PivotValue": undefined,
+            "aggregate": undefined,
+            "className": "",
+            "filterAll": false,
+            "filterMethod": undefined,
+            "filterable": undefined,
+            "footerClassName": "",
+            "footerStyle": Object {},
+            "getFooterProps": [Function],
+            "getHeaderProps": [Function],
+            "getProps": [Function],
+            "headerClassName": "",
+            "headerStyle": Object {},
+            "minWidth": 100,
+            "resizable": undefined,
+            "show": true,
+            "sortMethod": undefined,
+            "sortable": undefined,
+            "style": Object {},
+          },
+          "columns": Array [
+            Object {
+              "Cell": [Function],
+              "Header": "Navn",
+              "accessor": "name",
+            },
+            Object {
+              "Cell": [Function],
+              "Header": "Beskrivelse",
+              "accessor": "description",
+            },
+            Object {
+              "Cell": [Function],
+              "Header": "Datatype",
+              "accessor": "dataType",
+            },
+          ],
+          "data": Array [],
+          "defaultExpanded": Object {},
+          "defaultFilterMethod": [Function],
+          "defaultFiltered": Array [],
+          "defaultPageSize": 10,
+          "defaultResized": Array [],
+          "defaultSortDesc": false,
+          "defaultSortMethod": [Function],
+          "defaultSorted": Array [],
+          "expanderDefaults": Object {
+            "filterable": false,
+            "resizable": false,
+            "sortable": false,
+            "width": 35,
+          },
+          "filterable": false,
+          "freezeWhenExpanded": false,
+          "getLoadingProps": [Function],
+          "getNoDataProps": [Function],
+          "getPaginationProps": [Function],
+          "getProps": [Function],
+          "getResizerProps": [Function],
+          "getTableProps": [Function],
+          "getTbodyProps": [Function],
+          "getTdProps": [Function],
+          "getTfootProps": [Function],
+          "getTfootTdProps": [Function],
+          "getTfootTrProps": [Function],
+          "getTheadFilterProps": [Function],
+          "getTheadFilterThProps": [Function],
+          "getTheadFilterTrProps": [Function],
+          "getTheadGroupProps": [Function],
+          "getTheadGroupThProps": [Function],
+          "getTheadGroupTrProps": [Function],
+          "getTheadProps": [Function],
+          "getTheadThProps": [Function],
+          "getTheadTrProps": [Function],
+          "getTrGroupProps": [Function],
+          "getTrProps": [Function],
+          "groupedByPivotKey": "_groupedByPivot",
+          "indexKey": "_index",
+          "loading": false,
+          "loadingText": "Laster...",
+          "multiSort": true,
+          "nestingLevelKey": "_nestingLevel",
+          "nextText": "Neste",
+          "noDataText": "",
+          "ofText": "av",
+          "onExpandedChange": undefined,
+          "onFetchData": [Function],
+          "onFilteredChange": undefined,
+          "onPageChange": undefined,
+          "onPageSizeChange": undefined,
+          "onResizedChange": undefined,
+          "onSortedChange": undefined,
+          "originalKey": "_original",
+          "pageSizeOptions": Array [
+            5,
+            10,
+            20,
+            25,
+            50,
+            100,
+          ],
+          "pageText": "Side",
+          "pivotBy": undefined,
+          "pivotDefaults": Object {},
+          "pivotIDKey": "_pivotID",
+          "pivotValKey": "_pivotVal",
+          "previousText": "Forrige",
+          "resizable": false,
+          "resolveData": [Function],
+          "rowsText": "rader",
+          "showPageJump": true,
+          "showPageSizeOptions": true,
+          "showPagination": true,
+          "showPaginationBottom": true,
+          "showPaginationTop": false,
+          "sortable": true,
+          "style": Object {},
+          "subRowsKey": "_subRows",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <Dimmer
+            active={true}
+            inverted={true}
+>
+            <Loader
+                        inline="centered"
+                        inverted={true}
+            />
+</Dimmer>,
+          <Header
+            as="h2"
+            content="Sentinel verdidomener"
+            dividing={true}
+/>,
+          <Popup
+            flowing={true}
+            hideOnScroll={true}
+            hoverable={true}
+            keepInViewPort={true}
+            on="hover"
+            position="right center"
+            trigger={
+                        <Input
+                                    icon="search"
+                                    onChange={[Function]}
+                                    placeholder="Søk"
+                                    type="text"
+                                    value=""
+                        />
+            }
+>
+            <Icon
+                        as="i"
+                        color="blue"
+                        name="info circle"
+            />
+            Filtrerer tabellen etter navn
+</Popup>,
+          <NavLink
+            activeClassName="active"
+            aria-current="page"
+            to="/generic/sentinelValueDomain/new"
+>
+            <Button
+                        as="button"
+                        content="Opprett ny sentinel verdidomene"
+                        floated="right"
+                        icon="edit"
+                        primary={true}
+                        role="button"
+            />
+</NavLink>,
+          <Divider
+            hidden={true}
+/>,
+          <ReactTable
+            AggregatedComponent={[Function]}
+            ExpanderComponent={[Function]}
+            FilterComponent={[Function]}
+            LoadingComponent={[Function]}
+            NextComponent={undefined}
+            NoDataComponent={[Function]}
+            PadRowComponent={[Function]}
+            PaginationComponent={[Function]}
+            PivotComponent={undefined}
+            PivotValueComponent={[Function]}
+            PreviousComponent={undefined}
+            ResizerComponent={[Function]}
+            TableComponent={[Function]}
+            TbodyComponent={[Function]}
+            TdComponent={[Function]}
+            TfootComponent={[Function]}
+            ThComponent={[Function]}
+            TheadComponent={[Function]}
+            TrComponent={[Function]}
+            TrGroupComponent={[Function]}
+            aggregatedKey="_aggregated"
+            className="-striped -highlight"
+            collapseOnDataChange={true}
+            collapseOnPageChange={true}
+            collapseOnSortingChange={true}
+            column={
+                        Object {
+                                    "Aggregated": undefined,
+                                    "Cell": undefined,
+                                    "Expander": undefined,
+                                    "Filter": undefined,
+                                    "Footer": undefined,
+                                    "Header": undefined,
+                                    "Pivot": undefined,
+                                    "PivotValue": undefined,
+                                    "aggregate": undefined,
+                                    "className": "",
+                                    "filterAll": false,
+                                    "filterMethod": undefined,
+                                    "filterable": undefined,
+                                    "footerClassName": "",
+                                    "footerStyle": Object {},
+                                    "getFooterProps": [Function],
+                                    "getHeaderProps": [Function],
+                                    "getProps": [Function],
+                                    "headerClassName": "",
+                                    "headerStyle": Object {},
+                                    "minWidth": 100,
+                                    "resizable": undefined,
+                                    "show": true,
+                                    "sortMethod": undefined,
+                                    "sortable": undefined,
+                                    "style": Object {},
+                                  }
+            }
+            columns={
+                        Array [
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Navn",
+                                      "accessor": "name",
+                                    },
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Beskrivelse",
+                                      "accessor": "description",
+                                    },
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Datatype",
+                                      "accessor": "dataType",
+                                    },
+                                  ]
+            }
+            data={Array []}
+            defaultExpanded={Object {}}
+            defaultFilterMethod={[Function]}
+            defaultFiltered={Array []}
+            defaultPageSize={10}
+            defaultResized={Array []}
+            defaultSortDesc={false}
+            defaultSortMethod={[Function]}
+            defaultSorted={Array []}
+            expanderDefaults={
+                        Object {
+                                    "filterable": false,
+                                    "resizable": false,
+                                    "sortable": false,
+                                    "width": 35,
+                                  }
+            }
+            filterable={false}
+            freezeWhenExpanded={false}
+            getLoadingProps={[Function]}
+            getNoDataProps={[Function]}
+            getPaginationProps={[Function]}
+            getProps={[Function]}
+            getResizerProps={[Function]}
+            getTableProps={[Function]}
+            getTbodyProps={[Function]}
+            getTdProps={[Function]}
+            getTfootProps={[Function]}
+            getTfootTdProps={[Function]}
+            getTfootTrProps={[Function]}
+            getTheadFilterProps={[Function]}
+            getTheadFilterThProps={[Function]}
+            getTheadFilterTrProps={[Function]}
+            getTheadGroupProps={[Function]}
+            getTheadGroupThProps={[Function]}
+            getTheadGroupTrProps={[Function]}
+            getTheadProps={[Function]}
+            getTheadThProps={[Function]}
+            getTheadTrProps={[Function]}
+            getTrGroupProps={[Function]}
+            getTrProps={[Function]}
+            groupedByPivotKey="_groupedByPivot"
+            indexKey="_index"
+            loading={false}
+            loadingText="Laster..."
+            multiSort={true}
+            nestingLevelKey="_nestingLevel"
+            nextText="Neste"
+            noDataText=""
+            ofText="av"
+            onExpandedChange={undefined}
+            onFetchData={[Function]}
+            onFilteredChange={undefined}
+            onPageChange={undefined}
+            onPageSizeChange={undefined}
+            onResizedChange={undefined}
+            onSortedChange={undefined}
+            originalKey="_original"
+            pageSizeOptions={
+                        Array [
+                                    5,
+                                    10,
+                                    20,
+                                    25,
+                                    50,
+                                    100,
+                                  ]
+            }
+            pageText="Side"
+            pivotBy={undefined}
+            pivotDefaults={Object {}}
+            pivotIDKey="_pivotID"
+            pivotValKey="_pivotVal"
+            previousText="Forrige"
+            resizable={false}
+            resolveData={[Function]}
+            rowsText="rader"
+            showPageJump={true}
+            showPageSizeOptions={true}
+            showPagination={true}
+            showPaginationBottom={true}
+            showPaginationTop={false}
+            sortable={true}
+            style={Object {}}
+            subRowsKey="_subRows"
+/>,
+        ],
+        "fluid": true,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "active": true,
+            "children": <Loader
+              inline="centered"
+              inverted={true}
+/>,
+            "inverted": true,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "inline": "centered",
+              "inverted": true,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "as": "h2",
+            "content": "Sentinel verdidomener",
+            "dividing": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <Icon
+                as="i"
+                color="blue"
+                name="info circle"
+/>,
+              "Filtrerer tabellen etter navn",
+            ],
+            "flowing": true,
+            "hideOnScroll": true,
+            "hoverable": true,
+            "keepInViewPort": true,
+            "on": "hover",
+            "position": "right center",
+            "trigger": <Input
+              icon="search"
+              onChange={[Function]}
+              placeholder="Søk"
+              type="text"
+              value=""
+/>,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "as": "i",
+                "color": "blue",
+                "name": "info circle",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "Filtrerer tabellen etter navn",
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "activeClassName": "active",
+            "aria-current": "page",
+            "children": <Button
+              as="button"
+              content="Opprett ny sentinel verdidomene"
+              floated="right"
+              icon="edit"
+              primary={true}
+              role="button"
+/>,
+            "to": "/generic/sentinelValueDomain/new",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "as": "button",
+              "content": "Opprett ny sentinel verdidomene",
+              "floated": "right",
+              "icon": "edit",
+              "primary": true,
+              "role": "button",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "hidden": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "AggregatedComponent": [Function],
+            "ExpanderComponent": [Function],
+            "FilterComponent": [Function],
+            "LoadingComponent": [Function],
+            "NextComponent": undefined,
+            "NoDataComponent": [Function],
+            "PadRowComponent": [Function],
+            "PaginationComponent": [Function],
+            "PivotComponent": undefined,
+            "PivotValueComponent": [Function],
+            "PreviousComponent": undefined,
+            "ResizerComponent": [Function],
+            "TableComponent": [Function],
+            "TbodyComponent": [Function],
+            "TdComponent": [Function],
+            "TfootComponent": [Function],
+            "ThComponent": [Function],
+            "TheadComponent": [Function],
+            "TrComponent": [Function],
+            "TrGroupComponent": [Function],
+            "aggregatedKey": "_aggregated",
+            "className": "-striped -highlight",
+            "collapseOnDataChange": true,
+            "collapseOnPageChange": true,
+            "collapseOnSortingChange": true,
+            "column": Object {
+              "Aggregated": undefined,
+              "Cell": undefined,
+              "Expander": undefined,
+              "Filter": undefined,
+              "Footer": undefined,
+              "Header": undefined,
+              "Pivot": undefined,
+              "PivotValue": undefined,
+              "aggregate": undefined,
+              "className": "",
+              "filterAll": false,
+              "filterMethod": undefined,
+              "filterable": undefined,
+              "footerClassName": "",
+              "footerStyle": Object {},
+              "getFooterProps": [Function],
+              "getHeaderProps": [Function],
+              "getProps": [Function],
+              "headerClassName": "",
+              "headerStyle": Object {},
+              "minWidth": 100,
+              "resizable": undefined,
+              "show": true,
+              "sortMethod": undefined,
+              "sortable": undefined,
+              "style": Object {},
+            },
+            "columns": Array [
+              Object {
+                "Cell": [Function],
+                "Header": "Navn",
+                "accessor": "name",
+              },
+              Object {
+                "Cell": [Function],
+                "Header": "Beskrivelse",
+                "accessor": "description",
+              },
+              Object {
+                "Cell": [Function],
+                "Header": "Datatype",
+                "accessor": "dataType",
+              },
+            ],
+            "data": Array [],
+            "defaultExpanded": Object {},
+            "defaultFilterMethod": [Function],
+            "defaultFiltered": Array [],
+            "defaultPageSize": 10,
+            "defaultResized": Array [],
+            "defaultSortDesc": false,
+            "defaultSortMethod": [Function],
+            "defaultSorted": Array [],
+            "expanderDefaults": Object {
+              "filterable": false,
+              "resizable": false,
+              "sortable": false,
+              "width": 35,
+            },
+            "filterable": false,
+            "freezeWhenExpanded": false,
+            "getLoadingProps": [Function],
+            "getNoDataProps": [Function],
+            "getPaginationProps": [Function],
+            "getProps": [Function],
+            "getResizerProps": [Function],
+            "getTableProps": [Function],
+            "getTbodyProps": [Function],
+            "getTdProps": [Function],
+            "getTfootProps": [Function],
+            "getTfootTdProps": [Function],
+            "getTfootTrProps": [Function],
+            "getTheadFilterProps": [Function],
+            "getTheadFilterThProps": [Function],
+            "getTheadFilterTrProps": [Function],
+            "getTheadGroupProps": [Function],
+            "getTheadGroupThProps": [Function],
+            "getTheadGroupTrProps": [Function],
+            "getTheadProps": [Function],
+            "getTheadThProps": [Function],
+            "getTheadTrProps": [Function],
+            "getTrGroupProps": [Function],
+            "getTrProps": [Function],
+            "groupedByPivotKey": "_groupedByPivot",
+            "indexKey": "_index",
+            "loading": false,
+            "loadingText": "Laster...",
+            "multiSort": true,
+            "nestingLevelKey": "_nestingLevel",
+            "nextText": "Neste",
+            "noDataText": "",
+            "ofText": "av",
+            "onExpandedChange": undefined,
+            "onFetchData": [Function],
+            "onFilteredChange": undefined,
+            "onPageChange": undefined,
+            "onPageSizeChange": undefined,
+            "onResizedChange": undefined,
+            "onSortedChange": undefined,
+            "originalKey": "_original",
+            "pageSizeOptions": Array [
+              5,
+              10,
+              20,
+              25,
+              50,
+              100,
+            ],
+            "pageText": "Side",
+            "pivotBy": undefined,
+            "pivotDefaults": Object {},
+            "pivotIDKey": "_pivotID",
+            "pivotValKey": "_pivotVal",
+            "previousText": "Forrige",
+            "resizable": false,
+            "resolveData": [Function],
+            "rowsText": "rader",
+            "showPageJump": true,
+            "showPageSizeOptions": true,
+            "showPagination": true,
+            "showPaginationBottom": true,
+            "showPaginationTop": false,
+            "sortable": true,
+            "style": Object {},
+            "subRowsKey": "_subRows",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`TableBuilder page renders one of itself 5`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <TableBuilder
+    table={
+        Object {
+            "name": "DescribedValueDomain",
+            "nameDefinitive": "Beskrevet verdidomenen",
+            "nameInNorwegian": "Beskrevet verdidomene",
+            "namePlural": "Beskrevet verdidomener",
+            "tableConfig": Object {
+              "headers": Array [
+                Object {
+                  "accessor": "name",
+                  "name": "Navn",
+                },
+                Object {
+                  "accessor": "description",
+                  "name": "Beskrivelse",
+                },
+                Object {
+                  "accessor": "dataType",
+                  "name": "Datatype",
+                },
+              ],
+            },
+          }
+    }
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <Dimmer
+          active={true}
+          inverted={true}
+>
+          <Loader
+                    inline="centered"
+                    inverted={true}
+          />
+</Dimmer>,
+        <Header
+          as="h2"
+          content="Beskrevet verdidomener"
+          dividing={true}
+/>,
+        <Popup
+          flowing={true}
+          hideOnScroll={true}
+          hoverable={true}
+          keepInViewPort={true}
+          on="hover"
+          position="right center"
+          trigger={
+                    <Input
+                              icon="search"
+                              onChange={[Function]}
+                              placeholder="Søk"
+                              type="text"
+                              value=""
+                    />
+          }
+>
+          <Icon
+                    as="i"
+                    color="blue"
+                    name="info circle"
+          />
+          Filtrerer tabellen etter navn
+</Popup>,
+        <NavLink
+          activeClassName="active"
+          aria-current="page"
+          to="/generic/describedValueDomain/new"
+>
+          <Button
+                    as="button"
+                    content="Opprett ny beskrevet verdidomene"
+                    floated="right"
+                    icon="edit"
+                    primary={true}
+                    role="button"
+          />
+</NavLink>,
+        <Divider
+          hidden={true}
+/>,
+        <ReactTable
+          AggregatedComponent={[Function]}
+          ExpanderComponent={[Function]}
+          FilterComponent={[Function]}
+          LoadingComponent={[Function]}
+          NextComponent={undefined}
+          NoDataComponent={[Function]}
+          PadRowComponent={[Function]}
+          PaginationComponent={[Function]}
+          PivotComponent={undefined}
+          PivotValueComponent={[Function]}
+          PreviousComponent={undefined}
+          ResizerComponent={[Function]}
+          TableComponent={[Function]}
+          TbodyComponent={[Function]}
+          TdComponent={[Function]}
+          TfootComponent={[Function]}
+          ThComponent={[Function]}
+          TheadComponent={[Function]}
+          TrComponent={[Function]}
+          TrGroupComponent={[Function]}
+          aggregatedKey="_aggregated"
+          className="-striped -highlight"
+          collapseOnDataChange={true}
+          collapseOnPageChange={true}
+          collapseOnSortingChange={true}
+          column={
+                    Object {
+                              "Aggregated": undefined,
+                              "Cell": undefined,
+                              "Expander": undefined,
+                              "Filter": undefined,
+                              "Footer": undefined,
+                              "Header": undefined,
+                              "Pivot": undefined,
+                              "PivotValue": undefined,
+                              "aggregate": undefined,
+                              "className": "",
+                              "filterAll": false,
+                              "filterMethod": undefined,
+                              "filterable": undefined,
+                              "footerClassName": "",
+                              "footerStyle": Object {},
+                              "getFooterProps": [Function],
+                              "getHeaderProps": [Function],
+                              "getProps": [Function],
+                              "headerClassName": "",
+                              "headerStyle": Object {},
+                              "minWidth": 100,
+                              "resizable": undefined,
+                              "show": true,
+                              "sortMethod": undefined,
+                              "sortable": undefined,
+                              "style": Object {},
+                            }
+          }
+          columns={
+                    Array [
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Navn",
+                                "accessor": "name",
+                              },
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Beskrivelse",
+                                "accessor": "description",
+                              },
+                              Object {
+                                "Cell": [Function],
+                                "Header": "Datatype",
+                                "accessor": "dataType",
+                              },
+                            ]
+          }
+          data={Array []}
+          defaultExpanded={Object {}}
+          defaultFilterMethod={[Function]}
+          defaultFiltered={Array []}
+          defaultPageSize={10}
+          defaultResized={Array []}
+          defaultSortDesc={false}
+          defaultSortMethod={[Function]}
+          defaultSorted={Array []}
+          expanderDefaults={
+                    Object {
+                              "filterable": false,
+                              "resizable": false,
+                              "sortable": false,
+                              "width": 35,
+                            }
+          }
+          filterable={false}
+          freezeWhenExpanded={false}
+          getLoadingProps={[Function]}
+          getNoDataProps={[Function]}
+          getPaginationProps={[Function]}
+          getProps={[Function]}
+          getResizerProps={[Function]}
+          getTableProps={[Function]}
+          getTbodyProps={[Function]}
+          getTdProps={[Function]}
+          getTfootProps={[Function]}
+          getTfootTdProps={[Function]}
+          getTfootTrProps={[Function]}
+          getTheadFilterProps={[Function]}
+          getTheadFilterThProps={[Function]}
+          getTheadFilterTrProps={[Function]}
+          getTheadGroupProps={[Function]}
+          getTheadGroupThProps={[Function]}
+          getTheadGroupTrProps={[Function]}
+          getTheadProps={[Function]}
+          getTheadThProps={[Function]}
+          getTheadTrProps={[Function]}
+          getTrGroupProps={[Function]}
+          getTrProps={[Function]}
+          groupedByPivotKey="_groupedByPivot"
+          indexKey="_index"
+          loading={false}
+          loadingText="Laster..."
+          multiSort={true}
+          nestingLevelKey="_nestingLevel"
+          nextText="Neste"
+          noDataText=""
+          ofText="av"
+          onExpandedChange={undefined}
+          onFetchData={[Function]}
+          onFilteredChange={undefined}
+          onPageChange={undefined}
+          onPageSizeChange={undefined}
+          onResizedChange={undefined}
+          onSortedChange={undefined}
+          originalKey="_original"
+          pageSizeOptions={
+                    Array [
+                              5,
+                              10,
+                              20,
+                              25,
+                              50,
+                              100,
+                            ]
+          }
+          pageText="Side"
+          pivotBy={undefined}
+          pivotDefaults={Object {}}
+          pivotIDKey="_pivotID"
+          pivotValKey="_pivotVal"
+          previousText="Forrige"
+          resizable={false}
+          resolveData={[Function]}
+          rowsText="rader"
+          showPageJump={true}
+          showPageSizeOptions={true}
+          showPagination={true}
+          showPaginationBottom={true}
+          showPaginationTop={false}
+          sortable={true}
+          style={Object {}}
+          subRowsKey="_subRows"
+/>,
+      ],
+      "fluid": true,
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "active": true,
+          "children": <Loader
+            inline="centered"
+            inverted={true}
+/>,
+          "inverted": true,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "inline": "centered",
+            "inverted": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "as": "h2",
+          "content": "Beskrevet verdidomener",
+          "dividing": true,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            <Icon
+              as="i"
+              color="blue"
+              name="info circle"
+/>,
+            "Filtrerer tabellen etter navn",
+          ],
+          "flowing": true,
+          "hideOnScroll": true,
+          "hoverable": true,
+          "keepInViewPort": true,
+          "on": "hover",
+          "position": "right center",
+          "trigger": <Input
+            icon="search"
+            onChange={[Function]}
+            placeholder="Søk"
+            type="text"
+            value=""
+/>,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "as": "i",
+              "color": "blue",
+              "name": "info circle",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "Filtrerer tabellen etter navn",
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "activeClassName": "active",
+          "aria-current": "page",
+          "children": <Button
+            as="button"
+            content="Opprett ny beskrevet verdidomene"
+            floated="right"
+            icon="edit"
+            primary={true}
+            role="button"
+/>,
+          "to": "/generic/describedValueDomain/new",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "as": "button",
+            "content": "Opprett ny beskrevet verdidomene",
+            "floated": "right",
+            "icon": "edit",
+            "primary": true,
+            "role": "button",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "hidden": true,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "AggregatedComponent": [Function],
+          "ExpanderComponent": [Function],
+          "FilterComponent": [Function],
+          "LoadingComponent": [Function],
+          "NextComponent": undefined,
+          "NoDataComponent": [Function],
+          "PadRowComponent": [Function],
+          "PaginationComponent": [Function],
+          "PivotComponent": undefined,
+          "PivotValueComponent": [Function],
+          "PreviousComponent": undefined,
+          "ResizerComponent": [Function],
+          "TableComponent": [Function],
+          "TbodyComponent": [Function],
+          "TdComponent": [Function],
+          "TfootComponent": [Function],
+          "ThComponent": [Function],
+          "TheadComponent": [Function],
+          "TrComponent": [Function],
+          "TrGroupComponent": [Function],
+          "aggregatedKey": "_aggregated",
+          "className": "-striped -highlight",
+          "collapseOnDataChange": true,
+          "collapseOnPageChange": true,
+          "collapseOnSortingChange": true,
+          "column": Object {
+            "Aggregated": undefined,
+            "Cell": undefined,
+            "Expander": undefined,
+            "Filter": undefined,
+            "Footer": undefined,
+            "Header": undefined,
+            "Pivot": undefined,
+            "PivotValue": undefined,
+            "aggregate": undefined,
+            "className": "",
+            "filterAll": false,
+            "filterMethod": undefined,
+            "filterable": undefined,
+            "footerClassName": "",
+            "footerStyle": Object {},
+            "getFooterProps": [Function],
+            "getHeaderProps": [Function],
+            "getProps": [Function],
+            "headerClassName": "",
+            "headerStyle": Object {},
+            "minWidth": 100,
+            "resizable": undefined,
+            "show": true,
+            "sortMethod": undefined,
+            "sortable": undefined,
+            "style": Object {},
+          },
+          "columns": Array [
+            Object {
+              "Cell": [Function],
+              "Header": "Navn",
+              "accessor": "name",
+            },
+            Object {
+              "Cell": [Function],
+              "Header": "Beskrivelse",
+              "accessor": "description",
+            },
+            Object {
+              "Cell": [Function],
+              "Header": "Datatype",
+              "accessor": "dataType",
+            },
+          ],
+          "data": Array [],
+          "defaultExpanded": Object {},
+          "defaultFilterMethod": [Function],
+          "defaultFiltered": Array [],
+          "defaultPageSize": 10,
+          "defaultResized": Array [],
+          "defaultSortDesc": false,
+          "defaultSortMethod": [Function],
+          "defaultSorted": Array [],
+          "expanderDefaults": Object {
+            "filterable": false,
+            "resizable": false,
+            "sortable": false,
+            "width": 35,
+          },
+          "filterable": false,
+          "freezeWhenExpanded": false,
+          "getLoadingProps": [Function],
+          "getNoDataProps": [Function],
+          "getPaginationProps": [Function],
+          "getProps": [Function],
+          "getResizerProps": [Function],
+          "getTableProps": [Function],
+          "getTbodyProps": [Function],
+          "getTdProps": [Function],
+          "getTfootProps": [Function],
+          "getTfootTdProps": [Function],
+          "getTfootTrProps": [Function],
+          "getTheadFilterProps": [Function],
+          "getTheadFilterThProps": [Function],
+          "getTheadFilterTrProps": [Function],
+          "getTheadGroupProps": [Function],
+          "getTheadGroupThProps": [Function],
+          "getTheadGroupTrProps": [Function],
+          "getTheadProps": [Function],
+          "getTheadThProps": [Function],
+          "getTheadTrProps": [Function],
+          "getTrGroupProps": [Function],
+          "getTrProps": [Function],
+          "groupedByPivotKey": "_groupedByPivot",
+          "indexKey": "_index",
+          "loading": false,
+          "loadingText": "Laster...",
+          "multiSort": true,
+          "nestingLevelKey": "_nestingLevel",
+          "nextText": "Neste",
+          "noDataText": "",
+          "ofText": "av",
+          "onExpandedChange": undefined,
+          "onFetchData": [Function],
+          "onFilteredChange": undefined,
+          "onPageChange": undefined,
+          "onPageSizeChange": undefined,
+          "onResizedChange": undefined,
+          "onSortedChange": undefined,
+          "originalKey": "_original",
+          "pageSizeOptions": Array [
+            5,
+            10,
+            20,
+            25,
+            50,
+            100,
+          ],
+          "pageText": "Side",
+          "pivotBy": undefined,
+          "pivotDefaults": Object {},
+          "pivotIDKey": "_pivotID",
+          "pivotValKey": "_pivotVal",
+          "previousText": "Forrige",
+          "resizable": false,
+          "resolveData": [Function],
+          "rowsText": "rader",
+          "showPageJump": true,
+          "showPageSizeOptions": true,
+          "showPagination": true,
+          "showPaginationBottom": true,
+          "showPaginationTop": false,
+          "sortable": true,
+          "style": Object {},
+          "subRowsKey": "_subRows",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <Dimmer
+            active={true}
+            inverted={true}
+>
+            <Loader
+                        inline="centered"
+                        inverted={true}
+            />
+</Dimmer>,
+          <Header
+            as="h2"
+            content="Beskrevet verdidomener"
+            dividing={true}
+/>,
+          <Popup
+            flowing={true}
+            hideOnScroll={true}
+            hoverable={true}
+            keepInViewPort={true}
+            on="hover"
+            position="right center"
+            trigger={
+                        <Input
+                                    icon="search"
+                                    onChange={[Function]}
+                                    placeholder="Søk"
+                                    type="text"
+                                    value=""
+                        />
+            }
+>
+            <Icon
+                        as="i"
+                        color="blue"
+                        name="info circle"
+            />
+            Filtrerer tabellen etter navn
+</Popup>,
+          <NavLink
+            activeClassName="active"
+            aria-current="page"
+            to="/generic/describedValueDomain/new"
+>
+            <Button
+                        as="button"
+                        content="Opprett ny beskrevet verdidomene"
+                        floated="right"
+                        icon="edit"
+                        primary={true}
+                        role="button"
+            />
+</NavLink>,
+          <Divider
+            hidden={true}
+/>,
+          <ReactTable
+            AggregatedComponent={[Function]}
+            ExpanderComponent={[Function]}
+            FilterComponent={[Function]}
+            LoadingComponent={[Function]}
+            NextComponent={undefined}
+            NoDataComponent={[Function]}
+            PadRowComponent={[Function]}
+            PaginationComponent={[Function]}
+            PivotComponent={undefined}
+            PivotValueComponent={[Function]}
+            PreviousComponent={undefined}
+            ResizerComponent={[Function]}
+            TableComponent={[Function]}
+            TbodyComponent={[Function]}
+            TdComponent={[Function]}
+            TfootComponent={[Function]}
+            ThComponent={[Function]}
+            TheadComponent={[Function]}
+            TrComponent={[Function]}
+            TrGroupComponent={[Function]}
+            aggregatedKey="_aggregated"
+            className="-striped -highlight"
+            collapseOnDataChange={true}
+            collapseOnPageChange={true}
+            collapseOnSortingChange={true}
+            column={
+                        Object {
+                                    "Aggregated": undefined,
+                                    "Cell": undefined,
+                                    "Expander": undefined,
+                                    "Filter": undefined,
+                                    "Footer": undefined,
+                                    "Header": undefined,
+                                    "Pivot": undefined,
+                                    "PivotValue": undefined,
+                                    "aggregate": undefined,
+                                    "className": "",
+                                    "filterAll": false,
+                                    "filterMethod": undefined,
+                                    "filterable": undefined,
+                                    "footerClassName": "",
+                                    "footerStyle": Object {},
+                                    "getFooterProps": [Function],
+                                    "getHeaderProps": [Function],
+                                    "getProps": [Function],
+                                    "headerClassName": "",
+                                    "headerStyle": Object {},
+                                    "minWidth": 100,
+                                    "resizable": undefined,
+                                    "show": true,
+                                    "sortMethod": undefined,
+                                    "sortable": undefined,
+                                    "style": Object {},
+                                  }
+            }
+            columns={
+                        Array [
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Navn",
+                                      "accessor": "name",
+                                    },
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Beskrivelse",
+                                      "accessor": "description",
+                                    },
+                                    Object {
+                                      "Cell": [Function],
+                                      "Header": "Datatype",
+                                      "accessor": "dataType",
+                                    },
+                                  ]
+            }
+            data={Array []}
+            defaultExpanded={Object {}}
+            defaultFilterMethod={[Function]}
+            defaultFiltered={Array []}
+            defaultPageSize={10}
+            defaultResized={Array []}
+            defaultSortDesc={false}
+            defaultSortMethod={[Function]}
+            defaultSorted={Array []}
+            expanderDefaults={
+                        Object {
+                                    "filterable": false,
+                                    "resizable": false,
+                                    "sortable": false,
+                                    "width": 35,
+                                  }
+            }
+            filterable={false}
+            freezeWhenExpanded={false}
+            getLoadingProps={[Function]}
+            getNoDataProps={[Function]}
+            getPaginationProps={[Function]}
+            getProps={[Function]}
+            getResizerProps={[Function]}
+            getTableProps={[Function]}
+            getTbodyProps={[Function]}
+            getTdProps={[Function]}
+            getTfootProps={[Function]}
+            getTfootTdProps={[Function]}
+            getTfootTrProps={[Function]}
+            getTheadFilterProps={[Function]}
+            getTheadFilterThProps={[Function]}
+            getTheadFilterTrProps={[Function]}
+            getTheadGroupProps={[Function]}
+            getTheadGroupThProps={[Function]}
+            getTheadGroupTrProps={[Function]}
+            getTheadProps={[Function]}
+            getTheadThProps={[Function]}
+            getTheadTrProps={[Function]}
+            getTrGroupProps={[Function]}
+            getTrProps={[Function]}
+            groupedByPivotKey="_groupedByPivot"
+            indexKey="_index"
+            loading={false}
+            loadingText="Laster..."
+            multiSort={true}
+            nestingLevelKey="_nestingLevel"
+            nextText="Neste"
+            noDataText=""
+            ofText="av"
+            onExpandedChange={undefined}
+            onFetchData={[Function]}
+            onFilteredChange={undefined}
+            onPageChange={undefined}
+            onPageSizeChange={undefined}
+            onResizedChange={undefined}
+            onSortedChange={undefined}
+            originalKey="_original"
+            pageSizeOptions={
+                        Array [
+                                    5,
+                                    10,
+                                    20,
+                                    25,
+                                    50,
+                                    100,
+                                  ]
+            }
+            pageText="Side"
+            pivotBy={undefined}
+            pivotDefaults={Object {}}
+            pivotIDKey="_pivotID"
+            pivotValKey="_pivotVal"
+            previousText="Forrige"
+            resizable={false}
+            resolveData={[Function]}
+            rowsText="rader"
+            showPageJump={true}
+            showPageSizeOptions={true}
+            showPagination={true}
+            showPaginationBottom={true}
+            showPaginationTop={false}
+            sortable={true}
+            style={Object {}}
+            subRowsKey="_subRows"
+/>,
+        ],
+        "fluid": true,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "active": true,
+            "children": <Loader
+              inline="centered"
+              inverted={true}
+/>,
+            "inverted": true,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "inline": "centered",
+              "inverted": true,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "as": "h2",
+            "content": "Beskrevet verdidomener",
+            "dividing": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <Icon
+                as="i"
+                color="blue"
+                name="info circle"
+/>,
+              "Filtrerer tabellen etter navn",
+            ],
+            "flowing": true,
+            "hideOnScroll": true,
+            "hoverable": true,
+            "keepInViewPort": true,
+            "on": "hover",
+            "position": "right center",
+            "trigger": <Input
+              icon="search"
+              onChange={[Function]}
+              placeholder="Søk"
+              type="text"
+              value=""
+/>,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "as": "i",
+                "color": "blue",
+                "name": "info circle",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "Filtrerer tabellen etter navn",
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "activeClassName": "active",
+            "aria-current": "page",
+            "children": <Button
+              as="button"
+              content="Opprett ny beskrevet verdidomene"
+              floated="right"
+              icon="edit"
+              primary={true}
+              role="button"
+/>,
+            "to": "/generic/describedValueDomain/new",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "as": "button",
+              "content": "Opprett ny beskrevet verdidomene",
+              "floated": "right",
+              "icon": "edit",
+              "primary": true,
+              "role": "button",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "hidden": true,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "AggregatedComponent": [Function],
+            "ExpanderComponent": [Function],
+            "FilterComponent": [Function],
+            "LoadingComponent": [Function],
+            "NextComponent": undefined,
+            "NoDataComponent": [Function],
+            "PadRowComponent": [Function],
+            "PaginationComponent": [Function],
+            "PivotComponent": undefined,
+            "PivotValueComponent": [Function],
+            "PreviousComponent": undefined,
+            "ResizerComponent": [Function],
+            "TableComponent": [Function],
+            "TbodyComponent": [Function],
+            "TdComponent": [Function],
+            "TfootComponent": [Function],
+            "ThComponent": [Function],
+            "TheadComponent": [Function],
+            "TrComponent": [Function],
+            "TrGroupComponent": [Function],
+            "aggregatedKey": "_aggregated",
+            "className": "-striped -highlight",
+            "collapseOnDataChange": true,
+            "collapseOnPageChange": true,
+            "collapseOnSortingChange": true,
+            "column": Object {
+              "Aggregated": undefined,
+              "Cell": undefined,
+              "Expander": undefined,
+              "Filter": undefined,
+              "Footer": undefined,
+              "Header": undefined,
+              "Pivot": undefined,
+              "PivotValue": undefined,
+              "aggregate": undefined,
+              "className": "",
+              "filterAll": false,
+              "filterMethod": undefined,
+              "filterable": undefined,
+              "footerClassName": "",
+              "footerStyle": Object {},
+              "getFooterProps": [Function],
+              "getHeaderProps": [Function],
+              "getProps": [Function],
+              "headerClassName": "",
+              "headerStyle": Object {},
+              "minWidth": 100,
+              "resizable": undefined,
+              "show": true,
+              "sortMethod": undefined,
+              "sortable": undefined,
+              "style": Object {},
+            },
+            "columns": Array [
+              Object {
+                "Cell": [Function],
+                "Header": "Navn",
+                "accessor": "name",
+              },
+              Object {
+                "Cell": [Function],
+                "Header": "Beskrivelse",
+                "accessor": "description",
+              },
+              Object {
+                "Cell": [Function],
+                "Header": "Datatype",
+                "accessor": "dataType",
+              },
+            ],
+            "data": Array [],
+            "defaultExpanded": Object {},
+            "defaultFilterMethod": [Function],
+            "defaultFiltered": Array [],
+            "defaultPageSize": 10,
+            "defaultResized": Array [],
+            "defaultSortDesc": false,
+            "defaultSortMethod": [Function],
+            "defaultSorted": Array [],
+            "expanderDefaults": Object {
+              "filterable": false,
+              "resizable": false,
+              "sortable": false,
+              "width": 35,
+            },
+            "filterable": false,
+            "freezeWhenExpanded": false,
+            "getLoadingProps": [Function],
+            "getNoDataProps": [Function],
+            "getPaginationProps": [Function],
+            "getProps": [Function],
+            "getResizerProps": [Function],
+            "getTableProps": [Function],
+            "getTbodyProps": [Function],
+            "getTdProps": [Function],
+            "getTfootProps": [Function],
+            "getTfootTdProps": [Function],
+            "getTfootTrProps": [Function],
+            "getTheadFilterProps": [Function],
+            "getTheadFilterThProps": [Function],
+            "getTheadFilterTrProps": [Function],
+            "getTheadGroupProps": [Function],
+            "getTheadGroupThProps": [Function],
+            "getTheadGroupTrProps": [Function],
+            "getTheadProps": [Function],
+            "getTheadThProps": [Function],
+            "getTheadTrProps": [Function],
+            "getTrGroupProps": [Function],
+            "getTrProps": [Function],
+            "groupedByPivotKey": "_groupedByPivot",
+            "indexKey": "_index",
+            "loading": false,
+            "loadingText": "Laster...",
+            "multiSort": true,
+            "nestingLevelKey": "_nestingLevel",
+            "nextText": "Neste",
+            "noDataText": "",
+            "ofText": "av",
+            "onExpandedChange": undefined,
+            "onFetchData": [Function],
+            "onFilteredChange": undefined,
+            "onPageChange": undefined,
+            "onPageSizeChange": undefined,
+            "onResizedChange": undefined,
+            "onSortedChange": undefined,
+            "originalKey": "_original",
+            "pageSizeOptions": Array [
+              5,
+              10,
+              20,
+              25,
+              50,
+              100,
+            ],
+            "pageText": "Side",
+            "pivotBy": undefined,
+            "pivotDefaults": Object {},
+            "pivotIDKey": "_pivotID",
+            "pivotValKey": "_pivotVal",
+            "previousText": "Forrige",
+            "resizable": false,
+            "resolveData": [Function],
+            "rowsText": "rader",
+            "showPageJump": true,
+            "showPageSizeOptions": true,
+            "showPagination": true,
+            "showPaginationBottom": true,
+            "showPaginationTop": false,
+            "sortable": true,
+            "style": Object {},
+            "subRowsKey": "_subRows",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
