@@ -20,29 +20,31 @@ Object.keys(tables).forEach((key) => {
   })
 
   test('Something', async () => {
-    let component = mount(<BrowserRouter><Route><TableBuilder table={tables[key]} /></Route></BrowserRouter>)
+    const flushPromises = () => new Promise(resolve => setImmediate(resolve));
+    let component = mount(<BrowserRouter><Route><TableBuilder table={tables[ key ]} /></Route></BrowserRouter>)
 
     expect(component.find(Dimmer).length).toEqual(1)
     expect(component.find(Loader).length).toEqual(1)
 
     expect(component.find(Header).length).toEqual(1)
-    expect(component.find(Header).text()).toEqual(tables[key].namePlural)
+    expect(component.find(Header).text()).toEqual(tables[ key ].namePlural)
 
     expect(component.find(Popup).length).toEqual(1)
     expect(component.find(Input).length).toEqual(1)
     expect(component.find(NavLink).length).toEqual(1)
 
     expect(component.find(Button).length).toEqual(1)
-    expect(component.find(Button).text()).toEqual(enums.CONTENT.CREATE_NEW + ' ' + lowerCaseFirst(tables[key].nameInNorwegian))
+    expect(component.find(Button).text()).toEqual(enums.CONTENT.CREATE_NEW + ' ' + lowerCaseFirst(tables[ key ].nameInNorwegian))
 
     expect(component.find(Message).length).toEqual(0)
     expect(component.find(Divider).length).toEqual(1)
     expect(component.find(ReactTable).length).toEqual(1)
+    await flushPromises();
 
     setImmediate(() => {
       component.update()
-
-      console.log(component.find('TableBuilder').instance().state)
+      console.log("Table Name: ", component.find('TableBuilder').instance().tableName)
+      console.log("Table State: ", component.find('TableBuilder').instance().state)
     })
   })
 })

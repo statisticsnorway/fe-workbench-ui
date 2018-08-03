@@ -1,0 +1,27 @@
+{
+  "data": {
+    "UnitType": [
+      {
+        "id": "4092aa6e-822f-4bb4-8254-79a3358ec107",
+        "name": [
+          {
+            "languageCode": "nb",
+            "languageText": "Person"
+          }
+        ],
+        "description": [
+          {
+            "languageCode": "nb",
+            "languageText": "Enkeltmenneske, individ"
+          }
+        ],
+        "administrativeStatus": "OPEN",
+        "version": "1.0.0",
+        "versionValidFrom": "1985-01-01T15:00:00.000Z",
+        "validFrom": "1985-01-01T15:00:00.000Z",
+        "createdDate": "1985-01-01T15:00:00.000Z",
+        "createdBy": "OHV"
+      }
+    ]
+  }
+}
