@@ -31,7 +31,7 @@ Object.keys(tables).forEach((key) => {
     expect(component.find(Divider).length).toEqual(1)
     expect(component.find(ReactTable).length).toEqual(1)
 
-    // Gives components correct values
+    // Semantic components get correct values
     expect(component.find(Header).text()).toEqual(tables[key].namePlural)
     expect(component.find(NavLink).props().to).toEqual('/generic/' + lowerCaseFirst(tables[key].name) + '/new')
     expect(component.find(Button).text()).toEqual(enums.CONTENT.CREATE_NEW + ' ' + lowerCaseFirst(tables[key].nameInNorwegian))
@@ -53,8 +53,6 @@ Object.keys(tables).forEach((key) => {
       expect(stateBefore.tableColumns[i]).toHaveProperty('Cell')
     }
 
-    //console.log(stateBefore)
-
     setImmediate(() => {
       component.update()
 
@@ -64,26 +62,26 @@ Object.keys(tables).forEach((key) => {
       expect(stateAfter.loadingTable).toBeFalsy()
       expect(stateAfter.search).toMatch(emptyString)
       expect(stateAfter.response).toMatch(emptyString)
+      //TODO: Fix what the mocked backend gives, so it actually fills the tableData in state
       expect(stateAfter.tableData).toEqual(emptyArray)
-
-      //console.log(stateAfter)
     })
   })
 
-  // TODO: Why does this not work?
-  test('Changing search input updates state', () => {
+  test('Changing search input is possible and updates state', () => {
     const component = mount(<BrowserRouter><Route><TableBuilder table={tables[key]} /></Route></BrowserRouter>)
+    const emptyString = ''
+    const testString = 'Test'
 
-    console.log(component.find('TableBuilder').instance().state.search)
-    console.log(component.find(Input).props())
+    expect(component.find(Input).props().value).toMatch(emptyString)
+    expect(component.find('TableBuilder').instance().state.search).toMatch(emptyString)
 
-    component.find(Input).simulate('change', {target: {value: 'Something'}})
+    component.find(Input).props().onChange({target: {value: testString}})
 
     setImmediate(() => {
       component.update()
 
-      console.log(component.find('TableBuilder').instance().state.search)
-      console.log(component.find(Input).props())
+      expect(component.find(Input).props().value).toMatch(testString)
+      expect(component.find('TableBuilder').instance().state.search).toMatch(testString)
     })
   })
 })
