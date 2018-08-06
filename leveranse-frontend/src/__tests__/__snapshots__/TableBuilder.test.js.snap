@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TableBuilder page renders one of itself 1`] = `
+exports[`TableBuilder page renders one of itself and matches snapshot 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
@@ -1121,7 +1121,7 @@ ShallowWrapper {
 }
 `;
 
-exports[`TableBuilder page renders one of itself 2`] = `
+exports[`TableBuilder page renders one of itself and matches snapshot 2`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
@@ -2218,7 +2218,7 @@ ShallowWrapper {
 }
 `;
 
-exports[`TableBuilder page renders one of itself 3`] = `
+exports[`TableBuilder page renders one of itself and matches snapshot 3`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
@@ -3315,7 +3315,7 @@ ShallowWrapper {
 }
 `;
 
-exports[`TableBuilder page renders one of itself 4`] = `
+exports[`TableBuilder page renders one of itself and matches snapshot 4`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
@@ -4412,7 +4412,7 @@ ShallowWrapper {
 }
 `;
 
-exports[`TableBuilder page renders one of itself 5`] = `
+exports[`TableBuilder page renders one of itself and matches snapshot 5`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],

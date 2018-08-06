@@ -7,13 +7,13 @@ import { tables } from '../pageBuilderTest/utilities/TableConfiguration'
 import { BrowserRouter, NavLink, Route } from 'react-router-dom'
 import { lowerCaseFirst } from '../pageBuilderTest/utilities/Helpers'
 import { enums } from '../pageBuilderTest/utilities/Enums'
-import moment from 'moment'
-import 'moment/min/locales'
 
-moment.locale(enums.LANGUAGE_CODE.NORWEGIAN)
+// TODO: This should work
+// https://stackoverflow.com/questions/31410949/jest-fails-to-load-moment
+jest.dontMock('moment')
 
 Object.keys(tables).forEach((key) => {
-  test('TableBuilder page renders one of itself', () => {
+  test('TableBuilder page renders one of itself and matches snapshot', () => {
     const component = shallow(<TableBuilder table={tables[key]} />)
 
     expect(component.length).toEqual(1)
@@ -65,9 +65,10 @@ Object.keys(tables).forEach((key) => {
 
       expect(stateAfter.loadingTable).toBeFalsy()
       expect(stateAfter.search).toMatch(emptyString)
+      // TODO: This one should not respond with: TypeError: moment is not a function
       //expect(stateAfter.response).toMatch(emptyString)
       console.log(stateAfter.response)
-      //TODO: Fix what the mocked backend gives, so it actually fills the tableData in state
+      // TODO: Fix what the mocked backend gives, so it actually fills the tableData in state
       expect(stateAfter.tableData).toEqual(emptyArray)
     })
   })
