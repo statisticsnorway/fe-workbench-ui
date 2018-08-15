@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
 import { Divider } from 'semantic-ui-react'
+import { connect } from 'react-redux'
 import AgentTable from './AgentTable'
-import { sendDataToBackend, deleteDataInBackend } from '../../utils/Common'
+import { sendDataToBackend, deleteDataInBackend, getDataFromBackend } from '../../utils/Common'
+import moment from "moment/moment";
 
-const saveContactPersonUrl = '/contactPerson'
+const roleUrl = 'Role/'
+const agentUrl = 'Agent/'
+const agentInRoleUrl = 'AgentInRole/'
+const provisionAgreementUrl = 'ProvisionAgreement/'
 const deleteContactPersonPaConnectionUrl = '/contactPerson/provisionAgreement/'
+
+let roleAsContactPerson
+let agentsInRoles
 
 class ExternalAgent extends Component {
   constructor (props) {
@@ -15,26 +23,81 @@ class ExternalAgent extends Component {
     }
 
     const uuidv1 = require('uuid/v1')
-    let uupaId = uuidv1()
-    let uuId = uuidv1()
     let uuAgentId = uuidv1()
-    let uuIndividualId = uuidv1()
-    let uuAiripaId = uuidv1()
+    let uuAgentInRoleId = uuidv1()
 
-    this.state.externalAgents = [{
-      paId: uupaId,
-      id: uuId,
-      roleId: '',
-      agentId: uuAgentId,
-      individualId: uuIndividualId,
-      airipaId: uuAiripaId,
-      internalExternal: 'E',
-      name: '',
+    this.state.externalAgents = [ {
+      id: uuAgentId,
+      agentType: '',
+      selectedRole: '',
+      name: [
+        {
+          languageCode: "nb",
+          languageText: ''
+        }
+      ],
+      description: [
+        {
+          "languageCode": "nb",
+          "languageText": ''
+        }
+      ],
+      isExternal: true,
       email: '',
       phoneNumber: '',
-      comment: ''
-    }]
+      comment: '',
+      administrativeStatus: 'OPEN',
+      version: "1.0.0",
+      versionValidFrom: moment().toJSON(),
+      validFrom: moment().toJSON(),
+      createdDate: moment().toJSON(),
+      createdBy: this.props.authentication.user,
+    } ]
     this.handleAgentTable = this.handleAgentTable.bind(this)
+  }
+
+  componentDidMount () {
+    getDataFromBackend(roleUrl, '').then((result) => {
+      let roles = result.data
+      for (var key in roles) {
+        var role = roles[ key ];
+        for (var attribute in role) {
+          if (role.hasOwnProperty(attribute)) {
+            if (attribute === 'name') {
+              let languageText = role[ attribute ][ 0 ].languageText
+              if (languageText === 'KONTAKTPERSON') {
+                roleAsContactPerson = role
+              }
+            }
+          }
+        }
+      }
+    })
+    getDataFromBackend('AgentInRole/', '').then((result) => {
+      agentsInRoles = result.data
+    })
+  }
+
+  componentDidUpdate () {
+    getDataFromBackend(roleUrl, '').then((result) => {
+      let roles = result.data
+      for (var key in roles) {
+        var role = roles[ key ];
+        for (var attribute in role) {
+          if (role.hasOwnProperty(attribute)) {
+            if (attribute === 'name') {
+              let languageText = role[ attribute ][ 0 ].languageText
+              if (languageText === 'KONTAKTPERSON') {
+                roleAsContactPerson = role
+              }
+            }
+          }
+        }
+      }
+    })
+    getDataFromBackend('AgentInRole/', '').then((result) => {
+      agentsInRoles = result.data
+    })
   }
 
   handleRowDel (agent) {
@@ -43,45 +106,177 @@ class ExternalAgent extends Component {
     deleteDataInBackend(deleteContactPersonPaConnectionUrl, 'Kontaktpersonens kobling til PA', agent.airipaId).then((result) => {
       console.log(result)
       if (result.status === 204) {
-        let index = this.state.externalAgents.indexOf(agent)
-        this.state.externalAgents.splice(index, 1)
-        this.setState(this.state.externalAgents)
+        let index = this.state.internalAgents.indexOf(agent)
+        this.state.internalAgents.splice(index, 1)
+        this.setState(this.state.internalAgents)
       }
     })
   }
 
   handleRowSave (agent) {
-    console.log('Sendes til backend for lagring:')
-    console.log(agent)
-    sendDataToBackend(saveContactPersonUrl, 'Kontaktperson', agent).then((result) => {
-      console.log(result)
+    let internalAgent = {
+      id: agent.id,
+      agentType: agent.agentType,
+      name: agent.name,
+      description: agent.description,
+      isExternal: true,
+      agentDetails: [
+        {
+          agentDetailType: "CONTACT_EMAIL",
+          values: [ agent.email ]
+        },
+        {
+          agentDetailType: "CONTACT_PHONE",
+          values: [ agent.phoneNumber ]
+        }
+      ],
+      administrativeStatus: agent.administrativeStatus,
+      version: agent.version,
+      versionValidFrom: agent.versionValidFrom,
+      validFrom: agent.validFrom,
+      createdDate: agent.createdDate,
+      createdBy: agent.createdBy
+    }
+
+    console.log('Create Agent:', internalAgent)
+
+    sendDataToBackend(agentUrl + internalAgent.id, 'Agent', internalAgent).then((result) => {
+      console.log(result.header)
+      if (result.status === 200) {
+        const uuidv1 = require('uuid/v1')
+        let uuAgentInSelectedRoleId = uuidv1()
+        let uuAgentInContactPersonRoleId = uuidv1()
+
+        let existedAgentInRole
+        let existedAgentInContactPersonRole
+        let internalAgentInContactRole
+        let internalAgentInSelectedRole
+
+        for (let key in agentsInRoles) {
+          let agentInRole = agentsInRoles[ key ];
+          for (var attribute in agentInRole) {
+            if (agentInRole.hasOwnProperty(attribute)) {
+              if (attribute === 'role') {
+                let roleId = agentInRole[ attribute ].substring(6, agentInRole[ attribute ].length)
+                //if agentInROle already exists for the selected role
+                if (roleId === agent.selectedRole) {
+                  existedAgentInRole = agentInRole
+                } else if (roleId === roleAsContactPerson.id) {
+                  existedAgentInContactPersonRole = agentInRole
+                }
+              }
+            }
+          }
+        }
+
+        if (existedAgentInContactPersonRole != undefined) {
+          existedAgentInContactPersonRole.agents.push("/Agent/" + internalAgent.id)
+          sendDataToBackend(agentInRoleUrl + existedAgentInContactPersonRole.id, 'AgentInRole', existedAgentInContactPersonRole).then((result) => {
+            console.log(result.header)
+          })
+        } else {
+          internalAgentInContactRole = {
+            id: uuAgentInContactPersonRoleId,
+            name: agent.name,
+            description: agent.description,
+            administrativeStatus: agent.administrativeStatus,
+            version: agent.version,
+            versionValidFrom: agent.versionValidFrom,
+            validFrom: agent.validFrom,
+            createdDate: agent.createdDate,
+            createdBy: agent.createdBy,
+            role: "/Role/" + roleAsContactPerson.id,
+            agents: []
+          }
+          internalAgentInContactRole.agents.push("/Agent/" + internalAgent.id)
+
+          sendDataToBackend(agentInRoleUrl + internalAgentInContactRole.id, 'AgentInRole', internalAgentInContactRole).then((result) => {
+            console.log(result.header)
+
+          })
+        }
+
+        if (existedAgentInRole != undefined) {
+          existedAgentInRole.agents.push("/Agent/" + internalAgent.id)
+          sendDataToBackend(agentInRoleUrl + existedAgentInRole.id, 'AgentInRole', existedAgentInRole).then((result) => {
+            console.log(result.header)
+          })
+        } else {
+          internalAgentInSelectedRole = {
+            id: uuAgentInSelectedRoleId,
+            name: agent.name,
+            description: agent.description,
+            administrativeStatus: agent.administrativeStatus,
+            version: agent.version,
+            versionValidFrom: agent.versionValidFrom,
+            validFrom: agent.validFrom,
+            createdDate: agent.createdDate,
+            createdBy: agent.createdBy,
+            role: "/Role/" + agent.selectedRole,
+            agents: []
+          }
+          internalAgentInSelectedRole.agents.push("/Agent/" + internalAgent.id)
+
+          sendDataToBackend(agentInRoleUrl + internalAgentInSelectedRole.id, 'AgentInRole', internalAgentInSelectedRole).then((result) => {
+            console.log(result.header)
+            if (result.status === 200) {
+              if (existedAgentInRole !== undefined) {
+                this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInRole.id)
+              } else {
+                this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
+              }
+
+              if (existedAgentInContactPersonRole !== undefined) {
+                this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInContactPersonRole.id)
+              } else {
+                this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInContactRole.id)
+              }
+
+              sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
+                'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
+                console.log(result.header)
+              })
+            }
+          })
+        }
+      }
     })
   }
 
   handleAddEvent () {
     const uuidv1 = require('uuid/v1')
-    let uupaId = uuidv1()
-    let uuId = uuidv1()
     let uuAgentId = uuidv1()
-    let uuIndividualId = uuidv1()
-    let uuAiripaId = uuidv1()
 
     let agent = {
-      paId: uupaId,
-      id: uuId,
-      roleId: '',
-      agentId: uuAgentId,
-      individualId: uuIndividualId,
-      airipaId: uuAiripaId,
-      internalExternal: 'E',
-      name: '',
+      id: uuAgentId,
+      agentType: '',
+      selectedRole: '',
+      isExternal: true,
+      name: [
+        {
+          languageCode: "nb",
+          languageText: ''
+        }
+      ],
+      description: [
+        {
+          "languageCode": "nb",
+          "languageText": ''
+        }
+      ],
       email: '',
       phoneNumber: '',
-      comment: ''
+      comment: '',
+      administrativeStatus: 'OPEN',
+      version: "1.0.0",
+      versionValidFrom: moment().toJSON(),
+      validFrom: moment().toJSON(),
+      createdDate: moment().toJSON(),
+      createdBy: this.props.authentication.user,
     }
 
-    this.state.externalAgents.push(agent)
-    this.setState(this.state.externalAgents)
+    this.state.internalAgents.push(agent)
+    this.setState(this.state.internalAgents)
   }
 
   handleAgentTable (evt) {
@@ -90,17 +285,20 @@ class ExternalAgent extends Component {
       name: evt.target.name,
       value: evt.target.value
     }
-    let agents = this.state.externalAgents.slice()
+    let agents = this.state.internalAgents.slice()
     let newAgents = agents.map(function (agent) {
       for (let key in agent) {
-        if (key === item.name && agent['id'] === item.id) {
-          agent[key] = item.value
+        if (key === item.name && agent[ 'id' ] === item.id) {
+          if (key === 'name' || key === 'description') {
+            agent[ key ][ 0 ].languageText = item.value
+          } else {
+            agent[ key ] = item.value
+          }
         }
       }
-
       return agent
     })
-    this.setState({externalAgents: newAgents})
+    this.setState({internalAgents: newAgents})
   }
 
   handleAgentTableDropdown (id, name, value) {
@@ -109,18 +307,21 @@ class ExternalAgent extends Component {
       name: name,
       value: value
     }
-    let agents = this.state.externalAgents.slice()
+    let agents = this.state.internalAgents.slice()
     let newAgents = agents.map(function (agent) {
       for (let key in agent) {
-        if (key === item.name && agent['id'] === item.id) {
-          agent[key] = item.value
+        if (key === item.name && agent[ 'id' ] === item.id) {
+          if (key === 'name' || key === 'description') {
+            agent[ key ][ 0 ].languageText = item.value
+          } else {
+            agent[ key ] = item.value
+          }
         }
       }
-
       return agent
     })
 
-    this.setState({externalAgents: newAgents})
+    this.setState({internalAgents: newAgents})
   }
 
   render () {
@@ -141,9 +342,12 @@ class ExternalAgent extends Component {
   }
 }
 
-export default ExternalAgent
+function mapStateToProps (state) {
+  const {authentication} = state
+  return {
+    authentication
+  }
+}
 
-
-
-
-
+const connectedExternalAgent = connect(mapStateToProps)(ExternalAgent)
+export { connectedExternalAgent as ExternalAgent }

@@ -1,22 +1,30 @@
 import React, { Component } from 'react'
 import { Button, Dropdown, Icon, Table, Checkbox } from 'semantic-ui-react'
-import { fetchListOptions } from '../../utils/Common'
+import { fetchListOptions } from "../../utils/Common";
+
+let agentTypes = [
+  {key: 1, text: 'INDIVIDUAL', value: 'INDIVIDUAL'},
+  {key: 2, text: 'ORGANIZATION', value: 'ORGANIZATION'},
+  {key: 3, text: 'SYSTEM', value: 'SYSTEM'} ]
 
 let roleOptions = []
 let fetchRoleUrl = process.env.REACT_APP_BACKENDHOST + 'Role/'
+roleOptions = fetchListOptions(fetchRoleUrl)
 
 class AgentTable extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      roles: []
+    }
   }
 
   componentWillMount () {
-    roleOptions = fetchListOptions(fetchRoleUrl)
+    roleOptions = roleOptions.filter(role => role.text !== 'KONTAKTPERSON')
   }
 
   render () {
     const editMode = this.props.editMode
-
     let onAgentTableUpdate = this.props.onAgentTableUpdate
     let onAgentTableUpdateDropdown = this.props.onAgentTableUpdateDropdown
     let rowDel = this.props.onRowDel
@@ -37,6 +45,7 @@ class AgentTable extends Component {
           <tr>
             <th>&nbsp;</th>
             <th>Rolle</th>
+            <th>Type</th>
             <th>Navn</th>
             <th>Epost</th>
             <th>Telefon</th>
@@ -87,6 +96,7 @@ class AgentRow extends Component {
 
   render () {
     const editMode = this.state.readOnlyMode
+
     return (
       <tr>
         <td>
@@ -94,13 +104,19 @@ class AgentRow extends Component {
                     readOnly={!this.state.readOnlyMode} />
         </td>
         <td>
-          <Dropdown placeholder='Velg rolle' selection options={roleOptions}
-                    id={this.props.agent.id} value={this.props.agent.roleId || ''}
-                    onChange={(event, {id, value}) => this.props.onAgentTableUpdateDropdown(id, 'roleId', value)}
+          <Dropdown placeholder='Velg role' selection options={roleOptions}
+                    id={this.props.agent.id} value={this.props.agent.selectedRole || ''}
+                    onChange={(event, {id, value}) => this.props.onAgentTableUpdateDropdown(id, 'selectedRole', value)}
                     disabled={editMode} />
         </td>
         <td>
-          <input type='text' name='name' id={this.props.agent.id} value={this.props.agent.name || ''}
+          <Dropdown placeholder='Velg type' selection options={agentTypes}
+                    id={this.props.agent.id} value={this.props.agent.agentType || ''}
+                    onChange={(event, {id, value}) => this.props.onAgentTableUpdateDropdown(id, 'agentType', value)}
+                    disabled={editMode} />
+        </td>
+        <td>
+          <input type='text' name='name' id={this.props.agent.id} value={this.props.agent.name[ 0 ].languageText || ''}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>

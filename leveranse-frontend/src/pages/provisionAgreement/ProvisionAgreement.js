@@ -3,7 +3,7 @@ import { Grid, Tab } from 'semantic-ui-react'
 import { BrowserRouter } from 'react-router-dom'
 import {ProvisionAgreementDesc} from './ProvisionAgreementDesc'
 import '../../assets/css/site.css'
-import ContactPerson from '../contactPerson/ContactPerson'
+import { ContactPerson } from '../contactPerson/ContactPerson'
 
 class ProvisionAgreement extends React.Component {
   render () {

@@ -101,21 +101,24 @@ export const sendDataToBackend = (path, text, state) => {
           color: 'green',
           header: text + ' ble lagret',
           text: response.statusText,
-          icon: 'check'
+          icon: 'check',
+          status: response.status
         }
       } else if (response.status === 200) {
         newState = {
           color: 'green',
           header: text + ' ble oppdatert',
           text: response.statusText,
-          icon: 'check'
+          icon: 'check',
+          status: response.status
         }
       } else {
         newState = {
           color: 'orange',
           header: text + ' ble ikke lagret',
           text: response.statusText + ' (' + url + ')',
-          icon: 'warning'
+          icon: 'warning',
+          status: response.status
         }
       }
     }).catch((error) => {
@@ -127,7 +130,8 @@ export const sendDataToBackend = (path, text, state) => {
         color: 'red',
         header: text + ' ble ikke lagret',
         text: error.message + ' (' + url + ')',
-        icon: 'warning'
+        icon: 'warning',
+        status: error.response
       }
     }).then(() => {
       resolve(newState)
