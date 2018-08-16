@@ -95,8 +95,12 @@ class InternalAgent extends React.Component {
         }
       }
     })
-    getDataFromBackend('AgentInRole/', '').then((result) => {
+
+    let linkedPA = this.props.linkedPA[0]
+
+    getDataFromBackend('ProvisionAgreement/'+linkedPA.id+'/agentInRoles/', '').then((result) => {
       agentsInRoles = result.data
+      console.log("AgentInRoles for linked PA::", agentsInRoles)
     })
   }
 
