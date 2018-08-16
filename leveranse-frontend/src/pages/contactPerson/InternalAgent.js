@@ -9,7 +9,7 @@ const roleUrl = 'Role/'
 const agentUrl = 'Agent/'
 const agentInRoleUrl = 'AgentInRole/'
 const provisionAgreementUrl = 'ProvisionAgreement/'
-const deleteContactPersonPaConnectionUrl = '/contactPerson/provisionAgreement/'
+const deleteContactPerson = 'AgentInRole/'
 
 let roleAsContactPerson
 let agentsInRoles
@@ -101,16 +101,26 @@ class InternalAgent extends React.Component {
   }
 
   handleRowDel (agent) {
-    console.log('Sendes til backend for sletting:')
-    console.log(agent)
-    deleteDataInBackend(deleteContactPersonPaConnectionUrl, 'Kontaktpersonens kobling til PA', agent.airipaId).then((result) => {
-      console.log(result)
-      if (result.status === 204) {
-        let index = this.state.internalAgents.indexOf(agent)
-        this.state.internalAgents.splice(index, 1)
-        this.setState(this.state.internalAgents)
+    console.log('Remove Agent In Role:', agent)
+    let selectedAgentInRole
+
+    for (let key in agentsInRoles) {
+      let agentInRole = agentsInRoles[ key ];
+      for (var attribute in agentInRole) {
+        if (agentInRole.hasOwnProperty(attribute)) {
+          if (attribute === 'role') {
+            let roleId = agentInRole[ attribute ].substring(6, agentInRole[ attribute ].length)
+            //if agentInRole already exists for the selected role
+            if (roleId === agent.selectedRole) {
+              selectedAgentInRole = agentInRole
+            }
+          }
+        }
       }
-    })
+    }
+
+    console.log("AgentInRole to be deleted: ", selectedAgentInRole)
+
   }
 
   handleRowSave (agent) {
@@ -152,6 +162,7 @@ class InternalAgent extends React.Component {
         let internalAgentInContactRole
         let internalAgentInSelectedRole
 
+        //check for AgentInRole already exist
         for (let key in agentsInRoles) {
           let agentInRole = agentsInRoles[ key ];
           for (var attribute in agentInRole) {
@@ -173,6 +184,32 @@ class InternalAgent extends React.Component {
           existedAgentInContactPersonRole.agents.push("/Agent/" + internalAgent.id)
           sendDataToBackend(agentInRoleUrl + existedAgentInContactPersonRole.id, 'AgentInRole', existedAgentInContactPersonRole).then((result) => {
             console.log(result.header)
+            if (result.status === 200) {
+              let agentInRoleAlreadyLinked
+              if (this.props.linkedPA[ 0 ].agentInRoles.length == 0) {
+                this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInContactPersonRole.id)
+              } else {
+                let linkedAgentsInRoleWithPA = this.props.linkedPA[ 0 ].agentInRoles
+                for (var key in linkedAgentsInRoleWithPA) {
+                  console.log(linkedAgentsInRoleWithPA[ key ])
+                  let linkedAgentInRoleId = linkedAgentsInRoleWithPA[ key ].substring(13, linkedAgentsInRoleWithPA[ key ].length)
+                  console.log(linkedAgentInRoleId)
+                  if (existedAgentInContactPersonRole !== undefined && existedAgentInContactPersonRole.id === linkedAgentInRoleId) {
+                    //this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInContactPersonRole.id)
+                    agentInRoleAlreadyLinked = true
+                    break;
+                  }
+                }
+                if(!agentInRoleAlreadyLinked){
+
+                }
+                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInContactPersonRole.id)
+              }
+              sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
+                'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
+                console.log(result.header)
+              })
+            }
           })
         } else {
           internalAgentInContactRole = {
@@ -192,14 +229,34 @@ class InternalAgent extends React.Component {
 
           sendDataToBackend(agentInRoleUrl + internalAgentInContactRole.id, 'AgentInRole', internalAgentInContactRole).then((result) => {
             console.log(result.header)
-
           })
         }
 
-        if (existedAgentInRole != undefined) {
+        if (existedAgentInRole != undefined)  {
           existedAgentInRole.agents.push("/Agent/" + internalAgent.id)
           sendDataToBackend(agentInRoleUrl + existedAgentInRole.id, 'AgentInRole', existedAgentInRole).then((result) => {
             console.log(result.header)
+            if (result.status === 200) {
+              if (this.props.linkedPA[ 0 ].agentInRoles.length == 0) {
+                this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInRole.id)
+              } else {
+                let linkedAgentsInRoleWithPA = this.props.linkedPA[ 0 ].agentInRoles
+                for (var key in linkedAgentsInRoleWithPA) {
+                  console.log(linkedAgentsInRoleWithPA[ key ])
+                  let linkedAgentInRoleId = linkedAgentsInRoleWithPA[ key ].substring(13, linkedAgentsInRoleWithPA[ key ].length)
+                  console.log(linkedAgentInRoleId)
+                  if (existedAgentInRole !== undefined && existedAgentInRole.id !== linkedAgentInRoleId) {
+                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInRole.id)
+                    break;
+                  }
+                }
+              }
+
+              sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
+                'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
+                console.log(result.header)
+              })
+            }
           })
         } else {
           internalAgentInSelectedRole = {
@@ -220,22 +277,62 @@ class InternalAgent extends React.Component {
           sendDataToBackend(agentInRoleUrl + internalAgentInSelectedRole.id, 'AgentInRole', internalAgentInSelectedRole).then((result) => {
             console.log(result.header)
             if (result.status === 200) {
-              if (existedAgentInRole !== undefined) {
-                this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInRole.id)
+              if (this.props.linkedPA[ 0 ].agentInRoles.length == 0) {
+                if (existedAgentInRole !== undefined) {
+                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInRole.id)
+                } else {
+                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
+                }
+
+                if (existedAgentInContactPersonRole !== undefined) {
+                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInContactPersonRole.id)
+                } else {
+                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInContactRole.id)
+                }
+
+                sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
+                  'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
+                  console.log(result.header)
+                })
               } else {
-                this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
+                let linkedAgentsInRoleWithPA = this.props.linkedPA[ 0 ].agentInRoles
+
+                for (var key in linkedAgentsInRoleWithPA) {
+                  console.log(linkedAgentsInRoleWithPA[ key ])
+                  let linkedAgentInRoleId = linkedAgentsInRoleWithPA[ key ].substring(13, linkedAgentsInRoleWithPA[ key ].length)
+                  console.log(linkedAgentInRoleId)
+                  if (existedAgentInRole !== undefined && existedAgentInRole.id !== linkedAgentInRoleId) {
+                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInRole.id)
+                    break;
+                  }
+                  if (existedAgentInRole === undefined && internalAgentInSelectedRole.id !== linkedAgentInRoleId) {
+                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
+                    break;
+                  }
+                }
+
+                sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
+                  'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
+                  console.log(result.header)
+                })
               }
 
-              if (existedAgentInContactPersonRole !== undefined) {
-                this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInContactPersonRole.id)
-              } else {
-                this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInContactRole.id)
-              }
+              /*    if (existedAgentInRole !== undefined) {
+                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInRole.id)
+                  } else {
+                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
+                  }
 
-              sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
-                'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
-                console.log(result.header)
-              })
+                  if (existedAgentInContactPersonRole !== undefined) {
+                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInContactPersonRole.id)
+                  } else {
+                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInContactRole.id)
+                  }
+
+                  sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
+                    'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
+                    console.log(result.header)
+                  })*/
             }
           })
         }
@@ -328,6 +425,7 @@ class InternalAgent extends React.Component {
     const {authentication} = this.props
     const editMode = this.props.editMode
 
+    console.log("Fetched roles: ", )
     return (
       <div>
         <Divider horizontal>Intern</Divider>

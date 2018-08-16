@@ -24,6 +24,7 @@ class AgentTable extends Component {
   }
 
   render () {
+    console.log("Fetched roles: ", roleOptions)
     const editMode = this.props.editMode
     let onAgentTableUpdate = this.props.onAgentTableUpdate
     let onAgentTableUpdateDropdown = this.props.onAgentTableUpdateDropdown
