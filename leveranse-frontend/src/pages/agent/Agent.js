@@ -10,6 +10,7 @@ class Agent extends Component {
         description: '',
         id: '',
         localeId: '',
+        name: '',
         version: '',
         versionDate: '',
         versionRationale: '',

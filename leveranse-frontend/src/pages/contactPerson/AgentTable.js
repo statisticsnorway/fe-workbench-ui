@@ -14,9 +14,6 @@ roleOptions = fetchListOptions(fetchRoleUrl)
 class AgentTable extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      roles: []
-    }
   }
 
   componentWillMount () {

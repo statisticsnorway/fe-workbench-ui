@@ -2,15 +2,13 @@ import React from 'react'
 import { Divider } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import AgentTable from './AgentTable'
-import { sendDataToBackend, deleteDataInBackend, getDataFromBackend } from '../../utils/Common'
+import { sendDataToBackend, getDataFromBackend } from '../../utils/Common'
 import moment from "moment/moment";
-import { App } from 'dc-jsonschema-react-page-builder'
 
 const roleUrl = 'Role/'
 const agentUrl = 'Agent/'
 const agentInRoleUrl = 'AgentInRole/'
 const provisionAgreementUrl = 'ProvisionAgreement/'
-const deleteContactPerson = 'AgentInRole/'
 
 let roleAsContactPerson
 let agentInRoleAsContactPerson
@@ -130,9 +128,7 @@ class InternalAgent extends React.Component {
 
   handleRowDel (agent) {
     console.log('Remove Agent In Role:', agent)
-    let linkedPA = this.props.linkedPA[ 0 ]
     let linkedAgentsInRole = []
-    let agentInRole
     let agents = []
 
     //fetch all the linked AgentsInRole for PA
@@ -224,8 +220,6 @@ class InternalAgent extends React.Component {
         let internalAgentInContactRole
         let internalAgentInSelectedRole
         let linkedAgentsInRole = []
-        let isRoleAdded = false
-
 
         //fetch all the linked AgentsInRole for PA
         for (let key in agentsInRoleForPA) {
@@ -422,7 +416,6 @@ class InternalAgent extends React.Component {
   }
 
   render () {
-    const {authentication} = this.props
     const editMode = this.props.editMode
 
     console.log("Fetched roles: ",)

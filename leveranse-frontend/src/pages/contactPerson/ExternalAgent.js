@@ -2,15 +2,13 @@ import React, { Component } from 'react'
 import { Divider } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import AgentTable from './AgentTable'
-import { sendDataToBackend, deleteDataInBackend, getDataFromBackend } from '../../utils/Common'
+import { sendDataToBackend, getDataFromBackend } from '../../utils/Common'
 import moment from "moment/moment";
 
 const roleUrl = 'Role/'
 const agentUrl = 'Agent/'
 const agentInRoleUrl = 'AgentInRole/'
 const provisionAgreementUrl = 'ProvisionAgreement/'
-const deleteContactPerson = 'AgentInRole/'
-
 let roleAsContactPerson
 let agentInRoleAsContactPerson
 let agentsInRoleForPA
@@ -26,7 +24,6 @@ class ExternalAgent extends Component {
 
     const uuidv1 = require('uuid/v1')
     let uuAgentId = uuidv1()
-    let uuAgentInRoleId = uuidv1()
 
     this.state.externalAgents = [ {
       id: uuAgentId,
@@ -129,9 +126,7 @@ class ExternalAgent extends Component {
 
   handleRowDel (agent) {
     console.log('Remove Agent In Role:', agent)
-    let linkedPA = this.props.linkedPA[ 0 ]
     let linkedAgentsInRole = []
-    let agentInRole
     let agents = []
 
     //fetch all the linked AgentsInRole for PA
@@ -223,8 +218,6 @@ class ExternalAgent extends Component {
         let externalAgentInContactRole
         let externalAgentInSelectedRole
         let linkedAgentsInRole = []
-        let isRoleAdded = false
-
 
         //fetch all the linked AgentsInRole for PA
         for (let key in agentsInRoleForPA) {
