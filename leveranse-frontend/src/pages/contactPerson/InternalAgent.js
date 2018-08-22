@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import AgentTable from './AgentTable'
 import { sendDataToBackend, deleteDataInBackend, getDataFromBackend } from '../../utils/Common'
 import moment from "moment/moment";
+import { App } from 'dc-jsonschema-react-page-builder'
 
 const roleUrl = 'Role/'
 const agentUrl = 'Agent/'
@@ -12,7 +13,9 @@ const provisionAgreementUrl = 'ProvisionAgreement/'
 const deleteContactPerson = 'AgentInRole/'
 
 let roleAsContactPerson
-let agentsInRoles
+let agentInRoleAsContactPerson
+let agentsInRoleForPA
+let linkedRoles = []
 
 class InternalAgent extends React.Component {
   constructor (props) {
@@ -73,9 +76,6 @@ class InternalAgent extends React.Component {
         }
       }
     })
-    getDataFromBackend('AgentInRole/', '').then((result) => {
-      agentsInRoles = result.data
-    })
   }
 
   componentDidUpdate () {
@@ -95,39 +95,98 @@ class InternalAgent extends React.Component {
         }
       }
     })
+    let linkedPA = this.props.linkedPA[ 0 ]
+    linkedRoles = []
+    let linkedAgentsInRole = []
 
-    let linkedPA = this.props.linkedPA[0]
+    getDataFromBackend('ProvisionAgreement/' + linkedPA.id + '/agentInRoles/', '').then((result) => {
+      agentsInRoleForPA = result.data
+      console.log("AgentInRoles for linked PA::", agentsInRoleForPA)
+      //fetch all the linked AgentsInRole for PA
+      for (let key in agentsInRoleForPA) {
+        let agentInRoleId = agentsInRoleForPA[ key ].substring(13, agentsInRoleForPA[ key ].length)
+        linkedAgentsInRole.push(agentInRoleId)
+      }
 
-    getDataFromBackend('ProvisionAgreement/'+linkedPA.id+'/agentInRoles/', '').then((result) => {
-      agentsInRoles = result.data
-      console.log("AgentInRoles for linked PA::", agentsInRoles)
+      for (var linkedAgentInRole in linkedAgentsInRole) {
+        let agentInRoleId = linkedAgentsInRole[ linkedAgentInRole ]
+        //fetch AgentInRole with Role as KONTAKTPERSON
+        getDataFromBackend(agentInRoleUrl + agentInRoleId, '').then((result) => {
+          console.log(result)
+          let agentInRole = result.data
+          let linkedRoleId = agentInRole[ 'role' ].substring(6, agentInRole[ 'role' ].length)
+          getDataFromBackend(roleUrl + linkedRoleId, '').then((result) => {
+            let role = result.data
+            if (role.id === roleAsContactPerson.id) {
+              agentInRoleAsContactPerson = agentInRole
+            } else {
+              linkedRoles.push(role.id)
+            }
+          })
+        })
+      }
     })
   }
 
   handleRowDel (agent) {
     console.log('Remove Agent In Role:', agent)
-    let selectedAgentInRole
+    let linkedPA = this.props.linkedPA[ 0 ]
+    let linkedAgentsInRole = []
+    let agentInRole
+    let agents = []
 
-    for (let key in agentsInRoles) {
-      let agentInRole = agentsInRoles[ key ];
-      for (var attribute in agentInRole) {
-        if (agentInRole.hasOwnProperty(attribute)) {
-          if (attribute === 'role') {
-            let roleId = agentInRole[ attribute ].substring(6, agentInRole[ attribute ].length)
-            //if agentInRole already exists for the selected role
-            if (roleId === agent.selectedRole) {
-              selectedAgentInRole = agentInRole
-            }
-          }
-        }
-      }
+    //fetch all the linked AgentsInRole for PA
+    for (let key in agentsInRoleForPA) {
+      let agentInRoleId = agentsInRoleForPA[ key ].substring(13, agentsInRoleForPA[ key ].length)
+      linkedAgentsInRole.push(agentInRoleId)
     }
 
-    console.log("AgentInRole to be deleted: ", selectedAgentInRole)
+    for(var linkedAgentInRole in linkedAgentsInRole){
+      getDataFromBackend(agentInRoleUrl + linkedAgentsInRole[ linkedAgentInRole ], '').then((result) => {
+        let agentInRole = result.data
+        agents = agentInRole['agents']
+        let roleId = agentInRole['role'].substring(6, agentInRole['role'].length)
+        let agentToDelete = "/Agent/"+agent.id
+        if(roleId === agentInRoleAsContactPerson.role.substring(6, agentInRoleAsContactPerson.role.length)){
+          console.log("Agent to be removed belongs to ContactPerson AgentInRole: ", agentInRole)
+          console.log("Agent to be removed:", agentToDelete)
+          console.log("Agents before removal:", agents)
+          agents = agents.filter(function (el) {
+            return (el !== agentToDelete);
+          });
+          //agents.filter(agent => agent !== agentToDelete )
+          console.log("Agents after removal:", agents)
+          agentInRole.agents = []
+          agentInRole.agents = agents
+          sendDataToBackend(agentInRoleUrl + agentInRole.id, 'AgentInRole', agentInRole).then((result) => {
+            console.log(result.header)
+          })
+        }
+        if(roleId === agent.selectedRole){
+          console.log("Agent to be removed belongs to AgentInRole: ", agentInRole)
+          console.log("Agent to be removed:", agentToDelete)
+          console.log("Agents before removal:", agents)
+          agents = agents.filter(function (el) {
+            return (el !== agentToDelete);
+          });
+          //agents.filter(agent => agent !== agentToDelete )
+          console.log("Agents after removal:", agents)
 
+          agentInRole.agents = []
+          agentInRole.agents = agents
+          sendDataToBackend(agentInRoleUrl + agentInRole.id, 'AgentInRole', agentInRole).then((result) => {
+            console.log(result.header)
+            let index = this.state.internalAgents.indexOf(agent)
+            this.state.internalAgents.splice(index, 1)
+            this.setState(this.state.internalAgents)
+          })
+        }
+      })
+    }
   }
 
   handleRowSave (agent) {
+
     let internalAgent = {
       id: agent.id,
       agentType: agent.agentType,
@@ -154,68 +213,27 @@ class InternalAgent extends React.Component {
 
     console.log('Create Agent:', internalAgent)
 
+    //create agent
     sendDataToBackend(agentUrl + internalAgent.id, 'Agent', internalAgent).then((result) => {
       console.log(result.header)
       if (result.status === 200) {
+        console.log("Created agent at backend: ", internalAgent)
         const uuidv1 = require('uuid/v1')
         let uuAgentInSelectedRoleId = uuidv1()
         let uuAgentInContactPersonRoleId = uuidv1()
-
-        let existedAgentInRole
-        let existedAgentInContactPersonRole
         let internalAgentInContactRole
         let internalAgentInSelectedRole
+        let linkedAgentsInRole = []
+        let isRoleAdded = false
 
-        //check for AgentInRole already exist
-        for (let key in agentsInRoles) {
-          let agentInRole = agentsInRoles[ key ];
-          for (var attribute in agentInRole) {
-            if (agentInRole.hasOwnProperty(attribute)) {
-              if (attribute === 'role') {
-                let roleId = agentInRole[ attribute ].substring(6, agentInRole[ attribute ].length)
-                //if agentInROle already exists for the selected role
-                if (roleId === agent.selectedRole) {
-                  existedAgentInRole = agentInRole
-                } else if (roleId === roleAsContactPerson.id) {
-                  existedAgentInContactPersonRole = agentInRole
-                }
-              }
-            }
-          }
+
+        //fetch all the linked AgentsInRole for PA
+        for (let key in agentsInRoleForPA) {
+          let agentInRoleId = agentsInRoleForPA[ key ].substring(13, agentsInRoleForPA[ key ].length)
+          linkedAgentsInRole.push(agentInRoleId)
         }
 
-        if (existedAgentInContactPersonRole != undefined) {
-          existedAgentInContactPersonRole.agents.push("/Agent/" + internalAgent.id)
-          sendDataToBackend(agentInRoleUrl + existedAgentInContactPersonRole.id, 'AgentInRole', existedAgentInContactPersonRole).then((result) => {
-            console.log(result.header)
-            if (result.status === 200) {
-              let agentInRoleAlreadyLinked
-              if (this.props.linkedPA[ 0 ].agentInRoles.length == 0) {
-                this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInContactPersonRole.id)
-              } else {
-                let linkedAgentsInRoleWithPA = this.props.linkedPA[ 0 ].agentInRoles
-                for (var key in linkedAgentsInRoleWithPA) {
-                  console.log(linkedAgentsInRoleWithPA[ key ])
-                  let linkedAgentInRoleId = linkedAgentsInRoleWithPA[ key ].substring(13, linkedAgentsInRoleWithPA[ key ].length)
-                  console.log(linkedAgentInRoleId)
-                  if (existedAgentInContactPersonRole !== undefined && existedAgentInContactPersonRole.id === linkedAgentInRoleId) {
-                    //this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInContactPersonRole.id)
-                    agentInRoleAlreadyLinked = true
-                    break;
-                  }
-                }
-                if(!agentInRoleAlreadyLinked){
-
-                }
-                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInContactPersonRole.id)
-              }
-              sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
-                'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
-                console.log(result.header)
-              })
-            }
-          })
-        } else {
+        if (agentsInRoleForPA.length === 0) {
           internalAgentInContactRole = {
             id: uuAgentInContactPersonRoleId,
             name: agent.name,
@@ -231,38 +249,6 @@ class InternalAgent extends React.Component {
           }
           internalAgentInContactRole.agents.push("/Agent/" + internalAgent.id)
 
-          sendDataToBackend(agentInRoleUrl + internalAgentInContactRole.id, 'AgentInRole', internalAgentInContactRole).then((result) => {
-            console.log(result.header)
-          })
-        }
-
-        if (existedAgentInRole != undefined)  {
-          existedAgentInRole.agents.push("/Agent/" + internalAgent.id)
-          sendDataToBackend(agentInRoleUrl + existedAgentInRole.id, 'AgentInRole', existedAgentInRole).then((result) => {
-            console.log(result.header)
-            if (result.status === 200) {
-              if (this.props.linkedPA[ 0 ].agentInRoles.length == 0) {
-                this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInRole.id)
-              } else {
-                let linkedAgentsInRoleWithPA = this.props.linkedPA[ 0 ].agentInRoles
-                for (var key in linkedAgentsInRoleWithPA) {
-                  console.log(linkedAgentsInRoleWithPA[ key ])
-                  let linkedAgentInRoleId = linkedAgentsInRoleWithPA[ key ].substring(13, linkedAgentsInRoleWithPA[ key ].length)
-                  console.log(linkedAgentInRoleId)
-                  if (existedAgentInRole !== undefined && existedAgentInRole.id !== linkedAgentInRoleId) {
-                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInRole.id)
-                    break;
-                  }
-                }
-              }
-
-              sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
-                'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
-                console.log(result.header)
-              })
-            }
-          })
-        } else {
           internalAgentInSelectedRole = {
             id: uuAgentInSelectedRoleId,
             name: agent.name,
@@ -278,65 +264,75 @@ class InternalAgent extends React.Component {
           }
           internalAgentInSelectedRole.agents.push("/Agent/" + internalAgent.id)
 
-          sendDataToBackend(agentInRoleUrl + internalAgentInSelectedRole.id, 'AgentInRole', internalAgentInSelectedRole).then((result) => {
+          sendDataToBackend(agentInRoleUrl + internalAgentInContactRole.id, 'AgentInRole', internalAgentInContactRole).then((result) => {
             console.log(result.header)
             if (result.status === 200) {
-              if (this.props.linkedPA[ 0 ].agentInRoles.length == 0) {
-                if (existedAgentInRole !== undefined) {
-                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInRole.id)
-                } else {
-                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
-                }
-
-                if (existedAgentInContactPersonRole !== undefined) {
-                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInContactPersonRole.id)
-                } else {
+              console.log(result.header)
+              agentsInRoleForPA.push(internalAgentInContactRole)
+              sendDataToBackend(agentInRoleUrl + internalAgentInSelectedRole.id, 'AgentInRole', internalAgentInSelectedRole).then((result) => {
+                console.log(result.header)
+                if (result.status === 200) {
+                  agentsInRoleForPA.push(internalAgentInSelectedRole)
                   this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInContactRole.id)
-                }
-
-                sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
-                  'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
-                  console.log(result.header)
-                })
-              } else {
-                let linkedAgentsInRoleWithPA = this.props.linkedPA[ 0 ].agentInRoles
-
-                for (var key in linkedAgentsInRoleWithPA) {
-                  console.log(linkedAgentsInRoleWithPA[ key ])
-                  let linkedAgentInRoleId = linkedAgentsInRoleWithPA[ key ].substring(13, linkedAgentsInRoleWithPA[ key ].length)
-                  console.log(linkedAgentInRoleId)
-                  if (existedAgentInRole !== undefined && existedAgentInRole.id !== linkedAgentInRoleId) {
-                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInRole.id)
-                    break;
-                  }
-                  if (existedAgentInRole === undefined && internalAgentInSelectedRole.id !== linkedAgentInRoleId) {
-                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
-                    break;
-                  }
-                }
-
-                sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
-                  'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
-                  console.log(result.header)
-                })
-              }
-
-              /*    if (existedAgentInRole !== undefined) {
-                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInRole.id)
-                  } else {
-                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
-                  }
-
-                  if (existedAgentInContactPersonRole !== undefined) {
-                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + existedAgentInContactPersonRole.id)
-                  } else {
-                    this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInContactRole.id)
-                  }
-
+                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
                   sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
                     'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
                     console.log(result.header)
-                  })*/
+                  })
+                }
+              })
+            }
+          })
+        } else {
+          console.log("Already added AgentsInRole: ", linkedAgentsInRole)
+          console.log("Already added roles: ", linkedRoles)
+          console.log("AgentInRole for ContactPerson: ", agentInRoleAsContactPerson)
+
+          agentInRoleAsContactPerson.agents.push("/Agent/" + internalAgent.id)
+          sendDataToBackend(agentInRoleUrl + agentInRoleAsContactPerson.id, 'AgentInRole', agentInRoleAsContactPerson).then((result) => {
+            console.log(result)
+            if (linkedRoles.includes(agent.selectedRole)) {
+              for (var linkedAgentInRole in linkedAgentsInRole) {
+                getDataFromBackend(agentInRoleUrl + linkedAgentsInRole[ linkedAgentInRole ], '').then((result) => {
+                  let agentInRole = result.data
+                  let linkedRole = agentInRole[ 'role' ]
+                  let roleId = linkedRole.substring(6, linkedRole.length)
+                  if (roleId === agent.selectedRole) {
+                    agentInRole.agents.push("/Agent/" + internalAgent.id)
+                    sendDataToBackend(agentInRoleUrl + agentInRole.id, 'AgentInRole', agentInRole).then((result) => {
+                      console.log("AgentInRole with role already present updated")
+                    })
+                  }
+                })
+              }
+            } else {
+              internalAgentInSelectedRole = {
+                id: uuAgentInSelectedRoleId,
+                name: agent.name,
+                description: agent.description,
+                administrativeStatus: agent.administrativeStatus,
+                version: agent.version,
+                versionValidFrom: agent.versionValidFrom,
+                validFrom: agent.validFrom,
+                createdDate: agent.createdDate,
+                createdBy: agent.createdBy,
+                role: "/Role/" + agent.selectedRole,
+                agents: []
+              }
+              internalAgentInSelectedRole.agents.push("/Agent/" + internalAgent.id)
+
+              sendDataToBackend(agentInRoleUrl + internalAgentInSelectedRole.id, 'AgentInRole', internalAgentInSelectedRole).then((result) => {
+                console.log(result.header)
+                if (result.status === 200) {
+                  agentsInRoleForPA.push(internalAgentInSelectedRole)
+                  console.log(result.header)
+                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
+                  sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
+                    'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
+                    console.log(result.header)
+                  })
+                }
+              })
             }
           })
         }
@@ -429,7 +425,7 @@ class InternalAgent extends React.Component {
     const {authentication} = this.props
     const editMode = this.props.editMode
 
-    console.log("Fetched roles: ", )
+    console.log("Fetched roles: ",)
     return (
       <div>
         <Divider horizontal>Intern</Divider>
