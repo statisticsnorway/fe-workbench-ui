@@ -1,0 +1,76 @@
+{
+  "data": [
+    {
+      "lastUpdatedBy": "mmj",
+      "administrativeStatus": "",
+      "description": [
+        {
+          "languageText": "jkifgjjo",
+          "languageCode": "nb"
+        }
+      ],
+      "validFrom": "2018-08-06T07:45:18.047Z",
+      "version": "1.0",
+      "versionValidFrom": "2018-08-06T07:45:18.047Z",
+      "versionRationale": [
+        {
+          "languageText": "",
+          "languageCode": "nb"
+        }
+      ],
+      "lastUpdatedDate": "2018-08-06T07:45:18.047Z",
+      "createdDate": "2018-08-06T07:45:14.775Z",
+      "createdBy": "mmj",
+      "name": [
+        {
+          "languageText": "ghgjgg",
+          "languageCode": "nb"
+        }
+      ],
+      "validUntil": "2019-08-06T07:45:18.047Z",
+      "id": "a7dea270-994c-11e8-81ef-63909eb51e1e",
+      "administrativeDetails": [
+        {
+          "values": [],
+          "administrativeDetailType": ""
+        }
+      ]
+    },
+    {
+      "lastUpdatedBy": "mmj",
+      "administrativeStatus": "",
+      "description": [
+        {
+          "languageText": ".kjhgfsrddsjhk-,.",
+          "languageCode": "nb"
+        }
+      ],
+      "validFrom": "2018-08-06T07:45:07.834Z",
+      "version": "1.0",
+      "versionValidFrom": "2018-08-06T07:45:07.834Z",
+      "versionRationale": [
+        {
+          "languageText": "",
+          "languageCode": "nb"
+        }
+      ],
+      "lastUpdatedDate": "2018-08-06T07:45:07.834Z",
+      "createdDate": "2018-08-06T07:45:03.236Z",
+      "createdBy": "mmj",
+      "name": [
+        {
+          "languageText": "dgdfgghhjhgfd",
+          "languageCode": "nb"
+        }
+      ],
+      "validUntil": "2019-08-06T07:45:07.834Z",
+      "id": "a0fdec40-994c-11e8-81ef-63909eb51e1e",
+      "administrativeDetails": [
+        {
+          "values": [],
+          "administrativeDetailType": ""
+        }
+      ]
+    }
+  ]
+}

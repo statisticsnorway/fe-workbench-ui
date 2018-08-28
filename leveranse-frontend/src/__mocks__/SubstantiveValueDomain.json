@@ -1,0 +1,29 @@
+{
+  "data": {
+    "SubstantiveValueDomain": [
+      {
+        "id": "9d12f1d5-5c2d-46c8-85cf-d6a65f15a76e",
+        "name": [
+          {
+            "languageCode": "nb",
+            "languageText": "Kjønn 1960"
+          }
+        ],
+        "description": [
+          {
+            "languageCode": "nb",
+            "languageText": "SSBs standardkoder for kjønn"
+          }
+        ],
+        "administrativeStatus": "OPEN",
+        "version": "1.0.0",
+        "versionValidFrom": "1985-01-01T15:00:00.000Z",
+        "validFrom": "1985-01-01T15:00:00.000Z",
+        "createdDate": "1985-01-01T15:00:00.000Z",
+        "createdBy": "OHV",
+        "dataType": "TEKST",
+        "valueDomain": "/EnumeratedValueDomain/bf51c92c-d3d2-4190-bdf1-df4332ca14cc"
+      }
+    ]
+  }
+}
