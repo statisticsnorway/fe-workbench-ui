@@ -9,10 +9,7 @@ import '../assets/css/site.css'
 import TargetPopulation from './population/TargetPopulation'
 import SurveyPopulation from './population/SurveyPopulation'
 import ValueDomainList from './valueDomain/ValueDomainList'
-import { domains } from '../pageBuilderTest/utilities/DomainConfiguration'
-import PageBuilder from '../pageBuilderTest/builders/PageBuilder'
-import { tables } from '../pageBuilderTest/utilities/TableConfiguration'
-import TableBuilder from '../pageBuilderTest/builders/TableBuilder'
+import { Domains, DomainTables, PageBuilder, TableBuilder } from 'dc-jsonschema-react-page-builder'
 
 class WorkbenchPage extends React.Component {
   state = {}
@@ -97,11 +94,11 @@ class WorkbenchPage extends React.Component {
                   <Menu.Item header>Generisk testing</Menu.Item>
                   <Dropdown item text='Opprett ny' scrolling>
                     <Dropdown.Menu>
-                      {Object.keys(domains).map((item, index) => {
+                      {Object.keys(Domains).map((item, index) => {
                         return (
                           <Dropdown.Item key={index}>
                             <Link to={'/generic/' + item + '/new'}>
-                              {domains[item].nameInNorwegian}
+                              {Domains[item].nameInNorwegian}
                             </Link>
                           </Dropdown.Item>
                         )
@@ -110,11 +107,11 @@ class WorkbenchPage extends React.Component {
                   </Dropdown>
                   <Dropdown item text='Vis alle'>
                     <Dropdown.Menu>
-                      {Object.keys(tables).map((item, index) => {
+                      {Object.keys(DomainTables).map((item, index) => {
                         return (
                           <Dropdown.Item key={index}>
                             <NavLink to={'/generic/' + item}>
-                              {tables[item].namePlural}
+                              {DomainTables[item].namePlural}
                             </NavLink>
                           </Dropdown.Item>
                         )
@@ -134,18 +131,18 @@ class WorkbenchPage extends React.Component {
                 <Route path='/valueDomain' component={ValueDomainList} />
                 <Route path='/population/targetPopulation' component={TargetPopulation} />
                 <Route path='/population/surveyPopulation' component={SurveyPopulation} />
-                {Object.keys(domains).map((item) => {
+                {Object.keys(Domains).map((item) => {
                   let madePath = '/generic/' + item + '/:id'
                   return (
                     <Route key={item} path={madePath} exact
-                           render={({match}) => (<PageBuilder domain={domains[item]} params={match.params} />)} />
+                           render={({match}) => (<PageBuilder domain={Domains[item]} params={match.params} />)} />
                   )
                 })}
-                {Object.keys(tables).map((item) => {
+                {Object.keys(DomainTables).map((item) => {
                   let madePath = '/generic/' + item
                   let key = item + 'Table'
                   return (
-                    <Route key={key} path={madePath} exact render={() => <TableBuilder table={tables[item]} />} />
+                    <Route key={key} path={madePath} exact render={() => <TableBuilder table={DomainTables[item]} />} />
                   )
                 })}
               </Segment>
