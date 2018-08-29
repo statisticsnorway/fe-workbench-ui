@@ -1,0 +1,2 @@
+REACT_APP_BACKENDHOST=http://localhost:9090/data/
+REACT_APP_SSB_SUBJECTS=https://data.ssb.no/api/v0/no/table/
