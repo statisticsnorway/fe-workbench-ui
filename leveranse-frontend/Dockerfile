@@ -20,7 +20,7 @@ ADD package.json.docker .
 ADD dc-jsonschema-react-page-builder dc-jsonschema-react-page-builder/
 ADD public public/
 ADD src src/
-ADD docker/run.sh .
+ADD docker/run.bash run.sh
 
 RUN chmod +x run.sh \
     && cat package.json.docker | sed "s,https://github.com/statisticsnorway/dc-jsonschema-react-page-builder.git,file:dc-jsonschema-react-page-builder,g" > package.json \

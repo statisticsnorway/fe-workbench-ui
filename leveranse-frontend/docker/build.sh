@@ -12,6 +12,4 @@ fi
 
 cat package.json | sed "s,https://github.com/statisticsnorway/dc-jsonschema-react-page-builder.git,file:dc-jsonschema-react-page-builder,g" > package.json.docker
 
-docker build -t dui .
-
-
+docker build -t dc-workbench-ui .
