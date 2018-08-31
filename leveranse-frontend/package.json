@@ -38,13 +38,15 @@
     "webpack-cli": "^3.0.8"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "env-cmd .env.dev react-scripts start",
+    "start:production": "env-cmd .env.prod react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint src"
   },
   "devDependencies": {
+    "env-cmd": "^8.0.2",
     "eslint": "^5.0.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-prettier": "^2.9.0",
