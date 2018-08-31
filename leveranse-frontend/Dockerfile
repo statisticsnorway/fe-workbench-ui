@@ -4,7 +4,7 @@ ENV APP_DIR=/opt/dc-workbench-ui
 ENV NODE_PATH=$APP_DIR/node_modules
 ENV PATH=$PATH:$NODE_PATH/.bin
 
-ENV REACT_APP_BACKENDHOST="http://172.17.0.1:9090/data/"
+ENV REACT_APP_BACKENDHOST="http://localhost:9090/data/"
 ENV REACT_APP_SSB_SUBJECTS="https://data.ssb.no/api/v0/no/table/"
 
 USER root
