@@ -6,6 +6,7 @@ import { HomePage } from '../pages/homePage'
 import { LoginPage } from '../pages/loginPage'
 import WelcomePage from '../pages/WelcomePage'
 import { Container } from 'semantic-ui-react'
+import {Helmet} from "react-helmet";
 
 class App extends React.Component {
   render () {
@@ -13,6 +14,10 @@ class App extends React.Component {
       <Container fluid>
         <Router history={history}>
           <div>
+            <Helmet>
+              <meta charSet="utf-8" />
+              <title>MOD Arbeidsbenk</title>
+            </Helmet>
             <PrivateRoute path='/home' exact component={HomePage} />
             <Route path='/' exact component={WelcomePage} />
             <Route path='/login' exact component={LoginPage} />
