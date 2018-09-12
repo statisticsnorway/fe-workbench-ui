@@ -1,14 +1,14 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 import moment from 'moment'
-import {Button, Dropdown, Form, Header, Input, TextArea, Message} from 'semantic-ui-react'
+import { Button, Dropdown, Form, Header, Input, TextArea, Message } from 'semantic-ui-react'
 import {
   editModeCheckbox,
   errorMessages,
   responseMessages
 } from '../../utils/Common'
 import { provisionAgreementActions } from '../../actions'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import 'react-dates/lib/css/_datepicker.css'
 import 'react-dates/initialize'
 import InlineError from '../messages/InlineError'
@@ -18,7 +18,7 @@ import InformationProviderModal from "../informationProvider/InformationProvider
 moment.locale('nb')
 
 class ProvisionAgreementDesc extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       provisionAgreement: {
@@ -56,7 +56,8 @@ class ProvisionAgreementDesc extends Component {
             languageText: ''
           },
         exchangeChannel: '/ExchangeChannel/4eea64e6-5c87-462d-9fc5-c3fdd3a310fc',
-        frequency: ''
+        frequency: '',
+        agentInRoles: []
       },
       //durationFrom: moment(),
       //durationTo: moment(),
@@ -77,7 +78,7 @@ class ProvisionAgreementDesc extends Component {
     } else {
       let url
 
-      url = process.env.REACT_APP_BACKENDHOST  + '/ProvisionAgreement/' + this.props.provisionAgreementId
+      url = process.env.REACT_APP_BACKENDHOST + '/ProvisionAgreement/' + this.props.provisionAgreementId
 
       axios.get(url)
         .then((response) => {
@@ -89,44 +90,44 @@ class ProvisionAgreementDesc extends Component {
     }
   }
 
-  handleInputChange(event) {
+  handleInputChange (event) {
     this.setState({
       errors: {
         ...this.state.errors,
-        [event.target.name]: ''
+        [ event.target.name ]: ''
       },
       provisionAgreement: {
         ...this.state.provisionAgreement,
-        [event.target.name]: event.target.value
+        [ event.target.name ]: event.target.value
       }
     })
   }
 
-  handleInputChangeArrayObject(event) {
+  handleInputChangeArrayObject (event) {
     this.setState({
       errors: {
         ...this.state.errors,
-        [event.target.name]: ''
+        [ event.target.name ]: ''
       },
       provisionAgreement: {
         ...this.state.provisionAgreement,
-        [event.target.name]: [{
+        [ event.target.name ]: [ {
           languageCode: 'nb',
           languageText: event.target.value
-        }]
+        } ]
       }
     })
   }
 
-  handleInputChangeJSONObject(event) {
+  handleInputChangeJSONObject (event) {
     this.setState({
       errors: {
         ...this.state.errors,
-        [event.target.name]: ''
+        [ event.target.name ]: ''
       },
       provisionAgreement: {
         ...this.state.provisionAgreement,
-        [event.target.name]: {
+        [ event.target.name ]: {
           languageCode: 'nb',
           languageText: event.target.value
         }
@@ -134,15 +135,15 @@ class ProvisionAgreementDesc extends Component {
     })
   }
 
-  handleDropdownChange(value, name) {
+  handleDropdownChange (value, name) {
     this.setState({
       errors: {
         ...this.state.errors,
-        [name]: ''
+        [ name ]: ''
       },
       provisionAgreement: {
         ...this.state.provisionAgreement,
-        [name]: value
+        [ name ]: value
       }
     })
   }
@@ -166,8 +167,8 @@ class ProvisionAgreementDesc extends Component {
 
   validateInputData = data => {
     const errors = {}
-    if (!data.description[0].languageText) errors.description = 'Feltet kan ikke være tomt'
-    if (!data.name[0].languageText) errors.name = 'Feltet kan ikke være tomt'
+    if (!data.description[ 0 ].languageText) errors.description = 'Feltet kan ikke være tomt'
+    if (!data.name[ 0 ].languageText) errors.name = 'Feltet kan ikke være tomt'
     if (!data.status) errors.status = 'Et valg må velges'
     if (!data.regulation) errors.regulation = 'Et valg må velges'
     if (!data.frequency) errors.frequency = 'Et valg må velges'
@@ -195,7 +196,7 @@ class ProvisionAgreementDesc extends Component {
         errors: {},
         waitingForResponse: true
       })
-
+      console.log("PA to be saved: ", this.state)
       dispatch(provisionAgreementActions.create(this.state.provisionAgreement))
       this.setState({
         waitingForResponse: false,
@@ -210,21 +211,22 @@ class ProvisionAgreementDesc extends Component {
   }
 
   getInformationProvider = (informationProvider) => {
-    this.setState({
+    console.log("INFO PROVIDER:", informationProvider)
+    this.setState(prevState => ({
       provisionAgreement: {
         ...this.state.provisionAgreement,
-        informationProvider: "/InformationProvider/" + informationProvider.id
+        informationProvider: "/InformationProvider/" + informationProvider[0].id
       },
-      selectedInformationProvider: informationProvider[0].name[0].languageText
-    })
+      selectedInformationProvider: informationProvider[ 0 ].name[ 0 ].languageText
+    }))
   }
 
-  render() {
-    const { errors, response, readOnlyMode, waitingForResponse, provisionAgreement } = this.state
-    const { alert } = this.props
+  render () {
+    const {errors, response, readOnlyMode, waitingForResponse, provisionAgreement} = this.state
+    const {alert} = this.props
     return (
       <Form>
-        <Header as='h2' dividing content={'Leveransebeskrivelse'}/>
+        <Header as='h2' dividing content={'Leveransebeskrivelse'} />
 
         {editModeCheckbox(readOnlyMode, this.handleEditModeClick)}
         {errorMessages(errors, 'Leveranseavtalen')}
@@ -250,23 +252,23 @@ class ProvisionAgreementDesc extends Component {
                      this.InformationProviderModal = InformationProviderModal
                    })}
                    getInfoProvider={this.handleGetInformationProvider}
-                   getSelectedValue={this.getInformationProvider}/>}
-                 labelPosition='right'/>
+                   getSelectedValue={this.getInformationProvider} />}
+                 labelPosition='right' />
         </Form.Field>
 
         <Form.Field error={!!errors.name}>
           <label>Avtalenavn</label>
-          <Input placeholder='Avtalenavn' name='name' value={provisionAgreement.name[0].languageText}
-                 onChange={this.handleInputChangeArrayObject} readOnly={readOnlyMode}/>
-          {errors.name && <InlineError text={errors.name}/>}
+          <Input placeholder='Avtalenavn' name='name' value={provisionAgreement.name[ 0 ].languageText}
+                 onChange={this.handleInputChangeArrayObject} readOnly={readOnlyMode} />
+          {errors.name && <InlineError text={errors.name} />}
         </Form.Field>
 
         <Form.Field error={!!errors.description}>
           <label>Beskrivelse</label>
           <TextArea autoHeight placeholder='Beskrivelse' name='description'
-                    value={provisionAgreement.description[0].languageText}
-                    onChange={this.handleInputChangeArrayObject} readOnly={readOnlyMode}/>
-          {errors.description && <InlineError text={errors.description}/>}
+                    value={provisionAgreement.description[ 0 ].languageText}
+                    onChange={this.handleInputChangeArrayObject} readOnly={readOnlyMode} />
+          {errors.description && <InlineError text={errors.description} />}
         </Form.Field>
 
         <Form.Field error={!!errors.status}>
@@ -274,7 +276,7 @@ class ProvisionAgreementDesc extends Component {
           <Dropdown placeholder='Status' selection options={statusOptions}
                     value={provisionAgreement.status}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'status')}
-                    disabled={readOnlyMode}/>
+                    disabled={readOnlyMode} />
         </Form.Field>
 
         {/* <Form.Group widths='equal'>
@@ -321,8 +323,8 @@ class ProvisionAgreementDesc extends Component {
           <Dropdown placeholder='Hjemmelsgrunnlag' selection options={regulationOptions}
                     value={provisionAgreement.regulation}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'regulation')}
-                    disabled={readOnlyMode}/>
-          {errors.regulation && <InlineError text={errors.regulation}/>}
+                    disabled={readOnlyMode} />
+          {errors.regulation && <InlineError text={errors.regulation} />}
         </Form.Field>
 
         <Form.Field error={!!errors.protocols}>
@@ -330,8 +332,8 @@ class ProvisionAgreementDesc extends Component {
           <Dropdown placeholder='Protokoll(er)' multiple selection options={tempProtocolOptions}
                     value={provisionAgreement.protocols}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'protocols')}
-                    disabled={readOnlyMode}/>
-          {errors.protocols && <InlineError text={errors.protocols}/>}
+                    disabled={readOnlyMode} />
+          {errors.protocols && <InlineError text={errors.protocols} />}
         </Form.Field>
 
         <Form.Field error={!!errors.valuation}>
@@ -339,8 +341,8 @@ class ProvisionAgreementDesc extends Component {
           <Dropdown placeholder='Verdivurdering' selection options={tempValuationOptions}
                     value={provisionAgreement.valuation}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'valuation')}
-                    disabled={readOnlyMode}/>
-          {errors.valuation && <InlineError text={errors.valuation}/>}
+                    disabled={readOnlyMode} />
+          {errors.valuation && <InlineError text={errors.valuation} />}
         </Form.Field>
 
         <Form.Field error={!!errors.frequency}>
@@ -348,27 +350,27 @@ class ProvisionAgreementDesc extends Component {
           <Dropdown placeholder='Hyppighet' selection options={frequencyOptions}
                     value={provisionAgreement.frequency}
                     onChange={(event, {value}) => this.handleDropdownChange(value, 'frequency')}
-                    disabled={readOnlyMode}/>
-          {errors.frequency && <InlineError text={errors.frequency}/>}
+                    disabled={readOnlyMode} />
+          {errors.frequency && <InlineError text={errors.frequency} />}
         </Form.Field>
 
         <Form.Field error={!!errors.changeManagement}>
           <Form.TextArea autoHeight name='changeManagement' label='Endringshåndtering' placeholder='Endringshåndtering'
                          readOnly={readOnlyMode} value={provisionAgreement.changeManagement.languageText}
-                         onChange={this.handleInputChangeJSONObject}/>
-          {errors.changeManagement && <InlineError text={errors.changeManagement}/>}
+                         onChange={this.handleInputChangeJSONObject} />
+          {errors.changeManagement && <InlineError text={errors.changeManagement} />}
         </Form.Field>
 
         <Form.Field error={!!errors.informationSource}>
           <label>Kilde</label>
           <Input placeholder='Kilde' name='informationSource' value={provisionAgreement.informationSource.languageText}
-                 onChange={this.handleInputChangeJSONObject} readOnly={readOnlyMode}/>
-          {errors.informationSource && <InlineError text={errors.informationSource}/>}
+                 onChange={this.handleInputChangeJSONObject} readOnly={readOnlyMode} />
+          {errors.informationSource && <InlineError text={errors.informationSource} />}
         </Form.Field>
 
 
         <Button primary disabled={readOnlyMode} loading={waitingForResponse} icon='save'
-                content='Lagre leveranseavtale' onClick={this.registerProvisionAgreement}/>
+                content='Lagre leveranseavtale' onClick={this.registerProvisionAgreement} />
       </Form>
     )
   }
@@ -411,7 +413,7 @@ const frequencyOptions = [
   {key: '5', text: 'Årlig', value: 'Årlig'}
 ]
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   const {authentication, alert, createdPA} = state
   return {
     authentication,
@@ -421,4 +423,4 @@ function mapStateToProps(state) {
 }
 
 const connectedProvisionAgreement = connect(mapStateToProps)(ProvisionAgreementDesc)
-export {connectedProvisionAgreement as ProvisionAgreementDesc}
+export { connectedProvisionAgreement as ProvisionAgreementDesc }
