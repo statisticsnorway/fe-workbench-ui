@@ -95,33 +95,35 @@ class ExternalAgent extends Component {
     linkedRoles = []
     let linkedAgentsInRole = []
 
-    getDataFromBackend('ProvisionAgreement/' + linkedPA.id + '/agentInRoles/', '').then((result) => {
-      agentsInRoleForPA = result.data
-      console.log("AgentInRoles for linked PA::", agentsInRoleForPA)
-      //fetch all the linked AgentsInRole for PA
-      for (let key in agentsInRoleForPA) {
-        let agentInRoleId = agentsInRoleForPA[ key ].substring(13, agentsInRoleForPA[ key ].length)
-        linkedAgentsInRole.push(agentInRoleId)
-      }
+    if(linkedPA != undefined){
+      getDataFromBackend('ProvisionAgreement/' + linkedPA.id + '/agentInRoles/', '').then((result) => {
+        agentsInRoleForPA = result.data
+        console.log("AgentInRoles for linked PA::", agentsInRoleForPA)
+        //fetch all the linked AgentsInRole for PA
+        for (let key in agentsInRoleForPA) {
+          let agentInRoleId = agentsInRoleForPA[ key ].substring(13, agentsInRoleForPA[ key ].length)
+          linkedAgentsInRole.push(agentInRoleId)
+        }
 
-      for (var linkedAgentInRole in linkedAgentsInRole) {
-        let agentInRoleId = linkedAgentsInRole[ linkedAgentInRole ]
-        //fetch AgentInRole with Role as KONTAKTPERSON
-        getDataFromBackend(agentInRoleUrl + agentInRoleId, '').then((result) => {
-          console.log(result)
-          let agentInRole = result.data
-          let linkedRoleId = agentInRole[ 'role' ].substring(6, agentInRole[ 'role' ].length)
-          getDataFromBackend(roleUrl + linkedRoleId, '').then((result) => {
-            let role = result.data
-            if (role.id === roleAsContactPerson.id) {
-              agentInRoleAsContactPerson = agentInRole
-            } else {
-              linkedRoles.push(role.id)
-            }
+        for (var linkedAgentInRole in linkedAgentsInRole) {
+          let agentInRoleId = linkedAgentsInRole[ linkedAgentInRole ]
+          //fetch AgentInRole with Role as KONTAKTPERSON
+          getDataFromBackend(agentInRoleUrl + agentInRoleId, '').then((result) => {
+            console.log(result)
+            let agentInRole = result.data
+            let linkedRoleId = agentInRole[ 'role' ].substring(6, agentInRole[ 'role' ].length)
+            getDataFromBackend(roleUrl + linkedRoleId, '').then((result) => {
+              let role = result.data
+              if (role.id === roleAsContactPerson.id) {
+                agentInRoleAsContactPerson = agentInRole
+              } else {
+                linkedRoles.push(role.id)
+              }
+            })
           })
-        })
-      }
-    })
+        }
+      })
+    }
   }
 
   handleRowDel (agent) {
