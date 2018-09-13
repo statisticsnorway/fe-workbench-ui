@@ -95,7 +95,7 @@ class InformationProviderSearchModal extends React.Component {
           <Form>
             <Form.Group widths='equal'>
               <Form.Field>
-                <Search
+                <Search fluid
                   loading={isLoading}
                   onResultSelect={this.handleResultSelect}
                   onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
