@@ -31,7 +31,7 @@ class ProvisionAgreementsList extends React.Component {
   }
 
   selectProvisionAgreement (e, state, column, rowInfo, instance) {
-    if (this.state.selectedIndex !== -1) {
+    /*if (this.state.selectedIndex !== -1) {
       let ProvisionAgreementOld = this.state.provisionAgreements[this.state.selectedIndex]
       ProvisionAgreementOld.selected = false
     }
@@ -44,7 +44,7 @@ class ProvisionAgreementsList extends React.Component {
     } else {
       console.log('Error retrieving PA from PA list')
     }
-    this.setState({selectedIndex: rowInfo.index})
+    this.setState({selectedIndex: rowInfo.index})*/
   }
 
   onClickProvisionAgreement (id) {
