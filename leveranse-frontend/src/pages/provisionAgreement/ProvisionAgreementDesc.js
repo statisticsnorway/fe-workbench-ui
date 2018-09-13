@@ -13,7 +13,7 @@ import 'react-dates/lib/css/_datepicker.css'
 import 'react-dates/initialize'
 import InlineError from '../messages/InlineError'
 import '../../assets/css/site.css'
-import InformationProviderModal from "../informationProvider/InformationProviderModal";
+import InformationProviderSearchModal from "../informationProvider/InformationProviderSearchModal";
 
 moment.locale('nb')
 
@@ -215,9 +215,9 @@ class ProvisionAgreementDesc extends Component {
     this.setState(prevState => ({
       provisionAgreement: {
         ...this.state.provisionAgreement,
-        informationProvider: "/InformationProvider/" + informationProvider[0].id
+        informationProvider: "/InformationProvider/" + informationProvider.id
       },
-      selectedInformationProvider: informationProvider[ 0 ].name[ 0 ].languageText
+      selectedInformationProvider: informationProvider.title
     }))
   }
 
@@ -247,7 +247,7 @@ class ProvisionAgreementDesc extends Component {
                  readOnly={true}
                  value={this.state.selectedInformationProvider}
                  onChange={this.handleInputChange}
-                 label={<InformationProviderModal
+                 label={<InformationProviderSearchModal
                    ref={(InformationProviderModal => {
                      this.InformationProviderModal = InformationProviderModal
                    })}
