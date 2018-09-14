@@ -5,29 +5,29 @@ import { fetchListOptions } from "../../utils/Common";
 let agentTypes = [
   {key: 1, text: 'INDIVIDUAL', value: 'INDIVIDUAL'},
   {key: 2, text: 'ORGANIZATION', value: 'ORGANIZATION'},
-  {key: 3, text: 'SYSTEM', value: 'SYSTEM'} ]
+  {key: 3, text: 'SYSTEM', value: 'SYSTEM'}]
 
 let roleOptions = []
 let fetchRoleUrl = process.env.REACT_APP_BACKENDHOST + 'Role/'
 roleOptions = fetchListOptions(fetchRoleUrl)
 
 class AgentTable extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
   }
 
-  componentWillMount () {
+  componentWillMount() {
     roleOptions = roleOptions.filter(role => role.text !== 'KONTAKTPERSON')
   }
 
-  render () {
+  render() {
     console.log("Fetched roles: ", roleOptions)
     const editMode = this.props.editMode
     let onAgentTableUpdate = this.props.onAgentTableUpdate
     let onAgentTableUpdateDropdown = this.props.onAgentTableUpdateDropdown
     let rowDel = this.props.onRowDel
     let rowSave = this.props.onRowSave
-    let agent = this.props.agents.map(function (agent) {
+    let agent = this.props.agents.map(function(agent) {
       return (
         <AgentRow onAgentTableUpdate={onAgentTableUpdate} onAgentTableUpdateDropdown={onAgentTableUpdateDropdown}
                   agent={agent} onDelEvent={rowDel.bind(this)} onSaveEvent={rowSave.bind(this)}
@@ -68,7 +68,7 @@ class AgentTable extends Component {
 export default AgentTable
 
 class AgentRow extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       readOnlyMode: false
@@ -81,18 +81,18 @@ class AgentRow extends Component {
     })
   }
 
-  onDelEvent () {
+  onDelEvent() {
     this.props.onDelEvent(this.props.agent)
   }
 
-  onSaveEvent () {
+  onSaveEvent() {
     this.setState({
       readOnlyMode: true
     })
     this.props.onSaveEvent(this.props.agent)
   }
 
-  render () {
+  render() {
     const editMode = this.state.readOnlyMode
 
     return (
@@ -114,7 +114,7 @@ class AgentRow extends Component {
                     disabled={editMode} />
         </td>
         <td>
-          <input type='text' name='name' id={this.props.agent.id} value={this.props.agent.name[ 0 ].languageText || ''}
+          <input type='text' name='name' id={this.props.agent.id} value={this.props.agent.name[0].languageText || ''}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>

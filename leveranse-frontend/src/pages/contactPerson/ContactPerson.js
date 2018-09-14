@@ -21,17 +21,24 @@ class ContactPerson extends React.Component {
   }
 
   componentDidMount() {
-    getDataFromBackend('ProvisionAgreement/'+this.props.createdPA.id, this.state.linkedProvisionAgreement).then((result) => {
+   if(this.props.selectedData){
       this.setState(prevState => ({
-        linkedProvisionAgreement: [...prevState.linkedProvisionAgreement, result.data],
+        linkedProvisionAgreement: [...prevState.linkedProvisionAgreement,this.props.selectedData.selectedProvisionAgreement],
         waitingForResponse: false
       }))
-    })
+    }else{
+      getDataFromBackend('ProvisionAgreement/'+this.props.createdPA.id, this.state.linkedProvisionAgreement).then((result) => {
+        this.setState(prevState => ({
+          linkedProvisionAgreement: [...prevState.linkedProvisionAgreement, result.data],
+          waitingForResponse: false
+        }))
+      })
+    }
+
   }
 
   render () {
     const { createdPA } = this.props
-    console.log("PA to be link to contact person::", this.state.linkedProvisionAgreement)
     return (
       <Form>
         <div>

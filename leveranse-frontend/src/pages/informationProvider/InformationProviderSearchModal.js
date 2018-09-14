@@ -48,7 +48,6 @@ class InformationProviderSearchModal extends React.Component {
 
   handleResultSelect = (e, {result}) => {
     this.setState({value: result.title})
-    console.log("Selected Leverandør:", result)
     this.props.getSelectedValue(result);
     this.handleInfoProviderModalClose()
   }

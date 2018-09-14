@@ -18,7 +18,7 @@ import InformationProviderSearchModal from "../informationProvider/InformationPr
 moment.locale('nb')
 
 class ProvisionAgreementDesc extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       provisionAgreement: {
@@ -72,62 +72,53 @@ class ProvisionAgreementDesc extends Component {
     this.handleInputChangeArrayObject = this.handleInputChangeArrayObject.bind(this)
     this.handleInputChangeJSONObject = this.handleInputChangeJSONObject.bind(this)
 
-    if (this.props.isNewProvisionAgreement) {
+    if(this.props.selectedData){
+      this.state.provisionAgreement = this.props.selectedData.selectedProvisionAgreement
+      this.state.readOnlyMode = true
+    } else {
       const uuidv1 = require('uuid/v1')
       this.state.provisionAgreement.id = uuidv1()
-    } else {
-      let url
-
-      url = process.env.REACT_APP_BACKENDHOST + '/ProvisionAgreement/' + this.props.provisionAgreementId
-
-      axios.get(url)
-        .then((response) => {
-          this.state.provisionAgreement = response.data
-        })
-        .catch((error) => {
-          console.log(error)
-        })
     }
   }
 
-  handleInputChange (event) {
+  handleInputChange(event) {
     this.setState({
       errors: {
         ...this.state.errors,
-        [ event.target.name ]: ''
+        [event.target.name]: ''
       },
       provisionAgreement: {
         ...this.state.provisionAgreement,
-        [ event.target.name ]: event.target.value
+        [event.target.name]: event.target.value
       }
     })
   }
 
-  handleInputChangeArrayObject (event) {
+  handleInputChangeArrayObject(event) {
     this.setState({
       errors: {
         ...this.state.errors,
-        [ event.target.name ]: ''
+        [event.target.name]: ''
       },
       provisionAgreement: {
         ...this.state.provisionAgreement,
-        [ event.target.name ]: [ {
+        [event.target.name]: [{
           languageCode: 'nb',
           languageText: event.target.value
-        } ]
+        }]
       }
     })
   }
 
-  handleInputChangeJSONObject (event) {
+  handleInputChangeJSONObject(event) {
     this.setState({
       errors: {
         ...this.state.errors,
-        [ event.target.name ]: ''
+        [event.target.name]: ''
       },
       provisionAgreement: {
         ...this.state.provisionAgreement,
-        [ event.target.name ]: {
+        [event.target.name]: {
           languageCode: 'nb',
           languageText: event.target.value
         }
@@ -135,15 +126,15 @@ class ProvisionAgreementDesc extends Component {
     })
   }
 
-  handleDropdownChange (value, name) {
+  handleDropdownChange(value, name) {
     this.setState({
       errors: {
         ...this.state.errors,
-        [ name ]: ''
+        [name]: ''
       },
       provisionAgreement: {
         ...this.state.provisionAgreement,
-        [ name ]: value
+        [name]: value
       }
     })
   }
@@ -167,12 +158,12 @@ class ProvisionAgreementDesc extends Component {
 
   validateInputData = data => {
     const errors = {}
-    if (!data.description[ 0 ].languageText) errors.description = 'Feltet kan ikke være tomt'
-    if (!data.name[ 0 ].languageText) errors.name = 'Feltet kan ikke være tomt'
-    if (!data.status) errors.status = 'Et valg må velges'
-    if (!data.regulation) errors.regulation = 'Et valg må velges'
-    if (!data.frequency) errors.frequency = 'Et valg må velges'
-    if (!data.informationSource.languageText) errors.informationSource = 'Feltet kan ikke være tomt'
+    if(!data.description[0].languageText) errors.description = 'Feltet kan ikke være tomt'
+    if(!data.name[0].languageText) errors.name = 'Feltet kan ikke være tomt'
+    if(!data.status) errors.status = 'Et valg må velges'
+    if(!data.regulation) errors.regulation = 'Et valg må velges'
+    if(!data.frequency) errors.frequency = 'Et valg må velges'
+    if(!data.informationSource.languageText) errors.informationSource = 'Feltet kan ikke være tomt'
     /*if (this.state.durationFrom.isAfter(this.state.durationTo)) { // noinspection JSValidateTypes
       errors.durationTo = 'Dato til > dato fra'
     }*/
@@ -190,7 +181,7 @@ class ProvisionAgreementDesc extends Component {
 
     const {dispatch} = this.props
 
-    if (this.validationOk()) {
+    if(this.validationOk()){
       this.setState({
         readOnlyMode: true,
         errors: {},
@@ -211,8 +202,7 @@ class ProvisionAgreementDesc extends Component {
   }
 
   getInformationProvider = (informationProvider) => {
-    console.log("INFO PROVIDER:", informationProvider)
-    this.setState(prevState => ({
+     this.setState(prevState => ({
       provisionAgreement: {
         ...this.state.provisionAgreement,
         informationProvider: "/InformationProvider/" + informationProvider.id
@@ -221,7 +211,7 @@ class ProvisionAgreementDesc extends Component {
     }))
   }
 
-  render () {
+  render() {
     const {errors, response, readOnlyMode, waitingForResponse, provisionAgreement} = this.state
     const {alert} = this.props
     return (
@@ -258,7 +248,7 @@ class ProvisionAgreementDesc extends Component {
 
         <Form.Field error={!!errors.name}>
           <label>Avtalenavn</label>
-          <Input placeholder='Avtalenavn' name='name' value={provisionAgreement.name[ 0 ].languageText}
+          <Input placeholder='Avtalenavn' name='name' value={provisionAgreement.name[0].languageText}
                  onChange={this.handleInputChangeArrayObject} readOnly={readOnlyMode} />
           {errors.name && <InlineError text={errors.name} />}
         </Form.Field>
@@ -266,7 +256,7 @@ class ProvisionAgreementDesc extends Component {
         <Form.Field error={!!errors.description}>
           <label>Beskrivelse</label>
           <TextArea autoHeight placeholder='Beskrivelse' name='description'
-                    value={provisionAgreement.description[ 0 ].languageText}
+                    value={provisionAgreement.description[0].languageText}
                     onChange={this.handleInputChangeArrayObject} readOnly={readOnlyMode} />
           {errors.description && <InlineError text={errors.description} />}
         </Form.Field>
@@ -413,7 +403,7 @@ const frequencyOptions = [
   {key: '5', text: 'Årlig', value: 'Årlig'}
 ]
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   const {authentication, alert, createdPA} = state
   return {
     authentication,

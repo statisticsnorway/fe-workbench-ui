@@ -16,7 +16,7 @@ let agentsInRoleForPA
 let linkedRoles = []
 
 class InternalAgent extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -26,7 +26,7 @@ class InternalAgent extends React.Component {
     const uuidv1 = require('uuid/v1')
     let uuAgentId = uuidv1()
 
-    this.state.internalAgents = [ {
+    this.state.internalAgents = [{
       id: uuAgentId,
       agentType: '',
       selectedRole: '',
@@ -52,21 +52,21 @@ class InternalAgent extends React.Component {
       validFrom: moment().toJSON(),
       createdDate: moment().toJSON(),
       createdBy: this.props.authentication.user,
-    } ]
+    }]
 
     this.handleAgentTable = this.handleAgentTable.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     getDataFromBackend(roleUrl, '').then((result) => {
       let roles = result.data
-      for (var key in roles) {
-        var role = roles[ key ];
-        for (var attribute in role) {
-          if (role.hasOwnProperty(attribute)) {
-            if (attribute === 'name') {
-              let languageText = role[ attribute ][ 0 ].languageText
-              if (languageText === 'KONTAKTPERSON') {
+      for(var key in roles) {
+        var role = roles[key];
+        for(var attribute in role) {
+          if(role.hasOwnProperty(attribute)){
+            if(attribute === 'name'){
+              let languageText = role[attribute][0].languageText
+              if(languageText === 'KONTAKTPERSON'){
                 roleAsContactPerson = role
               }
             }
@@ -76,16 +76,16 @@ class InternalAgent extends React.Component {
     })
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     getDataFromBackend(roleUrl, '').then((result) => {
       let roles = result.data
-      for (var key in roles) {
-        var role = roles[ key ];
-        for (var attribute in role) {
-          if (role.hasOwnProperty(attribute)) {
-            if (attribute === 'name') {
-              let languageText = role[ attribute ][ 0 ].languageText
-              if (languageText === 'KONTAKTPERSON') {
+      for(var key in roles) {
+        var role = roles[key];
+        for(var attribute in role) {
+          if(role.hasOwnProperty(attribute)){
+            if(attribute === 'name'){
+              let languageText = role[attribute][0].languageText
+              if(languageText === 'KONTAKTPERSON'){
                 roleAsContactPerson = role
               }
             }
@@ -93,7 +93,7 @@ class InternalAgent extends React.Component {
         }
       }
     })
-    let linkedPA = this.props.linkedPA[ 0 ]
+    let linkedPA = this.props.linkedPA[0]
     linkedRoles = []
     let linkedAgentsInRole = []
 
@@ -102,21 +102,21 @@ class InternalAgent extends React.Component {
         agentsInRoleForPA = result.data
         console.log("AgentInRoles for linked PA::", agentsInRoleForPA)
         //fetch all the linked AgentsInRole for PA
-        for (let key in agentsInRoleForPA) {
-          let agentInRoleId = agentsInRoleForPA[ key ].substring(13, agentsInRoleForPA[ key ].length)
+        for(let key in agentsInRoleForPA) {
+          let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
           linkedAgentsInRole.push(agentInRoleId)
         }
 
-        for (var linkedAgentInRole in linkedAgentsInRole) {
-          let agentInRoleId = linkedAgentsInRole[ linkedAgentInRole ]
+        for(var linkedAgentInRole in linkedAgentsInRole) {
+          let agentInRoleId = linkedAgentsInRole[linkedAgentInRole]
           //fetch AgentInRole with Role as KONTAKTPERSON
           getDataFromBackend(agentInRoleUrl + agentInRoleId, '').then((result) => {
             console.log(result)
             let agentInRole = result.data
-            let linkedRoleId = agentInRole[ 'role' ].substring(6, agentInRole[ 'role' ].length)
+            let linkedRoleId = agentInRole['role'].substring(6, agentInRole['role'].length)
             getDataFromBackend(roleUrl + linkedRoleId, '').then((result) => {
               let role = result.data
-              if (role.id === roleAsContactPerson.id) {
+              if(role.id === roleAsContactPerson.id){
                 agentInRoleAsContactPerson = agentInRole
               } else {
                 linkedRoles.push(role.id)
@@ -128,28 +128,28 @@ class InternalAgent extends React.Component {
     }
   }
 
-  handleRowDel (agent) {
+  handleRowDel(agent) {
     console.log('Remove Agent In Role:', agent)
     let linkedAgentsInRole = []
     let agents = []
 
     //fetch all the linked AgentsInRole for PA
-    for (let key in agentsInRoleForPA) {
-      let agentInRoleId = agentsInRoleForPA[ key ].substring(13, agentsInRoleForPA[ key ].length)
+    for(let key in agentsInRoleForPA) {
+      let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
       linkedAgentsInRole.push(agentInRoleId)
     }
 
-    for(var linkedAgentInRole in linkedAgentsInRole){
-      getDataFromBackend(agentInRoleUrl + linkedAgentsInRole[ linkedAgentInRole ], '').then((result) => {
+    for(var linkedAgentInRole in linkedAgentsInRole) {
+      getDataFromBackend(agentInRoleUrl + linkedAgentsInRole[linkedAgentInRole], '').then((result) => {
         let agentInRole = result.data
         agents = agentInRole['agents']
         let roleId = agentInRole['role'].substring(6, agentInRole['role'].length)
-        let agentToDelete = "/Agent/"+agent.id
+        let agentToDelete = "/Agent/" + agent.id
         if(roleId === agentInRoleAsContactPerson.role.substring(6, agentInRoleAsContactPerson.role.length)){
           console.log("Agent to be removed belongs to ContactPerson AgentInRole: ", agentInRole)
           console.log("Agent to be removed:", agentToDelete)
           console.log("Agents before removal:", agents)
-          agents = agents.filter(function (el) {
+          agents = agents.filter(function(el) {
             return (el !== agentToDelete);
           });
           //agents.filter(agent => agent !== agentToDelete )
@@ -164,7 +164,7 @@ class InternalAgent extends React.Component {
           console.log("Agent to be removed belongs to AgentInRole: ", agentInRole)
           console.log("Agent to be removed:", agentToDelete)
           console.log("Agents before removal:", agents)
-          agents = agents.filter(function (el) {
+          agents = agents.filter(function(el) {
             return (el !== agentToDelete);
           });
           //agents.filter(agent => agent !== agentToDelete )
@@ -183,7 +183,7 @@ class InternalAgent extends React.Component {
     }
   }
 
-  handleRowSave (agent) {
+  handleRowSave(agent) {
 
     let internalAgent = {
       id: agent.id,
@@ -194,11 +194,11 @@ class InternalAgent extends React.Component {
       agentDetails: [
         {
           agentDetailType: "CONTACT_EMAIL",
-          values: [ agent.email ]
+          values: [agent.email]
         },
         {
           agentDetailType: "CONTACT_PHONE",
-          values: [ agent.phoneNumber ]
+          values: [agent.phoneNumber]
         }
       ],
       administrativeStatus: agent.administrativeStatus,
@@ -214,7 +214,7 @@ class InternalAgent extends React.Component {
     //create agent
     sendDataToBackend(agentUrl + internalAgent.id, 'Agent', internalAgent).then((result) => {
       console.log(result.header)
-      if (result.status === 200) {
+      if(result.status === 200){
         console.log("Created agent at backend: ", internalAgent)
         const uuidv1 = require('uuid/v1')
         let uuAgentInSelectedRoleId = uuidv1()
@@ -224,12 +224,12 @@ class InternalAgent extends React.Component {
         let linkedAgentsInRole = []
 
         //fetch all the linked AgentsInRole for PA
-        for (let key in agentsInRoleForPA) {
-          let agentInRoleId = agentsInRoleForPA[ key ].substring(13, agentsInRoleForPA[ key ].length)
+        for(let key in agentsInRoleForPA) {
+          let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
           linkedAgentsInRole.push(agentInRoleId)
         }
 
-        if (agentsInRoleForPA.length === 0) {
+        if(agentsInRoleForPA.length === 0){
           internalAgentInContactRole = {
             id: uuAgentInContactPersonRoleId,
             name: agent.name,
@@ -262,17 +262,17 @@ class InternalAgent extends React.Component {
 
           sendDataToBackend(agentInRoleUrl + internalAgentInContactRole.id, 'AgentInRole', internalAgentInContactRole).then((result) => {
             console.log(result.header)
-            if (result.status === 200) {
+            if(result.status === 200){
               console.log(result.header)
               agentsInRoleForPA.push(internalAgentInContactRole)
               sendDataToBackend(agentInRoleUrl + internalAgentInSelectedRole.id, 'AgentInRole', internalAgentInSelectedRole).then((result) => {
                 console.log(result.header)
-                if (result.status === 200) {
+                if(result.status === 200){
                   agentsInRoleForPA.push(internalAgentInSelectedRole)
-                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInContactRole.id)
-                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
-                  sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
-                    'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
+                  this.props.linkedPA[0].agentInRoles.push("/AgentInRole/" + internalAgentInContactRole.id)
+                  this.props.linkedPA[0].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
+                  sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[0].id,
+                    'ProvisionAgreement', this.props.linkedPA[0]).then((result) => {
                     console.log(result.header)
                   })
                 }
@@ -287,13 +287,13 @@ class InternalAgent extends React.Component {
           agentInRoleAsContactPerson.agents.push("/Agent/" + internalAgent.id)
           sendDataToBackend(agentInRoleUrl + agentInRoleAsContactPerson.id, 'AgentInRole', agentInRoleAsContactPerson).then((result) => {
             console.log(result)
-            if (linkedRoles.includes(agent.selectedRole)) {
-              for (var linkedAgentInRole in linkedAgentsInRole) {
-                getDataFromBackend(agentInRoleUrl + linkedAgentsInRole[ linkedAgentInRole ], '').then((result) => {
+            if(linkedRoles.includes(agent.selectedRole)){
+              for(var linkedAgentInRole in linkedAgentsInRole) {
+                getDataFromBackend(agentInRoleUrl + linkedAgentsInRole[linkedAgentInRole], '').then((result) => {
                   let agentInRole = result.data
-                  let linkedRole = agentInRole[ 'role' ]
+                  let linkedRole = agentInRole['role']
                   let roleId = linkedRole.substring(6, linkedRole.length)
-                  if (roleId === agent.selectedRole) {
+                  if(roleId === agent.selectedRole){
                     agentInRole.agents.push("/Agent/" + internalAgent.id)
                     sendDataToBackend(agentInRoleUrl + agentInRole.id, 'AgentInRole', agentInRole).then((result) => {
                       console.log("AgentInRole with role already present updated")
@@ -319,12 +319,12 @@ class InternalAgent extends React.Component {
 
               sendDataToBackend(agentInRoleUrl + internalAgentInSelectedRole.id, 'AgentInRole', internalAgentInSelectedRole).then((result) => {
                 console.log(result.header)
-                if (result.status === 200) {
+                if(result.status === 200){
                   agentsInRoleForPA.push(internalAgentInSelectedRole)
                   console.log(result.header)
-                  this.props.linkedPA[ 0 ].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
-                  sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[ 0 ].id,
-                    'ProvisionAgreement', this.props.linkedPA[ 0 ]).then((result) => {
+                  this.props.linkedPA[0].agentInRoles.push("/AgentInRole/" + internalAgentInSelectedRole.id)
+                  sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[0].id,
+                    'ProvisionAgreement', this.props.linkedPA[0]).then((result) => {
                     console.log(result.header)
                   })
                 }
@@ -336,7 +336,7 @@ class InternalAgent extends React.Component {
     })
   }
 
-  handleAddEvent () {
+  handleAddEvent() {
     const uuidv1 = require('uuid/v1')
     let uuAgentId = uuidv1()
 
@@ -372,20 +372,20 @@ class InternalAgent extends React.Component {
     this.setState(this.state.internalAgents)
   }
 
-  handleAgentTable (evt) {
+  handleAgentTable(evt) {
     let item = {
       id: evt.target.id,
       name: evt.target.name,
       value: evt.target.value
     }
     let agents = this.state.internalAgents.slice()
-    let newAgents = agents.map(function (agent) {
-      for (let key in agent) {
-        if (key === item.name && agent[ 'id' ] === item.id) {
-          if (key === 'name' || key === 'description') {
-            agent[ key ][ 0 ].languageText = item.value
+    let newAgents = agents.map(function(agent) {
+      for(let key in agent) {
+        if(key === item.name && agent['id'] === item.id){
+          if(key === 'name' || key === 'description'){
+            agent[key][0].languageText = item.value
           } else {
-            agent[ key ] = item.value
+            agent[key] = item.value
           }
         }
       }
@@ -394,20 +394,20 @@ class InternalAgent extends React.Component {
     this.setState({internalAgents: newAgents})
   }
 
-  handleAgentTableDropdown (id, name, value) {
+  handleAgentTableDropdown(id, name, value) {
     let item = {
       id: id,
       name: name,
       value: value
     }
     let agents = this.state.internalAgents.slice()
-    let newAgents = agents.map(function (agent) {
-      for (let key in agent) {
-        if (key === item.name && agent[ 'id' ] === item.id) {
-          if (key === 'name' || key === 'description') {
-            agent[ key ][ 0 ].languageText = item.value
+    let newAgents = agents.map(function(agent) {
+      for(let key in agent) {
+        if(key === item.name && agent['id'] === item.id){
+          if(key === 'name' || key === 'description'){
+            agent[key][0].languageText = item.value
           } else {
-            agent[ key ] = item.value
+            agent[key] = item.value
           }
         }
       }
@@ -417,7 +417,7 @@ class InternalAgent extends React.Component {
     this.setState({internalAgents: newAgents})
   }
 
-  render () {
+  render() {
     const editMode = this.props.editMode
 
     console.log("Fetched roles: ",)
@@ -435,7 +435,7 @@ class InternalAgent extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   const {authentication} = state
   return {
     authentication
