@@ -26,9 +26,10 @@ class AgentTable extends Component {
     let onAgentTableUpdateDropdown = this.props.onAgentTableUpdateDropdown
     let rowDel = this.props.onRowDel
     let rowSave = this.props.onRowSave
+    console.log("InternalAgents to be displayed: ", this.props.internalAgents)
+    console.log("ExternalAgents to be displayed: ", this.props.externalAgents)
+
     let agent = this.props.agents.map(function(agent) {
-      console.log("Agent to be displayed in AgentTable : ", agent)
-      console.log("Edit Mode: ", editMode)
       return (
         <AgentRow onAgentTableUpdate={onAgentTableUpdate} onAgentTableUpdateDropdown={onAgentTableUpdateDropdown}
                   agent={agent} onDelEvent={rowDel.bind(this)} onSaveEvent={rowSave.bind(this)}

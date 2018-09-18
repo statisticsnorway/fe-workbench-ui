@@ -109,8 +109,10 @@ class ExternalAgent extends Component {
                 let linkedAgent = agentInRole['agents'][key]
                 let agentId = linkedAgent.substring(7, linkedAgent.length)
                 getDataFromBackend(agentUrl + agentId, '').then((result) => {
-                  this.state.externalAgents.push(result.data)
-                  this.setState(this.state);
+                  if(result.data.isExternal){
+                    this.state.externalAgents.push(result.data)
+                    this.setState(this.state);
+                  }
                 })
               }
             }
@@ -278,7 +280,7 @@ class ExternalAgent extends Component {
           "languageText": agent.description[0].languageText
         }
       ],
-      isExternal: false,
+      isExternal: true,
       agentDetails: [
         {
           agentDetailType: "CONTACT_EMAIL",
@@ -541,6 +543,7 @@ class ExternalAgent extends Component {
                       onRowDel={this.handleRowDel.bind(this)}
                       onRowSave={this.handleRowSave.bind(this)}
                       agents={this.state.externalAgents}
+                      externalAgents={this.state.externalAgents}
                       editMode={true} />
         </div>
       )
@@ -553,6 +556,7 @@ class ExternalAgent extends Component {
                       onRowDel={this.handleRowDel.bind(this)}
                       onRowSave={this.handleRowSave.bind(this)}
                       agents={this.state.externalAgents}
+                      externalAgents={this.state.externalAgents}
                       editMode={editMode} />
         </div>
       )

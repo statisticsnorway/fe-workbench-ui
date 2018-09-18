@@ -109,8 +109,10 @@ class InternalAgent extends React.Component {
                 let linkedAgent = agentInRole['agents'][key]
                 let agentId = linkedAgent.substring(7, linkedAgent.length)
                 getDataFromBackend(agentUrl + agentId, '').then((result) => {
-                  this.state.internalAgents.push(result.data)
-                  this.setState(this.state);
+                  if(!result.data.isExternal){
+                    this.state.internalAgents.push(result.data)
+                    this.setState(this.state);
+                  }
                 })
               }
             }
@@ -541,6 +543,7 @@ class InternalAgent extends React.Component {
                       onRowDel={this.handleRowDel.bind(this)}
                       onRowSave={this.handleRowSave.bind(this)}
                       agents={this.state.internalAgents}
+                      internalAgents={this.state.internalAgents}
                       editMode={true} />
         </div>
       )
@@ -553,6 +556,7 @@ class InternalAgent extends React.Component {
                       onRowDel={this.handleRowDel.bind(this)}
                       onRowSave={this.handleRowSave.bind(this)}
                       agents={this.state.internalAgents}
+                      internalAgents={this.state.internalAgents}
                       editMode={editMode} />
         </div>
       )
