@@ -91,12 +91,12 @@ class ExternalAgent extends Component {
         }
       }
     })
-    let linkedPA = this.props.linkedPA[0]
+    let createdProvisionAgreement = this.props.createdProvisionAgreement[0]
     linkedRoles = []
     let linkedAgentsInRole = []
 
-    if(linkedPA != undefined){
-      getDataFromBackend('ProvisionAgreement/' + linkedPA.id + '/agentInRoles/', '').then((result) => {
+    if(createdProvisionAgreement != undefined){
+      getDataFromBackend('ProvisionAgreement/' + createdProvisionAgreement.id + '/agentInRoles/', '').then((result) => {
         agentsInRoleForPA = result.data
         console.log("AgentInRoles for linked PA::", agentsInRoleForPA)
         //fetch all the linked AgentsInRole for PA
@@ -267,10 +267,10 @@ class ExternalAgent extends Component {
                 console.log(result.header)
                 if(result.status === 200){
                   agentsInRoleForPA.push(externalAgentInSelectedRole)
-                  this.props.linkedPA[0].agentInRoles.push("/AgentInRole/" + externalAgentInContactRole.id)
-                  this.props.linkedPA[0].agentInRoles.push("/AgentInRole/" + externalAgentInSelectedRole.id)
-                  sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[0].id,
-                    'ProvisionAgreement', this.props.linkedPA[0]).then((result) => {
+                  this.props.createdProvisionAgreement[0].agentInRoles.push("/AgentInRole/" + externalAgentInContactRole.id)
+                  this.props.createdProvisionAgreement[0].agentInRoles.push("/AgentInRole/" + externalAgentInSelectedRole.id)
+                  sendDataToBackend(provisionAgreementUrl + this.props.createdProvisionAgreement[0].id,
+                    'ProvisionAgreement', this.props.createdProvisionAgreement[0]).then((result) => {
                     console.log(result.header)
                   })
                 }
@@ -320,9 +320,9 @@ class ExternalAgent extends Component {
                 if(result.status === 200){
                   agentsInRoleForPA.push(externalAgentInSelectedRole)
                   console.log(result.header)
-                  this.props.linkedPA[0].agentInRoles.push("/AgentInRole/" + externalAgentInSelectedRole.id)
-                  sendDataToBackend(provisionAgreementUrl + this.props.linkedPA[0].id,
-                    'ProvisionAgreement', this.props.linkedPA[0]).then((result) => {
+                  this.props.createdProvisionAgreement[0].agentInRoles.push("/AgentInRole/" + externalAgentInSelectedRole.id)
+                  sendDataToBackend(provisionAgreementUrl + this.props.createdProvisionAgreement[0].id,
+                    'ProvisionAgreement', this.props.createdProvisionAgreement[0]).then((result) => {
                     console.log(result.header)
                   })
                 }
@@ -421,13 +421,13 @@ class ExternalAgent extends Component {
     return (
       <div>
         <Divider horizontal>Ekstern</Divider>
-        <AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)}
+        {/*<AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)}
                     onAgentTableUpdateDropdown={this.handleAgentTableDropdown.bind(this)}
                     onRowAdd={this.handleAddEvent.bind(this)}
                     onRowDel={this.handleRowDel.bind(this)}
                     onRowSave={this.handleRowSave.bind(this)}
                     agents={this.state.externalAgents}
-                    editMode={editMode} />
+                    editMode={editMode} />*/}
       </div>
     )
   }

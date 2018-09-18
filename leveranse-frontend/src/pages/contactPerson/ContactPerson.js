@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Segment } from 'semantic-ui-react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { InternalAgent } from './InternalAgent'
 import { ExternalAgent } from './ExternalAgent'
 import { getDataFromBackend } from "../../utils/Common";
@@ -10,8 +10,15 @@ class ContactPerson extends React.Component {
     super(props);
     this.state = {
       readOnlyMode: false,
-      linkedProvisionAgreement: ''
+      selectedProvisionAgreement: '',
+      createdProvisionAgreement: ''
     };
+
+    if(this.props.selectedData){
+      this.state.selectedProvisionAgreement = this.props.selectedData.selectedProvisionAgreement
+    } else {
+      this.state.createdProvisionAgreement = this.props.createdPA.id
+    }
   }
 
   editModeHandleClick = () => {
@@ -20,36 +27,25 @@ class ContactPerson extends React.Component {
     })
   }
 
-  componentDidMount() {
-   if(this.props.selectedData){
-      this.setState(prevState => ({
-        linkedProvisionAgreement: [...prevState.linkedProvisionAgreement,this.props.selectedData.selectedProvisionAgreement],
-        waitingForResponse: false
-      }))
-    }else{
-      getDataFromBackend('ProvisionAgreement/'+this.props.createdPA.id, this.state.linkedProvisionAgreement).then((result) => {
-        this.setState(prevState => ({
-          linkedProvisionAgreement: [...prevState.linkedProvisionAgreement, result.data],
-          waitingForResponse: false
-        }))
-      })
-    }
-
-  }
-
-  render () {
-    const { createdPA } = this.props
+  render() {
+    const {createdPA} = this.props
     return (
       <Form>
         <div>
           <Segment>
-            <InternalAgent ref={(InternalAgent => {this.InternalAgent = InternalAgent})}
-                           linkedPA = {this.state.linkedProvisionAgreement}
+            <InternalAgent ref={(InternalAgent => {
+              this.InternalAgent = InternalAgent
+            })}
+                           selectedProvisionAgreement={this.state.selectedProvisionAgreement}
+                           createdProvisionAgreement={this.state.createdProvisionAgreement}
                            editMode={this.state.readOnlyMode} />
           </Segment>
           <Segment>
-            <ExternalAgent ref={(ExternalAgent => {this.ExternalAgent = ExternalAgent})}
-                           linkedPA = {this.state.linkedProvisionAgreement}
+            <ExternalAgent ref={(ExternalAgent => {
+              this.ExternalAgent = ExternalAgent
+            })}
+                           selectedProvisionAgreement={this.state.selectedProvisionAgreement}
+                           createdProvisionAgreement={this.state.createdProvisionAgreement}
                            editMode={this.state.readOnlyMode} />
           </Segment>
         </div>
@@ -65,5 +61,6 @@ function mapStateToProps(state) {
     createdPA
   }
 }
+
 const connectedContactPerson = connect(mapStateToProps)(ContactPerson)
-export {connectedContactPerson as ContactPerson}
+export { connectedContactPerson as ContactPerson }

@@ -21,13 +21,14 @@ class AgentTable extends Component {
   }
 
   render() {
-    console.log("Fetched roles: ", roleOptions)
     const editMode = this.props.editMode
     let onAgentTableUpdate = this.props.onAgentTableUpdate
     let onAgentTableUpdateDropdown = this.props.onAgentTableUpdateDropdown
     let rowDel = this.props.onRowDel
     let rowSave = this.props.onRowSave
     let agent = this.props.agents.map(function(agent) {
+      console.log("Agent to be displayed in AgentTable : ", agent)
+      console.log("Edit Mode: ", editMode)
       return (
         <AgentRow onAgentTableUpdate={onAgentTableUpdate} onAgentTableUpdateDropdown={onAgentTableUpdateDropdown}
                   agent={agent} onDelEvent={rowDel.bind(this)} onSaveEvent={rowSave.bind(this)}
@@ -71,7 +72,7 @@ class AgentRow extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      readOnlyMode: false
+      readOnlyMode: this.props.editMode
     }
   }
 
@@ -94,7 +95,6 @@ class AgentRow extends Component {
 
   render() {
     const editMode = this.state.readOnlyMode
-
     return (
       <tr>
         <td>
@@ -118,11 +118,11 @@ class AgentRow extends Component {
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
-          <input type='text' name='email' id={this.props.agent.id} value={this.props.agent.email || ''}
+          <input type='text' name='email' id={this.props.agent.id} value={this.props.agent.agentDetails[0].values || ''}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
-          <input type='text' name='phoneNumber' id={this.props.agent.id} value={this.props.agent.phoneNumber || ''}
+          <input type='text' name='phoneNumber' id={this.props.agent.id} value={this.props.agent.agentDetails[1].values || ''}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
