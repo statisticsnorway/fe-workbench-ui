@@ -166,7 +166,6 @@ class ExternalAgent extends Component {
           let agentInRoleId = linkedAgentsInRole[linkedAgentInRole]
           //fetch AgentInRole with Role as KONTAKTPERSON
           getDataFromBackend(agentInRoleUrl + agentInRoleId, '').then((result) => {
-            console.log(result)
             let agentInRole = result.data
             let linkedRoleId = agentInRole['role'].substring(6, agentInRole['role'].length)
             getDataFromBackend(roleUrl + linkedRoleId, '').then((result) => {
