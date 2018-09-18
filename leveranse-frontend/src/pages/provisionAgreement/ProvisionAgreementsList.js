@@ -4,23 +4,22 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import { getDataFromBackend } from '../../utils/Common'
 
-let selectedProvisionalAgreement
 
 class ProvisionAgreementsList extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       provisionAgreements: [],
+      selectedProvisionAgreement: '',
       selectedIndex: -1,
       loading: true,
       response: {}
     }
 
     this.selectProvisionAgreement = this.selectProvisionAgreement.bind(this)
-    this.onClickProvisionAgreement = this.onClickProvisionAgreement.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     getDataFromBackend('ProvisionAgreement/', this.state.provisionAgreements).then((result) => {
       this.setState(prevState => ({
         provisionAgreements: [...prevState.provisionAgreements, result.data],
@@ -30,31 +29,26 @@ class ProvisionAgreementsList extends React.Component {
     })
   }
 
-  selectProvisionAgreement (e, state, column, rowInfo, instance) {
-    /*if (this.state.selectedIndex !== -1) {
-      let ProvisionAgreementOld = this.state.provisionAgreements[this.state.selectedIndex]
-      ProvisionAgreementOld.selected = false
-    }
+  selectProvisionAgreement(e, state, column, rowInfo, instance) {
     let provisionAgreement = this.state.provisionAgreements[0][rowInfo.index]
-    provisionAgreement.selected = true
 
-    if (provisionAgreement != null) {
-      let PA = this.onClickProvisionAgreement(provisionAgreement.id)
-      console.log('PA selected for editing/viewing: ', PA)
+    if(provisionAgreement != null){
+      getDataFromBackend('ProvisionAgreement/' + provisionAgreement.id, this.state.provisionAgreements).then((result) => {
+        this.setState({selectedIndex: rowInfo.index,
+        selectedProvisionAgreement: result.data})
+        this.props.history.push({
+          pathname: "/provisionAgreement",
+          state:{
+            selectedProvisionAgreement:result.data
+          }
+        });
+      })
     } else {
       console.log('Error retrieving PA from PA list')
     }
-    this.setState({selectedIndex: rowInfo.index})*/
   }
 
-  onClickProvisionAgreement (id) {
-    getDataFromBackend('ProvisionAgreement/' + id, this.state.provisionAgreements).then((result) => {
-      selectedProvisionalAgreement = result.data
-    })
-    console.log("Retrieved PA from backend: ", selectedProvisionalAgreement)
-  }
-
-  render () {
+  render() {
     const {response, loading} = this.state
     const data = this.state.provisionAgreements
     const columns = [{
@@ -77,26 +71,36 @@ class ProvisionAgreementsList extends React.Component {
         {Object.keys(response).length !== 0 ?
           <Message icon={response.icon} color={response.color} header={response.header}
                    content={response.content} /> : null}
-        {loading ? null : <ReactTable
-          data={data[0]}
-          columns={columns}
-          noDataText='No data!'
-          filterable
-          defaultPageSize={10}
-          style={{
-            height: '400px'
-          }}
-          className='-striped -highlight'
-          showPaginationTop
-          showPaginationBottom
-          getTdProps={(state, rowInfo, column, instance) => {
-            return {
-              onClick: e => {
-                this.selectProvisionAgreement(e, state, column, rowInfo, instance)
+        {loading ? null :
+          <ReactTable
+            data={data[0]}
+            columns={columns}
+            noDataText='No data!'
+            filterable
+            defaultPageSize={10}
+            previousText='Forrige'
+            nextText='Neste'
+            loadingText='Laster...'
+            pageText='Side '
+            ofText='av'
+            rowsText='rader'
+            className='-striped -highlight'
+            style={{height: '400px'}}
+            className='-striped -highlight'
+            showPaginationTop
+            showPaginationBottom
+            getTdProps={(state, rowInfo, column, instance) => {
+              return {
+                style: {
+                  cursor: 'pointer'
+                },
+                onClick: e => {
+                  this.selectProvisionAgreement(e, state, column, rowInfo, instance)
+                }
               }
-            }
-          }}
-        />}
+            }}
+          />
+        }
       </Segment>
     )
   }
