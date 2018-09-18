@@ -69,8 +69,6 @@ class InternalAgent extends React.Component {
 
     this.handleAgentTable = this.handleAgentTable.bind(this)
     selectedProvisionAgreement = this.props.selectedProvisionAgreement
-
-    /**/
   }
 
   componentDidMount() {
@@ -116,9 +114,6 @@ class InternalAgent extends React.Component {
                 })
               }
             }
-            /* this.state.internalAgents.splice(0, 1)
-             console.log("Updated Internal Agents : ", this.state.internalAgents)*/
-
           })
         })
       }
@@ -539,7 +534,7 @@ class InternalAgent extends React.Component {
     if(selectedProvisionAgreement != ""){
       return (
         <div>
-          <Divider horizontal>Existing Intern</Divider>
+          <Divider horizontal>Intern</Divider>
           <AgentTable onAgentTableUpdate={this.handleAgentTable.bind(this)}
                       onRowAdd={this.handleAddEvent.bind(this)}
                       onAgentTableUpdateDropdown={this.handleAgentTableDropdown.bind(this)}
