@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import moment from 'moment'
 import { Button, Dropdown, Form, Header, Input, TextArea, Message } from 'semantic-ui-react'
 import {
   editModeCheckbox,
   errorMessages, getDataFromBackend,
-  responseMessages, sendDataToBackend
+  responseMessages
 } from '../../utils/Common'
 import { provisionAgreementActions } from '../../actions'
 import { connect } from 'react-redux'
@@ -83,15 +82,13 @@ class ProvisionAgreementDesc extends Component {
     }
   }
 
-  componentWillMount(){
+  componentWillMount() {
     if(this.props.selectedData){
-      console.log("Fetch PA again: ", this.state.provisionAgreement)
       getDataFromBackend(provisionAgreementUrl + this.state.provisionAgreement.id, '').then((result) => {
         let PA = result.data
         console.log("Latest PA: ", PA)
       })
-    } else if(this.props.createdPA.id) {
-      console.log("Flow from create: ", this.props)
+    } else if(this.props.createdPA.id){
       getDataFromBackend(provisionAgreementUrl + this.props.createdPA.id, '').then((result) => {
         let PA = result.data
         console.log("Latest PA: ", PA)
@@ -223,7 +220,7 @@ class ProvisionAgreementDesc extends Component {
   }
 
   getInformationProvider = (informationProvider) => {
-     this.setState(prevState => ({
+    this.setState(prevState => ({
       provisionAgreement: {
         ...this.state.provisionAgreement,
         informationProvider: "/InformationProvider/" + informationProvider.id

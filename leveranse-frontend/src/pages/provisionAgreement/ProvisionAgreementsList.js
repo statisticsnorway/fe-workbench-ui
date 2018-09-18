@@ -21,8 +21,10 @@ class ProvisionAgreementsList extends React.Component {
 
   componentDidMount() {
     getDataFromBackend('ProvisionAgreement/', this.state.provisionAgreements).then((result) => {
-      console.log(result.data)
-      if(result.data.length > 0){
+      this.setState(prevState => ({
+        response: result
+      }))
+      if(result.data){
         this.setState(prevState => ({
           provisionAgreements: [...prevState.provisionAgreements, result.data],
           waitingForResponse: false,
