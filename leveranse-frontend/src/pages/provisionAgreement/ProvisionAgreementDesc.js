@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import moment from 'moment'
 import { Button, Dropdown, Form, Header, Input, TextArea, Message } from 'semantic-ui-react'
 import {
   editModeCheckbox,
-  errorMessages,
+  errorMessages, getDataFromBackend,
   responseMessages
 } from '../../utils/Common'
 import { provisionAgreementActions } from '../../actions'
@@ -16,6 +15,8 @@ import '../../assets/css/site.css'
 import InformationProviderSearchModal from "../informationProvider/InformationProviderSearchModal";
 
 moment.locale('nb')
+
+const provisionAgreementUrl = 'ProvisionAgreement/'
 
 class ProvisionAgreementDesc extends Component {
   constructor(props) {
@@ -78,6 +79,23 @@ class ProvisionAgreementDesc extends Component {
     } else {
       const uuidv1 = require('uuid/v1')
       this.state.provisionAgreement.id = uuidv1()
+    }
+  }
+
+  componentWillMount() {
+    if(this.props.selectedData){
+      getDataFromBackend(provisionAgreementUrl + this.state.provisionAgreement.id, '').then((result) => {
+        let PA = result.data
+        console.log("Latest PA: ", PA)
+      })
+    } else if(this.props.createdPA.id){
+      getDataFromBackend(provisionAgreementUrl + this.props.createdPA.id, '').then((result) => {
+        let PA = result.data
+        console.log("Latest PA: ", PA)
+        this.state.provisionAgreement = result.data
+        this.state.readOnlyMode = true
+        this.setState(this.state);
+      })
     }
   }
 
@@ -202,7 +220,7 @@ class ProvisionAgreementDesc extends Component {
   }
 
   getInformationProvider = (informationProvider) => {
-     this.setState(prevState => ({
+    this.setState(prevState => ({
       provisionAgreement: {
         ...this.state.provisionAgreement,
         informationProvider: "/InformationProvider/" + informationProvider.id

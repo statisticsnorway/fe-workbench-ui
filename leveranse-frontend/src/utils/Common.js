@@ -67,7 +67,7 @@ export const getDataFromBackend = (path, state) => {
       }
     }).catch((error) => {
       if (error.response) {
-        console.log(error.response.data)
+        console.log("EEROR: ",error.response.data)
       }
       newState = {
         color: 'red',

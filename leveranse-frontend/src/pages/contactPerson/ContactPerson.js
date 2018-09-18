@@ -3,7 +3,6 @@ import { Form, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { InternalAgent } from './InternalAgent'
 import { ExternalAgent } from './ExternalAgent'
-import { getDataFromBackend } from "../../utils/Common";
 
 class ContactPerson extends React.Component {
   constructor(props) {
@@ -28,7 +27,6 @@ class ContactPerson extends React.Component {
   }
 
   render() {
-    const {createdPA} = this.props
     return (
       <Form>
         <div>

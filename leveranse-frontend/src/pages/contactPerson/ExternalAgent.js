@@ -74,9 +74,9 @@ class ExternalAgent extends Component {
   componentDidMount() {
     getDataFromBackend(roleUrl, '').then((result) => {
       let roles = result.data
-      for(var key in roles) {
-        var role = roles[key];
-        for(var attribute in role) {
+      for(let key in roles) {
+       let role = roles[key];
+        for(let attribute in role) {
           if(role.hasOwnProperty(attribute)){
             if(attribute === 'name'){
               let languageText = role[attribute][0].languageText
@@ -90,13 +90,13 @@ class ExternalAgent extends Component {
     })
 
     let linkedAgentsInRole = []
-    if(selectedProvisionAgreement != ""){
+    if(selectedProvisionAgreement !== ""){
       agentsInRoleForPA = this.props.selectedProvisionAgreement['agentInRoles']
       for(let key in agentsInRoleForPA) {
         let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
         linkedAgentsInRole.push(agentInRoleId)
       }
-      for(var linkedAgentInRole in linkedAgentsInRole) {
+      for(let linkedAgentInRole in linkedAgentsInRole) {
         let agentInRoleId = linkedAgentsInRole[linkedAgentInRole]
         //fetch AgentInRole with Role as KONTAKTPERSON
         getDataFromBackend(agentInRoleUrl + agentInRoleId, '').then((result) => {
@@ -105,7 +105,7 @@ class ExternalAgent extends Component {
           getDataFromBackend(roleUrl + linkedRoleId, '').then((result) => {
             let role = result.data
             if(role.id !== roleAsContactPerson.id){
-              for(var key in agentInRole['agents']) {
+              for(let key in agentInRole['agents']) {
                 let linkedAgent = agentInRole['agents'][key]
                 let agentId = linkedAgent.substring(7, linkedAgent.length)
                 getDataFromBackend(agentUrl + agentId, '').then((result) => {
@@ -121,7 +121,7 @@ class ExternalAgent extends Component {
       }
     } else {
       createdProvisionAgreement = this.props.createdProvisionAgreement
-      if(createdProvisionAgreement != undefined){
+      if(createdProvisionAgreement !== undefined){
         getDataFromBackend('ProvisionAgreement/' + createdProvisionAgreement, '').then((result) => {
           createdProvisionAgreement = result.data
           getDataFromBackend('ProvisionAgreement/' + createdProvisionAgreement.id + '/agentInRoles/', '').then((result) => {
@@ -135,9 +135,9 @@ class ExternalAgent extends Component {
   componentDidUpdate() {
     getDataFromBackend(roleUrl, '').then((result) => {
       let roles = result.data
-      for(var key in roles) {
-        var role = roles[key];
-        for(var attribute in role) {
+      for(let key in roles) {
+        let role = roles[key];
+        for(let attribute in role) {
           if(role.hasOwnProperty(attribute)){
             if(attribute === 'name'){
               let languageText = role[attribute][0].languageText
@@ -153,7 +153,7 @@ class ExternalAgent extends Component {
     linkedRoles = []
     let linkedAgentsInRole = []
 
-    if(selectedProvisionAgreement != ""){
+    if(selectedProvisionAgreement !== ""){
       getDataFromBackend('ProvisionAgreement/' + selectedProvisionAgreement.id + '/agentInRoles/', '').then((result) => {
         agentsInRoleForPA = result.data
         //fetch all the linked AgentsInRole for PA
@@ -162,7 +162,7 @@ class ExternalAgent extends Component {
           linkedAgentsInRole.push(agentInRoleId)
         }
 
-        for(var linkedAgentInRole in linkedAgentsInRole) {
+        for(let linkedAgentInRole in linkedAgentsInRole) {
           let agentInRoleId = linkedAgentsInRole[linkedAgentInRole]
           //fetch AgentInRole with Role as KONTAKTPERSON
           getDataFromBackend(agentInRoleUrl + agentInRoleId, '').then((result) => {
@@ -182,7 +182,7 @@ class ExternalAgent extends Component {
 
     } else {
       createdProvisionAgreement = this.props.createdProvisionAgreement
-      if(createdProvisionAgreement != undefined){
+      if(createdProvisionAgreement !== undefined){
         getDataFromBackend('ProvisionAgreement/' + createdProvisionAgreement, '').then((result) => {
           createdProvisionAgreement = result.data
           getDataFromBackend('ProvisionAgreement/' + createdProvisionAgreement.id + '/agentInRoles/', '').then((result) => {
@@ -194,7 +194,7 @@ class ExternalAgent extends Component {
               linkedAgentsInRole.push(agentInRoleId)
             }
 
-            for(var linkedAgentInRole in linkedAgentsInRole) {
+            for(let linkedAgentInRole in linkedAgentsInRole) {
               let agentInRoleId = linkedAgentsInRole[linkedAgentInRole]
               //fetch AgentInRole with Role as KONTAKTPERSON
               getDataFromBackend(agentInRoleUrl + agentInRoleId, '').then((result) => {
@@ -227,7 +227,7 @@ class ExternalAgent extends Component {
       linkedAgentsInRole.push(agentInRoleId)
     }
 
-    for(var linkedAgentInRole in linkedAgentsInRole) {
+    for(let linkedAgentInRole in linkedAgentsInRole) {
       getDataFromBackend(agentInRoleUrl + linkedAgentsInRole[linkedAgentInRole], '').then((result) => {
         let agentInRole = result.data
         agents = agentInRole['agents']
@@ -238,7 +238,6 @@ class ExternalAgent extends Component {
             return (el !== agentToDelete);
           });
           //agents.filter(agent => agent !== agentToDelete )
-          agentInRole.agents = []
           agentInRole.agents = agents
           sendDataToBackend(agentInRoleUrl + agentInRole.id, 'AgentInRole', agentInRole).then((result) => {
             console.log(result.header)
@@ -249,7 +248,6 @@ class ExternalAgent extends Component {
             return (el !== agentToDelete);
           });
           //agents.filter(agent => agent !== agentToDelete )
-          agentInRole.agents = []
           agentInRole.agents = agents
           sendDataToBackend(agentInRoleUrl + agentInRole.id, 'AgentInRole', agentInRole).then((result) => {
             console.log(result.header)
@@ -356,14 +354,14 @@ class ExternalAgent extends Component {
                 console.log(result.header)
                 if(result.status === 200){
                   agentsInRoleForPA.push(externalAgentInSelectedRole)
-                  if(createdProvisionAgreement != undefined){
+                  if(createdProvisionAgreement !== undefined){
                     createdProvisionAgreement.agentInRoles.push("/AgentInRole/" + externalAgentInContactRole.id)
                     createdProvisionAgreement.agentInRoles.push("/AgentInRole/" + externalAgentInSelectedRole.id)
                     sendDataToBackend(provisionAgreementUrl + createdProvisionAgreement.id,
                       'ProvisionAgreement', createdProvisionAgreement).then((result) => {
                       console.log(result.header)
                     })
-                  }else{
+                  } else {
                     selectedProvisionAgreement.agentInRoles.push("/AgentInRole/" + externalAgentInContactRole.id)
                     selectedProvisionAgreement.agentInRoles.push("/AgentInRole/" + externalAgentInSelectedRole.id)
                     sendDataToBackend(provisionAgreementUrl + selectedProvisionAgreement.id,
@@ -376,12 +374,12 @@ class ExternalAgent extends Component {
             }
           })
         } else {
-          if(!agentInRoleAsContactPerson.agents.includes("/Agent/"+externalAgent.id)){
+          if(!agentInRoleAsContactPerson.agents.includes("/Agent/" + externalAgent.id)){
             agentInRoleAsContactPerson.agents.push("/Agent/" + externalAgent.id)
             sendDataToBackend(agentInRoleUrl + agentInRoleAsContactPerson.id, 'AgentInRole', agentInRoleAsContactPerson).then((result) => {
               console.log(result)
               if(linkedRoles.includes(agent.selectedRole)){
-                for(var linkedAgentInRole in linkedAgentsInRole) {
+                for(let linkedAgentInRole in linkedAgentsInRole) {
                   getDataFromBackend(agentInRoleUrl + linkedAgentsInRole[linkedAgentInRole], '').then((result) => {
                     let agentInRole = result.data
                     let linkedRole = agentInRole['role']
@@ -520,7 +518,7 @@ class ExternalAgent extends Component {
           } else {
             agent[key] = item.value
           }
-        }else if(item.name === 'selectedRole' && agent['id'] === item.id){
+        } else if(item.name === 'selectedRole' && agent['id'] === item.id){
           agent[item.name] = value
         }
       }

@@ -26,8 +26,6 @@ class AgentTable extends Component {
     let onAgentTableUpdateDropdown = this.props.onAgentTableUpdateDropdown
     let rowDel = this.props.onRowDel
     let rowSave = this.props.onRowSave
-
-    console.log("Edit Mode: ", editMode)
     let agent = this.props.agents.map(function(agent) {
       return (
         <AgentRow onAgentTableUpdate={onAgentTableUpdate} onAgentTableUpdateDropdown={onAgentTableUpdateDropdown}
@@ -122,7 +120,8 @@ class AgentRow extends Component {
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
-          <input type='text' name='phoneNumber' id={this.props.agent.id} value={this.props.agent.agentDetails[1].values || ''}
+          <input type='text' name='phoneNumber' id={this.props.agent.id}
+                 value={this.props.agent.agentDetails[1].values || ''}
                  onChange={this.props.onAgentTableUpdate} readOnly={editMode} />
         </td>
         <td>
