@@ -14,6 +14,7 @@ class ContactPerson extends React.Component {
       createdProvisionAgreement: ''
     };
 
+    console.log(this.props)
     if(this.props.selectedData){
       this.state.selectedProvisionAgreement = this.props.selectedData.selectedProvisionAgreement
     } else {

@@ -4,8 +4,8 @@ import moment from 'moment'
 import { Button, Dropdown, Form, Header, Input, TextArea, Message } from 'semantic-ui-react'
 import {
   editModeCheckbox,
-  errorMessages,
-  responseMessages
+  errorMessages, getDataFromBackend,
+  responseMessages, sendDataToBackend
 } from '../../utils/Common'
 import { provisionAgreementActions } from '../../actions'
 import { connect } from 'react-redux'
@@ -16,6 +16,8 @@ import '../../assets/css/site.css'
 import InformationProviderSearchModal from "../informationProvider/InformationProviderSearchModal";
 
 moment.locale('nb')
+
+const provisionAgreementUrl = 'ProvisionAgreement/'
 
 class ProvisionAgreementDesc extends Component {
   constructor(props) {
@@ -78,6 +80,25 @@ class ProvisionAgreementDesc extends Component {
     } else {
       const uuidv1 = require('uuid/v1')
       this.state.provisionAgreement.id = uuidv1()
+    }
+  }
+
+  componentWillMount(){
+    if(this.props.selectedData){
+      console.log("Fetch PA again: ", this.state.provisionAgreement)
+      getDataFromBackend(provisionAgreementUrl + this.state.provisionAgreement.id, '').then((result) => {
+        let PA = result.data
+        console.log("Latest PA: ", PA)
+      })
+    } else if(this.props.createdPA.id) {
+      console.log("Flow from create: ", this.props)
+      getDataFromBackend(provisionAgreementUrl + this.props.createdPA.id, '').then((result) => {
+        let PA = result.data
+        console.log("Latest PA: ", PA)
+        this.state.provisionAgreement = result.data
+        this.state.readOnlyMode = true
+        this.setState(this.state);
+      })
     }
   }
 

@@ -21,11 +21,20 @@ class ProvisionAgreementsList extends React.Component {
 
   componentDidMount() {
     getDataFromBackend('ProvisionAgreement/', this.state.provisionAgreements).then((result) => {
-      this.setState(prevState => ({
-        provisionAgreements: [...prevState.provisionAgreements, result.data],
-        waitingForResponse: false,
-        loading: false
-      }))
+      console.log(result.data)
+      if(result.data.length > 0){
+        this.setState(prevState => ({
+          provisionAgreements: [...prevState.provisionAgreements, result.data],
+          waitingForResponse: false,
+          loading: false
+        }))
+      } else {
+        this.setState(prevState => ({
+          provisionAgreements: '',
+          waitingForResponse: false,
+          loading: false
+        }))
+      }
     })
   }
 
@@ -34,12 +43,14 @@ class ProvisionAgreementsList extends React.Component {
 
     if(provisionAgreement != null){
       getDataFromBackend('ProvisionAgreement/' + provisionAgreement.id, this.state.provisionAgreements).then((result) => {
-        this.setState({selectedIndex: rowInfo.index,
-        selectedProvisionAgreement: result.data})
+        this.setState({
+          selectedIndex: rowInfo.index,
+          selectedProvisionAgreement: result.data
+        })
         this.props.history.push({
           pathname: "/provisionAgreement",
-          state:{
-            selectedProvisionAgreement:result.data
+          state: {
+            selectedProvisionAgreement: result.data
           }
         });
       })
@@ -95,7 +106,9 @@ class ProvisionAgreementsList extends React.Component {
                   cursor: 'pointer'
                 },
                 onClick: e => {
-                  this.selectProvisionAgreement(e, state, column, rowInfo, instance)
+                  if(data.length > 0){
+                    this.selectProvisionAgreement(e, state, column, rowInfo, instance)
+                  }
                 }
               }
             }}

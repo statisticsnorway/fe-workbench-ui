@@ -126,6 +126,33 @@ class InternalAgent extends React.Component {
           createdProvisionAgreement = result.data
           getDataFromBackend('ProvisionAgreement/' + createdProvisionAgreement.id + '/agentInRoles/', '').then((result) => {
             agentsInRoleForPA = result.data
+            for(let key in agentsInRoleForPA) {
+              let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
+              linkedAgentsInRole.push(agentInRoleId)
+            }
+            for(var linkedAgentInRole in linkedAgentsInRole) {
+              let agentInRoleId = linkedAgentsInRole[linkedAgentInRole]
+              //fetch AgentInRole with Role as KONTAKTPERSON
+              getDataFromBackend(agentInRoleUrl + agentInRoleId, '').then((result) => {
+                let agentInRole = result.data
+                let linkedRoleId = agentInRole['role'].substring(6, agentInRole['role'].length)
+                getDataFromBackend(roleUrl + linkedRoleId, '').then((result) => {
+                  let role = result.data
+                  if(role.id !== roleAsContactPerson.id){
+                    for(var key in agentInRole['agents']) {
+                      let linkedAgent = agentInRole['agents'][key]
+                      let agentId = linkedAgent.substring(7, linkedAgent.length)
+                      getDataFromBackend(agentUrl + agentId, '').then((result) => {
+                        if(!result.data.isExternal){
+                          this.state.internalAgents.push(result.data)
+                          this.setState(this.state);
+                        }
+                      })
+                    }
+                  }
+                })
+              })
+            }
           })
         })
       }

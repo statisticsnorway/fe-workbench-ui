@@ -5,6 +5,7 @@ import { ProvisionAgreementDesc } from './ProvisionAgreementDesc'
 import '../../assets/css/site.css'
 import { ContactPerson } from '../contactPerson/ContactPerson'
 
+
 class ProvisionAgreement extends React.Component {
   render() {
      const panes = [
