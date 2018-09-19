@@ -9,7 +9,7 @@ import '../assets/css/site.css'
 import TargetPopulation from './population/TargetPopulation'
 import SurveyPopulation from './population/SurveyPopulation'
 import ValueDomainList from './valueDomain/ValueDomainList'
-import { Domains, DomainTables, PageBuilder, TableBuilder } from 'dc-jsonschema-react-page-builder'
+import { Domains, DomainTables, FileUpload, PageBuilder, TableBuilder } from 'dc-jsonschema-react-page-builder'
 
 class WorkbenchPage extends React.Component {
   state = {}
@@ -119,6 +119,14 @@ class WorkbenchPage extends React.Component {
                     </Dropdown.Menu>
                   </Dropdown>
                 </Menu>
+                <Menu fluid vertical>
+                  <Menu.Item header>Importér data</Menu.Item>
+                  <Menu.Item>
+                    <NavLink to='/import'>
+                      Importér eksempler
+                    </NavLink>
+                  </Menu.Item>
+                </Menu>
               </Segment>
             </Grid.Column>
             <Grid.Column width={13}>
@@ -144,6 +152,7 @@ class WorkbenchPage extends React.Component {
                     <Route key={key} path={madePath} exact render={() => <TableBuilder table={DomainTables[item]} />} />
                   )
                 })}
+                <Route path='/import' exact render={() => <FileUpload />} />
               </Segment>
             </Grid.Column>
           </Grid>
