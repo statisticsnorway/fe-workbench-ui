@@ -51,11 +51,11 @@ class InternalAgent extends React.Component {
       agentDetails: [
         {
           agentDetailType: "CONTACT_EMAIL",
-          values: ''
+          values: []
         },
         {
           agentDetailType: "CONTACT_PHONE",
-          values: ''
+          values: []
         }
       ],
       comment: '',
@@ -308,11 +308,11 @@ class InternalAgent extends React.Component {
       agentDetails: [
         {
           agentDetailType: "CONTACT_EMAIL",
-          values: [agent.agentDetails[0].values]
+          values: agent.agentDetails[0].values
         },
         {
           agentDetailType: "CONTACT_PHONE",
-          values: [agent.agentDetails[1].values]
+          values: agent.agentDetails[1].values
         }
       ],
       administrativeStatus: agent.administrativeStatus,
@@ -482,11 +482,11 @@ class InternalAgent extends React.Component {
       agentDetails: [
         {
           agentDetailType: "CONTACT_EMAIL",
-          values: ''
+          values: []
         },
         {
           agentDetailType: "CONTACT_PHONE",
-          values: ''
+          values: []
         }
       ],
       comment: '',
@@ -518,12 +518,14 @@ class InternalAgent extends React.Component {
           else {
             agent[key] = item.value
           }
-        } else if(item.name === 'email' && agent['id'] === item.id){
-          agent['agentDetails'][0].values = item.value
         }
-        else if(item.name === 'phoneNumber' && agent['id'] === item.id){
-          agent['agentDetails'][1].values = item.value
-        }
+      }
+      if(item.name === 'email' && agent['id'] === item.id){
+        agent['agentDetails'][0].values = []
+        agent['agentDetails'][0].values.push(item.value)
+      } else if(item.name === 'phoneNumber' && agent['id'] === item.id){
+        agent['agentDetails'][1].values = []
+        agent['agentDetails'][1].values.push(item.value)
       }
       return agent
     })
