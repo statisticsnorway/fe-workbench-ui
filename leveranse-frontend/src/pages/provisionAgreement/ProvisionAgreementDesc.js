@@ -86,12 +86,9 @@ class ProvisionAgreementDesc extends Component {
     if(this.props.selectedData){
       getDataFromBackend(provisionAgreementUrl + this.state.provisionAgreement.id, '').then((result) => {
         let PA = result.data
-        console.log("Latest PA: ", PA)
       })
     } else if(this.props.createdPA.id){
       getDataFromBackend(provisionAgreementUrl + this.props.createdPA.id, '').then((result) => {
-        let PA = result.data
-        console.log("Latest PA: ", PA)
         this.state.provisionAgreement = result.data
         this.state.readOnlyMode = true
         this.setState(this.state);
@@ -232,6 +229,7 @@ class ProvisionAgreementDesc extends Component {
   render() {
     const {errors, response, readOnlyMode, waitingForResponse, provisionAgreement} = this.state
     const {alert} = this.props
+    console.log("Props in PADesc: ", this.props)
     return (
       <Form>
         <Header as='h2' dividing content={'Leveransebeskrivelse'} />

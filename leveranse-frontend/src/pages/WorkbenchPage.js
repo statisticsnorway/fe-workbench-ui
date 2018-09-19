@@ -1,7 +1,7 @@
 import React from 'react'
 import { Dropdown, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react'
 import { BrowserRouter, Link, NavLink, Route } from 'react-router-dom'
-import ProvisionAgreement from './provisionAgreement/ProvisionAgreement'
+import { ProvisionAgreement } from './provisionAgreement/ProvisionAgreement'
 import Variable from './variable/Variable'
 import ProvisionAgreementsList from './provisionAgreement/ProvisionAgreementsList'
 import UnitType from './unitType/UnitType'
@@ -132,8 +132,7 @@ class WorkbenchPage extends React.Component {
             <Grid.Column width={13}>
               <Segment inverted tertiary>
                 <Route path='/home' component={ProvisionAgreementsList} />
-                <Route path='/provisionAgreement'
-                       render={(props) => <ProvisionAgreement {...props} isNewProvisionAgreement={true} />} />
+                <Route path='/provisionAgreement' component={ProvisionAgreement}/>
                 <Route path='/variable' component={Variable} />
                 <Route path='/unitType' component={UnitType} />
                 <Route path='/valueDomain' component={ValueDomainList} />

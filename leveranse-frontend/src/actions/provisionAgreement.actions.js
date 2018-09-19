@@ -1,9 +1,10 @@
-import {provisionAgreementConstants} from '../constants'
-import {provisionAgreementService} from '../services'
-import {alertActions} from './'
+import { provisionAgreementConstants } from '../constants'
+import { provisionAgreementService } from '../services'
+import { alertActions } from './'
 
 export const provisionAgreementActions = {
-  create
+  create,
+  reset
 }
 
 function create(provisionAgreement) {
@@ -35,5 +36,15 @@ function create(provisionAgreement) {
 
   function failure(error) {
     return {type: provisionAgreementConstants.CREATE_FAILURE, error}
+  }
+}
+
+function reset() {
+  return dispatch => {
+    dispatch(reset())
+  }
+
+  function reset() {
+    return {type: provisionAgreementConstants.RESET}
   }
 }

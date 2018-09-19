@@ -1,6 +1,7 @@
 import {provisionAgreementConstants} from '../constants'
 
-export function createdPA(state = {}, action) {
+const provisionAgreementDefaultState = {};
+export function createdPA(state = provisionAgreementDefaultState, action) {
   switch (action.type) {
     case provisionAgreementConstants.CREATE_REQUEST:
       return {creating: true}
@@ -8,6 +9,8 @@ export function createdPA(state = {}, action) {
       return {id: action.provisionAgreementId}
     case provisionAgreementConstants.CREATE_FAILURE:
       return {}
+    case provisionAgreementConstants.RESET:
+      return provisionAgreementDefaultState;
     default:
       return state
   }
