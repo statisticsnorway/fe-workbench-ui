@@ -92,10 +92,10 @@ class ExternalAgent extends Component {
     let linkedAgentsInRole = []
     if(selectedProvisionAgreement !== ""){
       agentsInRoleForPA = this.props.selectedProvisionAgreement['agentInRoles']
-      for(let key in agentsInRoleForPA) {
-        let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
-        linkedAgentsInRole.push(agentInRoleId)
-      }
+
+      //fetch all the linked AgentsInRole for PA
+      this.fetchLinkedAgents(agentsInRoleForPA, linkedAgentsInRole);
+
       for(let linkedAgentInRole in linkedAgentsInRole) {
         let agentInRoleId = linkedAgentsInRole[linkedAgentInRole]
         //fetch AgentInRole with Role as KONTAKTPERSON
@@ -157,10 +157,7 @@ class ExternalAgent extends Component {
       getDataFromBackend('ProvisionAgreement/' + selectedProvisionAgreement.id + '/agentInRoles/', '').then((result) => {
         agentsInRoleForPA = result.data
         //fetch all the linked AgentsInRole for PA
-        for(let key in agentsInRoleForPA) {
-          let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
-          linkedAgentsInRole.push(agentInRoleId)
-        }
+        this.fetchLinkedAgents(agentsInRoleForPA, linkedAgentsInRole);
 
         for(let linkedAgentInRole in linkedAgentsInRole) {
           let agentInRoleId = linkedAgentsInRole[linkedAgentInRole]
@@ -189,10 +186,7 @@ class ExternalAgent extends Component {
             agentsInRoleForPA = result.data
 
             //fetch all the linked AgentsInRole for PA
-            for(let key in agentsInRoleForPA) {
-              let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
-              linkedAgentsInRole.push(agentInRoleId)
-            }
+            this.fetchLinkedAgents(agentsInRoleForPA, linkedAgentsInRole);
 
             for(let linkedAgentInRole in linkedAgentsInRole) {
               let agentInRoleId = linkedAgentsInRole[linkedAgentInRole]
@@ -222,10 +216,7 @@ class ExternalAgent extends Component {
     let agents = []
 
     //fetch all the linked AgentsInRole for PA
-    for(let key in agentsInRoleForPA) {
-      let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
-      linkedAgentsInRole.push(agentInRoleId)
-    }
+    this.fetchLinkedAgents(agentsInRoleForPA, linkedAgentsInRole);
 
     for(let linkedAgentInRole in linkedAgentsInRole) {
       getDataFromBackend(agentInRoleUrl + linkedAgentsInRole[linkedAgentInRole], '').then((result) => {
@@ -293,7 +284,8 @@ class ExternalAgent extends Component {
       versionValidFrom: agent.versionValidFrom,
       validFrom: agent.validFrom,
       createdDate: agent.createdDate,
-      createdBy: agent.createdBy
+      createdBy: agent.createdBy,
+      selectedRole: agent.selectedRole
     }
 
     console.log("ExternalAgent to be created/updated: ", externalAgent)
@@ -309,10 +301,7 @@ class ExternalAgent extends Component {
         let linkedAgentsInRole = []
 
         //fetch all the linked AgentsInRole for PA
-        for(let key in agentsInRoleForPA) {
-          let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
-          linkedAgentsInRole.push(agentInRoleId)
-        }
+        this.fetchLinkedAgents(agentsInRoleForPA, linkedAgentsInRole);
 
         if(agentsInRoleForPA.length === 0){
           externalAgentInContactRole = {
@@ -526,6 +515,15 @@ class ExternalAgent extends Component {
     })
 
     this.setState({externalAgents: newAgents})
+  }
+
+  fetchLinkedAgents(agentsInRoleForPA, linkedAgentsInRole) {
+    for(let key in agentsInRoleForPA) {
+      if(agentsInRoleForPA[key]){
+        let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
+        linkedAgentsInRole.push(agentInRoleId)
+      }
+    }
   }
 
   render() {
