@@ -92,10 +92,10 @@ class InternalAgent extends React.Component {
     let linkedAgentsInRole = []
     if(selectedProvisionAgreement !== ""){
       agentsInRoleForPA = this.props.selectedProvisionAgreement['agentInRoles']
-      for(let key in agentsInRoleForPA) {
-        let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
-        linkedAgentsInRole.push(agentInRoleId)
-      }
+
+      //fetch all the linked AgentsInRole for PA
+      this.fetchLinkedAgents(agentsInRoleForPA, linkedAgentsInRole);
+
       for(let linkedAgentInRole in linkedAgentsInRole) {
         let agentInRoleId = linkedAgentsInRole[linkedAgentInRole]
         //fetch AgentInRole with Role as KONTAKTPERSON
@@ -126,10 +126,9 @@ class InternalAgent extends React.Component {
           createdProvisionAgreement = result.data
           getDataFromBackend('ProvisionAgreement/' + createdProvisionAgreement.id + '/agentInRoles/', '').then((result) => {
             agentsInRoleForPA = result.data
-            for(let key in agentsInRoleForPA) {
-              let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
-              linkedAgentsInRole.push(agentInRoleId)
-            }
+            //fetch all the linked AgentsInRole for PA
+            this.fetchLinkedAgents(agentsInRoleForPA, linkedAgentsInRole);
+
             for(let linkedAgentInRole in linkedAgentsInRole) {
               let agentInRoleId = linkedAgentsInRole[linkedAgentInRole]
               //fetch AgentInRole with Role as KONTAKTPERSON
@@ -184,10 +183,7 @@ class InternalAgent extends React.Component {
       getDataFromBackend('ProvisionAgreement/' + selectedProvisionAgreement.id + '/agentInRoles/', '').then((result) => {
         agentsInRoleForPA = result.data
         //fetch all the linked AgentsInRole for PA
-        for(let key in agentsInRoleForPA) {
-          let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
-          linkedAgentsInRole.push(agentInRoleId)
-        }
+        this.fetchLinkedAgents(agentsInRoleForPA, linkedAgentsInRole);
 
         for(let linkedAgentInRole in linkedAgentsInRole) {
           let agentInRoleId = linkedAgentsInRole[linkedAgentInRole]
@@ -216,10 +212,7 @@ class InternalAgent extends React.Component {
             agentsInRoleForPA = result.data
 
             //fetch all the linked AgentsInRole for PA
-            for(let key in agentsInRoleForPA) {
-              let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
-              linkedAgentsInRole.push(agentInRoleId)
-            }
+            this.fetchLinkedAgents(agentsInRoleForPA, linkedAgentsInRole);
 
             for(let linkedAgentInRole in linkedAgentsInRole) {
               let agentInRoleId = linkedAgentsInRole[linkedAgentInRole]
@@ -249,10 +242,7 @@ class InternalAgent extends React.Component {
     let agents = []
 
     //fetch all the linked AgentsInRole for PA
-    for(let key in agentsInRoleForPA) {
-      let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
-      linkedAgentsInRole.push(agentInRoleId)
-    }
+    this.fetchLinkedAgents(agentsInRoleForPA, linkedAgentsInRole);
 
     for(let linkedAgentInRole in linkedAgentsInRole) {
       getDataFromBackend(agentInRoleUrl + linkedAgentsInRole[linkedAgentInRole], '').then((result) => {
@@ -320,7 +310,8 @@ class InternalAgent extends React.Component {
       versionValidFrom: agent.versionValidFrom,
       validFrom: agent.validFrom,
       createdDate: agent.createdDate,
-      createdBy: agent.createdBy
+      createdBy: agent.createdBy,
+      selectedRole: agent.selectedRole
     }
 
     console.log("InternalAgent to be created/updated: ", internalAgent)
@@ -336,10 +327,7 @@ class InternalAgent extends React.Component {
         let linkedAgentsInRole = []
 
         //fetch all the linked AgentsInRole for PA
-        for(let key in agentsInRoleForPA) {
-          let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
-          linkedAgentsInRole.push(agentInRoleId)
-        }
+        this.fetchLinkedAgents(agentsInRoleForPA, linkedAgentsInRole);
 
         if(agentsInRoleForPA.length === 0){
           internalAgentInContactRole = {
@@ -555,6 +543,15 @@ class InternalAgent extends React.Component {
     })
 
     this.setState({internalAgents: newAgents})
+  }
+
+  fetchLinkedAgents(agentsInRoleForPA, linkedAgentsInRole) {
+    for(let key in agentsInRoleForPA) {
+      if(agentsInRoleForPA[key]){
+        let agentInRoleId = agentsInRoleForPA[key].substring(13, agentsInRoleForPA[key].length)
+        linkedAgentsInRole.push(agentInRoleId)
+      }
+    }
   }
 
   render() {
