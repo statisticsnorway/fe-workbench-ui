@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WORKBENCH_VERSION=0.0.6
+WORKBENCH_VERSION=0.0.7
 
 ./docker/build.sh
 docker tag dc-workbench-ui eu.gcr.io/p2-utvikling/dc-workbench-ui:$WORKBENCH_VERSION
