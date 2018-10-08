@@ -1,4 +1,5 @@
 import React from 'react'
+import { hot } from 'react-hot-loader'
 import { Route, Router } from 'react-router-dom'
 import { history } from '../helpers'
 import { PrivateRoute } from '../components'
@@ -28,4 +29,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default hot(module)(App)
