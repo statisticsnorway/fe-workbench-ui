@@ -19,13 +19,15 @@ class InformationProviderSearchModal extends React.Component {
   componentDidMount() {
     getDataFromBackend('InformationProvider/', this.state.informationProviderList).then((result) => {
       let searchList = []
-      for(let i = 0, l = result.data.length; i < l; i++) {
-        let searchOption = {
-          title: result.data[i].name[0].languageText,
-          description: result.data[i].description[0].languageText,
-          id: result.data[i].id
+      if(result.data){
+        for(let i = 0, l = result.data.length; i < l; i++) {
+          let searchOption = {
+            title: result.data[i].name[0].languageText,
+            description: result.data[i].description[0].languageText,
+            id: result.data[i].id
+          }
+          searchList.push(searchOption)
         }
-        searchList.push(searchOption)
       }
       this.setState(prevState => ({
         informationProviderList: searchList,
