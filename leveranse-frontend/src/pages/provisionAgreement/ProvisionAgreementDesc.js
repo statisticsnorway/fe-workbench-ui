@@ -46,16 +46,16 @@ class ProvisionAgreementDesc extends Component {
         regulation: '',
         status: '',
         valuation: '',
-        changeManagement:
+        changeManagement: [
           {
             languageCode: "nb",
             languageText: ''
-          },
-        informationSource:
+          }],
+        informationSource: [
           {
             languageCode: "nb",
             languageText: ''
-          },
+          }],
         exchangeChannel: '/ExchangeChannel/4eea64e6-5c87-462d-9fc5-c3fdd3a310fc',
         frequency: '',
         agentInRoles: []
@@ -178,7 +178,7 @@ class ProvisionAgreementDesc extends Component {
     if(!data.status) errors.status = 'Et valg må velges'
     if(!data.regulation) errors.regulation = 'Et valg må velges'
     if(!data.frequency) errors.frequency = 'Et valg må velges'
-    if(!data.informationSource.languageText) errors.informationSource = 'Feltet kan ikke være tomt'
+    if(!data.informationSource[0].languageText) errors.informationSource = 'Feltet kan ikke være tomt'
     /*if (this.state.durationFrom.isAfter(this.state.durationTo)) { // noinspection JSValidateTypes
       errors.durationTo = 'Dato til > dato fra'
     }*/
@@ -362,15 +362,16 @@ class ProvisionAgreementDesc extends Component {
 
         <Form.Field error={!!errors.changeManagement}>
           <Form.TextArea autoHeight name='changeManagement' label='Endringshåndtering' placeholder='Endringshåndtering'
-                         readOnly={readOnlyMode} value={provisionAgreement.changeManagement.languageText}
-                         onChange={this.handleInputChangeJSONObject} />
+                         readOnly={readOnlyMode} value={provisionAgreement.changeManagement[0].languageText}
+                         onChange={this.handleInputChangeArrayObject} />
           {errors.changeManagement && <InlineError text={errors.changeManagement} />}
         </Form.Field>
 
         <Form.Field error={!!errors.informationSource}>
           <label>Kilde</label>
-          <Input placeholder='Kilde' name='informationSource' value={provisionAgreement.informationSource.languageText}
-                 onChange={this.handleInputChangeJSONObject} readOnly={readOnlyMode} />
+          <Input placeholder='Kilde' name='informationSource'
+                 value={provisionAgreement.informationSource[0].languageText}
+                 onChange={this.handleInputChangeArrayObject} readOnly={readOnlyMode} />
           {errors.informationSource && <InlineError text={errors.informationSource} />}
         </Form.Field>
 
@@ -404,11 +405,11 @@ const tempProtocolOptions = [
 ]
 
 const tempValuationOptions = [
-  {key: '1', text: 'Klassifikasjon 1', value: 'Klassifikasjon 1'},
-  {key: '2', text: 'Klassifikasjon 2', value: 'Klassifikasjon 2'},
-  {key: '3', text: 'Klassifikasjon 3', value: 'Klassifikasjon 3'},
-  {key: '4', text: 'Klassifikasjon 4', value: 'Klassifikasjon 4'},
-  {key: '5', text: 'Klassifikasjon 5', value: 'Klassifikasjon 5'}
+  {key: '1', text: 'Klassifikasjon 1', value: "A"},
+  {key: '2', text: 'Klassifikasjon 2', value: "B"},
+  {key: '3', text: 'Klassifikasjon 3', value: "C"},
+  {key: '4', text: 'Klassifikasjon 4', value: "D"},
+  {key: '5', text: 'Klassifikasjon 5', value: "E"}
 ]
 
 const frequencyOptions = [
