@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { Container, Dropdown, Flag, Icon, Menu } from 'semantic-ui-react'
+import { Link, Route, Switch } from 'react-router-dom'
+import { Container, Dropdown, Flag, Menu } from 'semantic-ui-react'
 
+import Cards from './cards/Cards'
+import GSIM from '../gsim/GSIM'
+import NotFound from '../404/NotFound'
+import Workflow from '../workflow/Workflow'
 import { SSBLogo } from '../../media/Logo'
 import { LANGUAGES, UI } from '../../utilities/Enum'
 
@@ -11,7 +15,12 @@ class Home extends Component {
   componentDidMount () {
     this.setState({
       ready: true,
-      languageCode: localStorage.hasOwnProperty('languageCode') ? localStorage.getItem('languageCode') : 'en'
+      languageCode: localStorage.hasOwnProperty('languageCode') ? localStorage.getItem('languageCode') : 'en',
+      gsim: {
+        producer: 'GSIM',
+        endpoint: this.props.lds,
+        route: '/home/gsim/'
+      }
     })
   }
 
@@ -29,7 +38,7 @@ class Home extends Component {
   }
 
   render () {
-    const {ready, languageCode} = this.state
+    const {ready, languageCode, gsim} = this.state
     const {user} = this.props
 
     if (ready) {
@@ -38,14 +47,6 @@ class Home extends Component {
           <Menu fixed='top'>
             <Menu.Item as={Link} to='/' content={SSBLogo(180)} />
             <Menu.Menu position='right'>
-              <Dropdown item text={user}>
-                <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to='/' onClick={this.handleLogout}>
-                    <Icon name='sign out' />
-                    {UI.LOGOUT[languageCode]}
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
               <Dropdown item text={UI.LANGUAGE[languageCode]}>
                 <Dropdown.Menu>
                   {Object.keys(LANGUAGES).map(language => {
@@ -58,10 +59,17 @@ class Home extends Component {
                   })}
                 </Dropdown.Menu>
               </Dropdown>
+              <Menu.Item as={Link} to='/' icon={{name: 'sign out', color: 'red', size: 'large'}}
+                         content={UI.LOGOUT[languageCode]} onClick={this.handleLogout} />
             </Menu.Menu>
           </Menu>
           <Container fluid style={{marginTop: '5em'}}>
-
+            <Switch>
+              <Route path='/home' exact render={() => <Cards languageCode={languageCode} />} />
+              <Route path='/home/gsim' render={() => <GSIM languageCode={languageCode} user={user} {...gsim} />} />
+              <Route path='/home/tasks' render={() => <Workflow languageCode={languageCode} />} />
+              <Route component={({location}) => <NotFound location={location} languageCode={languageCode} />} />
+            </Switch>
           </Container>
         </div>
       )

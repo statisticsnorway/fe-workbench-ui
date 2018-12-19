@@ -4,6 +4,7 @@ import { Container, Segment } from 'semantic-ui-react'
 
 import Home from './pages/home/Home'
 import Login from './pages/login/Login'
+import NotFound from './pages/404/NotFound'
 
 class App extends Component {
   state = {
@@ -18,14 +19,10 @@ class App extends Component {
   }
 
   handleLogin = () => {
-    localStorage.setItem('user', this.state.user)
-
     this.setState({loggedIn: true})
   }
 
   handleLogout = () => {
-    localStorage.removeItem('user')
-
     this.setState({loggedIn: false})
   }
 
@@ -36,17 +33,20 @@ class App extends Component {
     return (
       <Segment basic>
         <Container fluid style={{marginTop: '5em'}}>
-          <Switch>
-            <Route exact path='/' render={() => (loggedIn ? (
-                <Redirect to='home' />
-              ) : (
-                <Login {...this.state} handleChange={this.handleChange} handleLogin={this.handleLogin} />
-              )
-            )} />
-            <Route path='/home' exact component={
-              () => <Home lds={lds} user={user} languageCode={languageCode} handleLogout={this.handleLogout} />
-            } />
-          </Switch>
+          {!loggedIn ? <Login {...this.state} handleChange={this.handleChange} handleLogin={this.handleLogin} /> :
+            <Switch>
+              <Route exact path='/' render={() => (!loggedIn ? (
+                  <Login {...this.state} handleChange={this.handleChange} handleLogin={this.handleLogin} />
+                ) : (
+                  <Redirect to='home' />
+                )
+              )} />
+              <Route path='/home' render={
+                () => <Home lds={lds} user={user} handleLogout={this.handleLogout} />
+              } />
+              <Route component={({location}) => <NotFound location={location} languageCode={languageCode} />} />
+            </Switch>
+          }
         </Container>
       </Segment>
     )

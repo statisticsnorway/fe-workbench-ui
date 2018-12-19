@@ -17,7 +17,7 @@ class Login extends Component {
     const {user, password, languageCode} = this.props
 
     return (
-      <Grid textAlign='center' centered columns={3} verticalAlign='middle'>
+      <Grid textAlign='center' centered columns={5} verticalAlign='middle'>
         <Grid.Column>
           {SSBLogo('100%')}
           <Divider hidden />

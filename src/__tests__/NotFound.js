@@ -1,16 +1,16 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import Home from '../pages/home/Home'
+import NotFound from '../pages/404/NotFound'
 
-describe('Home', () => {
+describe('NotFound', () => {
   it('Renders itself without error and only once', () => {
     const properties = {
-      lds: 'http://localhost:9090/',
-      user: 'Test'
+      location: '/something/that/does/not/exist',
+      languageCode: 'en'
     }
 
-    const component = shallow(<Home {...properties} />)
+    const component = shallow(<NotFound {...properties} />)
 
     expect(component.length).toEqual(1)
     expect(component).toMatchSnapshot()

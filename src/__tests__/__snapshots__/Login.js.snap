@@ -3,11 +3,7 @@
 exports[`Login Renders itself without error and only once 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Login
-    languageCode="en"
-    loggedIn={false}
-    user="Test"
-  />,
+  Symbol(enzyme.__unrendered__): <Login />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -211,8 +207,6 @@ ShallowWrapper {
               iconPosition="left"
               name="user"
               onChange={[Function]}
-              placeholder="Username"
-              value="Test"
             />
             <FormInput
               as={[Function]}
@@ -222,12 +216,10 @@ ShallowWrapper {
               iconPosition="left"
               name="password"
               onChange={[Function]}
-              placeholder="Password"
               type="password"
             />
             <Button
               as="button"
-              content="Login"
               fluid={true}
               onClick={[Function]}
               primary={true}
@@ -236,7 +228,7 @@ ShallowWrapper {
           </Form>
         </Segment>
       </GridColumn>,
-      "columns": 3,
+      "columns": 5,
       "textAlign": "center",
       "verticalAlign": "middle",
     },
@@ -435,8 +427,6 @@ ShallowWrapper {
                 iconPosition="left"
                 name="user"
                 onChange={[Function]}
-                placeholder="Username"
-                value="Test"
               />
               <FormInput
                 as={[Function]}
@@ -446,12 +436,10 @@ ShallowWrapper {
                 iconPosition="left"
                 name="password"
                 onChange={[Function]}
-                placeholder="Password"
                 type="password"
               />
               <Button
                 as="button"
-                content="Login"
                 fluid={true}
                 onClick={[Function]}
                 primary={true}
@@ -1150,8 +1138,6 @@ ShallowWrapper {
                 iconPosition="left"
                 name="user"
                 onChange={[Function]}
-                placeholder="Username"
-                value="Test"
               />
               <FormInput
                 as={[Function]}
@@ -1161,12 +1147,10 @@ ShallowWrapper {
                 iconPosition="left"
                 name="password"
                 onChange={[Function]}
-                placeholder="Password"
                 type="password"
               />
               <Button
                 as="button"
-                content="Login"
                 fluid={true}
                 onClick={[Function]}
                 primary={true}
@@ -1190,8 +1174,6 @@ ShallowWrapper {
                   iconPosition="left"
                   name="user"
                   onChange={[Function]}
-                  placeholder="Username"
-                  value="Test"
                 />,
                 <FormInput
                   as={[Function]}
@@ -1201,12 +1183,10 @@ ShallowWrapper {
                   iconPosition="left"
                   name="password"
                   onChange={[Function]}
-                  placeholder="Password"
                   type="password"
                 />,
                 <Button
                   as="button"
-                  content="Login"
                   fluid={true}
                   onClick={[Function]}
                   primary={true}
@@ -1229,8 +1209,8 @@ ShallowWrapper {
                   "iconPosition": "left",
                   "name": "user",
                   "onChange": [Function],
-                  "placeholder": "Username",
-                  "value": "Test",
+                  "placeholder": undefined,
+                  "value": undefined,
                 },
                 "ref": null,
                 "rendered": null,
@@ -1248,7 +1228,7 @@ ShallowWrapper {
                   "iconPosition": "left",
                   "name": "password",
                   "onChange": [Function],
-                  "placeholder": "Password",
+                  "placeholder": undefined,
                   "type": "password",
                   "value": undefined,
                 },
@@ -1262,7 +1242,7 @@ ShallowWrapper {
                 "nodeType": "class",
                 "props": Object {
                   "as": "button",
-                  "content": "Login",
+                  "content": undefined,
                   "fluid": true,
                   "onClick": [Function],
                   "primary": true,
@@ -1478,8 +1458,6 @@ ShallowWrapper {
                 iconPosition="left"
                 name="user"
                 onChange={[Function]}
-                placeholder="Username"
-                value="Test"
               />
               <FormInput
                 as={[Function]}
@@ -1489,12 +1467,10 @@ ShallowWrapper {
                 iconPosition="left"
                 name="password"
                 onChange={[Function]}
-                placeholder="Password"
                 type="password"
               />
               <Button
                 as="button"
-                content="Login"
                 fluid={true}
                 onClick={[Function]}
                 primary={true}
@@ -1503,7 +1479,7 @@ ShallowWrapper {
             </Form>
           </Segment>
         </GridColumn>,
-        "columns": 3,
+        "columns": 5,
         "textAlign": "center",
         "verticalAlign": "middle",
       },
@@ -1702,8 +1678,6 @@ ShallowWrapper {
                   iconPosition="left"
                   name="user"
                   onChange={[Function]}
-                  placeholder="Username"
-                  value="Test"
                 />
                 <FormInput
                   as={[Function]}
@@ -1713,12 +1687,10 @@ ShallowWrapper {
                   iconPosition="left"
                   name="password"
                   onChange={[Function]}
-                  placeholder="Password"
                   type="password"
                 />
                 <Button
                   as="button"
-                  content="Login"
                   fluid={true}
                   onClick={[Function]}
                   primary={true}
@@ -2417,8 +2389,6 @@ ShallowWrapper {
                   iconPosition="left"
                   name="user"
                   onChange={[Function]}
-                  placeholder="Username"
-                  value="Test"
                 />
                 <FormInput
                   as={[Function]}
@@ -2428,12 +2398,10 @@ ShallowWrapper {
                   iconPosition="left"
                   name="password"
                   onChange={[Function]}
-                  placeholder="Password"
                   type="password"
                 />
                 <Button
                   as="button"
-                  content="Login"
                   fluid={true}
                   onClick={[Function]}
                   primary={true}
@@ -2457,8 +2425,6 @@ ShallowWrapper {
                     iconPosition="left"
                     name="user"
                     onChange={[Function]}
-                    placeholder="Username"
-                    value="Test"
                   />,
                   <FormInput
                     as={[Function]}
@@ -2468,12 +2434,10 @@ ShallowWrapper {
                     iconPosition="left"
                     name="password"
                     onChange={[Function]}
-                    placeholder="Password"
                     type="password"
                   />,
                   <Button
                     as="button"
-                    content="Login"
                     fluid={true}
                     onClick={[Function]}
                     primary={true}
@@ -2496,8 +2460,8 @@ ShallowWrapper {
                     "iconPosition": "left",
                     "name": "user",
                     "onChange": [Function],
-                    "placeholder": "Username",
-                    "value": "Test",
+                    "placeholder": undefined,
+                    "value": undefined,
                   },
                   "ref": null,
                   "rendered": null,
@@ -2515,7 +2479,7 @@ ShallowWrapper {
                     "iconPosition": "left",
                     "name": "password",
                     "onChange": [Function],
-                    "placeholder": "Password",
+                    "placeholder": undefined,
                     "type": "password",
                     "value": undefined,
                   },
@@ -2529,7 +2493,7 @@ ShallowWrapper {
                   "nodeType": "class",
                   "props": Object {
                     "as": "button",
-                    "content": "Login",
+                    "content": undefined,
                     "fluid": true,
                     "onClick": [Function],
                     "primary": true,

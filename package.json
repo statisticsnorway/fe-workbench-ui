@@ -8,6 +8,7 @@
   },
   "private": true,
   "dependencies": {
+    "dc-react-components-library": "https://github.com/statisticsnorway/dc-react-components-library.git",
     "moment": "^2.23.0",
     "react": "^16.6.3",
     "react-datepicker": "^2.0.0",

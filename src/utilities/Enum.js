@@ -9,6 +9,17 @@ export const LANGUAGES = {
   }
 }
 
+export const MESSAGES = {
+  SORRY: {
+    en: 'Sorry :\'(',
+    nb: 'Beklager :\'('
+  },
+  PAGE_NOT_FOUND: {
+    en: 'Could not find anything located at',
+    nb: 'Fant desverre ingenting under'
+  }
+}
+
 export const UI = {
   ENGLISH: {
     en: 'English',
@@ -33,6 +44,10 @@ export const UI = {
   PASSWORD: {
     en: 'Password',
     nb: 'Passord'
+  },
+  SEARCH: {
+    en: 'Search...',
+    nb: 'Søk...'
   },
   USER: {
     en: 'Username',

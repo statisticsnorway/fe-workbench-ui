@@ -4,7 +4,6 @@ exports[`Home Renders itself without error and only once 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <Home
-    languageCode="en"
     lds="http://localhost:9090/"
     user="Test"
   />,
@@ -220,37 +219,6 @@ ShallowWrapper {
               searchInput="text"
               selectOnBlur={true}
               selectOnNavigation={true}
-              text="Test"
-              wrapSelection={true}
-            >
-              <DropdownMenu>
-                <DropdownItem
-                  as={[Function]}
-                  onClick={[Function]}
-                  to="/"
-                >
-                  <Icon
-                    as="i"
-                    name="sign out"
-                  />
-                  Logout
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-            <Dropdown
-              additionLabel="Add "
-              additionPosition="top"
-              closeOnBlur={true}
-              deburr={false}
-              icon="dropdown"
-              item={true}
-              minCharacters={1}
-              noResultsMessage="No results found."
-              openOnFocus={true}
-              renderLabel={[Function]}
-              searchInput="text"
-              selectOnBlur={true}
-              selectOnNavigation={true}
               text="Language"
               wrapSelection={true}
             >
@@ -277,6 +245,19 @@ ShallowWrapper {
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
+            <MenuItem
+              as={[Function]}
+              content="Logout"
+              icon={
+                Object {
+                  "color": "red",
+                  "name": "sign out",
+                  "size": "large",
+                }
+              }
+              onClick={[Function]}
+              to="/"
+            />
           </MenuMenu>
         </Menu>,
         <Container
@@ -286,7 +267,26 @@ ShallowWrapper {
               "marginTop": "5em",
             }
           }
-        />,
+        >
+          <Switch>
+            <Route
+              exact={true}
+              path="/home"
+              render={[Function]}
+            />
+            <Route
+              path="/home/gsim"
+              render={[Function]}
+            />
+            <Route
+              path="/home/tasks"
+              render={[Function]}
+            />
+            <Route
+              component={[Function]}
+            />
+          </Switch>
+        </Container>,
       ],
     },
     "ref": null,
@@ -492,37 +492,6 @@ ShallowWrapper {
                 searchInput="text"
                 selectOnBlur={true}
                 selectOnNavigation={true}
-                text="Test"
-                wrapSelection={true}
-              >
-                <DropdownMenu>
-                  <DropdownItem
-                    as={[Function]}
-                    onClick={[Function]}
-                    to="/"
-                  >
-                    <Icon
-                      as="i"
-                      name="sign out"
-                    />
-                    Logout
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-              <Dropdown
-                additionLabel="Add "
-                additionPosition="top"
-                closeOnBlur={true}
-                deburr={false}
-                icon="dropdown"
-                item={true}
-                minCharacters={1}
-                noResultsMessage="No results found."
-                openOnFocus={true}
-                renderLabel={[Function]}
-                searchInput="text"
-                selectOnBlur={true}
-                selectOnNavigation={true}
                 text="Language"
                 wrapSelection={true}
               >
@@ -549,6 +518,19 @@ ShallowWrapper {
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
+              <MenuItem
+                as={[Function]}
+                content="Logout"
+                icon={
+                  Object {
+                    "color": "red",
+                    "name": "sign out",
+                    "size": "large",
+                  }
+                }
+                onClick={[Function]}
+                to="/"
+              />
             </MenuMenu>,
           ],
           "fixed": "top",
@@ -759,37 +741,6 @@ ShallowWrapper {
                   searchInput="text"
                   selectOnBlur={true}
                   selectOnNavigation={true}
-                  text="Test"
-                  wrapSelection={true}
-                >
-                  <DropdownMenu>
-                    <DropdownItem
-                      as={[Function]}
-                      onClick={[Function]}
-                      to="/"
-                    >
-                      <Icon
-                        as="i"
-                        name="sign out"
-                      />
-                      Logout
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>,
-                <Dropdown
-                  additionLabel="Add "
-                  additionPosition="top"
-                  closeOnBlur={true}
-                  deburr={false}
-                  icon="dropdown"
-                  item={true}
-                  minCharacters={1}
-                  noResultsMessage="No results found."
-                  openOnFocus={true}
-                  renderLabel={[Function]}
-                  searchInput="text"
-                  selectOnBlur={true}
-                  selectOnNavigation={true}
                   text="Language"
                   wrapSelection={true}
                 >
@@ -816,102 +767,24 @@ ShallowWrapper {
                     </DropdownItem>
                   </DropdownMenu>
                 </Dropdown>,
+                <MenuItem
+                  as={[Function]}
+                  content="Logout"
+                  icon={
+                    Object {
+                      "color": "red",
+                      "name": "sign out",
+                      "size": "large",
+                    }
+                  }
+                  onClick={[Function]}
+                  to="/"
+                />,
               ],
               "position": "right",
             },
             "ref": null,
             "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "additionLabel": "Add ",
-                  "additionPosition": "top",
-                  "children": <DropdownMenu>
-                    <DropdownItem
-                      as={[Function]}
-                      onClick={[Function]}
-                      to="/"
-                    >
-                      <Icon
-                        as="i"
-                        name="sign out"
-                      />
-                      Logout
-                    </DropdownItem>
-                  </DropdownMenu>,
-                  "closeOnBlur": true,
-                  "deburr": false,
-                  "icon": "dropdown",
-                  "item": true,
-                  "minCharacters": 1,
-                  "noResultsMessage": "No results found.",
-                  "openOnFocus": true,
-                  "renderLabel": [Function],
-                  "searchInput": "text",
-                  "selectOnBlur": true,
-                  "selectOnNavigation": true,
-                  "text": "Test",
-                  "wrapSelection": true,
-                },
-                "ref": null,
-                "rendered": Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "function",
-                  "props": Object {
-                    "children": <DropdownItem
-                      as={[Function]}
-                      onClick={[Function]}
-                      to="/"
-                    >
-                      <Icon
-                        as="i"
-                        name="sign out"
-                      />
-                      Logout
-                    </DropdownItem>,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "as": [Function],
-                      "children": Array [
-                        <Icon
-                          as="i"
-                          name="sign out"
-                        />,
-                        "Logout",
-                      ],
-                      "onClick": [Function],
-                      "to": "/",
-                    },
-                    "ref": null,
-                    "rendered": Array [
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {
-                          "as": "i",
-                          "name": "sign out",
-                        },
-                        "ref": null,
-                        "rendered": null,
-                        "type": [Function],
-                      },
-                      "Logout",
-                    ],
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                "type": [Function],
-              },
               Object {
                 "instance": null,
                 "key": undefined,
@@ -1059,6 +932,25 @@ ShallowWrapper {
                 },
                 "type": [Function],
               },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "as": [Function],
+                  "content": "Logout",
+                  "icon": Object {
+                    "color": "red",
+                    "name": "sign out",
+                    "size": "large",
+                  },
+                  "onClick": [Function],
+                  "to": "/",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
             ],
             "type": [Function],
           },
@@ -1070,13 +962,107 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "function",
         "props": Object {
+          "children": <Switch>
+            <Route
+              exact={true}
+              path="/home"
+              render={[Function]}
+            />
+            <Route
+              path="/home/gsim"
+              render={[Function]}
+            />
+            <Route
+              path="/home/tasks"
+              render={[Function]}
+            />
+            <Route
+              component={[Function]}
+            />
+          </Switch>,
           "fluid": true,
           "style": Object {
             "marginTop": "5em",
           },
         },
         "ref": null,
-        "rendered": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <Route
+                exact={true}
+                path="/home"
+                render={[Function]}
+              />,
+              <Route
+                path="/home/gsim"
+                render={[Function]}
+              />,
+              <Route
+                path="/home/tasks"
+                render={[Function]}
+              />,
+              <Route
+                component={[Function]}
+              />,
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "exact": true,
+                "path": "/home",
+                "render": [Function],
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "path": "/home/gsim",
+                "render": [Function],
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "path": "/home/tasks",
+                "render": [Function],
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "component": [Function],
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
         "type": [Function],
       },
     ],
@@ -1287,37 +1273,6 @@ ShallowWrapper {
                 searchInput="text"
                 selectOnBlur={true}
                 selectOnNavigation={true}
-                text="Test"
-                wrapSelection={true}
-              >
-                <DropdownMenu>
-                  <DropdownItem
-                    as={[Function]}
-                    onClick={[Function]}
-                    to="/"
-                  >
-                    <Icon
-                      as="i"
-                      name="sign out"
-                    />
-                    Logout
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-              <Dropdown
-                additionLabel="Add "
-                additionPosition="top"
-                closeOnBlur={true}
-                deburr={false}
-                icon="dropdown"
-                item={true}
-                minCharacters={1}
-                noResultsMessage="No results found."
-                openOnFocus={true}
-                renderLabel={[Function]}
-                searchInput="text"
-                selectOnBlur={true}
-                selectOnNavigation={true}
                 text="Language"
                 wrapSelection={true}
               >
@@ -1344,6 +1299,19 @@ ShallowWrapper {
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
+              <MenuItem
+                as={[Function]}
+                content="Logout"
+                icon={
+                  Object {
+                    "color": "red",
+                    "name": "sign out",
+                    "size": "large",
+                  }
+                }
+                onClick={[Function]}
+                to="/"
+              />
             </MenuMenu>
           </Menu>,
           <Container
@@ -1353,7 +1321,26 @@ ShallowWrapper {
                 "marginTop": "5em",
               }
             }
-          />,
+          >
+            <Switch>
+              <Route
+                exact={true}
+                path="/home"
+                render={[Function]}
+              />
+              <Route
+                path="/home/gsim"
+                render={[Function]}
+              />
+              <Route
+                path="/home/tasks"
+                render={[Function]}
+              />
+              <Route
+                component={[Function]}
+              />
+            </Switch>
+          </Container>,
         ],
       },
       "ref": null,
@@ -1559,37 +1546,6 @@ ShallowWrapper {
                   searchInput="text"
                   selectOnBlur={true}
                   selectOnNavigation={true}
-                  text="Test"
-                  wrapSelection={true}
-                >
-                  <DropdownMenu>
-                    <DropdownItem
-                      as={[Function]}
-                      onClick={[Function]}
-                      to="/"
-                    >
-                      <Icon
-                        as="i"
-                        name="sign out"
-                      />
-                      Logout
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-                <Dropdown
-                  additionLabel="Add "
-                  additionPosition="top"
-                  closeOnBlur={true}
-                  deburr={false}
-                  icon="dropdown"
-                  item={true}
-                  minCharacters={1}
-                  noResultsMessage="No results found."
-                  openOnFocus={true}
-                  renderLabel={[Function]}
-                  searchInput="text"
-                  selectOnBlur={true}
-                  selectOnNavigation={true}
                   text="Language"
                   wrapSelection={true}
                 >
@@ -1616,6 +1572,19 @@ ShallowWrapper {
                     </DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
+                <MenuItem
+                  as={[Function]}
+                  content="Logout"
+                  icon={
+                    Object {
+                      "color": "red",
+                      "name": "sign out",
+                      "size": "large",
+                    }
+                  }
+                  onClick={[Function]}
+                  to="/"
+                />
               </MenuMenu>,
             ],
             "fixed": "top",
@@ -1826,37 +1795,6 @@ ShallowWrapper {
                     searchInput="text"
                     selectOnBlur={true}
                     selectOnNavigation={true}
-                    text="Test"
-                    wrapSelection={true}
-                  >
-                    <DropdownMenu>
-                      <DropdownItem
-                        as={[Function]}
-                        onClick={[Function]}
-                        to="/"
-                      >
-                        <Icon
-                          as="i"
-                          name="sign out"
-                        />
-                        Logout
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>,
-                  <Dropdown
-                    additionLabel="Add "
-                    additionPosition="top"
-                    closeOnBlur={true}
-                    deburr={false}
-                    icon="dropdown"
-                    item={true}
-                    minCharacters={1}
-                    noResultsMessage="No results found."
-                    openOnFocus={true}
-                    renderLabel={[Function]}
-                    searchInput="text"
-                    selectOnBlur={true}
-                    selectOnNavigation={true}
                     text="Language"
                     wrapSelection={true}
                   >
@@ -1883,102 +1821,24 @@ ShallowWrapper {
                       </DropdownItem>
                     </DropdownMenu>
                   </Dropdown>,
+                  <MenuItem
+                    as={[Function]}
+                    content="Logout"
+                    icon={
+                      Object {
+                        "color": "red",
+                        "name": "sign out",
+                        "size": "large",
+                      }
+                    }
+                    onClick={[Function]}
+                    to="/"
+                  />,
                 ],
                 "position": "right",
               },
               "ref": null,
               "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "additionLabel": "Add ",
-                    "additionPosition": "top",
-                    "children": <DropdownMenu>
-                      <DropdownItem
-                        as={[Function]}
-                        onClick={[Function]}
-                        to="/"
-                      >
-                        <Icon
-                          as="i"
-                          name="sign out"
-                        />
-                        Logout
-                      </DropdownItem>
-                    </DropdownMenu>,
-                    "closeOnBlur": true,
-                    "deburr": false,
-                    "icon": "dropdown",
-                    "item": true,
-                    "minCharacters": 1,
-                    "noResultsMessage": "No results found.",
-                    "openOnFocus": true,
-                    "renderLabel": [Function],
-                    "searchInput": "text",
-                    "selectOnBlur": true,
-                    "selectOnNavigation": true,
-                    "text": "Test",
-                    "wrapSelection": true,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "function",
-                    "props": Object {
-                      "children": <DropdownItem
-                        as={[Function]}
-                        onClick={[Function]}
-                        to="/"
-                      >
-                        <Icon
-                          as="i"
-                          name="sign out"
-                        />
-                        Logout
-                      </DropdownItem>,
-                    },
-                    "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "as": [Function],
-                        "children": Array [
-                          <Icon
-                            as="i"
-                            name="sign out"
-                          />,
-                          "Logout",
-                        ],
-                        "onClick": [Function],
-                        "to": "/",
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "class",
-                          "props": Object {
-                            "as": "i",
-                            "name": "sign out",
-                          },
-                          "ref": null,
-                          "rendered": null,
-                          "type": [Function],
-                        },
-                        "Logout",
-                      ],
-                      "type": [Function],
-                    },
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
                 Object {
                   "instance": null,
                   "key": undefined,
@@ -2126,6 +1986,25 @@ ShallowWrapper {
                   },
                   "type": [Function],
                 },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "as": [Function],
+                    "content": "Logout",
+                    "icon": Object {
+                      "color": "red",
+                      "name": "sign out",
+                      "size": "large",
+                    },
+                    "onClick": [Function],
+                    "to": "/",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
               ],
               "type": [Function],
             },
@@ -2137,13 +2016,107 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "function",
           "props": Object {
+            "children": <Switch>
+              <Route
+                exact={true}
+                path="/home"
+                render={[Function]}
+              />
+              <Route
+                path="/home/gsim"
+                render={[Function]}
+              />
+              <Route
+                path="/home/tasks"
+                render={[Function]}
+              />
+              <Route
+                component={[Function]}
+              />
+            </Switch>,
             "fluid": true,
             "style": Object {
               "marginTop": "5em",
             },
           },
           "ref": null,
-          "rendered": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": Array [
+                <Route
+                  exact={true}
+                  path="/home"
+                  render={[Function]}
+                />,
+                <Route
+                  path="/home/gsim"
+                  render={[Function]}
+                />,
+                <Route
+                  path="/home/tasks"
+                  render={[Function]}
+                />,
+                <Route
+                  component={[Function]}
+                />,
+              ],
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "exact": true,
+                  "path": "/home",
+                  "render": [Function],
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "path": "/home/gsim",
+                  "render": [Function],
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "path": "/home/tasks",
+                  "render": [Function],
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "component": [Function],
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+            ],
+            "type": [Function],
+          },
           "type": [Function],
         },
       ],
