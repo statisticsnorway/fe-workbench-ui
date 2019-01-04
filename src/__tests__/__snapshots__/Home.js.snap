@@ -219,7 +219,7 @@ ShallowWrapper {
               searchInput="text"
               selectOnBlur={true}
               selectOnNavigation={true}
-              text="Language"
+              text="Language (English)"
               wrapSelection={true}
             >
               <DropdownMenu>
@@ -492,7 +492,7 @@ ShallowWrapper {
                 searchInput="text"
                 selectOnBlur={true}
                 selectOnNavigation={true}
-                text="Language"
+                text="Language (English)"
                 wrapSelection={true}
               >
                 <DropdownMenu>
@@ -741,7 +741,7 @@ ShallowWrapper {
                   searchInput="text"
                   selectOnBlur={true}
                   selectOnNavigation={true}
-                  text="Language"
+                  text="Language (English)"
                   wrapSelection={true}
                 >
                   <DropdownMenu>
@@ -825,7 +825,7 @@ ShallowWrapper {
                   "searchInput": "text",
                   "selectOnBlur": true,
                   "selectOnNavigation": true,
-                  "text": "Language",
+                  "text": "Language (English)",
                   "wrapSelection": true,
                 },
                 "ref": null,
@@ -1273,7 +1273,7 @@ ShallowWrapper {
                 searchInput="text"
                 selectOnBlur={true}
                 selectOnNavigation={true}
-                text="Language"
+                text="Language (English)"
                 wrapSelection={true}
               >
                 <DropdownMenu>
@@ -1546,7 +1546,7 @@ ShallowWrapper {
                   searchInput="text"
                   selectOnBlur={true}
                   selectOnNavigation={true}
-                  text="Language"
+                  text="Language (English)"
                   wrapSelection={true}
                 >
                   <DropdownMenu>
@@ -1795,7 +1795,7 @@ ShallowWrapper {
                     searchInput="text"
                     selectOnBlur={true}
                     selectOnNavigation={true}
-                    text="Language"
+                    text="Language (English)"
                     wrapSelection={true}
                   >
                     <DropdownMenu>
@@ -1879,7 +1879,7 @@ ShallowWrapper {
                     "searchInput": "text",
                     "selectOnBlur": true,
                     "selectOnNavigation": true,
-                    "text": "Language",
+                    "text": "Language (English)",
                     "wrapSelection": true,
                   },
                   "ref": null,

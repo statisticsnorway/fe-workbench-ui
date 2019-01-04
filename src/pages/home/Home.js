@@ -47,7 +47,7 @@ class Home extends Component {
           <Menu fixed='top'>
             <Menu.Item as={Link} to='/' content={SSBLogo(180)} />
             <Menu.Menu position='right'>
-              <Dropdown item text={UI.LANGUAGE[languageCode]}>
+              <Dropdown item text={UI.LANGUAGE[languageCode] + ' (' + UI.LANGUAGE_CHOICE[languageCode] + ')'}>
                 <Dropdown.Menu>
                   {Object.keys(LANGUAGES).map(language => {
                     return (
