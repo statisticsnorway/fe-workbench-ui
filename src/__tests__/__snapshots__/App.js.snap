@@ -28,18 +28,14 @@ ShallowWrapper {
           }
         }
       >
-        <Switch>
-          <Route
-            exact={true}
-            path="/"
-            render={[Function]}
-          />
-          <Route
-            component={[Function]}
-            exact={true}
-            path="/home"
-          />
-        </Switch>
+        <Login
+          handleChange={[Function]}
+          handleLogin={[Function]}
+          languageCode="en"
+          loggedIn={false}
+          password=""
+          user=""
+        />
       </Container>,
     },
     "ref": null,
@@ -48,18 +44,14 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "function",
       "props": Object {
-        "children": <Switch>
-          <Route
-            exact={true}
-            path="/"
-            render={[Function]}
-          />
-          <Route
-            component={[Function]}
-            exact={true}
-            path="/home"
-          />
-        </Switch>,
+        "children": <Login
+          handleChange={[Function]}
+          handleLogin={[Function]}
+          languageCode="en"
+          loggedIn={false}
+          password=""
+          user=""
+        />,
         "fluid": true,
         "style": Object {
           "marginTop": "5em",
@@ -71,48 +63,15 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
-          "children": Array [
-            <Route
-              exact={true}
-              path="/"
-              render={[Function]}
-            />,
-            <Route
-              component={[Function]}
-              exact={true}
-              path="/home"
-            />,
-          ],
+          "handleChange": [Function],
+          "handleLogin": [Function],
+          "languageCode": "en",
+          "loggedIn": false,
+          "password": "",
+          "user": "",
         },
         "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "exact": true,
-              "path": "/",
-              "render": [Function],
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "component": [Function],
-              "exact": true,
-              "path": "/home",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-        ],
+        "rendered": null,
         "type": [Function],
       },
       "type": [Function],
@@ -134,18 +93,14 @@ ShallowWrapper {
             }
           }
         >
-          <Switch>
-            <Route
-              exact={true}
-              path="/"
-              render={[Function]}
-            />
-            <Route
-              component={[Function]}
-              exact={true}
-              path="/home"
-            />
-          </Switch>
+          <Login
+            handleChange={[Function]}
+            handleLogin={[Function]}
+            languageCode="en"
+            loggedIn={false}
+            password=""
+            user=""
+          />
         </Container>,
       },
       "ref": null,
@@ -154,18 +109,14 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "function",
         "props": Object {
-          "children": <Switch>
-            <Route
-              exact={true}
-              path="/"
-              render={[Function]}
-            />
-            <Route
-              component={[Function]}
-              exact={true}
-              path="/home"
-            />
-          </Switch>,
+          "children": <Login
+            handleChange={[Function]}
+            handleLogin={[Function]}
+            languageCode="en"
+            loggedIn={false}
+            password=""
+            user=""
+          />,
           "fluid": true,
           "style": Object {
             "marginTop": "5em",
@@ -177,48 +128,15 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
-            "children": Array [
-              <Route
-                exact={true}
-                path="/"
-                render={[Function]}
-              />,
-              <Route
-                component={[Function]}
-                exact={true}
-                path="/home"
-              />,
-            ],
+            "handleChange": [Function],
+            "handleLogin": [Function],
+            "languageCode": "en",
+            "loggedIn": false,
+            "password": "",
+            "user": "",
           },
           "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "exact": true,
-                "path": "/",
-                "render": [Function],
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "component": [Function],
-                "exact": true,
-                "path": "/home",
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-          ],
+          "rendered": null,
           "type": [Function],
         },
         "type": [Function],

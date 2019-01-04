@@ -5,13 +5,7 @@ import Login from '../pages/login/Login'
 
 describe('Login', () => {
   it('Renders itself without error and only once', () => {
-    const properties = {
-      user: 'Test',
-      loggedIn: false,
-      languageCode: 'en'
-    }
-
-    const component = shallow(<Login {...properties} />)
+    const component = shallow(<Login />)
 
     expect(component.length).toEqual(1)
     expect(component).toMatchSnapshot()
