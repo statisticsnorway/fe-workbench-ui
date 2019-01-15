@@ -8,6 +8,7 @@ describe('GSIM', () => {
     const properties = {
       producer: 'GSIM',
       endpoint: 'http://localhost:9090/',
+      namespace: 'data/',
       route: '/home/gsim/',
       user: 'Test',
       languageCode: 'en'

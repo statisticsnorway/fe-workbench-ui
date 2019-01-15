@@ -1,4 +1,4 @@
-# dc-workbench-ui
+# workbench-ui
 A React application that currently lets a user work with GSIM objects through a workflow. Its goal is to function as a 
 total workbench for employees at SSB.
 
@@ -6,8 +6,8 @@ total workbench for employees at SSB.
 This is a fairly small application which implements and structures its functions through imported libraries. 
 
 So far it mocks the ability to login and its "gsim-browsing" function comes from 
-[dc-react-components-library](https://github.com/statisticsnorway/dc-react-components-library) and its workflow functions
-comes from [dc-react-workflow-library](https://github.com/statisticsnorway/dc-react-workflow-library).
+[react-components-library](https://github.com/statisticsnorway/dc-react-components-library) and its workflow functions
+comes from [react-workflow-library](https://github.com/statisticsnorway/dc-react-workflow-library).
 
 [linked-data-store (LDS)](https://github.com/statisticsnorway/linked-data-store-documentation) provides the backend 
 for data storage.
@@ -42,7 +42,7 @@ If you leave out `REACT_APP_LDS` it defaults to `http://localhost:9090/`
 4. Navigate to `http://localhost:5000/`
 
 ### Note
-At the moment this application imports **dc-react-components-library** and **dc-react-workflow** directly from GitHub 
+At the moment this application imports **react-components-library** and **react-workflow** directly from GitHub 
 which means that you need readaccess to the repositories in order to fetch them as dependencies. This will change later 
 when we get to upload React libraries to Nexus or go public. This also means that updates to dependencies **will not be** 
 reflected unless you run `yarn upgrade`.

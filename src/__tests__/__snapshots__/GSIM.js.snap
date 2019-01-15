@@ -6,6 +6,7 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <GSIM
     endpoint="http://localhost:9090/"
     languageCode="en"
+    namespace="data/"
     producer="GSIM"
     route="/home/gsim/"
     user="Test"
