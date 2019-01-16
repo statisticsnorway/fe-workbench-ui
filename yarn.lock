@@ -8273,9 +8273,9 @@ react-app-polyfill@^0.2.0:
     raf "3.4.0"
     whatwg-fetch "3.0.0"
 
-"react-components-library@https://github.com/statisticsnorway/dc-react-components-library.git#rename":
+"react-components-library@https://github.com/statisticsnorway/dc-react-components-library.git":
   version "0.1.0"
-  resolved "https://github.com/statisticsnorway/dc-react-components-library.git#3c83ae9365a1556fa1397997ae110a2f62d06e23"
+  resolved "https://github.com/statisticsnorway/dc-react-components-library.git#bc25f8f64fa1429632e2219f593e896ec04f97b3"
   dependencies:
     axios "^0.18.0"
     moment "^2.22.2"

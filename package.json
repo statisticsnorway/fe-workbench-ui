@@ -10,7 +10,7 @@
   "dependencies": {
     "moment": "^2.23.0",
     "react": "^16.6.3",
-    "react-components-library": "https://github.com/statisticsnorway/dc-react-components-library.git#rename",
+    "react-components-library": "https://github.com/statisticsnorway/dc-react-components-library.git",
     "react-datepicker": "^1.8.0",
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1",
