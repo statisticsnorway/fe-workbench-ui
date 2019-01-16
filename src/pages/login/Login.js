@@ -9,7 +9,9 @@ class Login extends Component {
     this.props.handleChange(event)
   }
 
-  handleLogin = () => {
+  handleLogin = (event) => {
+    event.preventDefault()
+
     this.props.handleLogin()
   }
 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Link, Route, Switch } from 'react-router-dom'
 import { Dropdown, Grid, Icon, Label, Menu, Message } from 'semantic-ui-react'
-import { DCFormBuilder, DCTableBuilder, SchemaHandler } from 'dc-react-components-library'
+import { UIFormBuilder, UITableBuilder, SchemaHandler } from 'react-components-library'
 
 import { UI } from '../../utilities/Enum'
-import { extractName, splitOnUppercase } from '../../utilities/Common'
+import { extractName, handleRoute, splitOnUppercase } from '../../utilities/Common'
 
 const HEADER = {
   en: 'GSIM domains',
@@ -24,10 +24,10 @@ class GSIM extends Component {
   }
 
   componentDidMount () {
-    const {producer, endpoint} = this.props
-    const updatedUrl = endpoint + 'data?schema=embed'
+    const {producer, endpoint, namespace, route} = this.props
+    const updatedUrl = endpoint + handleRoute(namespace) + '?schema=embed'
 
-    SchemaHandler(updatedUrl, producer, endpoint).then(schemas => {
+    SchemaHandler(updatedUrl, producer, endpoint, namespace, false, route).then(schemas => {
       this.setState({
         schemas: schemas,
         ready: true
@@ -47,7 +47,7 @@ class GSIM extends Component {
 
   render () {
     const {ready, schemas, message, search} = this.state
-    const {producer, route, endpoint, user, languageCode} = this.props
+    const {producer, route, endpoint, user, languageCode, namespace} = this.props
 
     return (
       <Grid>
@@ -89,9 +89,9 @@ class GSIM extends Component {
               const path = route + domain + '/:id'
 
               return <Route key={index} path={path} exact
-                            render={({match}) => <DCFormBuilder params={match.params} producer={producer}
+                            render={({match}) => <UIFormBuilder params={match.params} producer={producer}
                                                                 schema={JSON.parse(JSON.stringify(schema))}
-                                                                languageCode={languageCode}
+                                                                languageCode={languageCode} namespace={namespace}
                                                                 endpoint={endpoint} user={user} />} />
             })}
             {ready && schemas.map((schema, index) => {
@@ -99,9 +99,9 @@ class GSIM extends Component {
               const path = route + domain
 
               return <Route key={index} path={path} exact
-                            render={({match}) => <DCTableBuilder params={match.params} producer={producer}
+                            render={({match}) => <UITableBuilder params={match.params} producer={producer}
                                                                  schema={JSON.parse(JSON.stringify(schema))}
-                                                                 languageCode={languageCode}
+                                                                 languageCode={languageCode} namespace={namespace}
                                                                  endpoint={endpoint} routing={path} />} />
             })}
           </Switch>

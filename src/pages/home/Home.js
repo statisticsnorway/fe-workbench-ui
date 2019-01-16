@@ -19,6 +19,7 @@ class Home extends Component {
       gsim: {
         producer: 'GSIM',
         endpoint: this.props.lds,
+        namespace: 'data/',
         route: '/home/gsim/'
       }
     })

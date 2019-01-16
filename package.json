@@ -1,5 +1,5 @@
 {
-  "name": "dc-workbench-ui",
+  "name": "workbench-ui",
   "version": "0.1.0",
   "description": "",
   "repository": {
@@ -8,9 +8,9 @@
   },
   "private": true,
   "dependencies": {
-    "dc-react-components-library": "https://github.com/statisticsnorway/dc-react-components-library.git",
     "moment": "^2.23.0",
     "react": "^16.6.3",
+    "react-components-library": "https://github.com/statisticsnorway/dc-react-components-library.git",
     "react-datepicker": "^1.8.0",
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1",
