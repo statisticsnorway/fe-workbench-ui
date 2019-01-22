@@ -1,18 +1,22 @@
 import React from 'react'
 import { shallow } from 'enzyme'
+import { Header } from 'semantic-ui-react'
 
 import NotFound from '../pages/404/NotFound'
+import { MESSAGES } from '../utilities/Enum'
 
 describe('NotFound', () => {
-  it('Renders itself without error and only once', () => {
+  it('Renders correct information', () => {
     const properties = {
-      location: '/something/that/does/not/exist',
+      location: {
+        pathname: '/something/that/does/not/exist'
+      },
       languageCode: 'en'
     }
 
     const component = shallow(<NotFound {...properties} />)
 
-    expect(component.length).toEqual(1)
-    expect(component).toMatchSnapshot()
+    expect(component.find(Header).prop('subheader'))
+      .toEqual(MESSAGES.PAGE_NOT_FOUND[properties.languageCode] + ' \'/something/that/does/not/exist\'')
   })
 })

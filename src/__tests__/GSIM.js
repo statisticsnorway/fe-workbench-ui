@@ -1,22 +1,22 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
+import { MemoryRouter } from 'react-router-dom'
 
 import GSIM from '../pages/gsim/GSIM'
 
 describe('GSIM', () => {
-  it('Renders itself without error and only once', () => {
-    const properties = {
-      producer: 'GSIM',
-      endpoint: 'http://localhost:9090/',
-      namespace: 'data/',
-      route: '/home/gsim/',
-      user: 'Test',
-      languageCode: 'en'
-    }
+  it('Search input updates state and value', async () => {
+    const component = mount(
+      <MemoryRouter>
+        <GSIM />
+      </MemoryRouter>
+    )
 
-    const component = shallow(<GSIM {...properties} />)
+    component.find('input').simulate('change', {target: {value: 'Search'}})
 
-    expect(component.length).toEqual(1)
-    expect(component).toMatchSnapshot()
+    const innerComponent = component.find(GSIM)
+
+    expect(component.find('input').prop('value')).toEqual('Search')
+    expect(innerComponent.state('search')).toEqual('Search')
   })
 })

@@ -11,7 +11,7 @@ class App extends Component {
     user: '',
     password: '',
     loggedIn: false,
-    languageCode: localStorage.hasOwnProperty('languageCode') ? localStorage.getItem('languageCode') : 'en'
+    languageCode: 'en'
   }
 
   handleChange = (event) => {
