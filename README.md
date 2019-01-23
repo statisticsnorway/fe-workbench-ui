@@ -28,7 +28,7 @@ For us this makes it easy to seperate components into external libraries which c
 
 This application then works as a parent to all our libraries and lets us implement them together in a way fit forpurpose.
 
-### Test it yourself
+### Try it
 The first time you clone the repository, remember to run `yarn install`
 
 Run `REACT_APP_LDS="LDS_url_here" yarn start` and navigate to `http://localhost:3000/`
@@ -40,6 +40,11 @@ If you leave out `REACT_APP_LDS` it defaults to `http://localhost:9090/`
 2. Optionally run `yarn global add serve` (if you do not have [serve](https://github.com/zeit/serve/))
 3. Run `serve -s build`
 4. Navigate to `http://localhost:5000/`
+
+### Run tests
+[Jest](https://jestjs.io/en/) (through *react-test-renderer*) and [Enzyme](https://airbnb.io/enzyme/) is used for testing
+
+`yarn test` runs all tests and `yarn coverage` calculates (rather unreliably) test coverage
 
 ### Note
 At the moment this application imports **react-components-library** and **react-workflow** directly from GitHub 

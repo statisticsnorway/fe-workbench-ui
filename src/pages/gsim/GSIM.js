@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, Route, Switch } from 'react-router-dom'
 import { Dropdown, Grid, Icon, Label, Menu, Message } from 'semantic-ui-react'
-import { UIFormBuilder, UITableBuilder, SchemaHandler } from 'react-components-library'
+import { SchemaHandler, UIFormBuilder, UITableBuilder } from 'react-components-library'
 
 import { UI } from '../../utilities/Enum'
 import { extractName, handleRoute, splitOnUppercase } from '../../utilities/Common'
@@ -36,7 +36,7 @@ class GSIM extends Component {
       this.setState({
         schemas: [],
         ready: true,
-        message: error
+        message: error.toString()
       })
     })
   }

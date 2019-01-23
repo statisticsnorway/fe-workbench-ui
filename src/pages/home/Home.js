@@ -15,7 +15,7 @@ class Home extends Component {
   componentDidMount () {
     this.setState({
       ready: true,
-      languageCode: localStorage.hasOwnProperty('languageCode') ? localStorage.getItem('languageCode') : 'en',
+      languageCode: 'en',
       gsim: {
         producer: 'GSIM',
         endpoint: this.props.lds,
@@ -26,8 +26,6 @@ class Home extends Component {
   }
 
   changeLanguage = (languageCode) => {
-    localStorage.setItem('languageCode', languageCode)
-
     this.setState({ready: false}, () => this.setState({
       ready: true,
       languageCode: languageCode
