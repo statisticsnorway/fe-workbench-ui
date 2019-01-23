@@ -8,9 +8,6 @@ import Home from '../pages/home/Home'
 import { UI } from '../utilities/Enum'
 import NotFound from '../pages/404/NotFound'
 
-// Not so proper workaround to wait for render part of component to update. Creates race-condition. Wait for fix in Jest/Enzyme.
-const waitForAsync = () => new Promise(resolve => setImmediate(resolve))
-
 describe('App', () => {
   it('Directs to Login if not logged in', () => {
     const component = mount(
