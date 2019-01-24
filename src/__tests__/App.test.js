@@ -1,12 +1,16 @@
 import React from 'react'
 import { mount } from 'enzyme'
+import { MemoryRouter } from 'react-router-dom'
+import { SchemaHandler } from 'react-components-library'
 
 import App from '../App'
-import { MemoryRouter } from 'react-router-dom'
 import Login from '../pages/login/Login'
 import Home from '../pages/home/Home'
-import { UI } from '../utilities/Enum'
 import NotFound from '../pages/404/NotFound'
+import { UI } from '../utilities/Enum'
+
+jest.mock('react-components-library', () => ({SchemaHandler: jest.fn()}))
+SchemaHandler.mockImplementation(() => Promise.resolve([]))
 
 describe('App', () => {
   it('Directs to Login if not logged in', () => {
