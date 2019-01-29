@@ -1,8 +1,12 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { MemoryRouter } from 'react-router-dom'
+import { SchemaHandler } from 'react-components-library'
 
 import GSIM from '../pages/gsim/GSIM'
+
+jest.mock('react-components-library', () => ({SchemaHandler: jest.fn()}))
+SchemaHandler.mockImplementation(() => Promise.resolve([]))
 
 describe('GSIM', () => {
   it('Search input updates state and value', async () => {
