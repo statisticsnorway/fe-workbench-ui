@@ -8,6 +8,7 @@
   },
   "private": true,
   "dependencies": {
+    "lodash": "4.17.11",
     "moment": "^2.23.0",
     "react": "^16.6.3",
     "react-components-library": "https://github.com/statisticsnorway/dc-react-components-library.git",
@@ -44,6 +45,7 @@
     "@babel/preset-react": "^7.0.0",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
+    "faker": "^4.1.0",
     "react-test-renderer": "^16.6.3"
   }
 }

@@ -58,3 +58,26 @@ export const UI = {
     nb: 'Brukernavn'
   }
 }
+
+export const SEARCH = {
+  SEARCH_RESULTS: {
+    en: 'Search results',
+    nb: 'Søkeresultater'
+  },
+  TITLE: {
+    en: 'Title',
+    nb: 'Tittel'
+  },
+  DESCRIPTION: {
+    en: 'Description',
+    nb: 'Beskrivelse'
+  },
+  CREATED_DATE: {
+    en: 'Created date',
+    nb: 'Dato opprettet'
+  },
+  NO_OF_ROWS: {
+    en: 'No. of rows',
+    nb: 'Antall rader'
+  },
+}
