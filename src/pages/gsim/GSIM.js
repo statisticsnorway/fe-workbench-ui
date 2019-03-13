@@ -57,7 +57,7 @@ class GSIM extends Component {
               {HEADER[languageCode]}
               <Label color='teal' size='large'>{ready ? schemas.length : <Icon fitted loading name='spinner' />}</Label>
             </Menu.Item>
-            <Dropdown item scrolling search icon='search' placeholder={UI.SEARCH[languageCode]} value={search}
+            <Dropdown item scrolling search icon='search' placeholder={UI.DATASET[languageCode]} value={search}
                       onSearchChange={this.handleSearch}>
               <Dropdown.Menu>
                 {ready && search === '' && schemas.map((schema, index) => {

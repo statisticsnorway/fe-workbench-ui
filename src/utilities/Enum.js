@@ -59,7 +59,7 @@ export const UI = {
   }
 }
 
-export const SEARCH = {
+export const DATASET = {
   SEARCH_RESULTS: {
     en: 'Search results',
     nb: 'Søkeresultater'

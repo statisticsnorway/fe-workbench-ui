@@ -10,6 +10,7 @@ import { SSBLogo } from '../../media/Logo'
 import { LANGUAGES, UI } from '../../utilities/Enum'
 import SearchPage from '../search/SearchPage'
 import SearchField from '../search/SearchField'
+import DatasetView from '../Dataset/DatasetView'
 
 class Home extends Component {
   state = {ready: false}
@@ -71,6 +72,7 @@ class Home extends Component {
               <Route path='/home/gsim' render={() => <GSIM languageCode={languageCode} user={user} {...gsim} />} />
               <Route path='/home/tasks' render={() => <Workflow languageCode={languageCode} />} />
               <Route path='/home/search' render={() => <SearchPage languageCode={languageCode} location={location}/>} />
+              <Route path='/home/dataset' render={() => <DatasetView languageCode={languageCode} location={location}/>} />
               <Route component={({location}) => <NotFound location={location} languageCode={languageCode} />} />
             </Switch>
           </Container>
