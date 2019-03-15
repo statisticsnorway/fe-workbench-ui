@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Grid } from 'semantic-ui-react'
 import { METADATA } from '../../utilities/Enum'
-import PlainTable from './PlainTable'
+import VisualToggler from './VisualToggler'
 
 class DatasetView extends Component {
 
@@ -30,7 +30,7 @@ class DatasetView extends Component {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column mobile={16} tablet={16} computer={20}>
-              <PlainTable data={dataset.data}/>
+              <VisualToggler data={dataset.data}/>
             </Grid.Column>
           </Grid.Row>
         </Grid>

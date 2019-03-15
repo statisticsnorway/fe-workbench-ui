@@ -8,9 +8,11 @@
   },
   "private": true,
   "dependencies": {
+    "chart.js": "^2.8.0",
     "lodash": "4.17.11",
     "moment": "^2.23.0",
     "react": "^16.6.3",
+    "react-chartjs-2": "^2.7.4",
     "react-components-library": "https://github.com/statisticsnorway/dc-react-components-library.git",
     "react-datepicker": "^1.8.0",
     "react-dom": "^16.6.3",
