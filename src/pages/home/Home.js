@@ -10,7 +10,7 @@ import { SSBLogo } from '../../media/Logo'
 import { LANGUAGES, UI } from '../../utilities/Enum'
 import SearchPage from '../search/SearchPage'
 import SearchField from '../search/SearchField'
-import DatasetView from '../Dataset/DatasetView'
+import DatasetView from '../dataset/DatasetView'
 
 class Home extends Component {
   state = {ready: false}

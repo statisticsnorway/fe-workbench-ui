@@ -16,14 +16,7 @@ class SearchResultDataset extends Component {
           }}
           ><b>{METADATA.TITLE[languageCode]}:</b> {result.title} </Link><br/>
           <b>{METADATA.DESCRIPTION[languageCode]}:</b> {result.description} <br/>
-          <b>{METADATA.CREATED_DATE[languageCode]}:</b> {new Intl.DateTimeFormat(languageCode,
-          {
-            year: 'numeric',
-            month: 'long',
-            day: '2-digit'
-          }).format(result.created)} <br/>
-          <b>{METADATA.NO_OF_ROWS[languageCode]}:</b> {new Intl.NumberFormat(languageCode,
-          {maximumSignificantDigits: 3}).format(result.rows)} <br/>
+          <b>{METADATA.CODELIST_URL[languageCode]}:</b> {result.codelist} <br/>
         </p>
       </div>
     )

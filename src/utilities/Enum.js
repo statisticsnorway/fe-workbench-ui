@@ -59,7 +59,7 @@ export const UI = {
   }
 }
 
-export const DATASET = {
+export const METADATA = {
   SEARCH_RESULTS: {
     en: 'Search results',
     nb: 'Søkeresultater'
@@ -80,4 +80,8 @@ export const DATASET = {
     en: 'No. of rows',
     nb: 'Antall rader'
   },
+  CODELIST_URL: {
+    en: 'Code list URL',
+    nb: 'URL til kodeliste'
+  }
 }
