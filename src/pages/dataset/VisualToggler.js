@@ -32,7 +32,7 @@ class VisualToggler extends Component {
     return (
       <Fragment>
         <Viz data={this.props.data}/>
-        <Button primary compact
+        <Button primary style={{width: '170px'}}
                 onClick={this.toggle}>{this.state.buttonText}</Button>
       </Fragment>
     )
