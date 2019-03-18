@@ -77,12 +77,12 @@ export default class BarChart extends Component {
     return (
       <Fragment>
         <Input list='years' placeholder='Choose year...' style={{width: '170px'}}
-               onChange={this.handleYearChange}/>
+               onChange={this.handleYearChange} label={'År'}/>
         <datalist id='years'>
           {years && years.map(e => {return <option value={e}/>})}
         </datalist>
-        <Input list='municipalities' placeholder='Choose municipalitiy...' style={{width: '170px'}}
-               onChange={this.handleMunicipalityChange}/>
+        <Input list='municipalities' placeholder='Choose municipalitiy...' style={{width: '120px'}}
+               onChange={this.handleMunicipalityChange} label={'Kommune'}/>
         <datalist id='municipalities'>
           {municipalities && municipalities.map(e => {return <option value={e}/>})}
         </datalist>
