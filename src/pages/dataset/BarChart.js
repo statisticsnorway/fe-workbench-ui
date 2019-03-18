@@ -11,7 +11,7 @@ export default class BarChart extends Component {
       year: props.data[0]['periode'],
       municipality: props.data[0]['kommuneregion'],
       years: [...(new Set(data.map(e => e['periode'])))],
-      municipalites : [...(new Set(data.map(e => e['kommuneregion'])))],
+      municipalities : [...(new Set(data.map(e => e['kommuneregion'])))],
       index: 0
     }
   }
@@ -20,7 +20,7 @@ export default class BarChart extends Component {
     const {data} = this.props
     console.log('Data to plot: ', data)
     console.log('Available years: ', this.state.years)
-    console.log('Available municipalities: ', this.state.municipalites)
+    console.log('Available municipalities: ', this.state.municipalities)
   }
 
   prepareData(index) {
@@ -66,7 +66,7 @@ export default class BarChart extends Component {
 
   handleMunicipalityChange = (event, data) => {
     console.log('municipalities changed: ', data)
-    if (this.state.municipalites.includes(data.value)) {
+    if (this.state.municipalities.includes(data.value)) {
       const index = this.findIndex(data.value, this.state.year)
       this.setState({municipality: data.value, index: index})
     }
