@@ -4,6 +4,7 @@ import SearchResultVariable from './SearchResultVariable'
 import { Search, Grid, Header } from 'semantic-ui-react'
 import _ from 'lodash'
 import { datasets, variables } from '../../mocks/MockData'
+import { METADATA } from '../../utilities/Enum'
 
 class SearchPage extends Component {
 
@@ -25,26 +26,25 @@ class SearchPage extends Component {
     this.resetComponent()
   }
 
+  componentDidMount () {
+    if (this.props.location.state) {
+      this.setState(
+        {
+          value: this.props.location.state.value,
+          enterIsPressed: true,
+        }
+      )
+      this.doSearch()
+    }
+  }
+
   componentWillReceiveProps (nextProps, nextContext) {
     this.setState({
       value: nextProps.location.state.value,
       enterIsPressed: true,
-      isLoading: true
     })
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent()
 
-      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-      const isDatasetMatch = dataset => re.test(dataset.title)
-      const isVariableMatch = variable => re.test(variable.title)
-
-
-      this.setState({
-        isLoading: false,
-        results: _.filter(datasets, isDatasetMatch).concat(variables, isVariableMatch),
-        enterIsPressed: true
-      })
-    }, 300)
+    this.doSearch()
   }
 
   resetComponent = () => this.setState({
@@ -60,22 +60,26 @@ class SearchPage extends Component {
   handleKeyPress = e => {
     if (e.key === 'Enter') {
       e.preventDefault()
-      this.setState({ isLoading: true })
-      setTimeout(() => {
-        if (this.state.value.length < 1) return this.resetComponent()
-
-        const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-        const isDatasetMatch = dataset => re.test(dataset.title)
-        const isVariableMatch = variable => re.test(variable.title)
-
-        this.setState({
-          isLoading: false,
-          results: _.filter(datasets, isDatasetMatch).concat(_.filter(variables, isVariableMatch)),
-          enterIsPressed: true
-        })
-      }, 300)
+      this.doSearch()
     }
   }
+
+  doSearch = () => {
+    this.setState({ isLoading: true })
+    setTimeout(() => {
+      if (this.state.value.length < 1) return this.resetComponent()
+
+      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
+      const isDatasetMatch = dataset => re.test(dataset.title)
+      const isVariableMatch = variable => re.test(variable.title)
+
+      this.setState({
+        isLoading: false,
+        results: _.filter(datasets, isDatasetMatch).concat(_.filter(variables, isVariableMatch)),
+        enterIsPressed: true
+      })
+  }, 300)
+}
 
     render () {
       const { languageCode } = this.props
@@ -98,7 +102,7 @@ class SearchPage extends Component {
                 <Grid.Column width={12}>
                   <Grid.Row>
                     <Grid.Column style={{'paddingBottom': '10px', 'textAlign': 'center'}}>
-                      <h1>Søkeresultater</h1>
+                      <h1>{METADATA.SEARCH_RESULTS[languageCode]}</h1>
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row style={{'paddingBottom': '30px', 'textAlign': 'center'}}>
@@ -122,7 +126,8 @@ class SearchPage extends Component {
                   </Grid.Row>
                   <Grid.Row style={{'paddingBottom': '30px'}}>
                     <Grid.Column>
-                      <Header>Tabeller</Header>
+                      {this.state.enterIsPressed} //TODO show headers only after an actual search has been performed
+                      <Header>{METADATA.MATCHES_IN[languageCode]} {METADATA.TABLES[languageCode]}</Header>
                       <hr style={{color: 'black', height: 0}}/>
                       {
                         datasetResults.length > 0 ? datasetResults.map((value, idx) =>
@@ -134,7 +139,7 @@ class SearchPage extends Component {
                   </Grid.Row>
                   <Grid.Row>
                     <Grid.Column>
-                      <Header>Variabler</Header>
+                      <Header>{METADATA.MATCHES_IN[languageCode]} {METADATA.VARIABLES[languageCode]}</Header>
                       <hr style={{color: 'black', height: 0}}/>
                       {  variableResults.length > 0 ? variableResults.map((value, idx) =>
                           <SearchResultVariable key={idx} result={value} languageCode={languageCode}/>
