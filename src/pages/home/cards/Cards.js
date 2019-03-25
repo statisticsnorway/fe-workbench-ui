@@ -42,6 +42,26 @@ const cards = [
       en: 'Something more',
       nb: 'Noe mer'
     }
+  },
+  {
+    linkTo: '/home/search',
+    image: 'search',
+    header: {
+      en: 'Search',
+      nb: 'Søk'
+    },
+    subheader: {
+      en: 'Something',
+      nb: 'Noe'
+    },
+    description: {
+      en: 'Description',
+      nb: 'Beskrivelse'
+    },
+    bottom: {
+      en: 'Something more',
+      nb: 'Noe mer'
+    }
   }
 ]
 

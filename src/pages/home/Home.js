@@ -8,6 +8,9 @@ import NotFound from '../404/NotFound'
 import Workflow from '../workflow/Workflow'
 import { SSBLogo } from '../../media/Logo'
 import { LANGUAGES, UI } from '../../utilities/Enum'
+import SearchPage from '../search/SearchPage'
+import SearchField from '../search/SearchField'
+import DatasetView from '../dataset/DatasetView'
 
 class Home extends Component {
   state = {ready: false}
@@ -38,14 +41,15 @@ class Home extends Component {
 
   render () {
     const {ready, languageCode, gsim} = this.state
-    const {user} = this.props
+    const {user, location} = this.props
 
     if (ready) {
       return (
         <div>
           <Menu fixed='top'>
             <Menu.Item as={Link} to='/' content={SSBLogo(180)} />
-            <Menu.Menu position='right'>
+            <Menu.Item position='right' as={SearchField} />
+            <Menu.Menu >
               <Dropdown item text={UI.LANGUAGE[languageCode] + ' (' + UI.LANGUAGE_CHOICE[languageCode] + ')'}>
                 <Dropdown.Menu>
                   {Object.keys(LANGUAGES).map(language => {
@@ -67,6 +71,8 @@ class Home extends Component {
               <Route path='/home' exact render={() => <Cards languageCode={languageCode} />} />
               <Route path='/home/gsim' render={() => <GSIM languageCode={languageCode} user={user} {...gsim} />} />
               <Route path='/home/tasks' render={() => <Workflow languageCode={languageCode} />} />
+              <Route path='/home/search' render={() => <SearchPage languageCode={languageCode} location={location}/>} />
+              <Route path='/home/dataset' render={() => <DatasetView languageCode={languageCode} location={location}/>} />
               <Route component={({location}) => <NotFound location={location} languageCode={languageCode} />} />
             </Switch>
           </Container>

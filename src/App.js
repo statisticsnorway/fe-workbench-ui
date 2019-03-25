@@ -42,7 +42,7 @@ class App extends Component {
                 )
               )} />
               <Route path='/home' render={
-                () => <Home lds={lds} user={user} handleLogout={this.handleLogout} />
+                ({location}) => <Home lds={lds} user={user} handleLogout={this.handleLogout} location={location}/>
               } />
               <Route component={({location}) => <NotFound location={location} languageCode={languageCode} />} />
             </Switch>
