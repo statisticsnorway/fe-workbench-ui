@@ -1,44 +1,42 @@
 import React, { Component } from 'react'
-import { Search, Label } from 'semantic-ui-react'
-import _ from 'lodash'
 import { withRouter } from 'react-router-dom'
+import { Label, Search } from 'semantic-ui-react'
+import _ from 'lodash'
+
 import { datasets } from '../../mocks/MockData'
 
-const resultRenderer = ({ title }) => {
-  return <Label content={title}/>
-}
+const resultRenderer = ({title}) => <Label content={title} />
 
 class SearchField extends Component {
-
   constructor (props) {
     super(props)
+
     this.state = {
       isLoading: false,
       results: [],
-      value: '',
+      value: ''
     }
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this.resetComponent()
   }
 
-  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
+  resetComponent = () => this.setState({isLoading: false, results: [], value: ''})
 
-  handleResultSelect = (e, { result }) =>
-  {
+  handleResultSelect = (e, {result}) => {
     this.setState({results: []})
 
     this.props.history.push({
-      pathname: '/home/dataset',
+      pathname: '/dataset',
       state: {dataset: result}
 
-  })}
+    })
+  }
 
-  handleSearchChange = (e, { value }) => {
-
+  handleSearchChange = (e, {value}) => {
     if (value.length > 2) {
-      this.setState({ isLoading: true, value })
+      this.setState({isLoading: true, value})
 
       if (this.state.value.length < 1) return this.resetComponent()
 
@@ -47,7 +45,7 @@ class SearchField extends Component {
 
       this.setState({
         isLoading: false,
-        results: _.filter(datasets, isMatch),
+        results: _.filter(datasets, isMatch)
       })
     } else {
       this.setState({value})
@@ -57,13 +55,15 @@ class SearchField extends Component {
   handleKeyPress = e => {
     if (e.key === 'Enter') {
       e.preventDefault()
+
       let value = this.state.value
+
       this.setState({
         value: '',
         results: []
       })
       this.props.history.push({
-        pathname: '/home/search',
+        pathname: '/search',
         state: {
           value: value
         }
@@ -72,22 +72,23 @@ class SearchField extends Component {
   }
 
   render () {
-    const { isLoading, value, results} = this.state
-      return (
-          <Search
-            onKeyPress = {this.handleKeyPress}
-            loading={isLoading}
-            onResultSelect={this.handleResultSelect}
-            onSearchChange={this.handleSearchChange}
-            results={results}
-            value={value}
-            resultRenderer={resultRenderer}
-            minCharacters={3}
-            size='tiny'
-            {...this.props}
-            showNoResults={false}
-          />
-      )
+    const {isLoading, value, results} = this.state
+
+    return (
+      <Search
+        onKeyPress={this.handleKeyPress}
+        loading={isLoading}
+        onResultSelect={this.handleResultSelect}
+        onSearchChange={this.handleSearchChange}
+        results={results}
+        value={value}
+        resultRenderer={resultRenderer}
+        minCharacters={3}
+        size='tiny'
+        showNoResults={false}
+        data-testid='global-search'
+      />
+    )
   }
 }
 

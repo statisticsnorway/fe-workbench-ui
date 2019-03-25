@@ -1,4 +1,5 @@
 import faker from 'faker'
+
 import DyriSkogenData from './dyriskogen'
 import DyriByenData from './dyribyen'
 
