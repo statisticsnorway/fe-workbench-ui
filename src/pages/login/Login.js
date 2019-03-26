@@ -2,38 +2,32 @@ import React, { Component } from 'react'
 import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
 
 import { SSBLogo } from '../../media/Logo'
-import { UI } from '../../utilities/Enum'
+import { UI } from '../../utilities/enum'
 
 class Login extends Component {
-  handleChange = (event) => {
-    this.props.handleChange(event)
-  }
-
-  handleLogin = (event) => {
-    event.preventDefault()
-
-    this.props.handleLogin()
-  }
-
   render () {
-    const {user, password, languageCode} = this.props
+    const {handleChange, handleLogin, languageCode, password, user} = this.props
 
     return (
-      <Grid textAlign='center' centered columns={5} verticalAlign='middle'>
-        <Grid.Column>
-          {SSBLogo('100%')}
-          <Divider hidden />
-          <Segment>
-            <Form size='large'>
-              <Form.Input fluid icon='user' iconPosition='left' name='user' placeholder={UI.USER[languageCode]}
-                          value={user} onChange={this.handleChange} />
-              <Form.Input fluid icon='lock' iconPosition='left' name='password' placeholder={UI.PASSWORD[languageCode]}
-                          type='password' value={password} onChange={this.handleChange} />
-              <Button primary fluid size='large' content={UI.LOGIN[languageCode]} onClick={this.handleLogin} />
-            </Form>
-          </Segment>
-        </Grid.Column>
-      </Grid>
+      <div className='vertical-display'>
+        <style>{`body > div,body > div > div, body > div > div > div.vertical-display {height: 100%;}`}</style>
+        <Grid textAlign='center' style={{height: '100%'}} verticalAlign='middle'>
+          <Grid.Column mobile={16} tablet={8} computer={4}>
+            {SSBLogo('100%')}
+            <Divider hidden />
+            <Segment>
+              <Form size='large'>
+                <Form.Input fluid icon='user' iconPosition='left' name='user' placeholder={UI.USER[languageCode]}
+                            value={user} onChange={handleChange} />
+                <Form.Input fluid icon='lock' iconPosition='left' name='password' type='password' value={password}
+                            placeholder={UI.PASSWORD[languageCode]} onChange={handleChange} />
+                <Button primary fluid size='large' content={UI.LOGIN[languageCode]} onClick={handleLogin}
+                        data-testid='login-button' />
+              </Form>
+            </Segment>
+          </Grid.Column>
+        </Grid>
+      </div>
     )
   }
 }

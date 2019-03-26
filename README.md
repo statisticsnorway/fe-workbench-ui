@@ -5,13 +5,6 @@ total workbench for employees at SSB.
 ### How it works
 This is a fairly small application which implements and structures its functions through imported libraries. 
 
-So far it mocks the ability to login and its "gsim-browsing" function comes from 
-[react-components-library](https://github.com/statisticsnorway/dc-react-components-library) and its workflow functions
-comes from [react-workflow-library](https://github.com/statisticsnorway/dc-react-workflow-library).
-
-[linked-data-store (LDS)](https://github.com/statisticsnorway/linked-data-store-documentation) provides the backend 
-for data storage.
-
 ### Its concept
 The longterm goal of this application is to function as the work tool for employees in SSB. It will let them login with 
 their work user and tasks related to their role in the organization will appear to them.
@@ -31,15 +24,9 @@ This application then works as a parent to all our libraries and lets us impleme
 ### Try it
 The first time you clone the repository, remember to run `yarn install`
 
-Run `REACT_APP_LDS="LDS_url_here" yarn start` and navigate to `http://localhost:3000/`
+Run yarn start` and navigate to `http://localhost:3000/`
 
 If you leave out `REACT_APP_LDS` it defaults to `http://localhost:9090/`
-
-##### Alternatively use a more optimized production build:
-1. Run `REACT_APP_LDS="LDS_url_here" yarn build`
-2. Optionally run `yarn global add serve` (if you do not have [serve](https://github.com/zeit/serve/))
-3. Run `serve -s build`
-4. Navigate to `http://localhost:5000/`
 
 ### Run tests
 [Jest](https://jestjs.io/en/) (through *react-test-renderer*) and [Enzyme](https://airbnb.io/enzyme/) is used for testing
