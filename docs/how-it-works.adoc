@@ -1,0 +1,17 @@
+= How it works
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+:toc-placement: preamble
+endif::[]
+
+This is a fairly small application which implements and structures its functions through imported libraries.
+
+So far it provides the ability to login and it "gsim-browsing" function comes from dc-react-components-library
+and its workflow functions comes from dc-react-workflow-library.
+
+linked-data-store (LDS) provides the backend for data storage.

@@ -1,0 +1,22 @@
+= How to run it
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+:toc-placement: preamble
+endif::[]
+
+The first time you clone the repository, remember to run `yarn install`
+
+Run `REACT_APP_LDS="LDS_url_here" yarn start` and navigate to `http://localhost:3000/`
+
+If you leave out `REACT_APP_LDS` it defaults to `http://localhost:9090/`
+
+== Alternatively use a more optimized production build:
+1. Run `REACT_APP_LDS="LDS_url_here" yarn build`
+2. Optionally run `yarn global add serve` (if you do not have [serve](https://github.com/zeit/serve/))
+3. Run `serve -s build`
+4. Navigate to `http://localhost:5000/`

@@ -1,0 +1,6 @@
+= Note
+
+At the moment this application imports **dc-react-components-library** and **dc-react-workflow** directly from GitHub
+which means that you need readaccess to the repositories in order to fetch them as dependencies. This will change later
+when we get to upload React libraries to Nexus or go public. This also means that updates to dependencies **will not be**
+reflected unless you run `yarn upgrade`.

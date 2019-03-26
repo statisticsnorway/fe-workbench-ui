@@ -1,0 +1,54 @@
+= Background
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+:toc-placement: preamble
+endif::[]
+
+A React application that currently let users work with GSIM objects through a workflow.
+
+The goal is that the Workbench shall represent a full work surface. This will offer each user the functionality, access to data and tools that the user needs to perform their work.
+It will accommodate the need for self-planning, design and implementation of statistics production.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

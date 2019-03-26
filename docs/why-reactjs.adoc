@@ -1,0 +1,18 @@
+= Why ReactJS?
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+:toc-placement: preamble
+endif::[]
+
+ReactJS is a JavaScript framework that makes it easy to build large and complex user interfaces as web applications.
+It is based on a component philosophy in which each element in a web application is a React component and controls itelf and its structure through state and props.
+
+For us this makes it easy to seperate components into external libraries which can be reused in any React application.
+
+This application then works as a parent to all our libraries and lets us implement them together in a way fit for
+purpose.
