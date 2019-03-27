@@ -5,9 +5,11 @@ import Login from './pages/login/Login'
 
 class App extends Component {
   state = {
+    dataResource: [],
     languageCode: 'en',
     loggedIn: false,
     password: '',
+    role: '',
     user: ''
   }
 
@@ -26,12 +28,14 @@ class App extends Component {
   }
 
   render () {
-    const {languageCode} = this.state
+    const {languageCode, loggedIn, password, ...user} = this.state
 
-    if (!this.state.loggedIn) {
-      return <Login languageCode={languageCode} handleChange={this.handleChange} handleLogin={this.handleLogin} />
+    if (!loggedIn) {
+      return <Login languageCode={languageCode} handleChange={this.handleChange} handleLogin={this.handleLogin}
+                    {...this.state} />
     } else {
-      return <Home languageCode={languageCode} handleChange={this.handleChange} handleLogout={this.handleLogout} />
+      return <Home languageCode={languageCode} handleChange={this.handleChange} handleLogout={this.handleLogout}
+                   user={user} />
     }
   }
 }

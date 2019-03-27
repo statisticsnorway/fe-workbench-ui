@@ -1,4 +1,8 @@
 export const UI = {
+  DATA_RESOURCE: {
+    en: 'Data resource(s)',
+    nb: 'Dataressurs(er)'
+  },
   ENGLISH: {
     en: 'English',
     nb: 'Engelsk'
@@ -26,6 +30,10 @@ export const UI = {
   PASSWORD: {
     en: 'Password',
     nb: 'Passord'
+  },
+  ROLE: {
+    en: 'Role',
+    nb: 'Rolle'
   },
   SEARCH: {
     en: 'Search...',

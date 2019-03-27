@@ -26,12 +26,11 @@ The first time you clone the repository, remember to run `yarn install`
 
 Run yarn start` and navigate to `http://localhost:3000/`
 
-If you leave out `REACT_APP_LDS` it defaults to `http://localhost:9090/`
-
 ### Run tests
-[Jest](https://jestjs.io/en/) (through *react-test-renderer*) and [Enzyme](https://airbnb.io/enzyme/) is used for testing
+`yarn test` runs all tests and `yarn coverage` calculates (rather unreliably) test coverage.
 
-`yarn test` runs all tests and `yarn coverage` calculates (rather unreliably) test coverage
+[Jest](https://jestjs.io/docs/en/tutorial-react) and 
+[react-testing-library](https://github.com/kentcdodds/react-testing-library) is used for testing.
 
 ### Note
 At the moment this application imports **react-components-library** and **react-workflow** directly from GitHub 

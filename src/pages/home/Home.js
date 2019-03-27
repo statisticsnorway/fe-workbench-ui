@@ -7,7 +7,9 @@ import SearchPage from '../search/SearchPage'
 
 class Home extends Component {
   render () {
-    const {handleChange, handleLogout, languageCode} = this.props
+    const {handleChange, handleLogout, languageCode, user} = this.props
+
+    console.log(user)
 
     return (
       <div>
