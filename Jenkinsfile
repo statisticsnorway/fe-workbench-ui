@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_REPO = "eu.gcr.io/bip-nullfem"
-        DOCKER_IMAGE = "fe-workbench-ui"
+        DOCKER_IMAGE = "workbench-ui"
         DOCKER_TAG = "${env.BRANCH_NAME}-${GIT_COMMIT.substring(0,7)}"
         DOCKER_SCAN_TAG = "image-scan-${env.BRANCH_NAME}-${GIT_COMMIT.substring(0,7)}"
         PACKAGE_JSON = readJSON file: 'package.json'
