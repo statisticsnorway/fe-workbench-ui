@@ -2,7 +2,12 @@ import React from 'react'
 import { cleanup, render } from 'react-testing-library'
 
 import Login from '../pages/login/Login'
+import { getData } from '../utilities/fetch/Fetch'
 import { UI } from '../utilities/enum/UI'
+
+import Roles from './test-data/Roles'
+
+jest.mock('../utilities/fetch/Fetch', () => ({getData: jest.fn()}))
 
 afterEach(() => {
   cleanup()
@@ -16,6 +21,8 @@ const setup = () => {
 }
 
 test('Login renders correctly', () => {
+  getData.mockImplementation(() => Promise.resolve(Roles))
+
   const {queryAllByPlaceholderText, queryAllByText} = setup()
 
   expect(queryAllByText('SSB Logo')).toHaveLength(1)

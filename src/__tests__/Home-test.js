@@ -10,7 +10,7 @@ afterEach(() => {
 })
 
 const setup = () => {
-  const props = {languageCode: 'en'}
+  const props = {languageCode: 'en', user: 'test'}
   const {queryAllByRole, queryAllByTestId, queryAllByText} = render(
     <MemoryRouter>
       <Home {...props} />

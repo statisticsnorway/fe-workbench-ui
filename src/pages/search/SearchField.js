@@ -4,6 +4,7 @@ import { Label, Search } from 'semantic-ui-react'
 import _ from 'lodash'
 
 import { datasets } from '../../mocks/MockData'
+import { UI } from '../../utilities/enum'
 
 const resultRenderer = ({title}) => <Label content={title} />
 
@@ -73,9 +74,12 @@ class SearchField extends Component {
 
   render () {
     const {isLoading, value, results} = this.state
+    const {alignement, languageCode} = this.props
 
     return (
       <Search
+        aligned={alignement}
+        placeholder={UI.SEARCH[languageCode]}
         onKeyPress={this.handleKeyPress}
         loading={isLoading}
         onResultSelect={this.handleResultSelect}
@@ -84,7 +88,6 @@ class SearchField extends Component {
         value={value}
         resultRenderer={resultRenderer}
         minCharacters={3}
-        size='tiny'
         showNoResults={false}
         data-testid='global-search'
       />
