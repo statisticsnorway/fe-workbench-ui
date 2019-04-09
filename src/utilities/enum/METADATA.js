@@ -13,7 +13,7 @@ export const METADATA = {
   },
   VARIABLES: {
     en: ' variables',
-    no: ' variabler'
+    nb: ' variabler'
   },
   TITLE: {
     en: 'Title',

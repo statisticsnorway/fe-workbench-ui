@@ -4,8 +4,8 @@ import _ from 'lodash'
 
 import SearchResultDataset from './SearchResultDataset'
 import SearchResultVariable from './SearchResultVariable'
-import { datasets, variables } from '../../mocks/MockData'
 import { METADATA } from '../../utilities/enum'
+import { FULL_TEXT_SEARCH, mapSearchResult } from './SearchQuery'
 
 class SearchPage extends Component {
   constructor (props) {
@@ -40,7 +40,7 @@ class SearchPage extends Component {
 
   componentWillReceiveProps (nextProps, nextContext) {
     this.setState({
-      value: nextProps.location.state.value,
+      value: nextProps.location.state ? nextProps.location.state.value : '',
       enterIsPressed: true
     })
 
@@ -66,26 +66,26 @@ class SearchPage extends Component {
   doSearch = () => {
     this.setState({isLoading: true})
 
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent()
+    if (this.state.value.length < 1) return this.resetComponent()
 
-      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-      const isDatasetMatch = dataset => re.test(dataset.title)
-      const isVariableMatch = variable => re.test(variable.title)
-
+    this.props.client.query({
+      query: FULL_TEXT_SEARCH,
+      variables: { text: this.state.value },
+    }).then(results => {
       this.setState({
         isLoading: false,
-        results: _.filter(datasets, isDatasetMatch).concat(_.filter(variables, isVariableMatch)),
+        results: mapSearchResult(results),
         enterIsPressed: true
       })
-    }, 300)
+    })
+
   }
 
   render () {
     const {languageCode} = this.props
     const {isLoading, value, results} = this.state
-    const datasetResults = this.state.results.filter(value => value.type === 'dataset')
-    const variableResults = this.state.results.filter(value => value.type === 'variable')
+    const datasetResults = results.datasets || []
+    const variableResults = results.variables || []
 
     return (
       //TODO Planned layout:
@@ -114,7 +114,6 @@ class SearchPage extends Component {
                     onKeyPress={this.handleKeyPress}
                     loading={isLoading}
                     onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
-                    results={results}
                     value={value}
                     minCharacters={3}
                     size='large'

@@ -6,9 +6,15 @@ import 'react-table/react-table.css'
 
 import App from './App'
 
+let ldsURL = window._env_.REACT_APP_LDS
+
+const properties = {
+  ldsURL: ldsURL
+}
+
 ReactDOM.render(
-  <HashRouter>
-    <App />
-  </HashRouter>,
+    <HashRouter>
+      <App {...properties}/>
+    </HashRouter>,
   document.getElementById('root')
 )

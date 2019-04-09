@@ -8,13 +8,13 @@ import { LANGUAGES, UI } from '../../utilities/enum'
 
 class HomeMenu extends Component {
   render () {
-    const {handleChange, handleLogout, languageCode} = this.props
+    const {handleChange, handleLogout, languageCode, client} = this.props
 
     return (
       <Menu fixed='top'>
         <Menu.Item as={Link} to='/' content={SSBLogo(180)} />
         <Menu.Menu position='right'>
-          <Menu.Item><SearchField /></Menu.Item>
+          <Menu.Item><SearchField client={client}/></Menu.Item>
           <Dropdown item text={`${UI.LANGUAGE[languageCode]} (${UI.LANGUAGE_CHOICE[languageCode]})`}>
             <Dropdown.Menu>
               {Object.keys(LANGUAGES).map(language =>

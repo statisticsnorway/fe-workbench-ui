@@ -1,0 +1,2700 @@
+{
+    "__schema": {
+      "types": [
+        {
+          "kind": "OBJECT",
+          "name": "Query",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AdministrativeRegisterconsumesInformationSetsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasureComponent",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "InstanceVariableAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Product",
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "String",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessExecutionLogConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramDesignEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessOutputSpecificationEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "EnumeratedValueDomainAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCaseStatisticalProgramConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "QuestionnaireEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessExecutionLogEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataHarvestingAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitDataStructureAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataStructureAttributeComponentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataSetEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RecordRelationship",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramDesignBusinessFunctionEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "VariableSubjectFieldConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignProcessInputSpecificationEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataHarvestingEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RecordRelationshipAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AdministrativeDetails",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "LogicalRecordAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessFunctionAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasurementUnitAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PopulationAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "LogicalRecordConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "EnumeratedValueDomainEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "__Type",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OutputSpecificationConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalSupportProgramBusinessProcessConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessControlDesignEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "LogicalRecordAttributeComponentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasurementUnitConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessControlEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "VariableAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "producesInformationSets",
+          "possibleTypes": [
+            {
+              "name": "UnitDataSet"
+            },
+            {
+              "name": "DimensionalDataSet"
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessProcessProcessStepConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "QuestionnaireproducesInformationSetsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PresentationinformationSetsToPresentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "LogicalRecordMeasureComponentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OutputSpecificationAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AttributeComponentAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "EnumeratedValueDomainConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "InstanceVariable",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RepresentedVariableAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Presentation",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessInputSpecificationAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SubjectFieldEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramCycleAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessOutputSpecification",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataStructureMeasureComponentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductconsumesInformationSetsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalSupportProgram",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "QuestionnaireconsumesInformationSetsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramStatisticalProgramConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalSupportProgramEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitType",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitDataStructure",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PopulationPopulationEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ChangeDefinitionAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignBusinessFunctionEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasureComponentAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignProcessMethodConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalSupportProgramChangeDefinitionEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "targetComponent",
+          "possibleTypes": [
+            {
+              "name": "MeasureComponent"
+            },
+            {
+              "name": "AttributeComponent"
+            },
+            {
+              "name": "IdentifierComponent"
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "EnumeratedValueDomainAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramDesignAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AdministrativeRegisterAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Role",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCaseChangeDefinitionConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProtocolAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "InformationRequestSubjectFieldEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OutputSpecificationProductConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProtocolAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceParameterInputEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessInputSpecificationAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitDataSet",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SubjectFieldAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AttributeComponentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ChangeDefinitionPopulationConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessSupportInputConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessMetricAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataHarvesting",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ComponentRelationshipAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasurementType",
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "substantiveValueDomain",
+          "possibleTypes": [
+            {
+              "name": "DescribedValueDomain"
+            },
+            {
+              "name": "EnumeratedValueDomain"
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasurementTypeConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "TransformedOutputAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitTypeUnitTypeConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductproducesInformationSetsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessMethodAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "__Schema",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Universe",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "IdentifierComponentAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitDataStructureLogicalRecordConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesign",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessControlAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "LogicalRecordAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PageInfo",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SubjectFieldAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramDesignBusinessFunctionConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataResourceConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductPresentationEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitDataSetAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UniverseConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceProcessSupportInputEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PopulationSubjectFieldEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessProcess",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AttributeComponentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitTypeAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AdministrativeRegisterproducesInformationSetsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "TransformableInputAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "QuestionnaireconsumesInformationSetsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OutputSpecificationPresentationEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "TransformableInput",
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "ID",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignBusinessServiceConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceTransformableInputConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Agent",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SubjectField",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasurementUnitEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataSet",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductPresentationConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitTypeAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataResourcedataSetsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasurementUnitAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitDataSetEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessServiceAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitTypeEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramCycle",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "LogicalRecord",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessSupportInputEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCasestatisticalNeedsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessProcessBusinessFunctionConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramStatisticalProgramEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "LogicalRecordIdentifierComponentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessControlDesignAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UniverseUnitTypeEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PresentationEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AttributeComponentAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ChangeDefinitionAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ChangeDefinitionEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignProcessOutputSpecificationConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Population",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessProcessBusinessServiceConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataStructureAttributeComponentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessControlAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessControlDesign",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "IdentifierComponentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "EnvironmentChangeConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UniverseAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataResource",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignProcessMethodEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AdministrativeRegisterConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SubjectFieldConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "InstanceVariableConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessProcessProcessStepEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "IdentifierComponentAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramStatisticalProgramCycleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "statisticalNeeds",
+          "possibleTypes": [
+            {
+              "name": "EnvironmentChange"
+            },
+            {
+              "name": "InformationRequest"
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "__EnumValue",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessFunctionConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SearchResultConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PresentationinformationSetsToPresentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataStructureIdentifierComponentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProvisionAgreementAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgram",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceTransformableInputEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceProcessExecutionLogEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RuleAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "EnvironmentChangeAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PopulationEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ComponentRelationshipAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PopulationConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AssessmentAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentInRoleAgentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataSetConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCaseEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "agreedDataStructures",
+          "possibleTypes": [
+            {
+              "name": "UnitDataStructure"
+            },
+            {
+              "name": "DimensionalDataStructure"
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessPatternAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessMetricEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceTransformedOutputEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataSetAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalSupportProgramChangeDefinitionConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataHarvestingAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramCycleBusinessProcessEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "dataSets",
+          "possibleTypes": [
+            {
+              "name": "UnitDataSet"
+            },
+            {
+              "name": "DimensionalDataSet"
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "QuestionnaireproducesInformationSetsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "InformationRequestSubjectFieldConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RecordRelationshipAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramCycleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DescribedValueDomainAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "__TypeKind",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AssessmentstatisticalNeedsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessServiceAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "LogicalRecordIdentifierComponentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataStructureIdentifierComponentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ChangeDefinitionConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ParameterInputEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ComponentRelationshipConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UniverseAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramDesignProcessDesignConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataStructure",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RoleAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "QuestionnaireAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramDesignBusinessCaseConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "VariableEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessService",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ComponentRelationshipEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AdministrativeRegisterconsumesInformationSetsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessMethodRuleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ChangeDefinition",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalSupportProgramBusinessProcessEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "EnvironmentChangeEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "consumesInformationSets",
+          "possibleTypes": [
+            {
+              "name": "UnitDataSet"
+            },
+            {
+              "name": "DimensionalDataSet"
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DescribedValueDomain",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignProcessStepConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataHarvestingproducesInformationSetsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProvisionAgreementagreedDataStructuresEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessMethodEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AssessmentstatisticalNeedsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessMetricAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AdministrativeRegisterEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessProcessConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OutputSpecificationAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RepresentedVariableEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessExecutionLogAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataResourcedataSetsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessMethodConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessMetricConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AdministrativeRegisterAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "Float",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignProcessOutputSpecificationEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "IdentifierComponentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataSetAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataResourceEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasurementTypeAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ParameterInputAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitDataStructureLogicalRecordEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UniverseSubjectFieldEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AssessmentAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "EnvironmentChange",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCaseAssessmentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentAgentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignBusinessServiceEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessPattern",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MultilingualText",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessInputSpecification",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProvisionAgreementexchangeChannelsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "InstanceVariableAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "InformationRequestAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Protocol",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProtocolConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "TransformableInputAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessProcessBusinessFunctionEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "SearchResult",
+          "possibleTypes": [
+            {
+              "name": "ProvisionAgreement"
+            },
+            {
+              "name": "Population"
+            },
+            {
+              "name": "BusinessService"
+            },
+            {
+              "name": "Rule"
+            },
+            {
+              "name": "ProcessStep"
+            },
+            {
+              "name": "TransformedOutput"
+            },
+            {
+              "name": "AgentInRole"
+            },
+            {
+              "name": "InformationRequest"
+            },
+            {
+              "name": "Universe"
+            },
+            {
+              "name": "Assessment"
+            },
+            {
+              "name": "StatisticalProgramCycle"
+            },
+            {
+              "name": "Role"
+            },
+            {
+              "name": "BusinessFunction"
+            },
+            {
+              "name": "ProcessControlDesign"
+            },
+            {
+              "name": "ProcessStepInstance"
+            },
+            {
+              "name": "ParameterInput"
+            },
+            {
+              "name": "MeasurementType"
+            },
+            {
+              "name": "MeasurementUnit"
+            },
+            {
+              "name": "BusinessCase"
+            },
+            {
+              "name": "StatisticalProgramDesign"
+            },
+            {
+              "name": "ProcessSupportInput"
+            },
+            {
+              "name": "ComponentRelationship"
+            },
+            {
+              "name": "StatisticalSupportProgram"
+            },
+            {
+              "name": "Agent"
+            },
+            {
+              "name": "UnitDataStructure"
+            },
+            {
+              "name": "SubjectField"
+            },
+            {
+              "name": "AdministrativeRegister"
+            },
+            {
+              "name": "EnvironmentChange"
+            },
+            {
+              "name": "InstanceVariable"
+            },
+            {
+              "name": "DimensionalDataStructure"
+            },
+            {
+              "name": "Variable"
+            },
+            {
+              "name": "Presentation"
+            },
+            {
+              "name": "ProcessMethod"
+            },
+            {
+              "name": "BusinessProcess"
+            },
+            {
+              "name": "ProcessDesign"
+            },
+            {
+              "name": "EnumeratedValueDomain"
+            },
+            {
+              "name": "IdentifierComponent"
+            },
+            {
+              "name": "DescribedValueDomain"
+            },
+            {
+              "name": "ProcessOutputSpecification"
+            },
+            {
+              "name": "MeasureComponent"
+            },
+            {
+              "name": "DataResource"
+            },
+            {
+              "name": "TransformableInput"
+            },
+            {
+              "name": "Protocol"
+            },
+            {
+              "name": "ProcessInputSpecification"
+            },
+            {
+              "name": "ProcessControl"
+            },
+            {
+              "name": "RepresentedVariable"
+            },
+            {
+              "name": "UnitType"
+            },
+            {
+              "name": "Product"
+            },
+            {
+              "name": "RecordRelationship"
+            },
+            {
+              "name": "UnitDataSet"
+            },
+            {
+              "name": "ProcessExecutionLog"
+            },
+            {
+              "name": "ProcessPattern"
+            },
+            {
+              "name": "ChangeDefinition"
+            },
+            {
+              "name": "DimensionalDataSet"
+            },
+            {
+              "name": "ProcessMetric"
+            },
+            {
+              "name": "Questionnaire"
+            },
+            {
+              "name": "DataHarvesting"
+            },
+            {
+              "name": "LogicalRecord"
+            },
+            {
+              "name": "AttributeComponent"
+            },
+            {
+              "name": "StatisticalProgram"
+            },
+            {
+              "name": "OutputSpecification"
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessFunction",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramDesignConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCaseStatisticalSupportProgramConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessSupportInputAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "__Directive",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitDataStructureEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UniverseUnitTypeConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramStatisticalProgramCycleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Questionnaire",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessMethodRuleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepProcessStepInstanceEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCasestatisticalNeedsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "TransformedOutputConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessServiceEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessInputSpecificationConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ParameterInputAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataHarvestingconsumesInformationSetsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OutputSpecificationPresentationConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AssessmentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepProcessStepInstanceConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PopulationPopulationConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RepresentedVariableConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasureComponentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitTypeConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCase",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "IdentifierComponent",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProvisionAgreementexchangeChannelsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessControlDesignRuleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "__DirectiveLocation",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PopulationSubjectFieldConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RecordRelationshipConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "dataStructureComponent",
+          "possibleTypes": [
+            {
+              "name": "MeasureComponent"
+            },
+            {
+              "name": "AttributeComponent"
+            },
+            {
+              "name": "IdentifierComponent"
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessSupportInputRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessProcessAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessServiceConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasurementTypeEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramCycleBusinessProcessConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataHarvestingconsumesInformationSetsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStep",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "InstanceVariableEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "EnumeratedValueDomain",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "TransformableInputEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RuleAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "VariableSubjectFieldEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataStructureAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "exchangeChannels",
+          "possibleTypes": [
+            {
+              "name": "AdministrativeRegister"
+            },
+            {
+              "name": "Questionnaire"
+            },
+            {
+              "name": "DataHarvesting"
+            },
+            {
+              "name": "Product"
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessProcessAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "VariableConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessOutputSpecificationAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "InformationRequestAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitDataSetConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RecordRelationshipLogicalRecordConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PopulationAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramDesignProcessPatternEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "sourceComponents",
+          "possibleTypes": [
+            {
+              "name": "MeasureComponent"
+            },
+            {
+              "name": "AttributeComponent"
+            },
+            {
+              "name": "IdentifierComponent"
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCaseStatisticalProgramEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ComponentRelationship",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ParameterInputConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PopulationUniverseConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentInRole",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceProcessSupportInputConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitTypeSubjectFieldEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessPatternEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessControlConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ComponentRelationshipsourceComponentsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProvisionAgreementAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessFunctionEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AdministrativeRegister",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalSupportProgramAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentDetails",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ComponentRelationshipsourceComponentsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PresentationAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProvisionAgreementagreedDataStructuresConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "VariableAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalSupportProgramAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessControlDesignConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasureComponentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RepresentedVariable",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataStructureEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstance",
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "Boolean",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "QuestionnaireAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PresentationAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "LogicalRecordMeasureComponentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitTypeUnitTypeEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCaseChangeDefinitionEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCaseAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OutputSpecification",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignProcessInputSpecificationConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Rule",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCaseConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataHarvestingproducesInformationSetsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessInputSpecificationEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentInRoleAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessProcessBusinessServiceEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OutputSpecificationEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AdministrativeRegisterproducesInformationSetsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessMethod",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "LogicalRecordAttributeComponentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "TransformedOutputEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalSupportProgramstatisticalNeedsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCaseStatisticalSupportProgramEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductproducesInformationSetsEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramCycleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ParameterInput",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AttributeComponent",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCaseAssessmentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasurementUnit",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AssessmentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "__Field",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentInRoleAgentEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentAgentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "TransformedOutputAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessExecutionLogAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessMethodAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessExecutionLog",
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "sentinelValueDomain",
+          "possibleTypes": [
+            {
+              "name": "DescribedValueDomain"
+            },
+            {
+              "name": "EnumeratedValueDomain"
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitTypeSubjectFieldConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessProcessEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DescribedValueDomainConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessPatternConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignProcessPatternConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProvisionAgreement",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DescribedValueDomainAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignProcessStepEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitDataSetAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitDataStructureConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "EnvironmentChangeAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "__InputValue",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProvisionAgreementConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "InformationRequestEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessMetric",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PresentationConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "InformationRequest",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessCaseAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalSupportProgramstatisticalNeedsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RecordRelationshipEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "LogicalRecordEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RoleAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataStructureConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessControlDesignAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "informationSetsToPresent",
+          "possibleTypes": [
+            {
+              "name": "UnitDataSet"
+            },
+            {
+              "name": "DimensionalDataSet"
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UniverseSubjectFieldConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataStructureAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessSupportInputAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessPatternAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignProcessPatternEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceTransformedOutputConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RepresentedVariableAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessOutputSpecificationAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramDesignAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessSupportInputRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RuleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProvisionAgreementEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceProcessExecutionLogConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataResourceAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RuleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "TransformableInputConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "InformationRequestConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasurementTypeAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceParameterInputConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessOutputSpecificationConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataResourceAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DescribedValueDomainEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MeasureComponentAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramDesignProcessPatternConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Variable",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Assessment",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProtocolEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "Int",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "TransformedOutput",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessDesignBusinessFunctionConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramDesignBusinessCaseEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramDesignProcessDesignEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BusinessFunctionAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PopulationUniverseEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceProcessMetricEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessControl",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DataHarvestingConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RecordRelationshipLogicalRecordEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductconsumesInformationSetsConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AgentInRoleAgentInRoleEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessControlDesignRuleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OutputSpecificationProductEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SearchResultEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramDesign",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ChangeDefinitionPopulationEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "QuestionnaireConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessStepInstanceProcessMetricConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalSupportProgramConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UniverseEdge",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UnitDataStructureAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "StatisticalProgramCycleAgentInRoleConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "DimensionalDataStructureMeasureComponentConnection",
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProcessSupportInput",
+          "possibleTypes": null
+        }
+      ]
+    }
+
+}

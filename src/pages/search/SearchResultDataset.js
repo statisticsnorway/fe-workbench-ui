@@ -21,8 +21,6 @@ class SearchResultDataset extends Component {
           month: 'long',
           day: '2-digit'
         }).format(result.created)} <br />
-        <b>{METADATA.NO_OF_ROWS[languageCode]}:</b> {new Intl.NumberFormat(languageCode,
-        {maximumSignificantDigits: 3}).format(result.rows)} <br />
       </p>
     )
   }

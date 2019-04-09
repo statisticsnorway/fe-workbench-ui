@@ -9,10 +9,14 @@ afterEach(() => {
   cleanup()
 })
 
+const properties = {
+  ldsURL: "http://localhost:9090/"
+}
+
 const setup = () => {
   const {getByTestId, getByText, queryAllByPlaceholderText, queryAllByText} = render(
     <MemoryRouter>
-      <App />
+      <App {...properties} />
     </MemoryRouter>
   )
 
