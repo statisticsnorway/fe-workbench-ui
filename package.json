@@ -46,7 +46,8 @@
       "!src/media/**",
       "!src/mocks/**",
       "!src/**/index.js",
-      "!src/utilities/enum/**"
+      "!src/utilities/**",
+      "!src/__tests__/test-data/**"
     ],
     "coverageThreshold": {
       "global": {

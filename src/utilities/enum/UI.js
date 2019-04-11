@@ -39,6 +39,10 @@ export const UI = {
     en: 'Search...',
     nb: 'Søk...'
   },
+  STATUS: {
+    en: 'Status',
+    nb: 'Status'
+  },
   USER: {
     en: 'Username',
     nb: 'Brukernavn'

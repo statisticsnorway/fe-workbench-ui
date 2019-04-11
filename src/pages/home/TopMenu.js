@@ -13,21 +13,15 @@ class TopMenu extends Component {
     return (
       <Segment>
         <Grid stackable reversed='mobile'>
-          <Grid.Column mobile={16} tablet={10} computer={12}>
+          <Grid.Column only='tablet computer' tablet={11} computer={13}>
             <Status languageCode={languageCode} user={user} />
           </Grid.Column>
-          <Grid.Column only='tablet computer' tablet={6} computer={4} textAlign='right'>
+          <Grid.Column only='tablet computer' tablet={5} computer={3} textAlign='right'>
             <UserDropdown {...this.props} />
             <Divider hidden />
             {SSBLogo('100%')}
             <Divider hidden />
             <SearchField alignement='right' languageCode={languageCode} />
-          </Grid.Column>
-          <Grid.Column only='mobile' width={16} textAlign='center'>
-            {/* TODO: Fix <UserDropdown /> to be more fancy on mobile */}
-            {SSBLogo('80%')}
-            <Divider hidden />
-            <SearchField alignement='left' languageCode={languageCode} />
           </Grid.Column>
         </Grid>
       </Segment>

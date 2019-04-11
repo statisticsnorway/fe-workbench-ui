@@ -14,7 +14,14 @@ afterEach(() => {
 })
 
 const setup = () => {
-  const props = {languageCode: 'en'}
+  const props = {
+    dataResource: [],
+    languageCode: 'en',
+    loggedIn: false,
+    password: '',
+    role: '',
+    user: ''
+  }
   const {queryAllByPlaceholderText, queryAllByText} = render(<Login {...props} />)
 
   return {queryAllByPlaceholderText, queryAllByText}

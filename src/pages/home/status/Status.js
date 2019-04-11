@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { Accordion, Message } from 'semantic-ui-react'
 
 import StatusTable from './StatusTable'
-import { INFO } from '../../../utilities/enum'
+import { lowerCaseFirst } from '../../../utilities/common/StringHandling'
+import { INFO, UI } from '../../../utilities/enum'
+
 import { mockStatusType } from '../../../mocks/MockStatusType'
 
 class Status extends Component {
   state = {
-    ready: false,
     statusTypes: []
   }
 
@@ -15,7 +16,6 @@ class Status extends Component {
     const {user} = this.props
 
     this.setState({
-      ready: true,
       statusTypes: Object.keys(mockStatusType).filter(statusType =>
         mockStatusType[statusType].approvedRoles.includes(user.role)
       )
@@ -32,7 +32,7 @@ class Status extends Component {
           <Accordion exclusive={false} fluid styled panels={statusTypes.map(statusType => ({
             key: statusType,
             title: {
-              content: mockStatusType[statusType].name[languageCode],
+              content: `${mockStatusType[statusType].name[languageCode]} ${lowerCaseFirst(UI.STATUS[languageCode])}`,
               icon: {
                 name: 'chart bar',
                 color: 'green'

@@ -4,6 +4,7 @@ import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
 import { SSBLogo } from '../../media/Logo'
 import { getData } from '../../utilities/fetch/Fetch'
 import { UI } from '../../utilities/enum'
+
 import { mockDataResource } from '../../mocks/MockDataResource'
 
 class Login extends Component {

@@ -1,18 +1,30 @@
 export const STATUS_TABLE = {
   DATA_RESOURCE: {
-    en: 'Data resource',
-    nb: 'Dataressurs'
+    icon: 'database',
+    text: {
+      en: 'Data resource',
+      nb: 'Dataressurs'
+    }
   },
   UNIT_TYPE: {
-    en: 'Unit type',
-    nb: 'Enhetstype'
+    icon: 'tag',
+    text: {
+      en: 'Unit type',
+      nb: 'Enhetstype'
+    }
   },
   INFO: {
-    en: 'Information',
-    nb: 'Informasjon'
+    icon: 'info',
+    text: {
+      en: 'Information',
+      nb: 'Informasjon'
+    }
   },
   CUSTOM: {
-    en: 'Information #2',
-    nb: 'Informasjon #2'
+    icon: 'info circle',
+    text: {
+      en: 'Custom information',
+      nb: 'Tilpasset informasjon'
+    }
   }
 }
