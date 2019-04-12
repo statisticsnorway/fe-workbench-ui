@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Label, Search } from 'semantic-ui-react'
+import { Search } from 'semantic-ui-react'
 import _ from 'lodash'
-
-import { datasets } from '../../mocks/MockData'
-import { UI } from '../../utilities/enum'
-
-const resultRenderer = ({title}) => <Label content={title} />
+import { ALL_DATASETS, filterByText} from './AllDatasetsQuery'
 
 class SearchField extends Component {
   constructor (props) {
@@ -31,25 +27,25 @@ class SearchField extends Component {
     this.props.history.push({
       pathname: '/dataset',
       state: {dataset: result}
-
     })
   }
 
   handleSearchChange = (e, {value}) => {
-    if (value.length > 2) {
+
+    if (value.length > 1) {
       this.setState({isLoading: true, value})
 
-      if (this.state.value.length < 1) return this.resetComponent()
-
-      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-      const isMatch = result => re.test(result.title)
-
-      this.setState({
-        isLoading: false,
-        results: _.filter(datasets, isMatch)
+      this.props.client.query({
+        query: ALL_DATASETS
+      }).then(results => {
+        this.setState({
+          isLoading: false,
+          results: filterByText(results, value)
+        })
       })
+
     } else {
-      this.setState({value})
+      this.setState({isLoading: false, value})
     }
   }
 
@@ -83,9 +79,11 @@ class SearchField extends Component {
         onKeyPress={this.handleKeyPress}
         loading={isLoading}
         onResultSelect={this.handleResultSelect}
-        onSearchChange={this.handleSearchChange}
+        onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
         results={results}
         value={value}
+        minCharacters={2}
+        size='tiny'
         resultRenderer={resultRenderer}
         minCharacters={3}
         showNoResults={false}

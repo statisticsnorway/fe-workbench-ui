@@ -7,10 +7,19 @@
   },
   "private": true,
   "dependencies": {
+    "apollo-boost": "^0.3.1",
+    "apollo-cache-inmemory": "^1.5.1",
+    "apollo-client": "^2.5.1",
+    "apollo-link-http": "^1.5.14",
+    "axios": "^0.18.0",
     "chart.js": "^2.8.0",
+    "graphql": "^14.2.1",
+    "graphql-tag": "^2.10.1",
     "lodash": "4.17.11",
     "moment": "^2.23.0",
     "react": "^16.6.3",
+    "react-apollo": "^2.5.3",
+    "react-axios": "^2.0.3",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.6.3",
     "react-router-dom": "^5.0.0",
@@ -20,8 +29,8 @@
     "semantic-ui-react": "^0.86.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "chmod +x ./scripts/env.bash && ./scripts/env.bash > ./public/env-config.js && react-scripts start",
+    "build": "sh -ac '. ./.env; react-scripts build'",
     "test": "react-scripts test --verbose=false",
     "coverage": "react-scripts test --coverage",
     "eject": "react-scripts eject"

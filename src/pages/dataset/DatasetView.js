@@ -31,7 +31,6 @@ class DatasetView extends Component {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column mobile={16} tablet={16} computer={8}>
-              <VisualToggler data={dataset.data} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
