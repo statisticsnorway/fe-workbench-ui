@@ -28,7 +28,6 @@ test('App defaults to Login', () => {
 
   expect(queryAllByText('SSB Logo')).toHaveLength(1)
   expect(queryAllByPlaceholderText(UI.USER.en)).toHaveLength(1)
-  expect(queryAllByPlaceholderText(UI.PASSWORD.en)).toHaveLength(1)
   expect(queryAllByText(UI.LOGIN.en)).toHaveLength(1)
 })
 
@@ -38,7 +37,6 @@ test('Login button directs to Home', () => {
   fireEvent.click(getByTestId('login-button'))
 
   expect(queryAllByPlaceholderText(UI.USER.en)).toHaveLength(0)
-  expect(queryAllByPlaceholderText(UI.PASSWORD.en)).toHaveLength(0)
   expect(queryAllByText(UI.LOGIN.en)).toHaveLength(0)
   expect(queryAllByText(UI.LOGOUT.en)).toHaveLength(1)
 })
@@ -50,7 +48,6 @@ test('Logout button directs to Login', () => {
   fireEvent.click(getByText(UI.LOGOUT.en))
 
   expect(queryAllByPlaceholderText(UI.USER.en)).toHaveLength(1)
-  expect(queryAllByPlaceholderText(UI.PASSWORD.en)).toHaveLength(1)
   expect(queryAllByText(UI.LOGIN.en)).toHaveLength(1)
   expect(queryAllByText(UI.LOGOUT.en)).toHaveLength(0)
 })

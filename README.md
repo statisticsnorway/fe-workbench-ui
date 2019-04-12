@@ -1,6 +1,5 @@
 # workbench-ui
-A React application that currently lets a user work with GSIM objects through a workflow. Its goal is to function as a 
-total workbench for employees at SSB.
+A React application with a goal to function as a total and complete workbench for employees at SSB.
 
 ### How it works
 This is a fairly small application which implements and structures its functions through imported libraries. 
@@ -19,21 +18,15 @@ and its structure through state and props.
 
 For us this makes it easy to seperate components into external libraries which can be reused in any React application.
 
-This application then works as a parent to all our libraries and lets us implement them together in a way fit forpurpose.
+This application then works as a parent to all our libraries and lets us implement them together in a way fit for purpose.
 
 ### Try it
 The first time you clone the repository, remember to run `yarn install`
 
-Run yarn start` and navigate to `http://localhost:3000/`
+Run `yarn start` and navigate to `http://localhost:3000/`
 
 ### Run tests
 `yarn test` runs all tests and `yarn coverage` calculates (rather unreliably) test coverage.
 
 [Jest](https://jestjs.io/docs/en/tutorial-react) and 
 [react-testing-library](https://github.com/kentcdodds/react-testing-library) is used for testing.
-
-### Note
-At the moment this application imports **react-components-library** and **react-workflow** directly from GitHub 
-which means that you need readaccess to the repositories in order to fetch them as dependencies. This will change later 
-when we get to upload React libraries to Nexus or go public. This also means that updates to dependencies **will not be** 
-reflected unless you run `yarn upgrade`.

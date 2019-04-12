@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, Segment } from 'semantic-ui-react'
 
-import VisualToggler from './VisualToggler'
 import { METADATA } from '../../utilities/enum'
 
 class DatasetView extends Component {

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { Search } from 'semantic-ui-react'
 import _ from 'lodash'
 import { ALL_DATASETS, filterByText} from './AllDatasetsQuery'
+import { UI } from '../../utilities/enum'
 
 class SearchField extends Component {
   constructor (props) {
@@ -84,8 +85,6 @@ class SearchField extends Component {
         value={value}
         minCharacters={2}
         size='tiny'
-        resultRenderer={resultRenderer}
-        minCharacters={3}
         showNoResults={false}
         data-testid='global-search'
       />

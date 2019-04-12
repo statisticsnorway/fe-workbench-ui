@@ -8,7 +8,7 @@ import { SSBLogo } from '../../media/Logo'
 
 class TopMenu extends Component {
   render () {
-    const {languageCode, user} = this.props
+    const {client, languageCode, user} = this.props
 
     return (
       <Segment>
@@ -21,7 +21,7 @@ class TopMenu extends Component {
             <Divider hidden />
             {SSBLogo('100%')}
             <Divider hidden />
-            <SearchField alignement='right' languageCode={languageCode} />
+            <SearchField alignement='right' languageCode={languageCode} client={client} />
           </Grid.Column>
         </Grid>
       </Segment>

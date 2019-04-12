@@ -34,7 +34,7 @@ class Login extends Component {
   }
 
   render () {
-    const {dataResource, handleChange, handleLogin, languageCode, password, role, user} = this.props
+    const {dataResource, handleChange, handleLogin, languageCode, role, user} = this.props
     const {ready, roles} = this.state
 
     const dataResourceOptions = Object.keys(mockDataResource).map(dataResource => ({
@@ -54,8 +54,6 @@ class Login extends Component {
               <Form size='large'>
                 <Form.Input fluid icon='user' iconPosition='left' name='user' placeholder={UI.USER[languageCode]}
                             value={user} onChange={handleChange} />
-                <Form.Input fluid icon='lock' iconPosition='left' name='password' type='password' value={password}
-                            placeholder={UI.PASSWORD[languageCode]} onChange={handleChange} />
                 <Form.Select fluid name='role' placeholder={UI.ROLE[languageCode]} value={role} loading={!ready}
                              options={roles} onChange={handleChange} label={UI.ROLE[languageCode]} disabled={!ready} />
                 <Form.Select fluid name='dataResource' placeholder={UI.DATA_RESOURCE[languageCode]}

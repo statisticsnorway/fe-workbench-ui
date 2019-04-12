@@ -3,19 +3,13 @@ import React, { Component } from 'react'
 import Home from './pages/home/Home'
 import Login from './pages/login/Login'
 
-
 class App extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      dataResource: [],
-      languageCode: 'en',
-      loggedIn: false,
-      role: '',
-      user: '',
-      graphqlURL: this.props.ldsURL + "graphql"
-    }
+  state = {
+    dataResource: [],
+    languageCode: 'en',
+    loggedIn: false,
+    role: '',
+    user: ''
   }
 
   handleChange = (event, data) => {
@@ -33,14 +27,14 @@ class App extends Component {
   }
 
   render () {
-    const {languageCode, loggedIn} = this.state
+    const {languageCode, loggedIn, ...user} = this.state
 
     if (!loggedIn) {
       return <Login languageCode={languageCode} handleChange={this.handleChange} handleLogin={this.handleLogin}
                     {...this.state} />
     } else {
-      return <Home languageCode={languageCode} handleChange={this.handleChange} handleLogout={this.handleLogout}
-                   {...this.state} />
+      return <Home graphqlURL={this.props.ldsURL + 'graphql'} languageCode={languageCode}
+                   handleChange={this.handleChange} handleLogout={this.handleLogout} user={user} />
     }
   }
 }
