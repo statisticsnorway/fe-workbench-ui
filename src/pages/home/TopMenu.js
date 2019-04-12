@@ -8,20 +8,20 @@ import { SSBLogo } from '../../media/Logo'
 
 class TopMenu extends Component {
   render () {
-    const {client, languageCode, user} = this.props
+    const {client, handleLogout, user} = this.props
 
     return (
-      <Segment>
+      <Segment style={{marginBottom: 0}}>
         <Grid stackable reversed='mobile'>
           <Grid.Column only='tablet computer' tablet={11} computer={13}>
-            <Status languageCode={languageCode} user={user} />
+            <Status user={user} />
           </Grid.Column>
           <Grid.Column only='tablet computer' tablet={5} computer={3} textAlign='right'>
-            <UserDropdown {...this.props} />
+            <UserDropdown handleLogout={handleLogout} user={user} />
             <Divider hidden />
             {SSBLogo('100%')}
             <Divider hidden />
-            <SearchField alignement='right' languageCode={languageCode} client={client} />
+            <SearchField alignement='right' client={client} />
           </Grid.Column>
         </Grid>
       </Segment>

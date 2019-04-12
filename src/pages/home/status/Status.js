@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 import { Accordion, Message } from 'semantic-ui-react'
 
 import StatusTable from './StatusTable'
+import { WorkbenchContext } from '../../../context/ContextProvider'
 import { lowerCaseFirst } from '../../../utilities/common/StringHandling'
 import { INFO, UI } from '../../../utilities/enum'
 
 import { mockStatusType } from '../../../mocks/MockStatusType'
 
 class Status extends Component {
+  static contextType = WorkbenchContext
+
   state = {
     statusTypes: []
   }
@@ -24,7 +27,8 @@ class Status extends Component {
 
   render () {
     const {statusTypes} = this.state
-    const {languageCode} = this.props
+
+    let context = this.context
 
     return (
       <div>
@@ -32,7 +36,7 @@ class Status extends Component {
           <Accordion exclusive={false} fluid styled panels={statusTypes.map(statusType => ({
             key: statusType,
             title: {
-              content: `${mockStatusType[statusType].name[languageCode]} ${lowerCaseFirst(UI.STATUS[languageCode])}`,
+              content: `${mockStatusType[statusType].name[context.languageCode]} ${lowerCaseFirst(UI.STATUS[context.languageCode])}`,
               icon: {
                 name: 'chart bar',
                 color: 'green'
@@ -44,7 +48,7 @@ class Status extends Component {
               )
             }
           }))} />
-          : <Message info icon='info' content={INFO.NOTHING_TO_SHOW[languageCode]} />}
+          : <Message info icon='info' content={INFO.NOTHING_TO_SHOW[context.languageCode]} />}
       </div>
     )
   }

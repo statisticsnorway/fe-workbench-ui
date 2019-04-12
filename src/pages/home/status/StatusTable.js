@@ -3,12 +3,15 @@ import { Checkbox, Dropdown, Icon, Table } from 'semantic-ui-react'
 
 import StaticStatus from './StaticStatus'
 import CustomStatus from './CustomStatus'
+import { WorkbenchContext } from '../../../context/ContextProvider'
 import { STATUS_TABLE } from '../../../utilities/enum'
 
 import { mockDataResource } from '../../../mocks/MockDataResource'
 import { mockStatusData } from '../../../mocks/MockStatusData'
 
 class StatusTable extends Component {
+  static contextType = WorkbenchContext
+
   state = {
     customStatus: {},
     dataResource: this.props.user.dataResource[0],
@@ -39,12 +42,14 @@ class StatusTable extends Component {
   }
 
   filterOptions = () => {
-    const {languageCode, user} = this.props
+    const {user} = this.props
+
+    let context = this.context
 
     return Object.keys(mockDataResource).filter(dataResource =>
       user.dataResource.includes(dataResource)).map(dataResource => ({
       key: dataResource,
-      text: mockDataResource[dataResource].name[languageCode],
+      text: mockDataResource[dataResource].name[context.languageCode],
       value: dataResource
     }))
   }
@@ -66,8 +71,9 @@ class StatusTable extends Component {
   }
 
   render () {
-    const {languageCode} = this.props
     const {customStatus, dataResource, staticStatus} = this.state
+
+    let context = this.context
 
     return (
       <Table celled compact singleLine>
@@ -76,7 +82,7 @@ class StatusTable extends Component {
             {Object.keys(STATUS_TABLE).map(header =>
               <Table.HeaderCell key={header}>
                 <Icon name={STATUS_TABLE[header].icon} color='blue' />
-                {`${STATUS_TABLE[header].text[languageCode]} `}
+                {`${STATUS_TABLE[header].text[context.languageCode]} `}
                 {header === 'CUSTOM' &&
                 <Dropdown icon='cog' style={{float: 'right'}} closeOnBlur={false}>
                   <Dropdown.Menu>
@@ -102,7 +108,7 @@ class StatusTable extends Component {
               <Dropdown name='dataResource' value={dataResource} options={this.filterOptions()}
                         onChange={this.handleChange} />
             </Table.Cell>
-            <Table.Cell>{mockDataResource[dataResource].unitType[languageCode]}</Table.Cell>
+            <Table.Cell>{mockDataResource[dataResource].unitType[context.languageCode]}</Table.Cell>
             <Table.Cell verticalAlign='top'><StaticStatus {...staticStatus} /></Table.Cell>
             <Table.Cell verticalAlign='top'><CustomStatus {...customStatus} /></Table.Cell>
           </Table.Row>

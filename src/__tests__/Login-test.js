@@ -16,7 +16,6 @@ afterEach(() => {
 const setup = () => {
   const props = {
     dataResource: [],
-    languageCode: 'en',
     loggedIn: false,
     role: '',
     user: ''
@@ -32,8 +31,8 @@ test('Login renders correctly', () => {
   const {queryAllByPlaceholderText, queryAllByText} = setup()
 
   expect(queryAllByText('SSB Logo')).toHaveLength(1)
-  expect(queryAllByPlaceholderText(UI.USER.en)).toHaveLength(1)
-  expect(queryAllByText(UI.ROLE.en)).toHaveLength(2)
-  expect(queryAllByText(UI.DATA_RESOURCE.en)).toHaveLength(2)
-  expect(queryAllByText(UI.LOGIN.en)).toHaveLength(1)
+  expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(1)
+  expect(queryAllByText(UI.ROLE.nb)).toHaveLength(2)
+  expect(queryAllByText(UI.DATA_RESOURCE.nb)).toHaveLength(2)
+  expect(queryAllByText(UI.LOGIN.nb)).toHaveLength(1)
 })

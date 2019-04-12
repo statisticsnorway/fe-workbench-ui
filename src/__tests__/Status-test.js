@@ -14,7 +14,6 @@ afterEach(() => {
 // Setup with role that has access to both collection and statisticalProduction
 const setup = () => {
   const props = {
-    languageCode: 'en',
     user: {
       dataResource: ['personTaxStatistics'],
       role: 'ee9269d9-ec25-4d7d-9148-6d5c28353b24',
@@ -29,8 +28,8 @@ const setup = () => {
 test('Status renders correctly', () => {
   const {queryAllByText} = setup()
 
-  expect(queryAllByText(`${mockStatusType.collection.name.en} ${lowerCaseFirst(UI.STATUS.en)}`))
+  expect(queryAllByText(`${mockStatusType.collection.name.nb} ${lowerCaseFirst(UI.STATUS.nb)}`))
     .toHaveLength(1)
-  expect(queryAllByText(`${mockStatusType.statisticalProduction.name.en} ${lowerCaseFirst(UI.STATUS.en)}`))
+  expect(queryAllByText(`${mockStatusType.statisticalProduction.name.nb} ${lowerCaseFirst(UI.STATUS.nb)}`))
     .toHaveLength(1)
 })

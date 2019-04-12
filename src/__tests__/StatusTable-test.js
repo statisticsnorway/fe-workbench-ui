@@ -10,7 +10,6 @@ afterEach(() => {
 
 const setup = () => {
   const props = {
-    languageCode: 'en',
     statusType: 'collection',
     user: {
       dataResource: ['personTaxStatistics'],
@@ -27,6 +26,6 @@ test('StatusTable renders correctly', () => {
   const {queryAllByText} = setup()
 
   Object.keys(STATUS_TABLE).forEach(column => {
-    expect(queryAllByText(STATUS_TABLE[column].text.en)).toHaveLength(1)
+    expect(queryAllByText(STATUS_TABLE[column].text.nb)).toHaveLength(1)
   })
 })

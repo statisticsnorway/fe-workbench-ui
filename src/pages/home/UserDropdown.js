@@ -2,29 +2,36 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Dropdown, Icon } from 'semantic-ui-react'
 
+import { WorkbenchContext } from '../../context/ContextProvider'
 import { getData } from '../../utilities/fetch/Fetch'
 import { LANGUAGES, UI } from '../../utilities/enum'
 
 class UserDropdown extends Component {
+  static contextType = WorkbenchContext
+
   state = {
     ready: false,
     role: '...'
   }
 
   componentDidMount () {
-    const {languageCode, user} = this.props
+    const {user} = this.props
+
+    let context = this.context
 
     getData(`http://localhost:9090/ns/Role/${user.role}`).then(role => {
       this.setState({
         ready: true,
-        role: role.name.filter(name => name.languageCode === languageCode)[0].languageText
+        role: role.name.filter(name => name.languageCode === context.languageCode)[0].languageText
       })
     })
   }
 
   render () {
     const {ready, role} = this.state
-    const {handleChange, handleLogout, languageCode, user} = this.props
+    const {handleLogout, user} = this.props
+
+    let context = this.context
 
     return (
       <Dropdown loading={!ready} disabled={!ready}
@@ -32,18 +39,19 @@ class UserDropdown extends Component {
         <Dropdown.Menu direction='left'>
           <Dropdown.Item>
             <Dropdown icon={{name: 'dropdown', style: {marginRight: '1em', paddingTop: '0.2em'}}}
-                      text={`${UI.LANGUAGE[languageCode]} (${UI.LANGUAGE_CHOICE[languageCode]})`}>
+                      text={`${UI.LANGUAGE[context.languageCode]} (${UI.LANGUAGE_CHOICE[context.languageCode]})`}>
               <Dropdown.Menu>
                 {Object.keys(LANGUAGES).map(language =>
-                  <Dropdown.Item key={language} name='languageCode' content={UI[language][languageCode]}
-                                 value={LANGUAGES[language].languageCode} onClick={handleChange} />
+                  <Dropdown.Item key={language} name='languageCode' content={UI[language][context.languageCode]}
+                                 value={LANGUAGES[language].languageCode}
+                                 onClick={(event, data) => context.setLanguage(data.value)} />
                 )}
               </Dropdown.Menu>
             </Dropdown>
           </Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item as={Link} to='/' icon={{name: 'sign out', color: 'red', size: 'large'}}
-                         content={UI.LOGOUT[languageCode]} onClick={handleLogout} data-testid='logout-button' />
+                         content={UI.LOGOUT[context.languageCode]} onClick={handleLogout} data-testid='logout-button' />
         </Dropdown.Menu>
       </Dropdown>
     )

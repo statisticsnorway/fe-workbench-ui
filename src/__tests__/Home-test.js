@@ -15,7 +15,7 @@ afterEach(() => {
 })
 
 const setup = () => {
-  const props = {languageCode: 'en', user: 'test'}
+  const props = {user: 'test'}
   const {queryAllByRole, queryAllByTestId, queryAllByText} = render(
     <MemoryRouter>
       <Home {...props} />
@@ -33,9 +33,6 @@ test('Home renders correctly', () => {
   expect(queryAllByText('SSB Logo')).toHaveLength(1)
   expect(queryAllByTestId('global-search')).toHaveLength(1)
   expect(queryAllByText(`${UI.LANGUAGE.nb} (${UI.LANGUAGE_CHOICE.nb})`)).toHaveLength(1)
-  expect(queryAllByRole('option')).toHaveLength(2)
-  expect(queryAllByText(UI.LOGOUT.nb)).toHaveLength(1)
-  expect(queryAllByText(`${UI.LANGUAGE.en} (${UI.LANGUAGE_CHOICE.en})`)).toHaveLength(1)
   expect(queryAllByRole('option')).toHaveLength(4)
-  expect(queryAllByText(UI.LOGOUT.en)).toHaveLength(1)
+  expect(queryAllByText(UI.LOGOUT.nb)).toHaveLength(1)
 })

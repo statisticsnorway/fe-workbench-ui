@@ -4,8 +4,11 @@ import { Search } from 'semantic-ui-react'
 import _ from 'lodash'
 import { ALL_DATASETS, filterByText} from './AllDatasetsQuery'
 import { UI } from '../../utilities/enum'
+import { WorkbenchContext } from '../../context/ContextProvider'
 
 class SearchField extends Component {
+  static contextType = WorkbenchContext
+
   constructor (props) {
     super(props)
 
@@ -81,12 +84,14 @@ class SearchField extends Component {
 
   render () {
     const {isLoading, value, results} = this.state
-    const {alignement, languageCode} = this.props
+    const {alignement} = this.props
+
+    let context = this.context
 
     return (
       <Search
         aligned={alignement}
-        placeholder={UI.SEARCH[languageCode]}
+        placeholder={UI.SEARCH[context.languageCode]}
         onKeyPress={this.handleKeyPress}
         loading={isLoading}
         onResultSelect={this.handleResultSelect}
