@@ -13,8 +13,8 @@ const properties = {
 }
 
 ReactDOM.render(
-    <HashRouter>
-      <App {...properties}/>
-    </HashRouter>,
+  <HashRouter>
+    <App {...properties} />
+  </HashRouter>,
   document.getElementById('root')
 )

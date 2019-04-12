@@ -1,4 +1,6 @@
+export { INFO } from './INFO'
 export { LANGUAGES } from './LANGUAGES'
 export { METADATA } from './METADATA'
+export { STATUS_TABLE } from './STATUS_TABLE'
 export { UI } from './UI'
 export { MENU } from './MENU'

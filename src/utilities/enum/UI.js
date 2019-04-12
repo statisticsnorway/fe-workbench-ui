@@ -27,10 +27,6 @@ export const UI = {
     en: 'Norwegian',
     nb: 'Norsk'
   },
-  PASSWORD: {
-    en: 'Password',
-    nb: 'Passord'
-  },
   ROLE: {
     en: 'Role',
     nb: 'Rolle'
@@ -38,6 +34,10 @@ export const UI = {
   SEARCH: {
     en: 'Search...',
     nb: 'Søk...'
+  },
+  STATUS: {
+    en: 'Status',
+    nb: 'Status'
   },
   USER: {
     en: 'Username',
