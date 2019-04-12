@@ -21,7 +21,7 @@ class AccessControlRoute extends Component {
     return (
       <Route {...rest} render={(props) => (
         user.role.length > 0
-          ? <Component {...props} />
+          ? <Component {...props} {...rest} />
           : <Redirect to={{
             pathname: '/noaccess',
             state: { from: props.location }
