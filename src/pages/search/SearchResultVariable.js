@@ -2,10 +2,14 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 import { METADATA } from '../../utilities/enum'
+import { WorkbenchContext } from '../../context/ContextProvider'
 
 class SearchResultDataset extends Component {
+  static contextType = WorkbenchContext
+
   render () {
-    const {languageCode, result} = this.props
+    const { result } = this.props
+    let context = this.context
 
     return (
       <p style={{marginBottom: 10 + 'px'}}>
@@ -13,9 +17,9 @@ class SearchResultDataset extends Component {
           'pathname': '/dataset',
           state: {dataset: result}
         }}
-        ><b>{METADATA.TITLE[languageCode]}:</b> {result.title} </Link><br />
-        <b>{METADATA.DESCRIPTION[languageCode]}:</b> {result.description} <br />
-        <b>{METADATA.CODELIST_URL[languageCode]}:</b> {result.codelist} <br />
+        ><b>{METADATA.TITLE[context.languageCode]}:</b> {result.title} </Link><br />
+        <b>{METADATA.DESCRIPTION[context.languageCode]}:</b> {result.description} <br />
+        <b>{METADATA.CODELIST_URL[context.languageCode]}:</b> {result.codelist} <br />
       </p>
     )
   }
