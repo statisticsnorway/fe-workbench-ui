@@ -5,9 +5,12 @@ import _ from 'lodash'
 import SearchResultDataset from './SearchResultDataset'
 import SearchResultVariable from './SearchResultVariable'
 import { METADATA } from '../../utilities/enum'
+import { WorkbenchContext } from '../../context/ContextProvider'
 import { FULL_TEXT_SEARCH, mapSearchResult } from './SearchQuery'
 
 class SearchPage extends Component {
+  static contextType = WorkbenchContext
+
   constructor (props) {
     super(props)
 
@@ -82,10 +85,10 @@ class SearchPage extends Component {
   }
 
   render () {
-    const {languageCode} = this.props
     const {isLoading, value, results} = this.state
     const datasetResults = results.datasets || []
     const variableResults = results.variables || []
+    let context = this.context
 
     return (
       //TODO Planned layout:
@@ -102,7 +105,7 @@ class SearchPage extends Component {
             <Grid.Column width={12}>
               <Grid.Row>
                 <Grid.Column style={{'paddingBottom': '10px', 'textAlign': 'center'}}>
-                  <h1>{METADATA.SEARCH_RESULTS[languageCode]}</h1>
+                  <h1>{METADATA.SEARCH_RESULTS[context.languageCode]}</h1>
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row style={{'paddingBottom': '30px', 'textAlign': 'center'}}>
@@ -125,11 +128,11 @@ class SearchPage extends Component {
               <Grid.Row style={{'paddingBottom': '30px'}}>
                 <Grid.Column>
                   {/* {this.state.enterIsPressed} TODO show headers only after an actual search has been performed*/}
-                  <Header>{METADATA.MATCHES_IN[languageCode]} {METADATA.TABLES[languageCode]}</Header>
+                  <Header>{METADATA.MATCHES_IN[context.languageCode]} {METADATA.TABLES[context.languageCode]}</Header>
                   <hr style={{color: 'black', height: 0}} />
                   {
                     datasetResults.length > 0 ? datasetResults.map((value, idx) =>
-                        <SearchResultDataset key={idx} result={value} languageCode={languageCode} />
+                        <SearchResultDataset key={idx} result={value} />
                       )
                       : value.length > 1 && this.state.enterIsPressed ? '0 treff' : ''
                   }
@@ -137,10 +140,10 @@ class SearchPage extends Component {
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column>
-                  <Header>{METADATA.MATCHES_IN[languageCode]} {METADATA.VARIABLES[languageCode]}</Header>
+                  <Header>{METADATA.MATCHES_IN[context.languageCode]} {METADATA.VARIABLES[context.languageCode]}</Header>
                   <hr style={{color: 'black', height: 0}} />
                   {variableResults.length > 0 ? variableResults.map((value, idx) =>
-                      <SearchResultVariable key={idx} result={value} languageCode={languageCode} />
+                      <SearchResultVariable key={idx} result={value} />
                     )
                     : value.length > 1 && this.state.enterIsPressed ? '0 treff' : ''
                   }
