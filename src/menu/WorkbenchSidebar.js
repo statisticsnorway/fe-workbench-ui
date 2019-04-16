@@ -67,9 +67,10 @@ class WorkbenchSidebar extends Component {
         visible={visible}
         width='thin'
         style={style}
+        data-testid='leftMenu'
       >
         <Accordion as={Menu} vertical inverted>
-          <Menu.Item as='a' onClick={closeCallback}>
+          <Menu.Item as='a' onClick={closeCallback} data-testid='leftMenu-hide'>
             X
           </Menu.Item>
           <Menu.Item style={{ textAlign: 'left' }}>

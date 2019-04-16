@@ -54,7 +54,7 @@ class Home extends Component {
         <div style={{height: '100vh'}}>
           <Sidebar.Pushable as={Container} fluid>
             <Button style={{position: 'fixed', top: '15px', left: '15px', zIndex: 3}} fixed='top' icon
-                    onClick={this.handleAnimationChange()}>
+                    onClick={this.handleAnimationChange()} data-testid='leftMenu-show'>
               <Icon name='bars' />
             </Button>
             <WorkbenchSidebar

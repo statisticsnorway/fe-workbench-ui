@@ -62,3 +62,26 @@ test('Chevron shows/hides top menu', () => {
     expect(getByText(UI.LOGOUT.nb)).toBeVisible()
   }, 200)
 })
+
+test('Left menu shows/hides correctly', () => {
+  getData.mockImplementation(() => Promise.resolve(Roles[0]))
+  const { getByTestId } = setup()
+  expect(getByTestId('leftMenu')).toBeVisible()
+  expect(getByTestId('leftMenu-hide')).toBeVisible()
+
+  fireEvent.click(getByTestId('leftMenu-hide'))
+
+  setTimeout( () => {
+    expect(getByTestId('leftMenu')).not.toBeVisible()
+    expect(getByTestId('leftMenu-hide')).not.toBeVisible()
+    expect(getByTestId('leftMenu-show')).toBeVisible()
+  }, 200)
+
+  fireEvent.click(getByTestId('leftMenu-show'))
+
+  setTimeout( () => {
+    expect(getByTestId('leftMenu')).toBeVisible()
+    expect(getByTestId('leftMenu-hide')).toBeVisible()
+  }, 200)
+
+})
