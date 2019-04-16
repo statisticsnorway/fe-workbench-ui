@@ -27,8 +27,10 @@
     "semantic-ui-react": "^0.86.0"
   },
   "scripts": {
-    "start": "chmod +x ./scripts/env.bash && sh scripts/env.bash > ./public/env-config.js && react-scripts start",
-    "build": "sh -ac '. ./.env; react-scripts build'",
+    "start": "react-scripts start",
+    "start:local": "sh -ac '. ./.env.local; react-scripts start'",
+    "build:staging": "sh -ac '. ./.env.staging; react-scripts build'",
+    "build": "react-scripts build'",
     "test": "react-scripts test --verbose=false",
     "coverage": "react-scripts test --coverage",
     "eject": "react-scripts eject"

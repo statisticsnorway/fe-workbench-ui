@@ -1,0 +1,107 @@
+[
+  {
+    "createdBy": "Test user",
+    "createdDate": "2019-04-01T08:27:25.931Z",
+    "id": "719c1dfe-fb73-48c5-81aa-aa55f2a665d2",
+    "lastUpdatedBy": "Test user",
+    "lastUpdatedDate": "2019-04-01T08:31:30.197Z",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Innsamler"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Collector"
+      }
+    ],
+    "validFrom": "2019-04-01T08:27:25.931Z",
+    "validUntil": "2020-04-01T08:31:30.197Z",
+    "version": "1.0.1",
+    "versionValidFrom": "2019-04-01T08:31:30.197Z"
+  },
+  {
+    "createdBy": "Test user",
+    "createdDate": "2019-04-01T08:30:13.176Z",
+    "id": "71e2affd-36e1-451f-8892-6a1e936037d5",
+    "lastUpdatedBy": "Test user",
+    "lastUpdatedDate": "2019-04-01T08:31:32.700Z",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Informasjonsforvalter"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Information manager"
+      }
+    ],
+    "validFrom": "2019-04-01T08:30:13.176Z",
+    "validUntil": "2020-04-01T08:31:32.700Z",
+    "version": "1.0.1",
+    "versionValidFrom": "2019-04-01T08:31:32.700Z"
+  },
+  {
+    "createdBy": "Test user",
+    "createdDate": "2019-04-01T08:31:07.566Z",
+    "id": "97c043ca-5fde-437f-b4c5-a1ae4a565fb4",
+    "lastUpdatedBy": "Test user",
+    "lastUpdatedDate": "2019-04-01T08:31:34.513Z",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Metoderådgiver"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Method advisor"
+      }
+    ],
+    "validFrom": "2019-04-01T08:31:07.566Z",
+    "validUntil": "2020-04-01T08:31:34.513Z",
+    "version": "1.0.1",
+    "versionValidFrom": "2019-04-01T08:31:34.513Z"
+  },
+  {
+    "createdBy": "Test user",
+    "createdDate": "2019-04-01T08:30:43.293Z",
+    "id": "a8b3bada-d8e2-44e4-8ba1-d983ebf4acaf",
+    "lastUpdatedBy": "Test user",
+    "lastUpdatedDate": "2019-04-01T08:31:35.962Z",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Konstruktør"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Constructor"
+      }
+    ],
+    "validFrom": "2019-04-01T08:30:43.293Z",
+    "validUntil": "2020-04-01T08:31:35.962Z",
+    "version": "1.0.1",
+    "versionValidFrom": "2019-04-01T08:31:35.962Z"
+  },
+  {
+    "createdBy": "Test user",
+    "createdDate": "2019-04-01T08:29:38.064Z",
+    "id": "ee9269d9-ec25-4d7d-9148-6d5c28353b24",
+    "lastUpdatedBy": "Test user",
+    "lastUpdatedDate": "2019-04-01T08:31:37.463Z",
+    "name": [
+      {
+        "languageCode": "en",
+        "languageText": "Statistics producer"
+      },
+      {
+        "languageCode": "nb",
+        "languageText": "Statistikkprodusent"
+      }
+    ],
+    "validFrom": "2019-04-01T08:29:38.064Z",
+    "validUntil": "2020-04-01T08:31:37.463Z",
+    "version": "1.0.1",
+    "versionValidFrom": "2019-04-01T08:31:37.463Z"
+  }
+]

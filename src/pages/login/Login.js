@@ -19,7 +19,7 @@ class Login extends Component {
   componentDidMount () {
     let context = this.context
 
-    getData('http://localhost:9090/ns/Role').then(roles => {
+    getData(process.env.REACT_APP_ROLES).then(roles => {
       this.setState({
         ready: true,
         roles: roles.map(role => ({

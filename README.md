@@ -16,14 +16,20 @@ ReactJS is a JavaScript framework that makes it easy to build large and complex 
 It is based on a component philosophy in which each element in a web application is a React component and controls itelf 
 and its structure through state and props.
 
-For us this makes it easy to seperate components into external libraries which can be reused in any React application.
+For us this makes it easy to separate components into external libraries which can be reused in any React application.
 
 This application then works as a parent to all our libraries and lets us implement them together in a way fit for purpose.
+
+### Environment variables
+Environment variables are stored in `.env.<env>` files, see https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables.
+
 
 ### Try it
 The first time you clone the repository, remember to run `yarn install`
 
 Run `yarn start` and navigate to `http://localhost:3000/`
+
+For running the application standalone, without any service dependencies, run `yarn start:local`
 
 ### Run tests
 `yarn test` runs all tests and `yarn coverage` calculates (rather unreliably) test coverage.

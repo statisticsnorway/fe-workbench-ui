@@ -6,7 +6,7 @@ import 'react-table/react-table.css'
 
 import App from './App'
 
-let ldsURL = window._env_.REACT_APP_LDS
+let ldsURL = process.env.REACT_APP_LDS
 
 const properties = {
   ldsURL: ldsURL
