@@ -17,13 +17,13 @@ const setup = () => {
       user: 'test'
     }
   }
-  const {queryAllByText} = render(<StatusTable {...props} />)
+  const { queryAllByText } = render(<StatusTable {...props} />)
 
-  return {queryAllByText}
+  return { queryAllByText }
 }
 
 test('StatusTable renders correctly', () => {
-  const {queryAllByText} = setup()
+  const { queryAllByText } = setup()
 
   Object.keys(STATUS_TABLE).forEach(column => {
     expect(queryAllByText(STATUS_TABLE[column].text.nb)).toHaveLength(1)

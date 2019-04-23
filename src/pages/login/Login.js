@@ -6,6 +6,7 @@ import { SSBLogo } from '../../media/Logo'
 import { getData } from '../../utilities/fetch/Fetch'
 import { UI } from '../../utilities/enum'
 
+import Roles from '../../__tests__/test-data/Roles'
 import { mockDataResource } from '../../mocks/MockDataResource'
 
 class Login extends Component {
@@ -17,28 +18,36 @@ class Login extends Component {
   }
 
   componentDidMount () {
+    if (process.env.NODE_ENV !== 'development') {
+      getData(process.env.REACT_APP_ROLES).then(roles => {
+        this.loadState(roles)
+      }).catch(error => {
+        console.log(error)
+
+        this.setState({ ready: true })
+      })
+    } else {
+      this.loadState(Roles)
+    }
+  }
+
+  loadState = (roles) => {
     let context = this.context
 
-    getData(process.env.REACT_APP_ROLES).then(roles => {
-      this.setState({
-        ready: true,
-        roles: roles.map(role => ({
-            key: role.id,
-            text: role.name.filter(name => name.languageCode === context.languageCode)[0].languageText,
-            value: role.id
-          })
-        )
-      })
-    }).catch(error => {
-      console.log(error)
-
-      this.setState({ready: true})
+    this.setState({
+      ready: true,
+      roles: roles.map(role => ({
+          key: role.id,
+          text: role.name.filter(name => name.languageCode === context.languageCode)[0].languageText,
+          value: role.id
+        })
+      )
     })
   }
 
   render () {
-    const {dataResource, handleChange, handleLogin, role, user} = this.props
-    const {ready, roles} = this.state
+    const { dataResource, handleChange, handleLogin, role, user } = this.props
+    const { ready, roles } = this.state
 
     let context = this.context
 
@@ -51,7 +60,7 @@ class Login extends Component {
     return (
       <div className='vertical-display'>
         <style>{`body > div,body > div > div, body > div > div > div.vertical-display {height: 100%;}`}</style>
-        <Grid textAlign='center' style={{height: '100%'}} verticalAlign='middle'>
+        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
           <Grid.Column mobile={16} tablet={8} computer={4}>
             {SSBLogo('100%')}
             <Divider hidden />

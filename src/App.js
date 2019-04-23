@@ -13,22 +13,22 @@ class App extends Component {
   }
 
   handleChange = (event, data) => {
-    this.setState({[data.name]: data.value})
+    this.setState({ [data.name]: data.value })
   }
 
   handleLogin = (event) => {
     event.preventDefault()
 
-    this.setState({loggedIn: true})
+    this.setState({ loggedIn: true })
   }
 
   handleLogout = () => {
-    this.setState({loggedIn: false})
+    this.setState({ loggedIn: false })
   }
 
   render () {
-    const {ldsURL} = this.props
-    const {loggedIn, ...user} = this.state
+    const { ldsURL } = this.props
+    const { loggedIn, ...user } = this.state
 
     if (!loggedIn) {
       return (

@@ -19,7 +19,7 @@ class StatusTable extends Component {
   }
 
   componentDidMount () {
-    const {statusType, user} = this.props
+    const { statusType, user } = this.props
 
     const customStatus = {}
     const staticStatus = {}
@@ -27,7 +27,7 @@ class StatusTable extends Component {
     Object.keys(mockStatusData).filter(statusData =>
       user.dataResource.includes(statusData)).forEach(statusData => {
       Object.keys(mockStatusData[statusData].customData[statusType]).forEach(status =>
-        customStatus[status] = {data: mockStatusData[statusData].customData[statusType][status], show: true}
+        customStatus[status] = { data: mockStatusData[statusData].customData[statusType][status], show: true }
       )
 
       Object.keys(mockStatusData[statusData].staticData[statusType]).forEach(status =>
@@ -42,7 +42,7 @@ class StatusTable extends Component {
   }
 
   filterOptions = () => {
-    const {user} = this.props
+    const { user } = this.props
 
     let context = this.context
 
@@ -55,7 +55,7 @@ class StatusTable extends Component {
   }
 
   handleChange = (event, data) => {
-    this.setState({[data.name]: data.value})
+    this.setState({ [data.name]: data.value })
   }
 
   handleToggle = (event, data) => {
@@ -71,7 +71,7 @@ class StatusTable extends Component {
   }
 
   render () {
-    const {customStatus, dataResource, staticStatus} = this.state
+    const { customStatus, dataResource, staticStatus } = this.state
 
     let context = this.context
 
@@ -84,7 +84,7 @@ class StatusTable extends Component {
                 <Icon name={STATUS_TABLE[header].icon} color='blue' />
                 {`${STATUS_TABLE[header].text[context.languageCode]} `}
                 {header === 'CUSTOM' &&
-                <Dropdown icon='cog' style={{float: 'right'}} closeOnBlur={false}>
+                <Dropdown icon='cog' style={{ float: 'right' }} closeOnBlur={false}>
                   <Dropdown.Menu>
                     {Object.keys(customStatus).map(status =>
                       <Dropdown.Item key={status} onClick={event => event.stopPropagation()}>

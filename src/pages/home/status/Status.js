@@ -16,7 +16,7 @@ class Status extends Component {
   }
 
   componentDidMount () {
-    const {user} = this.props
+    const { user } = this.props
 
     this.setState({
       statusTypes: Object.keys(mockStatusType).filter(statusType =>
@@ -26,7 +26,7 @@ class Status extends Component {
   }
 
   render () {
-    const {statusTypes} = this.state
+    const { statusTypes } = this.state
 
     let context = this.context
 

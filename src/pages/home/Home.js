@@ -21,8 +21,8 @@ import introspectionQueryResultData from '../search/fragmentTypes.json'
 
 // Some queries contain union or interface types, so Apollo Client's simple (heuristic) fragment matcher can not
 // be used. See https://www.apollographql.com/docs/react/advanced/fragments.html#fragment-matcher
-const fragmentMatcher = new IntrospectionFragmentMatcher({introspectionQueryResultData})
-const cache = new InMemoryCache({fragmentMatcher})
+const fragmentMatcher = new IntrospectionFragmentMatcher({ introspectionQueryResultData })
+const cache = new InMemoryCache({ fragmentMatcher })
 
 class Home extends Component {
   state = {
@@ -37,12 +37,12 @@ class Home extends Component {
   }
 
   handleAnimationChange = () => () => {
-    this.setState({visible: !this.state.visible})
+    this.setState({ visible: !this.state.visible })
   }
 
   render () {
-    const {graphqlURL, handleLogout, ...user} = this.props
-    const {animation, direction, visible} = this.state
+    const { graphqlURL, handleLogout, ...user } = this.props
+    const { animation, direction, visible } = this.state
     const client = new ApolloClient({
       uri: graphqlURL,
       cache: cache
@@ -51,14 +51,14 @@ class Home extends Component {
     return (
       <div>
         <TopMenu client={client} handleLogout={handleLogout} user={user} />
-        <div style={{height: '100vh'}}>
+        <div style={{ height: '100vh' }}>
           <Sidebar.Pushable as={Container} fluid>
-            <Button style={{position: 'fixed', top: '15px', left: '15px', zIndex: 3}} fixed='top' icon
+            <Button style={{ position: 'fixed', top: '15px', left: '15px', zIndex: 3 }} fixed='top' icon
                     onClick={this.handleAnimationChange()} data-testid='leftMenu-show'>
               <Icon name='bars' />
             </Button>
             <WorkbenchSidebar
-              style={{zIndex: 4}}
+              style={{ zIndex: 4 }}
               animation={animation}
               direction={direction}
               visible={visible}
@@ -66,7 +66,7 @@ class Home extends Component {
               user={user}
             />
             <Sidebar.Pusher dimmed={false}>
-              <Grid stretched centered style={{paddingTop: '15px'}}>
+              <Grid stretched centered style={{ paddingTop: '15px' }}>
                 <Grid.Row>  {/*Main row for layout*/}
                   <Grid.Column floated='left' width={1}> {/*Left padding column*/}
                   </Grid.Column>

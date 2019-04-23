@@ -20,13 +20,13 @@ const setup = () => {
       user: 'test'
     }
   }
-  const {queryAllByText} = render(<Status {...props} />)
+  const { queryAllByText } = render(<Status {...props} />)
 
-  return {queryAllByText}
+  return { queryAllByText }
 }
 
 test('Status renders correctly', () => {
-  const {queryAllByText} = setup()
+  const { queryAllByText } = setup()
 
   expect(queryAllByText(`${mockStatusType.collection.name.nb} ${lowerCaseFirst(UI.STATUS.nb)}`))
     .toHaveLength(1)
