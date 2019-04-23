@@ -1,5 +1,5 @@
 const credentials = process.env.NODE_ENV === 'production' ? 'include' : 'same-origin'
-const headers = {'Content-Type': 'application/json; charset=utf-8'}
+const headers = { 'Content-Type': 'application/json; charset=utf-8' }
 
 export const getData = (url) => {
   return new Promise((resolve, reject) => {

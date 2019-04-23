@@ -9,22 +9,18 @@ afterEach(() => {
   cleanup()
 })
 
-const properties = {
-  ldsURL: "http://localhost:9090/"
-}
-
 const setup = () => {
-  const {getByTestId, getByText, queryAllByPlaceholderText, queryAllByText} = render(
+  const { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText } = render(
     <MemoryRouter>
-      <App {...properties} />
+      <App />
     </MemoryRouter>
   )
 
-  return {getByTestId, getByText, queryAllByPlaceholderText, queryAllByText}
+  return { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText }
 }
 
 test('App defaults to Login', () => {
-  const {queryAllByPlaceholderText, queryAllByText} = setup()
+  const { queryAllByPlaceholderText, queryAllByText } = setup()
 
   expect(queryAllByText('SSB Logo')).toHaveLength(1)
   expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(1)
@@ -32,7 +28,7 @@ test('App defaults to Login', () => {
 })
 
 test('Login button directs to Home', () => {
-  const {getByTestId, queryAllByPlaceholderText, queryAllByText} = setup()
+  const { getByTestId, queryAllByPlaceholderText, queryAllByText } = setup()
 
   fireEvent.click(getByTestId('login-button'))
 
@@ -42,7 +38,7 @@ test('Login button directs to Home', () => {
 })
 
 test('Logout button directs to Login', () => {
-  const {getByTestId, getByText, queryAllByPlaceholderText, queryAllByText} = setup()
+  const { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText } = setup()
 
   fireEvent.click(getByTestId('login-button'))
   fireEvent.click(getByText(UI.LOGOUT.nb))

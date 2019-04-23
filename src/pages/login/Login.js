@@ -32,13 +32,13 @@ class Login extends Component {
     }).catch(error => {
       console.log(error)
 
-      this.setState({ready: true})
+      this.setState({ ready: true })
     })
   }
 
   render () {
-    const {dataResource, handleChange, handleLogin, role, user} = this.props
-    const {ready, roles} = this.state
+    const { dataResource, handleChange, handleLogin, role, user } = this.props
+    const { ready, roles } = this.state
 
     let context = this.context
 
@@ -51,7 +51,7 @@ class Login extends Component {
     return (
       <div className='vertical-display'>
         <style>{`body > div,body > div > div, body > div > div > div.vertical-display {height: 100%;}`}</style>
-        <Grid textAlign='center' style={{height: '100%'}} verticalAlign='middle'>
+        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
           <Grid.Column mobile={16} tablet={8} computer={4}>
             {SSBLogo('100%')}
             <Divider hidden />

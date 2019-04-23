@@ -20,7 +20,7 @@ class CustomStatus extends Component {
 
       case 'boolean':
         return <Label color={check ? 'green' : 'red'} horizontal
-                      icon={{name: check ? 'check' : 'close', fitted: true}} />
+                      icon={{ name: check ? 'check' : 'close', fitted: true }} />
 
       default:
         return <Label color='teal' content={check} horizontal />

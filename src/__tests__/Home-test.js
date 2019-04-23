@@ -4,44 +4,37 @@ import { MemoryRouter } from 'react-router-dom'
 import { cleanup, fireEvent, render } from 'react-testing-library'
 
 import Home from '../pages/home/Home'
-import { getData } from '../utilities/fetch/Fetch'
 import { UI } from '../utilities/enum'
 
-import Roles from './test-data/Roles'
-
-jest.mock('../utilities/fetch/Fetch', () => ({getData: jest.fn()}))
-
 afterEach(() => {
-  getData.mockReset()
   cleanup()
 })
 
 const setup = () => {
-  const props = {user: 'test'}
-  const {getByTestId, getByText, queryAllByRole, queryAllByTestId, queryAllByText} = render(
+  const props = {
+    dataResource: ['personTaxStatistics'],
+    role: 'ee9269d9-ec25-4d7d-9148-6d5c28353b24',
+    user: 'test'
+  }
+  const { getByTestId, getByText, queryAllByTestId, queryAllByText } = render(
     <MemoryRouter>
       <Home {...props} />
     </MemoryRouter>
   )
 
-  return {getByTestId, getByText, queryAllByRole, queryAllByTestId, queryAllByText}
+  return { getByTestId, getByText, queryAllByTestId, queryAllByText }
 }
 
 test('Home renders correctly', () => {
-  getData.mockImplementation(() => Promise.resolve(Roles[0]))
-
-  const {queryAllByRole, queryAllByTestId, queryAllByText} = setup()
+  const { queryAllByTestId, queryAllByText } = setup()
 
   expect(queryAllByText('SSB Logo')).toHaveLength(1)
   expect(queryAllByTestId('global-search')).toHaveLength(1)
   expect(queryAllByText(`${UI.LANGUAGE.nb} (${UI.LANGUAGE_CHOICE.nb})`)).toHaveLength(1)
-  expect(queryAllByRole('option')).toHaveLength(4)
   expect(queryAllByText(UI.LOGOUT.nb)).toHaveLength(1)
 })
 
 test('Chevron shows/hides top menu', () => {
-  getData.mockImplementation(() => Promise.resolve(Roles[0]))
-
   const { getByTestId, getByText } = setup()
 
   fireEvent.click(getByTestId('topMenu-toggle'))
@@ -64,14 +57,14 @@ test('Chevron shows/hides top menu', () => {
 })
 
 test('Left menu shows/hides correctly', () => {
-  getData.mockImplementation(() => Promise.resolve(Roles[0]))
   const { getByTestId } = setup()
+
   expect(getByTestId('leftMenu')).toBeVisible()
   expect(getByTestId('leftMenu-hide')).toBeVisible()
 
   fireEvent.click(getByTestId('leftMenu-hide'))
 
-  setTimeout( () => {
+  setTimeout(() => {
     expect(getByTestId('leftMenu')).not.toBeVisible()
     expect(getByTestId('leftMenu-hide')).not.toBeVisible()
     expect(getByTestId('leftMenu-show')).toBeVisible()
@@ -79,9 +72,8 @@ test('Left menu shows/hides correctly', () => {
 
   fireEvent.click(getByTestId('leftMenu-show'))
 
-  setTimeout( () => {
+  setTimeout(() => {
     expect(getByTestId('leftMenu')).toBeVisible()
     expect(getByTestId('leftMenu-hide')).toBeVisible()
   }, 200)
-
 })
