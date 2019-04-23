@@ -3,49 +3,18 @@ import { Link } from 'react-router-dom'
 import { Dropdown, Icon } from 'semantic-ui-react'
 
 import { WorkbenchContext } from '../../context/ContextProvider'
-import { getData } from '../../utilities/fetch/Fetch'
 import { LANGUAGES, UI } from '../../utilities/enum'
-
-import Roles from '../../__tests__/test-data/Roles'
 
 class UserDropdown extends Component {
   static contextType = WorkbenchContext
 
-  state = {
-    ready: false,
-    role: '...'
-  }
-
-  componentDidMount () {
-    const { user } = this.props
-
-    let context = this.context
-
-    if (process.env.NODE_ENV !== 'development') {
-      getData(`${process.env.REACT_APP_ROLES}${user.role}`).then(role => {
-        this.setState({
-          ready: true,
-          role: role.name.filter(name => name.languageCode === context.languageCode)[0].languageText
-        })
-      })
-    } else {
-      this.setState({
-        ready: true,
-        role: Roles.filter(role => role.id === user.role)[0].name
-          .filter(name => name.languageCode === context.languageCode)[0].languageText
-      })
-    }
-  }
-
   render () {
-    const { ready, role } = this.state
     const { handleLogout, user } = this.props
 
     let context = this.context
 
     return (
-      <Dropdown loading={!ready} disabled={!ready}
-                trigger={<span><Icon name='user' color='blue' />{`${user.user} (${role})`}</span>}>
+      <Dropdown trigger={<span><Icon name='user' color='blue' />{`${user.user}`}</span>}>
         <Dropdown.Menu direction='left'>
           <Dropdown.Item>
             <Dropdown icon={{ name: 'dropdown', style: { marginRight: '1em', paddingTop: '0.2em' } }}

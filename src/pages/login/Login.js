@@ -6,7 +6,6 @@ import { SSBLogo } from '../../media/Logo'
 import { getData } from '../../utilities/fetch/Fetch'
 import { UI } from '../../utilities/enum'
 
-import Roles from '../../__tests__/test-data/Roles'
 import { mockDataResource } from '../../mocks/MockDataResource'
 
 class Login extends Component {
@@ -18,30 +17,22 @@ class Login extends Component {
   }
 
   componentDidMount () {
-    if (process.env.NODE_ENV !== 'development') {
-      getData(process.env.REACT_APP_ROLES).then(roles => {
-        this.loadState(roles)
-      }).catch(error => {
-        console.log(error)
-
-        this.setState({ ready: true })
-      })
-    } else {
-      this.loadState(Roles)
-    }
-  }
-
-  loadState = (roles) => {
     let context = this.context
 
-    this.setState({
-      ready: true,
-      roles: roles.map(role => ({
-          key: role.id,
-          text: role.name.filter(name => name.languageCode === context.languageCode)[0].languageText,
-          value: role.id
-        })
-      )
+    getData(process.env.REACT_APP_ROLES).then(roles => {
+      this.setState({
+        ready: true,
+        roles: roles.map(role => ({
+            key: role.id,
+            text: role.name.filter(name => name.languageCode === context.languageCode)[0].languageText,
+            value: role.id
+          })
+        )
+      })
+    }).catch(error => {
+      console.log(error)
+
+      this.setState({ ready: true })
     })
   }
 

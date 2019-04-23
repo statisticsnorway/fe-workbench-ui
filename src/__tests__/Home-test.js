@@ -4,21 +4,13 @@ import { MemoryRouter } from 'react-router-dom'
 import { cleanup, fireEvent, render } from 'react-testing-library'
 
 import Home from '../pages/home/Home'
-import { getData } from '../utilities/fetch/Fetch'
 import { UI } from '../utilities/enum'
 
-import Roles from './test-data/Roles'
-
-jest.mock('../utilities/fetch/Fetch', () => ({ getData: jest.fn() }))
-
 afterEach(() => {
-  getData.mockReset()
   cleanup()
 })
 
 const setup = () => {
-  getData.mockImplementation(() => Promise.resolve(Roles[0]))
-
   const props = {
     dataResource: ['personTaxStatistics'],
     role: 'ee9269d9-ec25-4d7d-9148-6d5c28353b24',
@@ -36,7 +28,6 @@ const setup = () => {
 test('Home renders correctly', () => {
   const { queryAllByTestId, queryAllByText } = setup()
 
-  expect(getData).toHaveBeenCalledWith(`${process.env.REACT_APP_ROLES}ee9269d9-ec25-4d7d-9148-6d5c28353b24`)
   expect(queryAllByText('SSB Logo')).toHaveLength(1)
   expect(queryAllByTestId('global-search')).toHaveLength(1)
   expect(queryAllByText(`${UI.LANGUAGE.nb} (${UI.LANGUAGE_CHOICE.nb})`)).toHaveLength(1)
