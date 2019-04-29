@@ -29,6 +29,8 @@ class UserDropdown extends Component {
             </Dropdown>
           </Dropdown.Item>
           <Dropdown.Divider />
+          <Dropdown.Item as={Link} to='/preferences' icon={{ name: 'setting', color: 'blue', size: 'large' }}
+                         content={UI.PREFERENCES[context.languageCode]} data-testid='preferences-button'/>
           <Dropdown.Item as={Link} to='/' icon={{ name: 'sign out', color: 'red', size: 'large' }}
                          content={UI.LOGOUT[context.languageCode]} onClick={handleLogout} data-testid='logout-button' />
         </Dropdown.Menu>

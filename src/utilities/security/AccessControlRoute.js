@@ -20,7 +20,7 @@ class AccessControlRoute extends Component {
     let { component: Component, user, ...rest } = this.props
     return (
       <Route {...rest} render={(props) => (
-        user.role.length > 0
+        user.role.length > 0 // TODO make proper access check
           ? <Component {...props} {...rest} />
           : <Redirect to={{
             pathname: '/noaccess',

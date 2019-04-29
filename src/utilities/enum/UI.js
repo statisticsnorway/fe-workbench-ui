@@ -42,5 +42,13 @@ export const UI = {
   USER: {
     en: 'Username',
     nb: 'Brukernavn'
+  },
+  SAVE: {
+    en: 'Save',
+    nb: 'Lagre'
+  },
+  PREFERENCES: {
+    en: 'Preferences',
+    nb: 'Innstillinger'
   }
 }

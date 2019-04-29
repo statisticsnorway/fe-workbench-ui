@@ -18,6 +18,7 @@ import WorkbenchSidebar from '../../menu/WorkbenchSidebar'
 import AccessControlRoute from '../../utilities/security/AccessControlRoute'
 import NoAccess from '../../utilities/security/NoAccess'
 import introspectionQueryResultData from '../search/fragmentTypes.json'
+import UserPreferences from '../userconfig/UserPreferences'
 
 // Some queries contain union or interface types, so Apollo Client's simple (heuristic) fragment matcher can not
 // be used. See https://www.apollographql.com/docs/react/advanced/fragments.html#fragment-matcher
@@ -38,6 +39,10 @@ class Home extends Component {
 
   handleAnimationChange = () => () => {
     this.setState({ visible: !this.state.visible })
+  }
+
+  handleSubmit = () => {
+    // TODO implement
   }
 
   render () {
@@ -80,6 +85,7 @@ class Home extends Component {
                     <AccessControlRoute user={user} path='/prep/methodlibrary' component={MethodLibrary} />
                     <AccessControlRoute user={user} path='/metadata/import' component={Import} />
                     <AccessControlRoute user={user} path='/metadata/gsimbrowser' component={GsimBrowser} />
+                    <AccessControlRoute user={user} path='/preferences' component={UserPreferences} handleUpdate={this.handleSubmit}/>
                     <Route user={user} path='/noaccess' component={NoAccess} />
                   </Grid.Column>
                   <Grid.Column floated='right' width={1}> {/*Right padding column*/}

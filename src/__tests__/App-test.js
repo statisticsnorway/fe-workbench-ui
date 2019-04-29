@@ -27,10 +27,21 @@ test('App defaults to Login', () => {
   expect(queryAllByText(UI.LOGIN.nb)).toHaveLength(1)
 })
 
-test('Login button directs to Home', () => {
+test('Login button directs to Preferences', () => {
+  const { getByTestId, queryAllByText } = setup()
+
+  fireEvent.click(getByTestId('login-button'))
+
+  expect(queryAllByText('SSB Logo')).toHaveLength(1)
+  expect(queryAllByText(UI.ROLE.nb)).toHaveLength(2)
+  expect(queryAllByText(UI.DATA_RESOURCE.nb)).toHaveLength(2)
+})
+
+test('Save Preferences button directs to Home', () => {
   const { getByTestId, queryAllByPlaceholderText, queryAllByText } = setup()
 
   fireEvent.click(getByTestId('login-button'))
+  fireEvent.click(getByTestId('save-button'))
 
   expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(0)
   expect(queryAllByText(UI.LOGIN.nb)).toHaveLength(0)
@@ -41,6 +52,7 @@ test('Logout button directs to Login', () => {
   const { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText } = setup()
 
   fireEvent.click(getByTestId('login-button'))
+  fireEvent.click(getByTestId('save-button'))
   fireEvent.click(getByText(UI.LOGOUT.nb))
 
   expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(1)
