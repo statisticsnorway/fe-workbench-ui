@@ -12,7 +12,7 @@ class TopMenu extends Component {
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
   render () {
-    const { client, handleLogout, user } = this.props
+    const { handleLogout, user } = this.props
     const { visible } = this.state
 
     return (
@@ -28,7 +28,7 @@ class TopMenu extends Component {
                 <Divider hidden />
                 {SSBLogo('100%')}
                 <Divider hidden />
-                <SearchField alignement='right' client={client} />
+                <SearchField alignment='right' />
               </Grid.Column>
             </Grid>
           </Segment>

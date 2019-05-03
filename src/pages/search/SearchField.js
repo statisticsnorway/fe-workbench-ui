@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Search } from 'semantic-ui-react'
 import _ from 'lodash'
-import { ALL_DATASETS, filterByText} from './AllDatasetsQuery'
 import { UI } from '../../utilities/enum'
 import { WorkbenchContext } from '../../context/ContextProvider'
 
@@ -39,12 +38,10 @@ class SearchField extends Component {
     if (value.length > 1) {
       this.setState({isLoading: true, value})
 
-      this.props.client.query({
-        query: ALL_DATASETS
-      }).then(results => {
+      this.context.ldsService.searchDatasets(value).then(results => {
         this.setState({
           isLoading: false,
-          results: filterByText(results, value)
+          results: results
         })
       })
 
@@ -84,13 +81,13 @@ class SearchField extends Component {
 
   render () {
     const {isLoading, value, results} = this.state
-    const {alignement} = this.props
+    const {alignment} = this.props
 
     let context = this.context
 
     return (
       <Search
-        aligned={alignement}
+        aligned={alignment}
         placeholder={UI.SEARCH[context.languageCode]}
         onKeyPress={this.handleKeyPress}
         loading={isLoading}

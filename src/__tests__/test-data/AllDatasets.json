@@ -1,0 +1,39 @@
+{
+  "data": {
+    "UnitDataSet": {
+      "edges": [
+        {
+          "node": {
+            "name": [
+              {
+                "languageText": "PersonWithIncomeDataset"
+              }
+            ],
+            "description": [
+              {
+                "languageText": "Persons with income in Norway per 2018-01-01"
+              }
+            ]
+          }
+        },
+        {
+          "node": {
+            "name": [
+              {
+                "languageText": "FamilyDataset"
+              }
+            ],
+            "description": [
+              {
+                "languageText": "Dataset for families in Norway per 2018-01-01"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "DimensionalDataSet": {
+      "edges": []
+    }
+  }
+}

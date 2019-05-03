@@ -1,0 +1,93 @@
+{
+  "data": {
+    "Search": {
+      "edges": [
+        {
+          "node": {
+            "__typename": "RepresentedVariable"
+          }
+        },
+        {
+          "node": {
+            "__typename": "MeasureComponent"
+          }
+        },
+        {
+          "node": {
+            "__typename": "InstanceVariable"
+          }
+        },
+        {
+          "node": {
+            "__typename": "Variable",
+            "name": [
+              {
+                "languageText": "Income"
+              }
+            ],
+            "description": [
+              {
+                "languageText": "The person's annual income"
+              }
+            ]
+          }
+        },
+        {
+          "node": {
+            "__typename": "Universe"
+          }
+        },
+        {
+          "node": {
+            "__typename": "LogicalRecord"
+          }
+        },
+        {
+          "node": {
+            "__typename": "SubjectField"
+          }
+        },
+        {
+          "node": {
+            "__typename": "UnitDataStructure"
+          }
+        },
+        {
+          "node": {
+            "__typename": "Population"
+          }
+        },
+        {
+          "node": {
+            "__typename": "UnitDataSet",
+            "name": [
+              {
+                "languageText": "PersonWithIncomeDataset"
+              }
+            ],
+            "description": [
+              {
+                "languageText": "Persons with income in Norway per 2018-01-01"
+              }
+            ]
+          }
+        },
+        {
+          "node": {
+            "__typename": "UnitDataSet",
+            "name": [
+              {
+                "languageText": "FamilyDataset"
+              }
+            ],
+            "description": [
+              {
+                "languageText": "Dataset for families in Norway per 2018-01-01"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

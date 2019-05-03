@@ -1,0 +1,180 @@
+{
+  "data": {
+    "UnitDataSet": {
+      "edges": [
+        {
+          "cursor": "b9c10b86-5867-4270-b56e-ee7439fe381e",
+          "node": {
+            "description": [
+              {
+                "languageCode": "en",
+                "languageText": "Persons with income in Norway per 2018-01-01"
+              }
+            ],
+            "unitDataStructure": {
+              "logicalRecords": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "f1b61f07-c403-43c5-80db-2a1bfdd1bb37",
+                      "identifierComponents": {
+                        "edges": [
+                          {
+                            "node": {
+                              "isUnique": true,
+                              "isComposite": false,
+                              "shortName": "PERSON_ID",
+                              "representedVariable": {
+                                "substantiveValueDomain": {
+                                  "dataType": "STRING"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "measureComponents": {
+                        "edges": [
+                          {
+                            "node": {
+                              "shortName": "INCOME",
+                              "representedVariable": {
+                                "substantiveValueDomain": {
+                                  "dataType": "INTEGER"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "node": {
+                              "shortName": "GENDER",
+                              "representedVariable": {
+                                "substantiveValueDomain": {
+                                  "dataType": "STRING"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "node": {
+                              "shortName": "MARITAL_STATUS",
+                              "representedVariable": {
+                                "substantiveValueDomain": {
+                                  "dataType": "STRING"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "node": {
+                              "shortName": "MUNICIPALITY",
+                              "representedVariable": {
+                                "substantiveValueDomain": {
+                                  "dataType": "STRING"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "attributeComponents": {
+                        "edges": [
+                          {
+                            "node": {
+                              "shortName": "DATA_QUALITY",
+                              "representedVariable": {
+                                "substantiveValueDomain": {
+                                  "dataType": "STRING"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "cursor": "d7f1a566-b906-4561-92cb-4758b766335c",
+          "node": {
+            "description": [
+              {
+                "languageCode": "en",
+                "languageText": "Dataset for families in Norway per 2018-01-01"
+              }
+            ],
+            "unitDataStructure": {
+              "logicalRecords": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "52264328-76be-4ea3-9d86-a0853751e7f4",
+                      "identifierComponents": {
+                        "edges": [
+                          {
+                            "node": {
+                              "isUnique": true,
+                              "isComposite": false,
+                              "shortName": "FAMILY_ID",
+                              "representedVariable": {
+                                "substantiveValueDomain": {
+                                  "dataType": "STRING"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "measureComponents": {
+                        "edges": [
+                          {
+                            "node": {
+                              "shortName": "FAMILY_TYPE",
+                              "representedVariable": {
+                                "substantiveValueDomain": {
+                                  "dataType": "STRING"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "node": {
+                              "shortName": "NUM_CHILDREN",
+                              "representedVariable": {
+                                "substantiveValueDomain": {
+                                  "dataType": "INTEGER"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "attributeComponents": {
+                        "edges": [
+                          {
+                            "node": {
+                              "shortName": "DATA_QUALITY",
+                              "representedVariable": {
+                                "substantiveValueDomain": {
+                                  "dataType": "STRING"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

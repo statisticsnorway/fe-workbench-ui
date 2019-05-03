@@ -6,7 +6,6 @@ import SearchResultDataset from './SearchResultDataset'
 import SearchResultVariable from './SearchResultVariable'
 import { METADATA } from '../../utilities/enum'
 import { WorkbenchContext } from '../../context/ContextProvider'
-import { FULL_TEXT_SEARCH, mapSearchResult } from './SearchQuery'
 
 class SearchPage extends Component {
   static contextType = WorkbenchContext
@@ -71,13 +70,10 @@ class SearchPage extends Component {
 
     if (this.state.value.length < 1) return this.resetComponent()
 
-    this.props.client.query({
-      query: FULL_TEXT_SEARCH,
-      variables: { text: this.state.value },
-    }).then(results => {
+    this.context.ldsService.searchDatasetsFullText({ text: this.state.value }).then(results => {
       this.setState({
         isLoading: false,
-        results: mapSearchResult(results),
+        results: results,
         enterIsPressed: true
       })
     })

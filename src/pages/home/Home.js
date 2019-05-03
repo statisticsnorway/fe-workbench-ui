@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import { Button, Container, Grid, Icon, Sidebar } from 'semantic-ui-react'
-import ApolloClient, { InMemoryCache } from 'apollo-boost'
-import { IntrospectionFragmentMatcher } from 'apollo-cache-inmemory'
 
 import DatasetView from '../dataset/DatasetView'
 import TopMenu from './TopMenu'
@@ -17,13 +15,7 @@ import GsimBrowser from '../metadata/GsimBrowser'
 import WorkbenchSidebar from '../../menu/WorkbenchSidebar'
 import AccessControlRoute from '../../utilities/security/AccessControlRoute'
 import NoAccess from '../../utilities/security/NoAccess'
-import introspectionQueryResultData from '../search/fragmentTypes.json'
 import UserPreferences from '../userconfig/UserPreferences'
-
-// Some queries contain union or interface types, so Apollo Client's simple (heuristic) fragment matcher can not
-// be used. See https://www.apollographql.com/docs/react/advanced/fragments.html#fragment-matcher
-const fragmentMatcher = new IntrospectionFragmentMatcher({ introspectionQueryResultData })
-const cache = new InMemoryCache({ fragmentMatcher })
 
 class Home extends Component {
   state = {
@@ -46,16 +38,12 @@ class Home extends Component {
   }
 
   render () {
-    const { graphqlURL, handleLogout, ...user } = this.props
+    const { handleLogout, ...user } = this.props
     const { animation, direction, visible } = this.state
-    const client = new ApolloClient({
-      uri: graphqlURL,
-      cache: cache
-    })
 
     return (
       <div>
-        <TopMenu client={client} handleLogout={handleLogout} user={user} />
+        <TopMenu handleLogout={handleLogout} user={user} />
         <div style={{ height: '100vh' }}>
           <Sidebar.Pushable as={Container} fluid>
             <Button style={{ position: 'fixed', top: '15px', left: '15px', zIndex: 3 }} fixed='top' icon
@@ -76,7 +64,7 @@ class Home extends Component {
                   <Grid.Column floated='left' width={1}> {/*Left padding column*/}
                   </Grid.Column>
                   <Grid.Column width={14}>
-                    <AccessControlRoute user={user} client={client} path='/search' component={SearchPage} />
+                    <AccessControlRoute user={user} path='/search' component={SearchPage} />
                     <AccessControlRoute user={user} path='/dataset' component={DatasetView} />
                     <AccessControlRoute user={user} path='/collection/dashboard' component={Dashboard} />
                     <AccessControlRoute user={user} path='/collection/setup' component={CollectionSetup} />

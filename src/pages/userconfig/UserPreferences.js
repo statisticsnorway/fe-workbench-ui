@@ -24,7 +24,7 @@ class UserPreferences extends Component {
         ready: true,
         roles: roles.map(role => ({
             key: role.id,
-            text: role.name.filter(name => name.languageCode === context.languageCode)[0].languageText,
+            text: role.name.filter(name => name.languageCode === context.languageCode).map(name => name.languageText)[0],
             value: role.id
           })
         )
