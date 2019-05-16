@@ -26,11 +26,9 @@ class SearchField extends Component {
 
   handleResultSelect = (e, {result}) => {
     this.setState({results: []})
-
-    this.props.history.push({
-      pathname: '/dataset',
-      state: {dataset: result}
-    })
+      this.props.history.push({
+        pathname: '/dataset/' + result.id,
+      })
   }
 
   handleSearchChange = (e, {value}) => {
@@ -64,16 +62,12 @@ class SearchField extends Component {
       if (this.props.history.location.pathname === pathname) {
         this.props.history.replace({
           pathname: pathname,
-          state: {
-            value: value
-          }
+          search: '?query=' + value
         })
       } else {
         this.props.history.push({
           pathname: pathname,
-          state: {
-            value: value
-          }
+          search: '?query=' + value
         })
       }
     }

@@ -13,7 +13,7 @@ class SearchPage extends Component {
   constructor (props) {
     super(props)
 
-    const {state} = props.location
+    const { state } = props.location
 
     this.state = {
       isLoading: false,
@@ -28,10 +28,10 @@ class SearchPage extends Component {
   }
 
   componentDidMount () {
-    if (this.props.location.state) {
+    if (this.props.location.search) {
       this.setState(
         {
-          value: this.props.location.state.value,
+          value: this.getQuery(this.props),
           enterIsPressed: true
         }
       )
@@ -42,7 +42,7 @@ class SearchPage extends Component {
 
   componentWillReceiveProps (nextProps, nextContext) {
     this.setState({
-      value: nextProps.location.state ? nextProps.location.state.value : '',
+      value: this.getQuery(nextProps),
       enterIsPressed: true
     })
 
@@ -51,22 +51,30 @@ class SearchPage extends Component {
 
   resetComponent = () => this.setState({
     isLoading: false, results: [],
-    value: this.props.location && this.props.location.state ? this.props.location.state.value : ''
+    value: this.getQuery(this.props)
   })
 
-  handleSearchChange = (e, {value}) => {
-    this.setState({value})
+  handleSearchChange = (e, { value }) => {
+    this.setState({ value })
   }
 
   handleKeyPress = e => {
     if (e.key === 'Enter') {
       e.preventDefault()
+      this.props.history.push({
+        pathname: this.props.history.location.pathname,
+        search: '?query=' + this.state.value
+      })
       this.doSearch()
     }
   }
 
+  getQuery = (props) => {
+    return props.location && props.location.search ? new URLSearchParams(props.location.search).get('query') : ''
+  }
+
   doSearch = () => {
-    this.setState({isLoading: true})
+    this.setState({ isLoading: true })
 
     if (this.state.value.length < 1) return this.resetComponent()
 
@@ -81,7 +89,7 @@ class SearchPage extends Component {
   }
 
   render () {
-    const {isLoading, value, results} = this.state
+    const { isLoading, value, results } = this.state
     const datasetResults = results.datasets || []
     const variableResults = results.variables || []
     let context = this.context
@@ -100,35 +108,35 @@ class SearchPage extends Component {
             </Grid.Column>
             <Grid.Column width={12}>
               <Grid.Row>
-                <Grid.Column style={{'paddingBottom': '10px', 'textAlign': 'center'}}>
+                <Grid.Column style={{ 'paddingBottom': '10px', 'textAlign': 'center' }}>
                   <h1>{METADATA.SEARCH_RESULTS[context.languageCode]}</h1>
                 </Grid.Column>
               </Grid.Row>
-              <Grid.Row style={{'paddingBottom': '30px', 'textAlign': 'center'}}>
-                <Grid.Column style={{'textAlign': '-webkit-center'}}>
+              <Grid.Row style={{ 'paddingBottom': '30px', 'textAlign': 'center' }}>
+                <Grid.Column style={{ 'textAlign': '-webkit-center' }}>
                   {/*TODO reuse SearchField here, improve customizability*/}
                   <Search
                     autoFocus
-                    style={{'width': '70%'}}
+                    style={{ 'width': '70%' }}
                     onKeyPress={this.handleKeyPress}
                     loading={isLoading}
-                    onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
+                    onSearchChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
                     value={value}
                     minCharacters={3}
                     size='large'
-                    input={{fluid: true}}
+                    input={{ fluid: true }}
                     open={false}
                   />
                 </Grid.Column>
               </Grid.Row>
-              <Grid.Row style={{'paddingBottom': '30px'}}>
+              <Grid.Row style={{ 'paddingBottom': '30px' }}>
                 <Grid.Column>
                   {/* {this.state.enterIsPressed} TODO show headers only after an actual search has been performed*/}
                   <Header>{METADATA.MATCHES_IN[context.languageCode]} {METADATA.TABLES[context.languageCode]}</Header>
-                  <hr style={{color: 'black', height: 0}} />
+                  <hr style={{ color: 'black', height: 0 }}/>
                   {
                     datasetResults.length > 0 ? datasetResults.map((value, idx) =>
-                        <SearchResultDataset key={idx} result={value} />
+                        <SearchResultDataset key={idx} result={value}/>
                       )
                       : value.length > 1 && this.state.enterIsPressed ? '0 treff' : ''
                   }
@@ -137,9 +145,9 @@ class SearchPage extends Component {
               <Grid.Row>
                 <Grid.Column>
                   <Header>{METADATA.MATCHES_IN[context.languageCode]} {METADATA.VARIABLES[context.languageCode]}</Header>
-                  <hr style={{color: 'black', height: 0}} />
+                  <hr style={{ color: 'black', height: 0 }}/>
                   {variableResults.length > 0 ? variableResults.map((value, idx) =>
-                      <SearchResultVariable key={idx} result={value} />
+                      <SearchResultVariable key={idx} result={value}/>
                     )
                     : value.length > 1 && this.state.enterIsPressed ? '0 treff' : ''
                   }

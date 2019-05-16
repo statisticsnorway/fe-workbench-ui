@@ -1,0 +1,170 @@
+[
+  {
+    "PERSON_ID": "0",
+    "INCOME": 558651,
+    "GENDER": "1",
+    "MARITAL_STATUS": "6",
+    "MUNICIPALITY": "0423",
+    "DATA_QUALITY": "BwAsZop2x0A4VVvzd0Ga"
+  },
+  {
+    "PERSON_ID": "1",
+    "INCOME": 1419596,
+    "GENDER": "2",
+    "MARITAL_STATUS": "4",
+    "MUNICIPALITY": "5017",
+    "DATA_QUALITY": "IaXDl2hBB3lKaU0QzY6Q"
+  },
+  {
+    "PERSON_ID": "2",
+    "INCOME": 778412,
+    "GENDER": "1",
+    "MARITAL_STATUS": "1",
+    "MUNICIPALITY": "2023",
+    "DATA_QUALITY": "jSYWMSz7Xvzx4x6jJQaC"
+  },
+  {
+    "PERSON_ID": "3",
+    "INCOME": 1319885,
+    "GENDER": "1",
+    "MARITAL_STATUS": "2",
+    "MUNICIPALITY": "5032",
+    "DATA_QUALITY": "J91hEcjMwkh2QcHchHl6"
+  },
+  {
+    "PERSON_ID": "4",
+    "INCOME": 900745,
+    "GENDER": "1",
+    "MARITAL_STATUS": "3",
+    "MUNICIPALITY": "5061",
+    "DATA_QUALITY": "gspP2wrFROLuLkb1DIL7"
+  },
+  {
+    "PERSON_ID": "5",
+    "INCOME": 894529,
+    "GENDER": "2",
+    "MARITAL_STATUS": "5",
+    "MUNICIPALITY": "1941",
+    "DATA_QUALITY": "C1KKylVw32Lj69XKbMZ4"
+  },
+  {
+    "PERSON_ID": "6",
+    "INCOME": 1148361,
+    "GENDER": "1",
+    "MARITAL_STATUS": "9",
+    "MUNICIPALITY": "1144",
+    "DATA_QUALITY": "bY2qb0oyWeXiwZWJr7fS"
+  },
+  {
+    "PERSON_ID": "7",
+    "INCOME": 888389,
+    "GENDER": "1",
+    "MARITAL_STATUS": "9",
+    "MUNICIPALITY": "1227",
+    "DATA_QUALITY": "flVsON1pSucCk4yTjgnj"
+  },
+  {
+    "PERSON_ID": "8",
+    "INCOME": 832738,
+    "GENDER": "2",
+    "MARITAL_STATUS": "8",
+    "MUNICIPALITY": "0122",
+    "DATA_QUALITY": "Nr41oOmiS5gmZTeJfmvj"
+  },
+  {
+    "PERSON_ID": "9",
+    "INCOME": 1364019,
+    "GENDER": "2",
+    "MARITAL_STATUS": "2",
+    "MUNICIPALITY": "1813",
+    "DATA_QUALITY": "tq2HYvnYNj7WiNa5G3db"
+  },
+  {
+    "PERSON_ID": "10",
+    "INCOME": 1221259,
+    "GENDER": "2",
+    "MARITAL_STATUS": "1",
+    "MUNICIPALITY": "1838",
+    "DATA_QUALITY": "RaW139UXZxeyRss6dmge"
+  },
+  {
+    "PERSON_ID": "11",
+    "INCOME": 438073,
+    "GENDER": "1",
+    "MARITAL_STATUS": "2",
+    "MUNICIPALITY": "1428",
+    "DATA_QUALITY": "c5dWnWauloNcHGcQ3cBK"
+  },
+  {
+    "PERSON_ID": "12",
+    "INCOME": 815389,
+    "GENDER": "1",
+    "MARITAL_STATUS": "4",
+    "MUNICIPALITY": "1911",
+    "DATA_QUALITY": "9hgMwKI54nD7vF9b1BJf"
+  },
+  {
+    "PERSON_ID": "13",
+    "INCOME": 1264753,
+    "GENDER": "1",
+    "MARITAL_STATUS": "4",
+    "MUNICIPALITY": "0519",
+    "DATA_QUALITY": "9De1qSmzgOcLPntMQINx"
+  },
+  {
+    "PERSON_ID": "14",
+    "INCOME": 1403699,
+    "GENDER": "1",
+    "MARITAL_STATUS": "8",
+    "MUNICIPALITY": "1835",
+    "DATA_QUALITY": "0IEkrvU2xqvCPB0YGvvC"
+  },
+  {
+    "PERSON_ID": "15",
+    "INCOME": 656431,
+    "GENDER": "2",
+    "MARITAL_STATUS": "9",
+    "MUNICIPALITY": "1804",
+    "DATA_QUALITY": "QpsgriqzH1HSHWSfgSP2"
+  },
+  {
+    "PERSON_ID": "16",
+    "INCOME": 979078,
+    "GENDER": "1",
+    "MARITAL_STATUS": "6",
+    "MUNICIPALITY": "1813",
+    "DATA_QUALITY": "wOHP1mfA6uQGGmzTJPS2"
+  },
+  {
+    "PERSON_ID": "17",
+    "INCOME": 436312,
+    "GENDER": "1",
+    "MARITAL_STATUS": "2",
+    "MUNICIPALITY": "5024",
+    "DATA_QUALITY": "6LXnSB3ORs1IlzjgFqnO"
+  },
+  {
+    "PERSON_ID": "18",
+    "INCOME": 1327938,
+    "GENDER": "2",
+    "MARITAL_STATUS": "4",
+    "MUNICIPALITY": "2018",
+    "DATA_QUALITY": "vvE2txRbGWv4eBjtPrIZ"
+  },
+  {
+    "PERSON_ID": "19",
+    "INCOME": 1347740,
+    "GENDER": "2",
+    "MARITAL_STATUS": "9",
+    "MUNICIPALITY": "1551",
+    "DATA_QUALITY": "oohptsBfj6XNDRnK4kfw"
+  },
+  {
+    "PERSON_ID": "20",
+    "INCOME": 1347740,
+    "GENDER": "2",
+    "MARITAL_STATUS": "9",
+    "MUNICIPALITY": "1551",
+    "DATA_QUALITY": "oohptsBfj6XNDRnK4kfw"
+  }
+]

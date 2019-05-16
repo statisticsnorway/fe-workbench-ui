@@ -63,9 +63,9 @@ class Home extends Component {
                 <Grid.Row>  {/*Main row for layout*/}
                   <Grid.Column floated='left' width={1}> {/*Left padding column*/}
                   </Grid.Column>
-                  <Grid.Column width={14}>
+                  <Grid.Column width={12}>
                     <AccessControlRoute user={user} path='/search' component={SearchPage} />
-                    <AccessControlRoute user={user} path='/dataset' component={DatasetView} />
+                    <AccessControlRoute user={user} path='/dataset/:id' component={DatasetView} />
                     <AccessControlRoute user={user} path='/collection/dashboard' component={Dashboard} />
                     <AccessControlRoute user={user} path='/collection/setup' component={CollectionSetup} />
                     <AccessControlRoute user={user} path='/prep/analysis' component={PrepAnalsysis} />

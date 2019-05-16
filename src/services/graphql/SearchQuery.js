@@ -7,6 +7,7 @@ export const FULL_TEXT_SEARCH = gql`
                 node {
                     __typename
                     ... on UnitDataSet {
+                        id
                         name {
                             languageText
                         }
@@ -15,6 +16,7 @@ export const FULL_TEXT_SEARCH = gql`
                         }
                     }
                     ... on DimensionalDataSet {
+                        id
                         name {
                             languageText
                         }
@@ -23,6 +25,7 @@ export const FULL_TEXT_SEARCH = gql`
                         }
                     }
                     ... on Variable {
+                        id
                         name {
                             languageText
                         }
@@ -49,6 +52,7 @@ function nonEmptyNode(edge) {
 
 function mapEdge(edge) {
     return {
+        id: edge.node.id,
         type: edge.node.__typename,
         title: edge.node.name[0].languageText,
         description: edge.node.description[0].languageText,

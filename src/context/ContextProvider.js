@@ -3,11 +3,14 @@ import BackendServiceMock from '../services/BackendServiceMock'
 import BackendServiceImpl from '../services/BackendServiceImpl'
 import LdsServiceMock from '../services/LdsServiceMock'
 import LdsServiceImpl from '../services/LdsServiceImpl'
+import DatasetServiceImpl from '../services/DatasetServiceImpl'
+import DatasetServiceMock from '../services/DatasetServiceMock'
 
 export const WorkbenchContext = React.createContext({
   languageCode: 'nb',
   backendService: BackendServiceMock,
   ldsService: LdsServiceMock,
+  datasetService: DatasetServiceMock,
   setLanguage: (language) => {
     this.setState({ languageCode: language })
   }
@@ -18,6 +21,7 @@ export class ContextProvider extends Component {
     languageCode: 'nb',
     backendService: process.env.REACT_APP_BACKEND_MOCK === 'true' ? BackendServiceMock : BackendServiceImpl,
     ldsService: process.env.REACT_APP_LDS_MOCK === 'true' ? LdsServiceMock : LdsServiceImpl,
+    datasetService: process.env.REACT_APP_LDS_MOCK === 'true' ? DatasetServiceMock : DatasetServiceImpl,
     setLanguage: (language) => {
       this.setState({ languageCode: language })
     }
@@ -51,6 +55,7 @@ export class ContextProvider extends Component {
           languageCode: this.state.languageCode,
           backendService: this.state.backendService,
           ldsService: this.state.ldsService,
+          datasetService: this.state.datasetService,
           setLanguage: this.state.setLanguage
         }}>
         {children}

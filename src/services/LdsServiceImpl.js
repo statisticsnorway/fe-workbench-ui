@@ -3,6 +3,7 @@ import { FULL_TEXT_SEARCH, mapSearchResult } from './graphql/SearchQuery'
 import { ALL_DATASETS, filterByText } from './graphql/AllDatasetsQuery'
 import introspectionQueryResultData from './graphql/fragmentTypes.json'
 import ApolloClient, { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-boost'
+import { DATASET_WITH_STRUCTURE, mapResult } from './graphql/DatasetQuery'
 
 // Some queries contain union or interface types, so Apollo Client's simple (heuristic) fragment matcher can not
 // be used. See https://www.apollographql.com/docs/react/advanced/fragments.html#fragment-matcher
@@ -25,6 +26,11 @@ class LdsServiceImpl {
       query: FULL_TEXT_SEARCH,
       variables: variables
     }).then(result => Promise.resolve(mapSearchResult(result)))
+
+  static getDatasetStructure = (id) => client.query({
+      query: DATASET_WITH_STRUCTURE,
+      variables: {id: id}
+    }).then(result => Promise.resolve(mapResult(result)))
 }
 
 export default LdsServiceImpl

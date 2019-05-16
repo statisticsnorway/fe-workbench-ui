@@ -14,8 +14,7 @@ class SearchResultDataset extends Component {
     return (
       <p style={{marginBottom: 10 + 'px'}}>
         <Link to={{
-          'pathname': '/dataset',
-          state: {dataset: result}
+          'pathname': '/dataset/' + result.id
         }}
         ><b>{METADATA.TITLE[context.languageCode]}:</b> {result.title} </Link><br />
         <b>{METADATA.DESCRIPTION[context.languageCode]}:</b> {result.description} <br />

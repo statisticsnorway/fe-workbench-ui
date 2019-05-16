@@ -4,7 +4,8 @@ import DatasetSearchResults from '../__tests__/test-data/DatasetSearchResults'
 import { filterByText } from './graphql/AllDatasetsQuery'
 import { mapSearchResult } from './graphql/SearchQuery'
 import _ from 'lodash'
-
+import dataset from '../__tests__/test-data/DatasetWithStructure'
+import { mapResult } from './graphql/DatasetQuery'
 
 function simpleMockSearch(result, value) {
   const re = new RegExp(_.escapeRegExp(value), 'i')
@@ -42,6 +43,9 @@ class LdsServiceMock {
     return Promise.resolve(mapSearchResult(simpleMockSearch(DatasetSearchResults, query.text)));
   }
 
+  static getDatasetStructure = (id) => {
+    return Promise.resolve(mapResult(dataset));
+  }
 }
 
 export default LdsServiceMock

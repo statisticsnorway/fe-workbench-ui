@@ -1,0 +1,97 @@
+{
+  "data": {
+    "UnitDataSetById": {
+      "description": [
+        {
+          "languageCode": "en",
+          "languageText": "Persons with income in Norway per 2018-01-01"
+        }
+      ],
+      "unitDataStructure": {
+        "logicalRecords": {
+          "edges": [
+            {
+              "node": {
+                "id": "f1b61f07-c403-43c5-80db-2a1bfdd1bb37",
+                "identifierComponents": {
+                  "edges": [
+                    {
+                      "node": {
+                        "isUnique": true,
+                        "isComposite": false,
+                        "shortName": "PERSON_ID",
+                        "representedVariable": {
+                          "substantiveValueDomain": {
+                            "dataType": "STRING"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "measureComponents": {
+                  "edges": [
+                    {
+                      "node": {
+                        "shortName": "INCOME",
+                        "representedVariable": {
+                          "substantiveValueDomain": {
+                            "dataType": "INTEGER"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "node": {
+                        "shortName": "GENDER",
+                        "representedVariable": {
+                          "substantiveValueDomain": {
+                            "dataType": "STRING"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "node": {
+                        "shortName": "MARITAL_STATUS",
+                        "representedVariable": {
+                          "substantiveValueDomain": {
+                            "dataType": "STRING"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "node": {
+                        "shortName": "MUNICIPALITY",
+                        "representedVariable": {
+                          "substantiveValueDomain": {
+                            "dataType": "STRING"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "attributeComponents": {
+                  "edges": [
+                    {
+                      "node": {
+                        "shortName": "DATA_QUALITY",
+                        "representedVariable": {
+                          "substantiveValueDomain": {
+                            "dataType": "STRING"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

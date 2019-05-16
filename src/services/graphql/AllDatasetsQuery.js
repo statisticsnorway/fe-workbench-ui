@@ -7,6 +7,7 @@ export const ALL_DATASETS = gql`
         UnitDataSet {
             edges {
                 node {
+                    id
                     name {
                         languageText
                     }
@@ -19,6 +20,7 @@ export const ALL_DATASETS = gql`
         DimensionalDataSet {
             edges {
                 node {
+                    id
                     name {
                         languageText
                     }
@@ -41,6 +43,7 @@ export function filterByText(result, value) {
 
 function mapEdge(edge) {
     return {
+        id: edge.node.id,
         type: edge.node.__typename,
         title: edge.node.name[0].languageText,
         description: edge.node.description[0].languageText,
