@@ -3,7 +3,7 @@ import LdsServiceMock from '../../services/LdsServiceMock'
 
 describe('Test LDS service', () => {
 
-  let service = LdsServiceMock
+  let service = new LdsServiceMock()
 
   test('It should return mock roles', async () => {
     let roles = await service.getRoles()

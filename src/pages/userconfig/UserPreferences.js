@@ -1,53 +1,100 @@
 import React, { Component } from 'react'
-import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
+import { Button, Divider, Form, Grid, Icon, Label, Segment } from 'semantic-ui-react'
 
 import { WorkbenchContext } from '../../context/ContextProvider'
 import { SSBLogo } from '../../media/Logo'
-import { UI, LANGUAGES } from '../../utilities/enum'
-
-import { mockDataResource } from '../../mocks/MockDataResource'
-
+import { LANGUAGES, UI } from '../../utilities/enum'
+import _ from 'lodash'
 
 class UserPreferences extends Component {
   static contextType = WorkbenchContext
 
   state = {
-    ready: false,
-    roles: []
+    rolesReady: false,
+    dataResourcesReady: false,
+    formValidated: false,
+    saved: false,
+    error: this.props.error,
+    userPrefs:{
+      uuid: _.get(this.props.user, 'userPrefs.uuid'),
+      preferences: {
+        role: _.get(this.props.user, 'userPrefs.preferences.role'),
+        dataResource: _.get(this.props.user, 'userPrefs.preferences.dataResource'),
+        language: _.get(this.props.user, 'userPrefs.preferences.language'),
+      }
+    },
+    handleSave: this.props.handleUpdate
+  }
+
+  handleChange = (e, {name, value}) => {
+    let context = this.context
+    let prefs = this.state.userPrefs
+    prefs.preferences[name] = value
+    this.setState(prevState => {
+      return {
+        userPrefs: prefs,saved: false,
+        formValidated: prevState.userPrefs.preferences.role
+        && prevState.userPrefs.preferences.dataResource
+        && prevState.userPrefs.preferences.dataResource.length  > 0
+        && prevState.userPrefs.preferences.language
+      }
+    })
+    if (name === 'language') {
+      context.setLanguage(LANGUAGES[value].languageCode)
+    }
+  }
+
+  handleSubmit = () => {
+    this.state.handleSave(this.state.userPrefs).then( () =>
+      this.setState({ formValidated: false, saved: true })
+    ).catch((error) => {
+      console.error('Error saving user preferences: ', error)
+      this.setState({ formValidated: true, saved: false, error: true })
+    })
   }
 
   componentDidMount () {
     let context = this.context
 
-    context.ldsService.getRoles().then(roles => {
+    context.ldsService.getRoles().then(roles =>
       this.setState({
-        ready: true,
-        roles: roles.map(role => ({
-            key: role.id,
-            text: role.name.filter(name => name.languageCode === context.languageCode).map(name => name.languageText)[0],
-            value: role.id
-          })
-        )
+        rolesReady: true,
+        roles: roles
+      })
+    ).catch(error => {
+      console.error('Error contacting LDS:', error)
+      this.setState({rolesReady: true})
+    })
+
+
+    context.ldsService.getDataResources().then(dataResources => {
+      this.setState({
+        dataResourcesReady: true,
+        dataResources: dataResources
       })
     }).catch(error => {
       console.log(error)
-
-      this.setState({ready: true})
+      this.setState({dataResourcesReady: true})
     })
   }
 
-  render () {
-    // TODO get preferences object from props
-    const { dataResource, handleChange, handleUpdate, role, language, location } = this.props
-    const { ready, roles } = this.state
+  formatDropdownValues (ready, values) {
+    let context = this.context
+    return ready ? values.map(value => ({
+      key: value.id,
+      text: value.name.filter(name => name.languageCode === context.languageCode)[0].languageText,
+      value: value.id
+    })) : null
+  }
 
+  render () {
     let context = this.context
 
-    const dataResourceOptions = Object.keys(mockDataResource).map(dataResource => ({
-      key: dataResource,
-      text: mockDataResource[dataResource].name[context.languageCode],
-      value: dataResource
-    }))
+    const { location } = this.props
+    const { rolesReady, roles, dataResourcesReady, dataResources, formValidated, saved, error } = this.state
+
+    const roleValues = this.formatDropdownValues(rolesReady, roles)
+    const dataResourceValues = this.formatDropdownValues(dataResourcesReady, dataResources)
 
     const languages = Object.keys(LANGUAGES).map( language => ({
       key: language,
@@ -68,19 +115,26 @@ class UserPreferences extends Component {
             }
             <Segment>
               <Form size='large'>
-                <Form.Select fluid name='role' placeholder={UI.ROLE[context.languageCode]} value={role} loading={!ready}
-                             options={roles} onChange={handleChange} label={UI.ROLE[context.languageCode]}
-                             disabled={!ready} />
+                <Form.Select fluid name='role' placeholder={UI.ROLE[context.languageCode]} value={this.state.userPrefs.preferences.role}
+                             options={!rolesReady ? [] : roleValues} onChange={this.handleChange}
+                             label={UI.ROLE[context.languageCode]} data-testid='role-dropdown'
+                             disabled={!rolesReady} loading={!rolesReady}/>
                 <Form.Select fluid name='dataResource' placeholder={UI.DATA_RESOURCE[context.languageCode]}
-                             value={dataResource} label={UI.DATA_RESOURCE[context.languageCode]} multiple
-                             options={dataResourceOptions} onChange={handleChange} />
+                             defaultValue={this.state.userPrefs.preferences.dataResource}
+                             options={!dataResourcesReady ? [] : dataResourceValues} onChange={this.handleChange} multiple
+                             label={UI.DATA_RESOURCE[context.languageCode]}
+                             disabled={!dataResourcesReady} loading={!rolesReady}/>
                 <Form.Select fluid name='language' placeholder={UI.LANGUAGE[context.languageCode]}
-                             value={language} label={UI.LANGUAGE[context.languageCode]}
-                             options={languages} onChange={handleChange} />
-                <Button primary fluid size='large' content={UI.SAVE[context.languageCode]} onClick={handleUpdate}
-                        data-testid='save-button' />
+                             value={this.state.userPrefs.preferences.language} label={UI.LANGUAGE[context.languageCode]}
+                             options={languages} onChange={this.handleChange} />
+                <Button primary fluid size='large' content={UI.SAVE[context.languageCode]} onClick={this.handleSubmit}
+                        data-testid='save-button' disabled={!formValidated}/>
               </Form>
             </Segment>
+            {saved && !error &&
+            <Label color='green'> {`${UI.CHANGES_SAVED[context.languageCode]}`} <Icon name='check circle'/></Label> }
+            {error &&
+            <Label color='red'> {`${UI.GENERIC_ERROR[context.languageCode]}`} <Icon name='times circle outline'/></Label> }
           </Grid.Column>
         </Grid>
       </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
+import { Button, Divider, Form, Grid, Icon, Label, Segment } from 'semantic-ui-react'
 
 import { WorkbenchContext } from '../../context/ContextProvider'
 import { SSBLogo } from '../../media/Logo'
@@ -10,14 +10,20 @@ class Login extends Component {
 
   state = {
     ready: false,
-    roles: []
+    roles: [],
+    user: '',
+    handleLogin: this.props.handleLogin
   }
 
+  handleChange = (e, {name, value}) => {
+    this.setState({ [name] : value })
+  }
+
+  handleSubmit = () => this.state.handleLogin(this.state.user)
+
   render () {
-    const { handleChange, handleLogin,  user } = this.props
-
-
     let context = this.context
+    const { error } = this.props
 
     return (
       <div className='vertical-display'>
@@ -27,13 +33,15 @@ class Login extends Component {
             {SSBLogo('100%')}
             <Divider hidden />
             <Segment>
-              <Form size='large'>
-                <Form.Input fluid icon='user' iconPosition='left' name='user' value={user} onChange={handleChange}
-                            placeholder={UI.USER[context.languageCode]} />
-                <Button primary fluid size='large' content={UI.LOGIN[context.languageCode]} onClick={handleLogin}
-                        data-testid='login-button' />
+              <Form size='large' onSubmit={this.handleSubmit}>
+                <Form.Input fluid icon='user' iconPosition='left' name='user' value={this.state.user} onChange={this.handleChange}
+                            placeholder={UI.USER[context.languageCode]} data-testid='user-input'/>
+                <Button primary fluid size='large' content={UI.LOGIN[context.languageCode]} data-testid='login-button'
+                disabled={this.state.user.length === 0}/>
               </Form>
             </Segment>
+            {error &&
+            <Label color='red'> {`${UI.GENERIC_ERROR[context.languageCode]}`} <Icon name='times circle outline'/></Label> }
           </Grid.Column>
         </Grid>
       </div>

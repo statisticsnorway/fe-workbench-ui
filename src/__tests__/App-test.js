@@ -1,61 +1,108 @@
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
-import { cleanup, fireEvent, render } from 'react-testing-library'
+import { cleanup, fireEvent, render, waitForElement } from 'react-testing-library'
 
 import App from '../App'
 import { UI } from '../utilities/enum'
+import { ContextProvider } from '../context/ContextProvider'
 
 afterEach(() => {
   cleanup()
 })
 
 const setup = () => {
-  const { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText } = render(
+  const { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText } = render(
     <MemoryRouter>
-      <App />
+      <ContextProvider>
+        <App />
+      </ContextProvider>
     </MemoryRouter>
   )
-
-  return { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText }
+  return { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText }
 }
 
-test('App defaults to Login', () => {
-  const { queryAllByPlaceholderText, queryAllByText } = setup()
+describe('Test App routing logic', () =>
+{
 
-  expect(queryAllByText('SSB Logo')).toHaveLength(1)
-  expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(1)
-  expect(queryAllByText(UI.LOGIN.nb)).toHaveLength(1)
-})
+  test('App defaults to Login', () => {
+    const { queryAllByPlaceholderText, queryAllByText } = setup()
 
-test('Login button directs to Preferences', () => {
-  const { getByTestId, queryAllByText } = setup()
+    expect(queryAllByText('SSB Logo')).toHaveLength(1)
+    expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(1)
+    expect(queryAllByText(UI.LOGIN.nb)).toHaveLength(1)
+    expect(queryAllByText(UI.GENERIC_ERROR.nb)).toHaveLength(0)
+  })
 
-  fireEvent.click(getByTestId('login-button'))
+  test('Login button for new user directs to Preferences', async () => {
+    const { getByTestId, queryAllByText, getByPlaceholderText } = setup()
 
-  expect(queryAllByText('SSB Logo')).toHaveLength(1)
-  expect(queryAllByText(UI.ROLE.nb)).toHaveLength(2)
-  expect(queryAllByText(UI.DATA_RESOURCE.nb)).toHaveLength(2)
-})
+    // Set user name and log in
+    fireEvent.change(getByPlaceholderText(UI.USER.nb), { target: {value: 'noprefs' } })
+    fireEvent.click(getByTestId('login-button'))
+    await expect(queryAllByText('SSB Logo')).toHaveLength(1)
+    expect(queryAllByText(UI.ROLE.nb)).toHaveLength(2)
+    expect(queryAllByText(UI.DATA_RESOURCE.nb)).toHaveLength(2)
+    expect(queryAllByText(UI.GENERIC_ERROR.nb)).toHaveLength(0)
+  })
 
-test('Save Preferences button directs to Home', () => {
-  const { getByTestId, queryAllByPlaceholderText, queryAllByText } = setup()
+  test('Login button for existing user directs to Home', async() => {
+    const { getByTestId, queryAllByText, queryAllByPlaceholderText, getByPlaceholderText } = setup()
 
-  fireEvent.click(getByTestId('login-button'))
-  fireEvent.click(getByTestId('save-button'))
+    // Set user name and log in
+    fireEvent.change(getByPlaceholderText(UI.USER.nb), { target: {value: 'admin' } })
+    fireEvent.click(getByTestId('login-button'))
 
-  expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(0)
-  expect(queryAllByText(UI.LOGIN.nb)).toHaveLength(0)
-  expect(queryAllByText(UI.LOGOUT.nb)).toHaveLength(1)
-})
+    // wait for preferences to be resolved
+    await expect(queryAllByText('SSB Logo')).toHaveLength(1)
 
-test('Logout button directs to Login', () => {
-  const { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText } = setup()
+    expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(0)
+    expect(queryAllByText(UI.LOGIN.nb)).toHaveLength(0)
+    expect(queryAllByText(UI.LOGOUT.nb)).toHaveLength(1)
+  })
 
-  fireEvent.click(getByTestId('login-button'))
-  fireEvent.click(getByTestId('save-button'))
-  fireEvent.click(getByText(UI.LOGOUT.nb))
+  test('Save Preferences button directs to Home', async () => {
+    const { getByTestId, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText, getByText } = setup()
 
-  expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(1)
-  expect(queryAllByText(UI.LOGIN.nb)).toHaveLength(1)
-  expect(queryAllByText(UI.LOGOUT.nb)).toHaveLength(0)
+    // add username and log in
+    fireEvent.change(getByPlaceholderText(UI.USER.nb), { target: { value: 'noprefs' } })
+    fireEvent.click(getByTestId('login-button'))
+
+    // wait for preferences to be resolved
+    await expect(queryAllByText('SSB Logo')).toHaveLength(1)
+
+    // Wait for dropdowns to be populated. NOTE: characterData must be set to true (false by default)
+    // for waitForElement to subscribe
+    await waitForElement(() => getByText('Statistikkprodusent'))
+
+    await waitForElement(() => getByText('Strukturstatistikk'))
+
+    // set preferences and save
+    fireEvent.click(getByText('Statistikkprodusent'))
+    fireEvent.click(getByText('Strukturstatistikk'))
+    fireEvent.click(getByText('Norsk'))
+    fireEvent.click(getByTestId('save-button'))
+
+    await expect(queryAllByText('SSB Logo')).toHaveLength(1)
+    expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(0)
+    expect(queryAllByText(UI.LOGIN.nb)).toHaveLength(0)
+    expect(queryAllByText(UI.SAVE.nb)).toHaveLength(0)
+    expect(queryAllByText(UI.LOGOUT.nb)).toHaveLength(1)
+  })
+
+  test('Logout button directs to Login', async () => {
+    const { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText } = setup()
+
+    // Set user name and log in
+    fireEvent.change(getByPlaceholderText(UI.USER.nb), { target: {value: 'admin' } })
+    fireEvent.click(getByTestId('login-button'))
+
+    // wait for preferences to be resolved
+    await expect(queryAllByText('SSB Logo')).toHaveLength(1)
+
+    fireEvent.click(getByText(UI.LOGOUT.nb))
+
+    expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(1)
+    expect(queryAllByText(UI.LOGIN.nb)).toHaveLength(1)
+    expect(queryAllByText(UI.LOGOUT.nb)).toHaveLength(0)
+  })
 })

@@ -1,0 +1,74 @@
+[
+  {
+    "administrativeStatus": "OPEN",
+    "createdBy": "Test user",
+    "createdDate": "2019-05-02T08:45:53.401Z",
+    "dataResourceType": "STATISTICAL_REGISTER_PERSONS",
+    "dataSets": ["/UnitDataSet/b9c10b86-5867-4270-b56e-ee7439fe381e", "/UnitDataSet/d7f1a566-b906-4561-92cb-4758b766335c"],
+    "id": "3a44047a-d760-42c3-9f8a-d5e544042908",
+    "lastUpdatedBy": "Test user",
+    "lastUpdatedDate": "2019-05-02T08:45:53.401Z",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Skattestatistikk person"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Person tax statistics"
+      }
+    ],
+    "validFrom": "2019-05-02T08:45:53.401Z",
+    "validUntil": "2020-05-02T08:45:53.401Z",
+    "version": "1.0.0",
+    "versionValidFrom": "2019-05-02T08:45:53.401Z"
+  },
+  {
+    "administrativeStatus": "OPEN",
+    "createdBy": "Test user",
+    "createdDate": "2019-05-02T08:47:12.256Z",
+    "dataResourceType": "ETABLISHMENT_ENTERPRISE_REGISTER",
+    "dataSets": ["/UnitDataSet/d7f1a566-b906-4561-92cb-4758b766335c", "/UnitDataSet/b9c10b86-5867-4270-b56e-ee7439fe381e"],
+    "id": "5e508083-49e6-4cae-a144-e4b575f9ac19",
+    "lastUpdatedBy": "Test user",
+    "lastUpdatedDate": "2019-05-02T08:47:12.256Z",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Skattestatistikk næring"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Business tax statistics"
+      }
+    ],
+    "validFrom": "2019-05-02T08:47:12.256Z",
+    "validUntil": "2020-05-02T08:47:12.256Z",
+    "version": "1.0.0",
+    "versionValidFrom": "2019-05-02T08:47:12.256Z"
+  },
+  {
+    "administrativeStatus": "OPEN",
+    "createdBy": "Test user",
+    "createdDate": "2019-05-02T08:45:53.701Z",
+    "dataResourceType": "ETABLISHMENT_ENTERPRISE_REGISTER",
+    "dataSets": ["/UnitDataSet/b9c10b86-5867-4270-b56e-ee7439fe381e", "/UnitDataSet/d7f1a566-b906-4561-92cb-4758b766335c"],
+    "id": "3a44047a-d760-42c3-9f8a-d5e5440429aa",
+    "lastUpdatedBy": "Test user",
+    "lastUpdatedDate": "2019-05-02T08:45:53.701Z",
+    "name": [
+      {
+        "languageCode": "nb",
+        "languageText": "Strukturstatistikk"
+      },
+      {
+        "languageCode": "en",
+        "languageText": "Structural business statistics"
+      }
+    ],
+    "validFrom": "2019-05-02T08:45:53.701Z",
+    "validUntil": "2020-05-02T08:45:53.701Z",
+    "version": "1.0.0",
+    "versionValidFrom": "2019-05-02T08:45:53.701Z"
+  }
+]

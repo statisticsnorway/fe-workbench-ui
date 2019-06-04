@@ -3,11 +3,11 @@ import versions from '../__tests__/test-data/DatasetDataVersions'
 
 class DatasetServiceMock {
 
-  static getDatasetVersions (id) {
+  getDatasetVersions () {
     return Promise.resolve(versions)
   }
 
-  static getDataset = async (id, { page, sort, order, limit }) => {
+  getDataset = async (id, { page, sort, order, limit }) => {
     await this.stall()
     const start = (page - 1) * limit
     let result = dataset
@@ -21,7 +21,7 @@ class DatasetServiceMock {
   }
 
   // Sorts strings and numbers
-  static sortBy = (field, reverse) => {
+  sortBy = (field, reverse) => {
     const key = function (x) {
       let value = x[field]
       return isNaN(value) ? value : Number(value)
@@ -35,7 +35,7 @@ class DatasetServiceMock {
   }
 
   // Simulates delay in response
-  static async stall (stallTime = 500) {
+  async stall (stallTime = 500) {
     await new Promise(resolve => setTimeout(resolve, stallTime))
   }
 

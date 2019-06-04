@@ -1,4 +1,4 @@
-import { getData } from '../utilities/fetch/Fetch'
+import { get } from '../utilities/fetch/Fetch'
 import { FULL_TEXT_SEARCH, mapSearchResult } from './graphql/SearchQuery'
 import { ALL_DATASETS, filterByText } from './graphql/AllDatasetsQuery'
 import introspectionQueryResultData from './graphql/fragmentTypes.json'
@@ -16,21 +16,29 @@ const client = new ApolloClient({
 
 class LdsServiceImpl {
 
-  static getRoles = () => getData(process.env.REACT_APP_ROLES);
-
-  static searchDatasets = (value) => client.query({
+  searchDatasets = (value) => client.query({
       query: ALL_DATASETS
     }).then(result => Promise.resolve(filterByText(result, value)))
 
-  static searchDatasetsFullText = (variables) => client.query({
+  searchDatasetsFullText = (variables) => client.query({
       query: FULL_TEXT_SEARCH,
       variables: variables
     }).then(result => Promise.resolve(mapSearchResult(result)))
 
-  static getDatasetStructure = (id) => client.query({
+  getDatasetStructure = (id) => client.query({
       query: DATASET_WITH_STRUCTURE,
       variables: {id: id}
     }).then(result => Promise.resolve(mapResult(result)))
+
+  getRoles = () =>
+  {
+    return get(process.env.REACT_APP_ROLES)
+  }
+
+  getDataResources()
+  {
+    return get(process.env.REACT_APP_DATARESOURCES)
+  }
 }
 
 export default LdsServiceImpl

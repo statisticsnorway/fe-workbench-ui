@@ -5,6 +5,7 @@ import { filterByText } from './graphql/AllDatasetsQuery'
 import { mapSearchResult } from './graphql/SearchQuery'
 import _ from 'lodash'
 import dataset from '../__tests__/test-data/DatasetWithStructure'
+import DataResources from '../__tests__/test-data/DataResources'
 import { mapResult } from './graphql/DatasetQuery'
 
 function simpleMockSearch(result, value) {
@@ -29,23 +30,31 @@ function nonEmptyNode(edge) {
 
 class LdsServiceMock {
 
-  static getRoles = () => {
-    console.debug('Calling getRoles() from LdsServiceMock')
+  // Note: cannot use arrow functions with jest.mock() or jest.spyOn()
+  getRoles() {
+    console.info('(MOCK) getting roles')
     return Promise.resolve(Roles)
   }
-  static searchDatasets = (value) => {
+
+  getDataResources() {
+    console.info('(MOCK) DataResources')
+    return Promise.resolve(DataResources)
+  }
+
+  searchDatasets(value) {
     console.debug('Calling searchDatasets() from LdsServiceMock')
     return Promise.resolve(filterByText(UnitDatasets, value));
   }
 
-  static searchDatasetsFullText = (query) => {
+  searchDatasetsFullText(query) {
     console.debug('Calling searchDatasetsFullText() from LdsServiceMock')
     return Promise.resolve(mapSearchResult(simpleMockSearch(DatasetSearchResults, query.text)));
   }
 
-  static getDatasetStructure = (id) => {
+  getDatasetStructure() {
     return Promise.resolve(mapResult(dataset));
   }
+
 }
 
 export default LdsServiceMock

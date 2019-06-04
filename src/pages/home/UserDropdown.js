@@ -21,7 +21,7 @@ class UserDropdown extends Component {
                       text={`${UI.LANGUAGE[context.languageCode]} (${UI.LANGUAGE_CHOICE[context.languageCode]})`}>
               <Dropdown.Menu>
                 {Object.keys(LANGUAGES).map(language =>
-                  <Dropdown.Item key={language} name='languageCode' content={UI[language][context.languageCode]}
+                  <Dropdown.Item key={language} name='languageCode' content={UI[LANGUAGES[language].name][context.languageCode]}
                                  value={LANGUAGES[language].languageCode}
                                  onClick={(event, data) => context.setLanguage(data.value)} />
                 )}

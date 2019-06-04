@@ -4,9 +4,10 @@ import { Accordion, Message } from 'semantic-ui-react'
 import StatusTable from './StatusTable'
 import { WorkbenchContext } from '../../../context/ContextProvider'
 import { lowerCaseFirst } from '../../../utilities/common/StringHandling'
-import { INFO, UI } from '../../../utilities/enum'
+import _ from 'lodash'
 
 import { mockStatusType } from '../../../mocks/MockStatusType'
+import { INFO, UI } from '../../../utilities/enum'
 
 class Status extends Component {
   static contextType = WorkbenchContext
@@ -20,7 +21,7 @@ class Status extends Component {
 
     this.setState({
       statusTypes: Object.keys(mockStatusType).filter(statusType =>
-        mockStatusType[statusType].approvedRoles.includes(user.role)
+        mockStatusType[statusType].approvedRoles.includes(_.get(user.userPrefs, 'preferences.role'))
       )
     })
   }

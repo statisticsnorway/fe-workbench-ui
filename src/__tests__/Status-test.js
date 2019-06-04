@@ -6,6 +6,7 @@ import { lowerCaseFirst } from '../utilities/common/StringHandling'
 import { UI } from '../utilities/enum'
 
 import { mockStatusType } from '../mocks/MockStatusType'
+import { ContextProvider } from '../context/ContextProvider'
 
 afterEach(() => {
   cleanup()
@@ -15,12 +16,19 @@ afterEach(() => {
 const setup = () => {
   const props = {
     user: {
-      dataResource: ['personTaxStatistics'],
-      role: 'ee9269d9-ec25-4d7d-9148-6d5c28353b24',
-      user: 'test'
+      userPrefs:{
+        preferences: {
+          dataResource: ['personTaxStatistics'],
+          role: 'ee9269d9-ec25-4d7d-9148-6d5c28353b24',
+          user: 'test'
+        }
+      }
     }
   }
-  const { queryAllByText } = render(<Status {...props} />)
+  const { queryAllByText } = render(
+    <ContextProvider>
+      <Status {...props} />
+    </ContextProvider>)
 
   return { queryAllByText }
 }

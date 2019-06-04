@@ -1,9 +1,9 @@
 FROM node:12.2.0-alpine as react-build
 WORKDIR /app
 COPY . ./
-RUN yarn
-RUN yarn build
-RUN yarn test --no-watch
+RUN yarn install
+RUN CI=true yarn test
+RUN CI=true yarn build
 
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf

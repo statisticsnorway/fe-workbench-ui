@@ -16,16 +16,23 @@ import WorkbenchSidebar from '../../menu/WorkbenchSidebar'
 import AccessControlRoute from '../../utilities/security/AccessControlRoute'
 import NoAccess from '../../utilities/security/NoAccess'
 import UserPreferences from '../userconfig/UserPreferences'
+import { WorkbenchContext } from '../../context/ContextProvider'
+import { LANGUAGES } from '../../utilities/enum/LANGUAGES'
 
 class Home extends Component {
+  static contextType = WorkbenchContext
   state = {
     animation: 'push',
     direction: 'left',
     visible: true
   }
 
-  // Prevent scrollbar for main window
   componentWillMount () {
+    // Set initial language based on user prefs
+    this.context.setLanguage(LANGUAGES[this.props.userPrefs !== undefined
+      ? this.props.userPrefs.preferences.language
+      : this.context.languageCode].languageCode)
+    // Prevent scrollbar for main window
     document.body.style.overflow = 'hidden'
   }
 
@@ -33,8 +40,9 @@ class Home extends Component {
     this.setState({ visible: !this.state.visible })
   }
 
-  handleSubmit = () => {
-    // TODO implement
+  handleSubmit = (userPrefs) => {
+    let context = this.context
+    return context.backendService.createOrUpdateUserPreferences(this.props.user, userPrefs)
   }
 
   render () {

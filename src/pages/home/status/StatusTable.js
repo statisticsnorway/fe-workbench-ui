@@ -1,12 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Checkbox, Dropdown, Icon, Table } from 'semantic-ui-react'
 
 import StaticStatus from './StaticStatus'
 import CustomStatus from './CustomStatus'
 import { WorkbenchContext } from '../../../context/ContextProvider'
 import { STATUS_TABLE } from '../../../utilities/enum'
-
-import { mockDataResource } from '../../../mocks/MockDataResource'
 import { mockStatusData } from '../../../mocks/MockStatusData'
 
 class StatusTable extends Component {
@@ -14,24 +12,26 @@ class StatusTable extends Component {
 
   state = {
     customStatus: {},
-    dataResource: this.props.user.dataResource[0],
-    staticStatus: {}
+    dataResource: this.props.user.userPrefs !== undefined ? this.props.user.userPrefs.preferences.dataResource[0] : [],
+    staticStatus: {},
+    dataResourcesOptions: null
   }
 
   componentDidMount () {
+    let context = this.context
     const { statusType, user } = this.props
 
     const customStatus = {}
     const staticStatus = {}
 
-    Object.keys(mockStatusData).filter(statusData =>
-      user.dataResource.includes(statusData)).forEach(statusData => {
-      Object.keys(mockStatusData[statusData].customData[statusType]).forEach(status =>
-        customStatus[status] = { data: mockStatusData[statusData].customData[statusType][status], show: true }
+    Object.entries(mockStatusData).filter(statusData =>
+      user.userPrefs.preferences.dataResource.includes(statusData[1].id)).forEach(statusData => {
+      Object.keys(mockStatusData[statusData[0]].customData[statusType]).forEach(status =>
+          customStatus[status] = { data: mockStatusData[statusData[0]].customData[statusType][status], show: true }
       )
 
-      Object.keys(mockStatusData[statusData].staticData[statusType]).forEach(status =>
-        staticStatus[status] = mockStatusData[statusData].staticData[statusType][status]
+      Object.keys(mockStatusData[statusData[0]].staticData[statusType]).forEach(status =>
+        staticStatus[status] = mockStatusData[statusData[0]].staticData[statusType][status]
       )
     })
 
@@ -39,19 +39,18 @@ class StatusTable extends Component {
       customStatus: customStatus,
       staticStatus: staticStatus
     })
-  }
 
-  filterOptions = () => {
-    const { user } = this.props
-
-    let context = this.context
-
-    return Object.keys(mockDataResource).filter(dataResource =>
-      user.dataResource.includes(dataResource)).map(dataResource => ({
-      key: dataResource,
-      text: mockDataResource[dataResource].name[context.languageCode],
-      value: dataResource
-    }))
+    context.ldsService.getDataResources().then(dataResources => {
+      let dataResourcesOptions = dataResources.filter(dataResource =>
+        user.userPrefs.preferences.dataResource.includes(dataResource.id)).map(dataResource => ({
+        key: dataResource.id,
+        text: dataResource.name.filter(name => name.languageCode === context.languageCode)[0].languageText,
+        value: dataResource.id
+      }))
+      this.setState({
+        dataResourcesOptions: dataResourcesOptions
+      })
+    })
   }
 
   handleChange = (event, data) => {
@@ -71,7 +70,7 @@ class StatusTable extends Component {
   }
 
   render () {
-    const { customStatus, dataResource, staticStatus } = this.state
+    const { customStatus, dataResource, staticStatus, dataResourcesOptions } = this.state
 
     let context = this.context
 
@@ -105,12 +104,15 @@ class StatusTable extends Component {
         <Table.Body>
           <Table.Row>
             <Table.Cell>
-              <Dropdown name='dataResource' value={dataResource} options={this.filterOptions()}
-                        onChange={this.handleChange} />
+              <Dropdown name='dataResource' value={dataResource} options={dataResourcesOptions}
+                        onChange={this.handleChange} disabled={!dataResourcesOptions} loading={!dataResourcesOptions}/>
             </Table.Cell>
-            <Table.Cell>{mockDataResource[dataResource].unitType[context.languageCode]}</Table.Cell>
-            <Table.Cell verticalAlign='top'><StaticStatus {...staticStatus} /></Table.Cell>
-            <Table.Cell verticalAlign='top'><CustomStatus {...customStatus} /></Table.Cell>
+            { dataResourcesOptions && dataResourcesOptions.length > 0 &&
+            <Fragment>
+              {/*<Table.Cell>{dataResourcesOptions[dataResource].unitType[context.languageCode]}</Table.Cell>*/}
+              <Table.Cell verticalAlign='top'><StaticStatus {...staticStatus} /></Table.Cell>
+              <Table.Cell verticalAlign='top'><CustomStatus {...customStatus} /></Table.Cell>
+            </Fragment>}
           </Table.Row>
         </Table.Body>
       </Table>

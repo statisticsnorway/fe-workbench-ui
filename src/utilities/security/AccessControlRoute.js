@@ -10,6 +10,7 @@ class AccessControlRoute extends Component {
     }
   }
 
+  // TODO implement some proper access check here
   // componentWillMount () {
     // let { component: Component, ...rest } = this.props
     // console.log('Component: ', Component)
@@ -17,10 +18,10 @@ class AccessControlRoute extends Component {
   // }
 
   render () {
-    let { component: Component, user, ...rest } = this.props
+    let { component: Component, ...rest } = this.props
     return (
       <Route {...rest} render={(props) => (
-        user.user.length > 0 // TODO make proper access check
+        rest.user.userPrefs.preferences.role.length > 0 // TODO make proper access check
           ? <Component {...props} {...rest} />
           : <Redirect to={{
             pathname: '/noaccess',

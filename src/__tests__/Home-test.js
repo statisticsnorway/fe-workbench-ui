@@ -5,6 +5,7 @@ import { cleanup, fireEvent, render } from 'react-testing-library'
 
 import Home from '../pages/home/Home'
 import { UI } from '../utilities/enum'
+import { ContextProvider } from '../context/ContextProvider'
 
 afterEach(() => {
   cleanup()
@@ -18,7 +19,9 @@ const setup = () => {
   }
   const { getByTestId, getByText, queryAllByTestId, queryAllByText } = render(
     <MemoryRouter>
-      <Home {...props} />
+      <ContextProvider>
+        <Home {...props} />
+      </ContextProvider>
     </MemoryRouter>
   )
 

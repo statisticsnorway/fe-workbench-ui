@@ -32,26 +32,17 @@ const staticData = {
 
 export const mockStatusData = {
   personTaxStatistics: {
+    id: '3a44047a-d760-42c3-9f8a-d5e544042908',
     customData: customData,
     staticData: staticData
   },
   businessTaxStatistics: {
+    id: '5e508083-49e6-4cae-a144-e4b575f9ac19',
     customData: customData,
     staticData: staticData
   },
   structuralBusinessStatistics: {
-    customData: customData,
-    staticData: staticData
-  },
-  accountsStatistics: {
-    customData: customData,
-    staticData: staticData
-  },
-  freg: {
-    customData: customData,
-    staticData: staticData
-  },
-  sirius: {
+    id: '3a44047a-d760-42c3-9f8a-d5e5440429aa',
     customData: customData,
     staticData: staticData
   }

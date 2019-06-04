@@ -3,7 +3,7 @@ import DatasetServiceMock from '../../services/DatasetServiceMock'
 
 describe('Test DatasetService', () => {
 
-  let service = DatasetServiceMock
+  let service = new DatasetServiceMock()
 
   test('It should return dataset', async () => {
     let dataset = await service.getDataset('id', {page: 1, sort: null, order: null, limit: 10})

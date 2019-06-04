@@ -25,4 +25,19 @@ test('Login renders correctly', () => {
   expect(queryAllByText('SSB Logo')).toHaveLength(1)
   expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(1)
   expect(queryAllByText(UI.LOGIN.nb)).toHaveLength(1)
+  expect(queryAllByText(UI.GENERIC_ERROR.nb)).toHaveLength(0)
+})
+
+test('Error renders error field', () => {
+  const props = {
+    loggedIn: false,
+    user: 'admin',
+    error: true
+  }
+  const { queryAllByPlaceholderText, queryAllByText } = render(<Login {...props} />)
+
+  expect(queryAllByText('SSB Logo')).toHaveLength(1)
+  expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(1)
+  expect(queryAllByText(UI.LOGIN.nb)).toHaveLength(1)
+  expect(queryAllByText(UI.GENERIC_ERROR.nb)).toHaveLength(1)
 })

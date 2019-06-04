@@ -50,5 +50,13 @@ export const UI = {
   PREFERENCES: {
     en: 'Preferences',
     nb: 'Innstillinger'
-  }
+  },
+  CHANGES_SAVED: {
+    en: 'Changes saved',
+    nb: 'Endringene er lagret'
+  },
+  GENERIC_ERROR: {
+    en: 'An error has occured',
+    nb: 'Det har oppstått en feil'
+  },
 }
