@@ -6,13 +6,6 @@ export const STATUS_TABLE = {
       nb: 'Dataressurs'
     }
   },
-  UNIT_TYPE: {
-    icon: 'tag',
-    text: {
-      en: 'Unit type',
-      nb: 'Enhetstype'
-    }
-  },
   INFO: {
     icon: 'info',
     text: {

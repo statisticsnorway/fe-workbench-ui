@@ -1,7 +1,7 @@
 import React from 'react'
 import 'jest-dom/extend-expect'
 import { MemoryRouter } from 'react-router-dom'
-import { cleanup, fireEvent, render } from 'react-testing-library'
+import { cleanup, fireEvent, render } from '@testing-library/react'
 
 import Home from '../pages/home/Home'
 import { UI } from '../utilities/enum'

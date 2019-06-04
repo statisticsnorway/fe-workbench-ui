@@ -1,5 +1,5 @@
 import React from 'react'
-import { cleanup, render } from 'react-testing-library'
+import { cleanup, render } from '@testing-library/react'
 
 import Status from '../pages/home/status/Status'
 import { lowerCaseFirst } from '../utilities/common/StringHandling'

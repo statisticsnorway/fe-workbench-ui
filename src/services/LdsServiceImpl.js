@@ -2,8 +2,10 @@ import { get } from '../utilities/fetch/Fetch'
 import { FULL_TEXT_SEARCH, mapSearchResult } from './graphql/SearchQuery'
 import { ALL_DATASETS, filterByText } from './graphql/AllDatasetsQuery'
 import introspectionQueryResultData from './graphql/fragmentTypes.json'
-import ApolloClient, { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-boost'
 import { DATASET_WITH_STRUCTURE, mapResult } from './graphql/DatasetQuery'
+
+// see https://github.com/apollographql/apollo-client/issues/4843
+import ApolloClient, { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-boost/lib/index'
 
 // Some queries contain union or interface types, so Apollo Client's simple (heuristic) fragment matcher can not
 // be used. See https://www.apollographql.com/docs/react/advanced/fragments.html#fragment-matcher

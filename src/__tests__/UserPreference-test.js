@@ -1,5 +1,5 @@
 import React from 'react'
-import { cleanup, fireEvent, render, waitForElement } from 'react-testing-library'
+import { cleanup, fireEvent, render, waitForElement } from '@testing-library/react'
 import { UI } from '../utilities/enum/UI'
 import LdsServiceMock from '../services/LdsServiceMock'
 import UserPreferences from '../pages/userconfig/UserPreferences'

@@ -109,7 +109,6 @@ class StatusTable extends Component {
             </Table.Cell>
             { dataResourcesOptions && dataResourcesOptions.length > 0 &&
             <Fragment>
-              {/*<Table.Cell>{dataResourcesOptions[dataResource].unitType[context.languageCode]}</Table.Cell>*/}
               <Table.Cell verticalAlign='top'><StaticStatus {...staticStatus} /></Table.Cell>
               <Table.Cell verticalAlign='top'><CustomStatus {...customStatus} /></Table.Cell>
             </Fragment>}

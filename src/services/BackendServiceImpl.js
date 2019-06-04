@@ -1,6 +1,6 @@
 import { get, post, put } from '../utilities/fetch/Fetch'
 
-const backendurl = process.env.REACT_APP_BACKEND_URL + '/api'
+const backendurl = process.env.REACT_APP_BACKEND_URL + 'api'
 
 class BackendServiceImpl {
 

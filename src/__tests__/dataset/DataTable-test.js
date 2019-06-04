@@ -1,6 +1,6 @@
 import React from 'react'
 import 'jest-dom/extend-expect'
-import { cleanup, fireEvent, render } from 'react-testing-library'
+import { cleanup, fireEvent, render } from '@testing-library/react'
 import DataTable from '../../pages/dataset/DataTable'
 
 afterEach(() => {

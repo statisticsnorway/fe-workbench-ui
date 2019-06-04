@@ -1,5 +1,5 @@
 import React from 'react'
-import { cleanup, render } from 'react-testing-library'
+import { cleanup, render } from '@testing-library/react'
 
 import Login from '../pages/login/Login'
 import { UI } from '../utilities/enum/UI'

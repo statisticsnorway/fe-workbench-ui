@@ -1,6 +1,6 @@
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
-import { cleanup, fireEvent, render, waitForElement } from 'react-testing-library'
+import { cleanup, fireEvent, render, waitForElement } from '@testing-library/react'
 
 import App from '../App'
 import { UI } from '../utilities/enum'
@@ -11,14 +11,14 @@ afterEach(() => {
 })
 
 const setup = () => {
-  const { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText } = render(
+  const { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText, findAllByText } = render(
     <MemoryRouter>
       <ContextProvider>
         <App />
       </ContextProvider>
     </MemoryRouter>
   )
-  return { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText }
+  return { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText, findAllByText }
 }
 
 describe('Test App routing logic', () =>
@@ -90,7 +90,7 @@ describe('Test App routing logic', () =>
   })
 
   test('Logout button directs to Login', async () => {
-    const { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText } = setup()
+    const { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText, findAllByText } = setup()
 
     // Set user name and log in
     fireEvent.change(getByPlaceholderText(UI.USER.nb), { target: {value: 'admin' } })
@@ -98,6 +98,9 @@ describe('Test App routing logic', () =>
 
     // wait for preferences to be resolved
     await expect(queryAllByText('SSB Logo')).toHaveLength(1)
+
+    // wait for statustable to be resolved
+  await findAllByText('Skattestatistikk person')
 
     fireEvent.click(getByText(UI.LOGOUT.nb))
 

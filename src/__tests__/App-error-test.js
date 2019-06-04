@@ -4,7 +4,7 @@
 
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
-import { cleanup, fireEvent, render, waitForElement } from 'react-testing-library'
+import { cleanup, fireEvent, render, waitForElement } from '@testing-library/react'
 
 import App from '../App'
 import { UI } from '../utilities/enum'
