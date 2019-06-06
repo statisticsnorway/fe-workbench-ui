@@ -54,7 +54,6 @@ class App extends Component {
   }
 
   render () {
-    const { ldsURL } = this.props
     const { error, ...user } = this.state
 
     if (!user.user) {
@@ -67,7 +66,7 @@ class App extends Component {
         )
     } else {
       return (
-        <Home graphqlURL={ldsURL + 'graphql'} handleLogout={this.handleLogout} {...user} />
+        <Home handleLogout={this.handleLogout} {...user} />
       )
     }
   }

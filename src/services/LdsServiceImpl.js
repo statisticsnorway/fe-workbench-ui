@@ -12,7 +12,7 @@ import ApolloClient, { InMemoryCache, IntrospectionFragmentMatcher } from 'apoll
 const fragmentMatcher = new IntrospectionFragmentMatcher({ introspectionQueryResultData })
 const cache = new InMemoryCache({ fragmentMatcher })
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_LDS + 'graphql',
+  uri: process.env.REACT_APP_LDS + '/graphql',
   cache: cache
 })
 
