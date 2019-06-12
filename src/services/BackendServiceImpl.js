@@ -1,6 +1,7 @@
 import { get, post, put } from '../utilities/fetch/Fetch'
+import Properties from '../properties/properties'
 
-const backendurl = process.env.REACT_APP_BACKEND_URL + 'api'
+const backendurl = Properties.api.backend + 'api'
 
 class BackendServiceImpl {
 

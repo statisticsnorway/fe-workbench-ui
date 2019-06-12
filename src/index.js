@@ -6,11 +6,10 @@ import 'react-table/react-table.css'
 
 import App from './App'
 import { ContextProvider } from './context/ContextProvider'
-
-let ldsURL = process.env.REACT_APP_LDS
+import Properties from './properties/properties'
 
 const properties = {
-  ldsURL: ldsURL
+  ldsURL: Properties.api.lds
 }
 
 ReactDOM.render(

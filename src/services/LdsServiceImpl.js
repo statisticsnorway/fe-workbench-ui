@@ -3,6 +3,7 @@ import { FULL_TEXT_SEARCH, mapSearchResult } from './graphql/SearchQuery'
 import { ALL_DATASETS, filterByText } from './graphql/AllDatasetsQuery'
 import introspectionQueryResultData from './graphql/fragmentTypes.json'
 import { DATASET_WITH_STRUCTURE, mapResult } from './graphql/DatasetQuery'
+import Properties from '../properties/properties'
 
 // see https://github.com/apollographql/apollo-client/issues/4843
 import ApolloClient, { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-boost/lib/index'
@@ -12,7 +13,7 @@ import ApolloClient, { InMemoryCache, IntrospectionFragmentMatcher } from 'apoll
 const fragmentMatcher = new IntrospectionFragmentMatcher({ introspectionQueryResultData })
 const cache = new InMemoryCache({ fragmentMatcher })
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_LDS + '/graphql',
+  uri: Properties.api.lds + '/graphql',
   cache: cache
 })
 
@@ -34,12 +35,12 @@ class LdsServiceImpl {
 
   getRoles = () =>
   {
-    return get(process.env.REACT_APP_ROLES)
+    return get(Properties.api.role)
   }
 
   getDataResources()
   {
-    return get(process.env.REACT_APP_DATARESOURCES)
+    return get(Properties.api.dataResource)
   }
 }
 

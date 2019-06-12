@@ -29,7 +29,15 @@ The first time you clone the repository, remember to run `yarn install`
 
 Run `yarn start` and navigate to `http://localhost:3000/`
 
-For running the application standalone, without any service dependencies, run `yarn start:local`
+For running the application standalone, without any service dependencies (that is, with mock data), run the script `start_dev.sh`
+
+### Properties / Configuration
+Properties for each environment (typically, URLs to APIs) are stored in .js files in the `properties` folder. Which file to used is decided by
+`./properties/properties.js`. If `yarn test` is run, it will use `properties-test.js`, otherwise, it will use the environment variable
+`REACT_APP_ENV` to resolve which properties to use
+
+If you want to run the application with specific environment properties, run `REACT_APP_ENV=<environment> yarn start` where `<environment>` 
+matches the `properties-<environment>.js` file you want to use
 
 ### Run tests
 `yarn test` runs all tests and `yarn coverage` calculates (rather unreliably) test coverage.

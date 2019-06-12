@@ -5,6 +5,7 @@ import LdsServiceMock from '../services/LdsServiceMock'
 import LdsServiceImpl from '../services/LdsServiceImpl'
 import DatasetServiceImpl from '../services/DatasetServiceImpl'
 import DatasetServiceMock from '../services/DatasetServiceMock'
+import Properties from '../properties/properties'
 
 export const WorkbenchContext = React.createContext({
   languageCode: 'nb',
@@ -19,33 +20,13 @@ export const WorkbenchContext = React.createContext({
 export class ContextProvider extends Component {
   state = {
     languageCode: 'nb',
-    backendService: process.env.REACT_APP_BACKEND_MOCK === 'true' ? new BackendServiceMock(): new BackendServiceImpl(),
-    ldsService: process.env.REACT_APP_LDS_MOCK === 'true' ? new LdsServiceMock(): new LdsServiceImpl(),
-    datasetService: process.env.REACT_APP_LDS_MOCK === 'true' ? new DatasetServiceMock(): new DatasetServiceImpl(),
+    backendService: Properties.mock.backend === true ? new BackendServiceMock(): new BackendServiceImpl(),
+    ldsService: Properties.mock.lds === true ? new LdsServiceMock(): new LdsServiceImpl(),
+    datasetService: Properties.mock.backend.datasetService === true ? new DatasetServiceMock(): new DatasetServiceImpl(),
     setLanguage: (language) => {
       this.setState({ languageCode: language })
     }
   }
-
-  // TODO how to make this work? import() is async, which means that the component will render
-  // TODO before the import is finished, which again means that the services in the context will be null
-  // componentDidMount () {
-  //   if (process.env.REACT_APP_BACKEND_MOCK === 'true') {
-  //     import('../services/BackendServiceMock')
-  //       .then( service => this.setState({backendService: service }))
-  //   } else {
-  //     import('../services/BackendServiceImpl')
-  //       .then( service => this.setState({backendService: service }))
-  //   }
-  //
-  //   if (process.env.REACT_APP_LDS_MOCK === 'true') {
-  //     import('../services/LdsServiceMock')
-  //       .then( service => this.setState({ldsService: service }))
-  //   } else {
-  //     import('../services/LdsServiceImpl')
-  //       .then( service => this.setState({ldsService: service }))
-  //   }
-  // }
 
   render () {
     const { children } = this.props
