@@ -2,8 +2,10 @@ let properties
 
 if (process.env.NODE_ENV === 'test') {
   properties = require('./properties-test')
+  console.debug('Using environment: ' + process.env.NODE_ENV)
 } else {
-  switch(process.env.REACT_APP_ENV) {
+  console.debug('Using environment: ' + window._env_.REACT_APP_ENV)
+  switch(window._env_.REACT_APP_ENV) {
     case 'development': {
       properties = require('./properties-development')
       break
@@ -13,7 +15,7 @@ if (process.env.NODE_ENV === 'test') {
       break
     }
     case 'production': {
-      properties = require('./properties-staging')
+      properties = require('./properties-production')
       break
     }
     default: {

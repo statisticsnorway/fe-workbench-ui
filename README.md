@@ -20,27 +20,31 @@ For us this makes it easy to separate components into external libraries which c
 
 This application then works as a parent to all our libraries and lets us implement them together in a way fit for purpose.
 
-### Environment variables
-Environment variables are stored in `.env.<env>` files, see https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables.
-
-
 ### Try it
 The first time you clone the repository, remember to run `yarn install`
 
-Run `yarn start` and navigate to `http://localhost:3000/`
+##### Linux / MacOS
+Run `yarn start:dev` and navigate to `http://localhost:3000/`
 
-For running the application standalone, without any service dependencies (that is, with mock data), run the script `start_dev.sh`
+##### Windows
+Run the script `start_dev.sh`
 
 ### Properties / Configuration
 Properties for each environment (typically, URLs to APIs) are stored in .js files in the `properties` folder. Which file to used is decided by
 `./properties/properties.js`. If `yarn test` is run, it will use `properties-test.js`, otherwise, it will use the environment variable
 `REACT_APP_ENV` to resolve which properties to use
 
-If you want to run the application with specific environment properties, run `REACT_APP_ENV=<environment> yarn start` where `<environment>` 
-matches the `properties-<environment>.js` file you want to use
+The commands above will start the application with mock services only. If you want to run the application with specific 
+environment properties, run `REACT_APP_ENV=<environment> yarn start` where `<environment>` matches the `properties-<environment>.js` 
+file you want to use
 
 ### Run tests
 `yarn test` runs all tests and `yarn coverage` calculates (rather unreliably) test coverage.
 
 [Jest](https://jestjs.io/docs/en/tutorial-react) and 
 [react-testing-library](https://github.com/kentcdodds/react-testing-library) is used for testing.
+
+### Docker
+Build a docker image: `docker build -t workbench-ui .`
+Run the image: `docker run -p 3000:80 -t -e REACT_APP_ENV='<environment>' workbench-ui` where `<environment>` points to the properties file
+you want to use (see Properties / Configuration)

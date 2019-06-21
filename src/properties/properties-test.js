@@ -1,6 +1,6 @@
 import defaultProps from './properties-default'
 
-const env = defaultProps()
+const env = defaultProps
 
 export default {
   ...env,

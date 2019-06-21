@@ -1,6 +1,6 @@
 import defaultProps from './properties-default'
 
-const env = defaultProps()
+const env = defaultProps
 
 const ldsBaseUrl = "https://workbench.production.ssbmod.net/be/lds"
 
