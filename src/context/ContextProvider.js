@@ -22,7 +22,7 @@ export class ContextProvider extends Component {
     languageCode: 'nb',
     backendService: Properties.mock.backend === true ? new BackendServiceMock(): new BackendServiceImpl(),
     ldsService: Properties.mock.lds === true ? new LdsServiceMock(): new LdsServiceImpl(),
-    datasetService: Properties.mock.backend.datasetService === true ? new DatasetServiceMock(): new DatasetServiceImpl(),
+    datasetService: Properties.mock.datasetService === true ? new DatasetServiceMock(): new DatasetServiceImpl(),
     setLanguage: (language) => {
       this.setState({ languageCode: language })
     }
