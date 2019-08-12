@@ -55,6 +55,14 @@ export const UI = {
     en: 'Changes saved',
     nb: 'Endringene er lagret'
   },
+  NOTEBOOK_NOTES: {
+    en: 'Notes',
+    nb: 'Notes'
+  },
+  NOTEBOOK_ERROR: {
+    en: 'Unable to fetch notes: ',
+    nb: 'Kunne ikke hente notes: '
+  },
   GENERIC_ERROR: {
     en: 'An error has occured',
     nb: 'Det har oppstått en feil'

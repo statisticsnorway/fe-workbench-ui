@@ -4,12 +4,14 @@ export default {
   mock: {
     backend: false,
     lds: false,
-    datasetService: false
+    datasetService: false,
+    notebookService: false
   },
   api: {
     lds: "",
     backend: "",
     role: "",
-    dataResource: ""
+    dataResource: "",
+    notebookService: ""
   }
 }

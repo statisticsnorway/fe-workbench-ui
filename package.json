@@ -7,24 +7,25 @@
   },
   "private": true,
   "dependencies": {
-    "apollo-boost": "^0.4.0",
-    "apollo-cache-inmemory": "^1.6.0",
-    "apollo-client": "^2.6.0",
-    "apollo-link-http": "^1.5.14",
+    "apollo-boost": "^0.4.3",
+    "apollo-cache-inmemory": "^1.6.2",
+    "apollo-client": "^2.6.3",
+    "apollo-link-http": "^1.5.15",
     "chart.js": "^2.8.0",
     "graphql": "^14.3.0",
     "graphql-tag": "^2.10.1",
     "lodash": "4.17.11",
     "moment": "^2.23.0",
     "react": "^16.6.3",
-    "react-apollo": "^2.5.5",
+    "react-apollo": "^2.5.8",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.6.3",
-    "react-router-dom": "^5.0.0",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-table": "^6.10.0",
+    "react-treebeard": "^3.2.4",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.87.1"
+    "semantic-ui-react": "^0.87.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,9 +45,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@testing-library/react": "^8.0.1",
+    "@testing-library/react": "^8.0.4",
     "faker": "^4.1.0",
-    "jest-dom": "^3.2.2"
+    "jest-dom": "^3.5.0"
   },
   "jest": {
     "collectCoverageFrom": [

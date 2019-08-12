@@ -18,6 +18,7 @@ import NoAccess from '../../utilities/security/NoAccess'
 import UserPreferences from '../userconfig/UserPreferences'
 import { WorkbenchContext } from '../../context/ContextProvider'
 import { LANGUAGES } from '../../utilities/enum/LANGUAGES'
+import NotebookAdmin from '../prep_and_analysis/NotebookAdmin'
 
 class Home extends Component {
   static contextType = WorkbenchContext
@@ -76,6 +77,7 @@ class Home extends Component {
                     <AccessControlRoute user={user} path='/dataset/:id' component={DatasetView} />
                     <AccessControlRoute user={user} path='/collection/dashboard' component={Dashboard} />
                     <AccessControlRoute user={user} path='/collection/setup' component={CollectionSetup} />
+                    <AccessControlRoute user={user} path='/prep/notebooks' component={NotebookAdmin} />
                     <AccessControlRoute user={user} path='/prep/analysis' component={PrepAnalsysis} />
                     <AccessControlRoute user={user} path='/prep/setup' component={PrepAnalysisSetup} />
                     <AccessControlRoute user={user} path='/prep/methodlibrary' component={MethodLibrary} />

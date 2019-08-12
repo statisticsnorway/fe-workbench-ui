@@ -7,6 +7,7 @@ export default {
   mock:{
     backend: true,
     lds: true,
-    datasetService: true
+    datasetService: true,
+    notebookService: true
   }
 }

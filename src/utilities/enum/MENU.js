@@ -15,6 +15,10 @@ export const MENU = {
     en: 'Preparation & Analysis',
     nb: 'Klargjøring & Analyse'
   },
+  NOTEBOOKS: {
+    en: 'Notebooks',
+    nb: 'Notebooks'
+  },
   PREP_ANALYSIS: {
     en: 'Preparation Analysis',
     nb: 'Klargjøringsanalyse'

@@ -8,9 +8,8 @@ import { WorkbenchContext } from '../context/ContextProvider'
 class WorkbenchSidebar extends Component {
   static contextType = WorkbenchContext
 
-  constructor (props) {
-    super(props)
-    this.state = { activeIndex: -1}
+  state = {
+    activeIndex: -1
   }
 
   handleClick = (e, titleProps) => {
@@ -35,6 +34,7 @@ class WorkbenchSidebar extends Component {
 
     const PrepAndAnalysisMenu = (
       <Menu.Menu>
+        <Menu.Item style={{textAlign:'left'}} as={Link} to='/prep/notebooks'>{MENU.NOTEBOOKS[context.languageCode]}</Menu.Item>
         <Menu.Item style={{textAlign:'left'}} as={Link} to='/prep/analysis'>{MENU.PREP_ANALYSIS[context.languageCode]}</Menu.Item>
         <Menu.Item style={{textAlign:'left'}} as={Link} to='/prep/setup'>{MENU.SETUP_AND_CONFIG[context.languageCode]}</Menu.Item>
         <Menu.Item style={{textAlign:'left'}} as={Link} to='/prep/methodlibrary'>{MENU.METHODLIBRARY[context.languageCode]}</Menu.Item>

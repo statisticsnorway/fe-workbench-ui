@@ -7,6 +7,10 @@ export default {
   mock:{
     backend: true,
     lds: true,
-    datasetService: true
+    datasetService: true,
+    notebookService: true
+  },
+  api: {
+    notebookService: 'http://localhost:8080/api/'
   }
 }
