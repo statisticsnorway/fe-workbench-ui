@@ -17,16 +17,16 @@ const setup = () => {
   return { queryAllByText, getByText, getByTestId }
 }
 
-test('Notebook list is parsed correctly', async () => {
-  const spyGetNotebooks = jest.spyOn(NotebookServiceMock.prototype, 'getNotebooks')
+test('Notes list is parsed correctly', async () => {
+  const spyGetNotes = jest.spyOn(NotebookServiceMock.prototype, 'getNotes')
   const { queryAllByText } = setup()
 
-  await expect(spyGetNotebooks).toHaveBeenCalled()
+  await expect(spyGetNotes).toHaveBeenCalled()
 
-  // Verify that root Notebook element is rendered (two instances because the page header has the same label pt)
+  // Verify that root Note element is rendered (two instances because the page header has the same label pt)
   expect(queryAllByText('Notes')).toHaveLength(2)
 
-  // Verify that root Notebook element is expanded
+  // Verify that root Note element is expanded
   expect(queryAllByText('Bank Tutorial')).toHaveLength(1)
 
   // Verify that sub elements are collapsed

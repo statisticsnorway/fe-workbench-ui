@@ -3,7 +3,7 @@ import { Confirm, Icon, Message, Popup } from 'semantic-ui-react'
 
 import { WorkbenchContext } from '../../../context/ContextProvider'
 
-class DeleteNotebook extends Component {
+class DeleteNote extends Component {
   static contextType = WorkbenchContext
 
   state = {
@@ -13,21 +13,22 @@ class DeleteNotebook extends Component {
     showConfirm: false
   }
 
-  deleteNotebook = () => {
+  deleteNote = () => {
     this.setState({
       loading: true,
       showConfirm: false
     }, () => {
-      const { id } = this.props
+      const { id, loadNotes } = this.props
 
       let context = this.context
 
-      context.notebookService.deleteNotebook(id).then(() => {
+      context.notebookService.deleteNote(id).then(() => {
         this.setState({
           deleted: true,
           loading: false,
           message: 'Was deleted'
         })
+        loadNotes()
       }).catch(error => {
         this.setState({
           loading: false,
@@ -57,7 +58,7 @@ class DeleteNotebook extends Component {
                    <Icon link name='trash alternate outline' color='red' size='large' loading={loading}
                          disabled={deleted}
                          onClick={this.showConfirm} />
-                   <Confirm open={showConfirm} onCancel={this.hideConfirm} onConfirm={this.deleteNotebook}
+                   <Confirm open={showConfirm} onCancel={this.hideConfirm} onConfirm={this.deleteNote}
                             header='Sure?'
                             content={`Are you sure? ${id} (${name})`}
                             cancelButton={{
@@ -80,4 +81,4 @@ class DeleteNotebook extends Component {
   }
 }
 
-export default DeleteNotebook
+export default DeleteNote

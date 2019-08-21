@@ -3,7 +3,7 @@ import { Checkbox, Divider, Dropdown, Input, Message } from 'semantic-ui-react'
 
 import { WorkbenchContext } from '../../../context/ContextProvider'
 
-class CreateNotebook extends Component {
+class CreateNote extends Component {
   static contextType = WorkbenchContext
 
   state = {
@@ -33,12 +33,13 @@ class CreateNotebook extends Component {
     })
   }
 
-  createNotebook = () => {
+  createNote = () => {
+    const { loadNotes } = this.props
     const { dataset, datasetOptions, withDataset, name } = this.state
 
     let context = this.context
 
-    context.notebookService.postNotebook({ name: name }).then(response => {
+    context.notebookService.postNote({ name: name }).then(response => {
       if (withDataset) {
         const datasetName = datasetOptions.find(option => option.key === dataset).text
         const datasetUrl = datasetOptions.find(option => option.key === dataset).key
@@ -54,6 +55,7 @@ class CreateNotebook extends Component {
             response: `Note with id ${response.body} (${name}) created. Initiated with dataset ${datasetName}`,
             withDataset: false
           }, () => {
+            loadNotes()
             setTimeout(() => {
               this.setState({ response: false })
             }, 4000)
@@ -70,6 +72,7 @@ class CreateNotebook extends Component {
           response: `Note with id ${response.body} (${name}) created`,
           withDataset: false
         }, () => {
+          loadNotes()
           setTimeout(() => {
             this.setState({ response: false })
           }, 4000)
@@ -97,7 +100,7 @@ class CreateNotebook extends Component {
                  labelPosition: 'right',
                  icon: 'file alternate outline',
                  content: 'Create',
-                 onClick: () => this.createNotebook()
+                 onClick: () => this.createNote()
                }}
         />
 
@@ -121,4 +124,4 @@ class CreateNotebook extends Component {
   }
 }
 
-export default CreateNotebook
+export default CreateNote

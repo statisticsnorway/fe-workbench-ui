@@ -3,8 +3,8 @@ import { Treebeard } from 'react-treebeard'
 import { Divider, Grid, Header, Icon, Message, Segment } from 'semantic-ui-react'
 
 import { WorkbenchContext } from '../../context/ContextProvider'
-import Notebook from './notebooks/Notebook'
-import CreateNotebook from './notebooks/CreateNotebook'
+import Note from './note/Note'
+import CreateNote from './note/CreateNote'
 
 const treebeardStyle = {
   tree: {
@@ -88,20 +88,20 @@ class NotebookAdmin extends Component {
   static contextType = WorkbenchContext
 
   state = {
-    activeNotebook: null,
+    activeNote: null,
     error: false,
     notebookTree: null,
     ready: false
   }
 
   componentDidMount () {
-    this.loadNotebooks()
+    this.loadNotes()
   }
 
-  loadNotebooks = () => {
+  loadNotes = () => {
     let context = this.context
 
-    context.notebookService.getNotebooks().then(notebooks => {
+    context.notebookService.getNotes().then(notes => {
       const notebookTree = {
         name: 'Notes',
         toggled: true,
@@ -136,11 +136,11 @@ class NotebookAdmin extends Component {
         }
       }
 
-      notebooks.body.forEach(element => {
+      notes.body.forEach(element => {
         const folders = element.name.split('/').filter(element => element !== '')
-        const notebook = folders.pop()
+        const notes = folders.pop()
 
-        addToTree(folders, notebook, element.id, notebookTree.children)
+        addToTree(folders, notes, element.id, notebookTree.children)
       })
 
       this.setState({
@@ -171,12 +171,12 @@ class NotebookAdmin extends Component {
     this.setState(({
       cursor: node,
       notebookTree: Object.assign({}, notebookTree),
-      activeNotebook: node.hasOwnProperty('id') ? node.id : null
+      activeNote: node.hasOwnProperty('id') ? node.id : null
     }))
   }
 
   render () {
-    const { activeNotebook, error, notebookTree, ready } = this.state
+    const { activeNote, error, notebookTree, ready } = this.state
 
     return (
       <Segment basic loading={!ready}>
@@ -188,15 +188,15 @@ class NotebookAdmin extends Component {
 
           <Grid columns='equal'>
             <Grid.Column>
-              <CreateNotebook />
+              <CreateNote loadNotes={this.loadNotes} />
 
               <Divider hidden />
 
-              <Icon link name='sync' color='blue' onClick={this.loadNotebooks} />
+              <Icon link name='sync' color='blue' onClick={this.loadNotes} />
 
               <Treebeard data={notebookTree} onToggle={this.notebookTreeOnToggle} style={treebeardStyle} />
             </Grid.Column>
-            <Grid.Column>{activeNotebook && <Notebook id={activeNotebook} />}</Grid.Column>
+            <Grid.Column>{activeNote && <Note id={activeNote} loadNotes={this.loadNotes} />}</Grid.Column>
           </Grid>
         </>
         }

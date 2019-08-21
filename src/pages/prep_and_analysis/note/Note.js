@@ -3,27 +3,27 @@ import { Accordion, Divider, Header, Icon, Message, Segment } from 'semantic-ui-
 
 import Properties from '../../../properties/properties'
 import { WorkbenchContext } from '../../../context/ContextProvider'
-import DeleteNotebook from './DeleteNotebook'
+import DeleteNote from './DeleteNote'
 
-class Notebook extends Component {
+class Note extends Component {
   static contextType = WorkbenchContext
 
   state = {
     accordionIndex: null,
     error: false,
-    notebook: null,
+    note: null,
     ready: false
   }
 
   componentDidMount () {
-    this.props.id ? this.getNotebook(this.props.id) : this.setState({ ready: true })
+    this.props.id ? this.getNote(this.props.id) : this.setState({ ready: true })
   }
 
   componentDidUpdate (prevProps) {
-    prevProps.id !== this.props.id && this.getNotebook(this.props.id)
+    prevProps.id !== this.props.id && this.getNote(this.props.id)
   }
 
-  getNotebook = (id) => {
+  getNote = (id) => {
     if (id) {
       this.setState({
         error: false,
@@ -31,9 +31,9 @@ class Notebook extends Component {
       }, () => {
         let context = this.context
 
-        context.notebookService.getNotebook(id).then(notebook => {
+        context.notebookService.getNote(id).then(note => {
           this.setState({
-            notebook: notebook.body,
+            note: note.body,
             ready: true
           })
         }).catch(error => {
@@ -45,7 +45,7 @@ class Notebook extends Component {
       })
     } else {
       this.setState({
-        notebook: null,
+        note: null,
         ready: true
       })
     }
@@ -60,7 +60,8 @@ class Notebook extends Component {
   }
 
   render () {
-    const { accordionIndex, error, notebook, ready } = this.state
+    const { loadNotes } = this.props
+    const { accordionIndex, error, note, ready } = this.state
 
     return (
       <Segment basic loading={!ready}>
@@ -70,13 +71,13 @@ class Notebook extends Component {
           <Header
             as='h2'
             icon={{ name: 'file alternate outline', color: 'teal' }}
-            content={`Note: ${notebook.name.substring(notebook.name.lastIndexOf('/') + 1)}`}
-            subheader={`ID: ${notebook.id}`}
+            content={`Note: ${note.name.substring(note.name.lastIndexOf('/') + 1)}`}
+            subheader={`ID: ${note.id}`}
           />
 
-          <DeleteNotebook id={notebook.id} name={notebook.name} />
+          <DeleteNote id={note.id} name={note.name} loadNotes={loadNotes} />
 
-          <a href={`${Properties.api.notebookService.replace('/api/', '')}/#/notebook/${notebook.id}`}
+          <a href={`${Properties.api.notebookService.replace('/api/', '')}/#/notebook/${note.id}`}
              target='_blank' rel='noopener noreferrer'>
             <Icon name='share' color='blue' />
           </a>
@@ -89,7 +90,7 @@ class Notebook extends Component {
               JSON
             </Accordion.Title>
             <Accordion.Content active={accordionIndex === 0}>
-              <pre>{JSON.stringify(notebook, null, 2)}</pre>
+              <pre>{JSON.stringify(note, null, 2)}</pre>
             </Accordion.Content>
           </Accordion>
         </>
@@ -99,4 +100,4 @@ class Notebook extends Component {
   }
 }
 
-export default Notebook
+export default Note

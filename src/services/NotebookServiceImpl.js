@@ -3,17 +3,17 @@ import Properties from '../properties/properties'
 
 class NotebookServiceImpl {
 
-  getNotebooks = () => {
+  getNotes = () => {
     return new Promise((resolve, reject) => {
 
-      // TODO get only notebooks available for given user
+      // TODO get only notes available for given user
       get(Properties.api.notebookService + 'notebook')
         .then(response => resolve(response))
         .catch(error => reject(error))
     })
   }
 
-  getNotebook = (id) => {
+  getNote = (id) => {
     return new Promise((resolve, reject) => {
 
       get(Properties.api.notebookService + 'notebook/' + id)
@@ -22,7 +22,7 @@ class NotebookServiceImpl {
     })
   }
 
-  postNotebook = (body) => {
+  postNote = (body) => {
     return new Promise((resolve, reject) => {
 
       post(Properties.api.notebookService + 'notebook', JSON.stringify(body))
@@ -40,7 +40,7 @@ class NotebookServiceImpl {
     })
   }
 
-  deleteNotebook = (id) => {
+  deleteNote = (id) => {
     return new Promise((resolve, reject) => {
 
       deleteData(Properties.api.notebookService + 'notebook/' + id)
