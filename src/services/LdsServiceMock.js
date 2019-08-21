@@ -41,6 +41,11 @@ class LdsServiceMock {
     return Promise.resolve(DataResources)
   }
 
+  getDataSets() {
+    console.info('(MOCK) Datasets')
+    return Promise.resolve(UnitDatasets)
+  }
+
   searchDatasets(value) {
     console.debug('Calling searchDatasets() from LdsServiceMock')
     return Promise.resolve(filterByText(UnitDatasets, value));

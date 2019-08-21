@@ -42,6 +42,10 @@ class LdsServiceImpl {
   {
     return get(Properties.api.dataResource)
   }
+
+  getDataSets() {
+    return get(Properties.api.dataSet)
+  }
 }
 
 export default LdsServiceImpl

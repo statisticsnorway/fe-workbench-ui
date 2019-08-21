@@ -12,6 +12,7 @@ export default {
     backend: "",
     role: "",
     dataResource: "",
-    notebookService: ""
+    notebookService: "",
+    dataSet: ""
   }
 }
