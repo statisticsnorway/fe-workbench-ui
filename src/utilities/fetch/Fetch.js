@@ -39,6 +39,18 @@ export const put = (url, body) => {
   })
 }
 
+export const deleteData = (url) => {
+  return new Promise( (resolve, reject) => {
+    fetch(url, {
+      credentials: credentials,
+      method: 'DELETE',
+      headers: headers
+    }).then(response => {
+      handleResponse(response, resolve, reject)
+    }).catch(error => reject(`${error} (${url})`))
+  })
+}
+
 const handleResponse  = (response, resolve, reject) => {
   if (response.ok) {
     response.json().then(json => resolve(json))

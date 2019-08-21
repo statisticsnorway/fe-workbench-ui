@@ -5,7 +5,7 @@ class NotebookServiceMock {
   getNotebooks() {
     // TODO get only notebooks available for given user
     console.info( '(MOCK) getting all notebooks')
-    return Promise.resolve(Notebooks.body)
+    return Promise.resolve(Notebooks)
   }
 }
 
