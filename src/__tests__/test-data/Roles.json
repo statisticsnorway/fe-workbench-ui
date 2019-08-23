@@ -103,5 +103,45 @@
     "validUntil": "2020-04-01T08:31:37.463Z",
     "version": "1.0.1",
     "versionValidFrom": "2019-04-01T08:31:37.463Z"
+  },
+  {
+    "administrativeStatus": "OPEN",
+    "createdBy": "Test",
+    "createdDate": "2019-02-01T13:58:42.724Z",
+    "id": "85aa81f1-5998-4f3f-a8a4-3ec1aff7e4ef",
+    "lastUpdatedBy": "Test",
+    "lastUpdatedDate": "2019-02-01T13:59:16.787Z",
+    "validFrom": "2019-02-01T13:58:42.724Z",
+    "version": "1.0.1",
+    "versionValidFrom": "2019-02-01T13:59:16.787Z",
+    "description": [
+      {
+        "languageCode": "en",
+        "languageText": "External resources"
+      }
+    ],
+    "name": [
+      {
+        "languageCode": "en",
+        "languageText": "EXTERNAL"
+      }
+    ]
+  },
+  {
+    "administrativeStatus": "OPEN",
+    "createdBy": "Test",
+    "createdDate": "2019-02-01T13:58:42.724Z",
+    "id": "85aa81f1-5998-4f3f-a8a4-3ec1aff7e4ef",
+    "lastUpdatedBy": "Test",
+    "lastUpdatedDate": "2019-02-01T13:59:16.787Z",
+    "validFrom": "2019-02-01T13:58:42.724Z",
+    "version": "1.0.1",
+    "versionValidFrom": "2019-02-01T13:59:16.787Z",
+    "description": [
+      {
+        "languageCode": "en",
+        "languageText": "Internal resources"
+      }
+    ]
   }
 ]

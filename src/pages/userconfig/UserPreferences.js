@@ -80,11 +80,19 @@ class UserPreferences extends Component {
 
   formatDropdownValues (ready, values) {
     let context = this.context
-    return ready ? values.map(value => ({
-      key: value.id,
-      text: value.name.filter(name => name.languageCode === context.languageCode)[0].languageText,
-      value: value.id
-    })) : null
+    return ready ?
+      values
+        .filter(value => value.name !== undefined) //remove values without name property
+        .map(value => {
+      // Check if name has text in chosen language, if not, use first
+      let text = value.name.find(name => name.languageCode === context.languageCode) || value.name[0]
+      text = text === undefined ? null : text.languageText
+      return ({
+        key: value.id,
+        text: text,
+        value: value.id
+      })
+    }) : null
   }
 
   render () {

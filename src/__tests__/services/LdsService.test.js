@@ -7,7 +7,7 @@ describe('Test LDS service', () => {
 
   test('It should return mock roles', async () => {
     let roles = await service.getRoles()
-    expect(roles.length).toBe(5)
+    expect(roles.length).toBe(7)
   })
 
   test('It should filter dataset by text', async () => {
