@@ -30,7 +30,7 @@ export class ContextProvider extends Component {
     setLanguage: (language) => {
       this.setState({ languageCode: language })
     }
-  }
+}
 
   render () {
     const { children } = this.props

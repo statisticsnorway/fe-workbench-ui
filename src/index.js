@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
 import 'react-table/react-table.css'
 
@@ -13,10 +13,10 @@ const properties = {
 }
 
 ReactDOM.render(
-  <HashRouter>
+  <BrowserRouter>
     <ContextProvider>
       <App {...properties} />
     </ContextProvider>
-  </HashRouter>,
+  </BrowserRouter>,
   document.getElementById('root')
 )

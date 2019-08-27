@@ -14,7 +14,7 @@ class UserDropdown extends Component {
     let context = this.context
 
     return (
-      <Dropdown trigger={<span><Icon name='user' color='blue' />{`${user.user}`}</span>}>
+      <Dropdown trigger={<span><Icon name='user' color='blue' />{`${user.user.name}`}</span>}>
         <Dropdown.Menu direction='left'>
           <Dropdown.Item>
             <Dropdown icon={{ name: 'dropdown', style: { marginRight: '1em', paddingTop: '0.2em' } }}

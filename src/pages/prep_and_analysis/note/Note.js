@@ -24,6 +24,7 @@ class Note extends Component {
   }
 
   getNote = (id) => {
+    const { user } = this.props
     if (id) {
       this.setState({
         error: false,
@@ -31,7 +32,7 @@ class Note extends Component {
       }, () => {
         let context = this.context
 
-        context.notebookService.getNote(id).then(note => {
+        context.notebookService.getNote(id, user).then(note => {
           this.setState({
             note: note.body,
             ready: true

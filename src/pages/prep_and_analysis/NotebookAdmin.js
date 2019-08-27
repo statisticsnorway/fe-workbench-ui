@@ -99,8 +99,9 @@ class NotebookAdmin extends Component {
 
   loadNotes = () => {
     let context = this.context
+    const { user } = this.props
 
-    context.notebookService.getNotes().then(notes => {
+    context.notebookService.getNotes(user).then(notes => {
       const notebookTree = {
         name: 'Notes',
         toggled: true,

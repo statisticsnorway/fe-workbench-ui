@@ -1,24 +1,25 @@
 const credentials = process.env.NODE_ENV === 'production' ? 'include' : 'same-origin'
-const headers = { 'Content-Type': 'application/json; charset=utf-8' }
+const defaultHeaders = { 'Content-Type': 'application/json; charset=utf-8' }
 
-export const get = (url) => {
+export const get = (url, headers) => {
   return new Promise((resolve, reject) => {
     fetch(url, {
       credentials: credentials,
       method: 'GET',
-      headers: headers
+      headers: headers || defaultHeaders,
+      mode: 'no-cors',
     }).then(response => {
       handleResponse(response, resolve, reject)
     }).catch(error => reject(`${error} (${url})`))
   })
 }
 
-export const post = (url, body) => {
+export const post = (url, headers, body) => {
   return new Promise( (resolve, reject) => {
     fetch(url, {
       credentials: credentials,
       method: 'POST',
-      headers: headers,
+      headers: headers || defaultHeaders,
       body: body
     }).then(response => {
       handleResponse(response, resolve, reject)
@@ -26,12 +27,12 @@ export const post = (url, body) => {
   })
 }
 
-export const put = (url, body) => {
+export const put = (url, headers, body) => {
   return new Promise( (resolve, reject) => {
     fetch(url, {
       credentials: credentials,
       method: 'PUT',
-      headers: headers,
+      headers: headers || defaultHeaders,
       body: body
     }).then(response => {
       handleResponse(response, resolve, reject)
@@ -39,12 +40,12 @@ export const put = (url, body) => {
   })
 }
 
-export const deleteData = (url) => {
+export const deleteData = (url, headers) => {
   return new Promise( (resolve, reject) => {
     fetch(url, {
       credentials: credentials,
       method: 'DELETE',
-      headers: headers
+      headers: headers || defaultHeaders
     }).then(response => {
       handleResponse(response, resolve, reject)
     }).catch(error => reject(`${error} (${url})`))
@@ -53,6 +54,7 @@ export const deleteData = (url) => {
 
 const handleResponse  = (response, resolve, reject) => {
   if (response.ok) {
+    console.log("Reponse", response.status)
     response.json().then(json => resolve(json))
   } else if (response.status === 404) {
     resolve([])

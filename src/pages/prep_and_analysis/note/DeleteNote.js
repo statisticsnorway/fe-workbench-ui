@@ -18,11 +18,11 @@ class DeleteNote extends Component {
       loading: true,
       showConfirm: false
     }, () => {
-      const { id, loadNotes } = this.props
+      const { id, loadNotes, user } = this.props
 
       let context = this.context
 
-      context.notebookService.deleteNote(id).then(() => {
+      context.notebookService.deleteNote(id, user).then(() => {
         this.setState({
           deleted: true,
           loading: false,

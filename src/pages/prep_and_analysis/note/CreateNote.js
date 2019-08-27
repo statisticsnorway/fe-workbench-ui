@@ -34,12 +34,12 @@ class CreateNote extends Component {
   }
 
   createNote = () => {
-    const { loadNotes } = this.props
+    const { loadNotes, user } = this.props
     const { dataset, datasetOptions, withDataset, name } = this.state
 
     let context = this.context
 
-    context.notebookService.postNote({ name: name }).then(response => {
+    context.notebookService.postNote({ name: name }, user).then(response => {
       if (withDataset) {
         const datasetName = datasetOptions.find(option => option.key === dataset).text
         const datasetUrl = datasetOptions.find(option => option.key === dataset).key
@@ -48,7 +48,7 @@ class CreateNote extends Component {
           text: `%sh\nwget [ldsUrl/${datasetUrl}] -O unitdataset.json\n` //TODO: prefix datasetUrl with lds url
         }
 
-        context.notebookService.postParagraph(response.body, paragraph).then(() => {
+        context.notebookService.postParagraph(response.body, paragraph, user).then(() => {
           this.setState({
             dataset: '',
             name: '',

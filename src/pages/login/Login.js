@@ -4,6 +4,7 @@ import { Button, Divider, Form, Grid, Icon, Label, Segment } from 'semantic-ui-r
 import { WorkbenchContext } from '../../context/ContextProvider'
 import { SSBLogo } from '../../media/Logo'
 import { UI } from '../../utilities/enum'
+import Properties from '../../properties/properties'
 
 class Login extends Component {
   static contextType = WorkbenchContext
@@ -34,10 +35,12 @@ class Login extends Component {
             <Divider hidden />
             <Segment>
               <Form size='large' onSubmit={this.handleSubmit}>
-                <Form.Input fluid icon='user' iconPosition='left' name='user' value={this.state.user} onChange={this.handleChange}
-                            placeholder={UI.USER[context.languageCode]} data-testid='user-input'/>
+                { Properties.mock.auth &&
+                  <Form.Input fluid icon='user' iconPosition='left' name='user' value={this.state.user} onChange={this.handleChange}
+                              placeholder={UI.USER[context.languageCode]} data-testid='user-input'/>
+                }
                 <Button primary fluid size='large' content={UI.LOGIN[context.languageCode]} data-testid='login-button'
-                disabled={this.state.user.length === 0}/>
+                disabled={Properties.mock.auth && this.state.user.length === 0}/>
               </Form>
             </Segment>
             {error &&

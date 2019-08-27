@@ -2,6 +2,7 @@
 
 export default {
   mock: {
+    auth: false,
     backend: false,
     lds: false,
     datasetService: false,
@@ -14,5 +15,10 @@ export default {
     dataResource: "",
     notebookService: "",
     dataSet: ""
+  },
+  oauth: {
+    authority: "",
+    client_id: "",
+    redirect_uri: ""
   }
 }
