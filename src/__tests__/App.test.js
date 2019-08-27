@@ -52,7 +52,7 @@ describe('Test App routing logic', () =>
     fireEvent.change(getByPlaceholderText(UI.USER.nb), { target: {value: 'admin' } })
     fireEvent.click(getByTestId('login-button'))
 
-    // wait for preferences to be resolved
+    // Wait for preferences to be resolved
     await expect(queryAllByText('SSB Logo')).toHaveLength(1)
 
     expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(0)
@@ -63,11 +63,11 @@ describe('Test App routing logic', () =>
   test('Save Preferences button directs to Home', async () => {
     const { getByTestId, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText, getByText } = setup()
 
-    // add username and log in
+    // Set username and log in
     fireEvent.change(getByPlaceholderText(UI.USER.nb), { target: { value: 'noprefs' } })
     fireEvent.click(getByTestId('login-button'))
 
-    // wait for preferences to be resolved
+    // Wait for preferences to be resolved
     await expect(queryAllByText('SSB Logo')).toHaveLength(1)
 
     // Wait for dropdowns to be populated. NOTE: characterData must be set to true (false by default)
@@ -76,7 +76,7 @@ describe('Test App routing logic', () =>
 
     await waitForElement(() => getByText('Strukturstatistikk'))
 
-    // set preferences and save
+    // Set preferences and save
     fireEvent.click(getByText('Statistikkprodusent'))
     fireEvent.click(getByText('Strukturstatistikk'))
     fireEvent.click(getByText('Norsk'))
@@ -96,10 +96,10 @@ describe('Test App routing logic', () =>
     fireEvent.change(getByPlaceholderText(UI.USER.nb), { target: {value: 'admin' } })
     fireEvent.click(getByTestId('login-button'))
 
-    // wait for preferences to be resolved
+    // Wait for preferences to be resolved
     await expect(queryAllByText('SSB Logo')).toHaveLength(1)
 
-    // wait for statustable to be resolved
+    // Wait for statustable to be resolved
   await findAllByText('Skattestatistikk person')
 
     fireEvent.click(getByText(UI.LOGOUT.nb))

@@ -131,7 +131,7 @@ class SearchPage extends Component {
               </Grid.Row>
               <Grid.Row style={{ 'paddingBottom': '30px' }}>
                 <Grid.Column>
-                  {/* {this.state.enterIsPressed} TODO show headers only after an actual search has been performed*/}
+                  {/* {this.state.enterIsPressed} TODO show headers only after an actual search has been performed */}
                   <Header>{METADATA.MATCHES_IN[context.languageCode]} {METADATA.TABLES[context.languageCode]}</Header>
                   <hr style={{ color: 'black', height: 0 }}/>
                   {

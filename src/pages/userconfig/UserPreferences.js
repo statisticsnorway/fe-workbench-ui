@@ -82,9 +82,9 @@ class UserPreferences extends Component {
     let context = this.context
     return ready ?
       values
-        .filter(value => value.name !== undefined) //remove values without name property
+        .filter(value => value.name !== undefined) // Remove values without name property
         .map(value => {
-      // Check if name has text in chosen language, if not, use first
+      // Check if name has text in chosen language, if not, use first present
       let text = value.name.find(name => name.languageCode === context.languageCode) || value.name[0]
       text = text === undefined ? null : text.languageText
       return ({

@@ -48,7 +48,7 @@ test('Error renders error field', async() => {
 
   await waitForElement(() => getByText('Strukturstatistikk'))
 
-  // set preferences and save
+  // Set preferences and save
   fireEvent.click(getByText('Statistikkprodusent'))
   fireEvent.click(getByText('Strukturstatistikk'))
   fireEvent.click(getByText('Norsk'))

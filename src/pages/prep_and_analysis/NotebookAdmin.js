@@ -5,7 +5,7 @@ import { WorkbenchContext } from '../../context/ContextProvider'
 import Note from './note/Note'
 import CreateNote from './note/CreateNote'
 
-const treebeardStyle = {
+const treebeardStyle = { // TODO move to css
   tree: {
     base: {
       listStyle: 'none',
@@ -117,13 +117,14 @@ class NotebookAdmin extends Component {
 
           folders.shift()
 
-          const existingFolder = children.filter(element => element.name.props.children[1] === node.name.props.children[1] && element.children)
+          const existingFolder = children.filter(
+            element => element.name.props.children[1] === node.name.props.children[1] && element.children)
 
           if (existingFolder.length === 0) {
             children.push(node)
-          addToTree(folders, notebook, id, node.children)
+            addToTree(folders, notebook, id, node.children)
           } else {
-          addToTree(folders, notebook, id, existingFolder[0].children)
+            addToTree(folders, notebook, id, existingFolder[0].children)
           }
         } else {
           children.push({

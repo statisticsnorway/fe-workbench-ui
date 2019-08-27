@@ -1,6 +1,6 @@
 // This test file is for cases where we need to mock an error response
 // from BackendService. We have not found a way to have both mock and actual implementation
-// of the same component in the same file.
+// of the same component in the same test file.
 
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
