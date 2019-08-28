@@ -7,7 +7,6 @@ export const get = (url, headers) => {
       credentials: credentials,
       method: 'GET',
       headers: headers || defaultHeaders,
-      mode: 'no-cors',
     }).then(response => {
       handleResponse(response, resolve, reject)
     }).catch(error => reject(`${error} (${url})`))

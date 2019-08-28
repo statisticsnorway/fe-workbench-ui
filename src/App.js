@@ -31,7 +31,7 @@ class App extends Component {
     this.userManager.events.addUserLoaded(this.onUserLoaded)
     this.userManager.events.addUserUnloaded(this.onUserUnloaded)
     this.userManager.getUser().then((user) => {
-      if (user !== null && user !== undefined) {
+      if (user !== null && user !== undefined && !user.expired) {
         this.onUserLoaded(user)
       } else  {
         let hash = window.location.hash // returns a string
