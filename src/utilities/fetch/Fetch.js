@@ -13,7 +13,7 @@ export const get = (url, headers) => {
   })
 }
 
-export const post = (url, headers, body) => {
+export const post = (url, body, headers) => {
   return new Promise( (resolve, reject) => {
     fetch(url, {
       credentials: credentials,
@@ -26,7 +26,7 @@ export const post = (url, headers, body) => {
   })
 }
 
-export const put = (url, headers, body) => {
+export const put = (url, body, headers) => {
   return new Promise( (resolve, reject) => {
     fetch(url, {
       credentials: credentials,
