@@ -11,7 +11,7 @@ export default {
     backend: "https://workbench.staging.ssbmod.net/be/workbench-backend/",
     role: ldsBaseUrl + "/ns/Role/",
     dataResource: ldsBaseUrl + "/ns/DataResource/",
-    notebookService: 'https://bt3zzivqj5dptfsrkhyd2hjcdm-dot-europe-north1.dataproc.googleusercontent.com/zeppelin/api/'
+    notebookService: 'https://workbench.staging.ssbmod.net/be/workbench-backend/api/'
   },
   oauth: {
     authority: 'https://accounts.google.com',
