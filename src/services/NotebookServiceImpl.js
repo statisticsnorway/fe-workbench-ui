@@ -3,11 +3,14 @@ import Properties from '../properties/properties'
 
 class NotebookServiceImpl {
 
+  // Using a custom header (X-Authorization) to pass the access token that should be used to get access to
+  // the external notebook service.
+  // (The standard Authorization header is automatically set by the platform, and is used for communication between internal services).
   getHeaders = (user) => {
     return new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + user.user.access_token
+      'X-Authorization': 'Bearer ' + user.user.access_token
     })
   }
 
