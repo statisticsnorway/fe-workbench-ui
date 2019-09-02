@@ -9,27 +9,32 @@ afterEach(() => {
 })
 
 const setup = () => {
-  const { queryAllByText, getByText, getByTestId } = render(
+  const { queryAllByText, queryAllByDisplayValue, queryAllByRole, queryAllByPlaceholderText } = render(
     <ContextProvider>
       <NotebookAdmin />
     </ContextProvider>)
 
-  return { queryAllByText, getByText, getByTestId }
+  return { queryAllByText, queryAllByDisplayValue, queryAllByRole, queryAllByPlaceholderText }
 }
 
 test('Notes list is parsed correctly', async () => {
   const spyGetNotes = jest.spyOn(NotebookServiceMock.prototype, 'getNotes')
-  const { queryAllByText } = setup()
+  const { queryAllByText, queryAllByRole, queryAllByPlaceholderText } = setup()
 
   await expect(spyGetNotes).toHaveBeenCalled()
 
-  // Verify that root Note element is rendered (two instances because the page header has the same label pt)
-  expect(queryAllByText('Notes')).toHaveLength(2)
+  expect(queryAllByPlaceholderText('Create new Note')).toHaveLength(1)
 
-  // Verify that root Note element is expanded
+  expect(queryAllByRole('button')).toHaveLength(1)
+
+  // Verify that both a folder and a note have been rendered
   expect(queryAllByText('Bank Tutorial')).toHaveLength(1)
+  expect(queryAllByText('Zeppelin Tutorial')).toHaveLength(1)
 
-  // Verify that sub elements are collapsed
+  // Verify that trash has been rendered
+  expect(queryAllByText('Trash')).toHaveLength(1)
+
+  // Verify that folders are collapsed
   expect(queryAllByText('Test_div')).toHaveLength(0)
 
 })

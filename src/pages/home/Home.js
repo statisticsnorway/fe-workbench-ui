@@ -28,7 +28,8 @@ class Home extends Component {
     visible: true
   }
 
-  componentWillMount () {
+  // TODO see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html
+  UNSAFE_componentWillMount () {
     // Set initial language based on user prefs
     this.context.setLanguage(LANGUAGES[this.props.userPrefs !== undefined
       ? this.props.userPrefs.preferences.language

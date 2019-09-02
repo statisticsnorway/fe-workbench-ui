@@ -94,7 +94,8 @@ class CreateNote extends Component {
 
     return (
       <>
-        <Input name='name' placeholder='Create new Note' value={name} onChange={this.handleChange}
+        <Input fluid style={{'maxWidth':'350px'}} name='name'
+               placeholder='Create new Note' value={name} onChange={this.handleChange}
                action={{
                  color: 'teal',
                  labelPosition: 'right',

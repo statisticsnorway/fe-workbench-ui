@@ -1,4 +1,4 @@
-import 'jest-dom/extend-expect'
+import '@testing-library/jest-dom/extend-expect'
 import LdsServiceMock from '../../services/LdsServiceMock'
 
 describe('Test LDS service', () => {

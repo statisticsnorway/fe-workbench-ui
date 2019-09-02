@@ -18,7 +18,7 @@ class TopMenu extends Component {
     return (
       <div>
         <Transition visible={visible} animation='fade down' duration={200}>
-          <Segment style={{ marginBottom: 0 }} attached>
+          <Segment data-testid='topMenu' style={{ marginBottom: 0 }} attached>
             <Grid stackable reversed='mobile'>
               <Grid.Column only='tablet computer' tablet={11} computer={13}>
                 <Status user={user} />

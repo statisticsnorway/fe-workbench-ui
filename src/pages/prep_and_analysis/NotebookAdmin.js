@@ -83,6 +83,19 @@ const treebeardStyle = { // TODO move to css
   }
 }
 
+const decorator = {
+  Toggle: (props) => {
+    return (<div/>) // Do not display any arrows
+  },
+  Header: (props) => {
+    return (
+      props.node.name === '~Trash' ?
+        <><Icon name='trash alternate' />Trash</> :
+        <><Icon name='folder' />{props.node.name}</>
+    );
+  }
+};
+
 class NotebookAdmin extends Component {
   static contextType = WorkbenchContext
 
@@ -102,24 +115,21 @@ class NotebookAdmin extends Component {
     const { user } = this.props
 
     context.notebookService.getNotes(user).then(notes => {
-      const notebookTree = {
-        name: 'Notes',
-        toggled: true,
-        children: []
-      }
+      const notebookTree = []
 
-    function addToTree (folders, notebook, id, children) {
+      function addToTree (folders, notebook, id, children) {
         if (folders.length > 0) {
           const node = {
-            name: <><Icon name='folder' />{folders[0]}</>,
+            name: folders[0],
             toggled: false,
-            children: []
+            children: [],
+            decorators: decorator
           }
 
           folders.shift()
 
           const existingFolder = children.filter(
-            element => element.name.props.children[1] === node.name.props.children[1] && element.children)
+            element => element.name === node.name && element.children)
 
           if (existingFolder.length === 0) {
             children.push(node)
@@ -129,20 +139,20 @@ class NotebookAdmin extends Component {
           }
         } else {
           children.push({
-            name: <><Icon name='book' />{notebook}</>,
+            name: notebook,
             id: id,
             toggled: false
           })
         }
       }
 
-    notes.body.forEach(element => {
+      notes.body.forEach(element => {
         const folders = element.name.split('/').filter(element => element !== '')
         const notes = folders.pop()
 
-        addToTree(folders, notes, element.id, notebookTree.children)
+        addToTree(folders, notes, element.id, notebookTree)
       })
-
+      notebookTree.sort(this.compareNoteNode)
       this.setState({
         notebookTree: notebookTree,
         ready: true
@@ -153,6 +163,26 @@ class NotebookAdmin extends Component {
         ready: true
       })
     })
+  }
+
+  /**
+   * Comparator for Notes and Folders. Sort by name, but Folders will sort before Notes.
+   * The folder with the name ~Trash will always be sorted last
+   * @param a element to compare
+   * @param b element to compare
+   */
+  compareNoteNode = (a, b) => {
+    if(a.name === '~Trash') {return 1} // Trash will always be at the bottom
+    if (
+      (a.children === undefined && b.children === undefined) || // Neither is a folder
+      (a.children !== undefined && b.children !== undefined) // Both are folders
+       // Neither is a folder
+    ) {
+      if (a.name.toUpperCase() > b.name.toUpperCase()) { return 1 }
+      else { return -1}
+    }
+    if (a.children !== undefined && b.children === undefined) { return -1}
+    if (a.children === undefined && b.children !== undefined) { return 1}
   }
 
   notebookTreeOnToggle = (node, toggled) => {
@@ -170,13 +200,14 @@ class NotebookAdmin extends Component {
 
     this.setState(({
       cursor: node,
-      notebookTree: Object.assign({}, notebookTree),
+      notebookTree: Object.assign([], notebookTree),
       activeNote: node.hasOwnProperty('id') ? node.id : null
     }))
   }
 
   render () {
     const { activeNote, error, notebookTree, ready } = this.state
+    const { user } = this.props
 
     return (
       <Segment basic loading={!ready}>
@@ -186,8 +217,8 @@ class NotebookAdmin extends Component {
           <Header as='h1' dividing icon={{ name: 'book', color: 'teal' }}
                   content='Notes' subheader='Notes from Zeppelin you have access to' />
 
-          <Grid columns='equal'>
-            <Grid.Column>
+          <Grid>
+            <Grid.Column width={5}>
               <CreateNote loadNotes={this.loadNotes} />
 
               <Divider hidden />
@@ -196,7 +227,7 @@ class NotebookAdmin extends Component {
 
               <Treebeard data={notebookTree} onToggle={this.notebookTreeOnToggle} style={treebeardStyle} />
             </Grid.Column>
-            <Grid.Column>{activeNote && <Note id={activeNote} loadNotes={this.loadNotes} />}</Grid.Column>
+            <Grid.Column width={8}>{activeNote && <Note id={activeNote} user={user} loadNotes={this.loadNotes} />}</Grid.Column>
           </Grid>
         </>
         }

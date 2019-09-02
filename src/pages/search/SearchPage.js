@@ -23,7 +23,8 @@ class SearchPage extends Component {
     }
   }
 
-  componentWillMount () {
+  // TODO see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html
+  UNSAFE_componentWillMount () {
     this.resetComponent()
   }
 
@@ -40,7 +41,7 @@ class SearchPage extends Component {
     }
   }
 
-  componentWillReceiveProps (nextProps, nextContext) {
+  UNSAFE_componentWillReceiveProps (nextProps, nextContext) {
     this.setState({
       value: this.getQuery(nextProps),
       enterIsPressed: true
