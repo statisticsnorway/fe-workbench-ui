@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Accordion, Divider, Header, Icon, Message, Segment } from 'semantic-ui-react'
 
-import Properties from '../../../properties/properties'
 import { WorkbenchContext } from '../../../context/ContextProvider'
 import DeleteNote from './DeleteNote'
 
@@ -35,6 +34,7 @@ class Note extends Component {
         context.notebookService.getNote(id, user).then(note => {
           this.setState({
             note: note.body,
+            noteurl: note.notebookurl,
             ready: true
           })
         }).catch(error => {
@@ -62,7 +62,7 @@ class Note extends Component {
 
   render () {
     const { loadNotes } = this.props
-    const { accordionIndex, error, note, ready } = this.state
+    const { accordionIndex, error, note, noteurl, ready } = this.state
 
     return (
       <Segment basic loading={!ready}>
@@ -78,7 +78,7 @@ class Note extends Component {
 
           <DeleteNote id={note.id} name={note.name} loadNotes={loadNotes} />
 
-          <a href={`${Properties.api.notebookService.replace('/api/', '')}/#/notebook/${note.id}`}
+          <a href={noteurl}
              target='_blank' rel='noopener noreferrer'>
             <Icon name='share' color='blue' />
           </a>
