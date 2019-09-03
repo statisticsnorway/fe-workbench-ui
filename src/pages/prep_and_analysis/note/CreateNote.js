@@ -18,7 +18,7 @@ class CreateNote extends Component {
   componentDidMount () {
     let context = this.context
 
-    context.ldsService.getDataSets().then(response => {
+    context.ldsService.getDatasets().then(response => {
       const datasetOptions = response.data.UnitDataSet.edges.map(dataset => ({
         key: dataset.node.id,
         text: dataset.node.name[0].languageText,

@@ -41,7 +41,7 @@ class LdsServiceMock {
     return Promise.resolve(DataResources)
   }
 
-  getDataSets() {
+  getDatasets() {
     console.info('(MOCK) Datasets')
     return Promise.resolve(UnitDatasets)
   }

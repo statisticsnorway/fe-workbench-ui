@@ -13,8 +13,7 @@ export default {
     backend: "",
     role: "",
     dataResource: "",
-    notebookService: "",
-    dataSet: ""
+    notebookService: ""
   },
   oauth: {
     authority: "",

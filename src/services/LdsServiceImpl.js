@@ -43,9 +43,9 @@ class LdsServiceImpl {
     return get(Properties.api.dataResource)
   }
 
-  getDataSets() {
-    return get(Properties.api.dataSet)
-  }
+  getDatasets = () => client.query({
+    query: ALL_DATASETS
+  });
 }
 
 export default LdsServiceImpl
