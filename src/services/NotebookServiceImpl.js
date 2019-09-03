@@ -1,16 +1,23 @@
 import { deleteData, get, post } from '../utilities/fetch/Fetch'
 import Properties from '../properties/properties'
 
+
 class NotebookServiceImpl {
 
   // Using a custom header (X-Authorization) to pass the access token that should be used to get access to
   // the external notebook service.
   // (The standard Authorization header is automatically set by the platform, and is used for communication between internal services).
+  // If the backend is mocked and the application calls a local Zeppelin instance directly, skip the custom X-Authorization header
   getHeaders = (user) => {
-    return new Headers({
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'X-Authorization': 'Bearer ' + user.user.access_token
+    return Properties.mock.backend === true ?
+      new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    } ) :
+      new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Authorization': 'Bearer ' + user.user.access_token
     })
   }
 
