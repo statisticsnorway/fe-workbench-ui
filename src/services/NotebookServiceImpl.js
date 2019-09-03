@@ -33,10 +33,24 @@ class NotebookServiceImpl {
     })
   }
 
-  postNote = (body, user) => {
+  postNote = (body, user, autostart = false) => {
     return new Promise((resolve, reject) => {
 
-      post(Properties.api.notebookService + 'notebook', this.getHeaders(user), JSON.stringify(body))
+      post(Properties.api.notebookService + 'notebook', JSON.stringify(body), this.getHeaders(user))
+        .then(response => {
+          if (autostart) {
+            this.startJobs(response.body, user)
+          }
+          resolve(response)
+        })
+        .catch(error => reject(error))
+    })
+  }
+
+  startJobs = (id, user) => {
+    return new Promise((resolve, reject) => {
+
+      post(Properties.api.notebookService + 'notebook/job/' + id, null, this.getHeaders(user))
         .then(response => resolve(response))
         .catch(error => reject(error))
     })
@@ -45,7 +59,7 @@ class NotebookServiceImpl {
   postParagraph = (id, body, user) => {
     return new Promise((resolve, reject) => {
 
-      post(Properties.api.notebookService + 'notebook/' + id + '/paragraph', this.getHeaders(user), JSON.stringify(body))
+      post(Properties.api.notebookService + 'notebook/' + id + '/paragraph', JSON.stringify(body), this.getHeaders(user))
         .then(response => resolve(response))
         .catch(error => reject(error))
     })

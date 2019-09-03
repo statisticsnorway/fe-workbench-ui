@@ -36,48 +36,34 @@ class CreateNote extends Component {
   createNote = () => {
     const { loadNotes, user } = this.props
     const { dataset, datasetOptions, withDataset, name } = this.state
+    const datasetName = datasetOptions.find(option => option.key === dataset).text
+    const datasetUrl = datasetOptions.find(option => option.key === dataset).key
 
     let context = this.context
-
-    context.notebookService.postNote({ name: name }, user).then(response => {
-      if (withDataset) {
-        const datasetName = datasetOptions.find(option => option.key === dataset).text
-        const datasetUrl = datasetOptions.find(option => option.key === dataset).key
-        const paragraph = {
-          title: `Fetch unitdataset ${datasetName} from LDS`,
-          text: `%sh\nwget [ldsUrl/${datasetUrl}] -O unitdataset.json\n` //TODO: prefix datasetUrl with lds url
+    let note = { name: name }
+    if (withDataset) {
+      note.paragraphs = [{
+        title: `Fetch ${datasetName} from LDS`,
+        text: `val ds = spark.read.format("no.ssb.gsim.spark").load("lds+gsim://${datasetUrl}")\n\nz.show(ds)`,
+        config: {
+          title: true
         }
-
-        context.notebookService.postParagraph(response.body, paragraph, user).then(() => {
-          this.setState({
-            dataset: '',
-            name: '',
-            response: `Note with id ${response.body} (${name}) created. Initiated with dataset ${datasetName}`,
-            withDataset: false
-          }, () => {
-            loadNotes()
-            setTimeout(() => {
-              this.setState({ response: false })
-            }, 4000)
-          })
-        }).catch(error => {
-          this.setState({
-            error: error
-          })
-        })
-      } else {
-        this.setState({
-          dataset: '',
-          name: '',
-          response: `Note with id ${response.body} (${name}) created`,
-          withDataset: false
-        }, () => {
-          loadNotes()
-          setTimeout(() => {
-            this.setState({ response: false })
-          }, 4000)
-        })
-      }
+      }]
+    }
+    context.notebookService.postNote(note, user, withDataset).then(response => {
+      let responseText = !withDataset ? `Note with id ${response.body} (${name}) created`
+        : `Note with id ${response.body} (${name}) created. Initiated with dataset ${datasetName}`
+      this.setState({
+        dataset: '',
+        name: '',
+        response: responseText,
+        withDataset: false
+      }, () => {
+        loadNotes()
+        setTimeout(() => {
+          this.setState({ response: false })
+        }, 4000)
+      })
     }).catch(error => {
       this.setState({
         error: error

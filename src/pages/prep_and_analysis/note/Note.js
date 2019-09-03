@@ -61,7 +61,7 @@ class Note extends Component {
   }
 
   render () {
-    const { loadNotes } = this.props
+    const { loadNotes, user } = this.props
     const { accordionIndex, error, note, noteurl, ready } = this.state
 
     return (
@@ -76,7 +76,7 @@ class Note extends Component {
             subheader={`ID: ${note.id}`}
           />
 
-          <DeleteNote id={note.id} name={note.name} loadNotes={loadNotes} />
+          <DeleteNote id={note.id} name={note.name} loadNotes={loadNotes} user={user} />
 
           <a href={noteurl}
              target='_blank' rel='noopener noreferrer'>

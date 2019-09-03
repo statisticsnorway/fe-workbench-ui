@@ -219,7 +219,7 @@ class NotebookAdmin extends Component {
 
           <Grid>
             <Grid.Column width={5}>
-              <CreateNote loadNotes={this.loadNotes} />
+              <CreateNote loadNotes={this.loadNotes} user={user}/>
 
               <Divider hidden />
 
