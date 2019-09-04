@@ -11,6 +11,7 @@ export const ALL_DATASETS = gql`
                     name {
                         languageText
                     }
+                    dataSourcePath
                     description {
                         languageText
                     }

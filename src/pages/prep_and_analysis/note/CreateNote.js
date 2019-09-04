@@ -22,7 +22,9 @@ class CreateNote extends Component {
       const datasetOptions = response.data.UnitDataSet.edges.map(dataset => ({
         key: dataset.node.id,
         text: dataset.node.name[0].languageText,
-        value: dataset.node.id
+        value: dataset.node.id,
+        disabled: !dataset.node.dataSourcePath,
+        description: !dataset.node.dataSourcePath ? 'ingen data' : ''
       }))
 
       this.setState({ datasetOptions: datasetOptions })
@@ -36,23 +38,26 @@ class CreateNote extends Component {
   createNote = () => {
     const { loadNotes, user } = this.props
     const { dataset, datasetOptions, withDataset, name } = this.state
-    const datasetName = datasetOptions.find(option => option.key === dataset).text
-    const datasetUrl = datasetOptions.find(option => option.key === dataset).key
-
     let context = this.context
     let note = { name: name }
     if (withDataset) {
+      const selectedOptions = datasetOptions.filter(option => dataset.includes(option.key));
+      const textArr = selectedOptions.map((option, index) => {
+        const variableName = `ds${index + 1}`
+        return this.paragraphTemplate(option.text, variableName, option.key)
+      })
       note.paragraphs = [{
-        title: `Fetch ${datasetName} from LDS`,
-        text: `val ds = spark.read.format("no.ssb.gsim.spark").load("lds+gsim://${datasetUrl}")\n\nz.show(ds)`,
+        title: 'Henter datasett fra LDS',
+        text: textArr.join('\n\n'),
         config: {
-          title: true
+          title: true,
+          editorHide: true
         }
       }]
     }
     context.notebookService.postNote(note, user, withDataset).then(response => {
       let responseText = !withDataset ? `Note with id ${response.body} (${name}) created`
-        : `Note with id ${response.body} (${name}) created. Initiated with dataset ${datasetName}`
+        : `Note with id ${response.body} (${name}) created with initial datasets`
       this.setState({
         dataset: '',
         name: '',
@@ -70,6 +75,11 @@ class CreateNote extends Component {
       })
     })
   }
+
+  paragraphTemplate = (tableName, variableName, url) => (
+    `print("%html Henter tabellen <strong>${tableName}</strong>. Alias for denne tabellen er <i>${variableName}</i>")\n`
+    + `val ${variableName} = spark.read.format("no.ssb.gsim.spark").load("lds+gsim://${url}")\n`
+    + `println("<pre>")\n${variableName}.printSchema()\nprintln("</pre>")`)
 
   toggleWithDataset = () => this.setState(prevState => ({ withDataset: !prevState.withDataset }))
 
@@ -98,7 +108,7 @@ class CreateNote extends Component {
         {withDataset &&
         <>
           <Divider fitted hidden />
-          <Dropdown name='dataset' placeholder='Select Dataset' selection options={datasetOptions} value={dataset}
+          <Dropdown name='dataset' placeholder='Select Dataset' fluid multiple search selection options={datasetOptions} value={dataset}
                     onChange={this.handleChange}
           />
         </>

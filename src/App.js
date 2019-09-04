@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 
 import { WorkbenchContext } from './context/ContextProvider'
 import Home from './pages/home/Home'
@@ -39,7 +40,11 @@ class App extends Component {
         let searchParams = new URLSearchParams(hash)
         if (searchParams.has('access_token')) {
           this.userManager.signinRedirectCallback().then(() => {
-            window.history.replaceState({}, "", "/")
+            this.props.history.replace({
+              pathname: "/",
+            })
+            // Go back to the previous url (before login)
+            this.props.history.goBack()
           }).catch(function (err) {
             console.log("Error signinRedirectCallback: ", err)
           })
@@ -48,7 +53,7 @@ class App extends Component {
     })
   }
 
-  // Callback from UserManager
+// Callback from UserManager
   onUserLoaded(user) {
     console.log("User loaded", user)
     this.setState({
@@ -149,4 +154,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default withRouter(App)
