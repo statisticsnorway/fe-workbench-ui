@@ -31,9 +31,9 @@
   "scripts": {
     "start": "react-scripts start",
     "start:dev": "export REACT_APP_ENV=development && chmod +x ./scripts/read_env_var.sh && ./scripts/read_env_var.sh && cp env-var.js ./public/ && react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --verbose=false",
-    "coverage": "react-scripts test --coverage",
+    "build": "node ./node_modules/react-scripts/bin/react-scripts.js build",
+    "test": "node ./node_modules/react-scripts/bin/react-scripts.js test --verbose=false",
+    "coverage": "node ./node_modules/react-scripts/bin/react-scripts.js test --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -58,7 +58,7 @@
       "!src/mocks/**",
       "!src/**/index.js",
       "!src/utilities/enum/**",
-      "!src/utilities/fetch/**",
+      "!src/utilities/fetch/Fetch.js",
       "!src/__tests__/test-data/**",
       "!src/**/**.json"
     ],
