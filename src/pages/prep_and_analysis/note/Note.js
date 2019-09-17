@@ -34,7 +34,7 @@ class Note extends Component {
         context.notebookService.getNote(id, user).then(note => {
           this.setState({
             note: note.body,
-            noteurl: note.notebookurl,
+            noteurl: note.noteurl,
             ready: true
           })
         }).catch(error => {
