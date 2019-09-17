@@ -60,7 +60,7 @@
       "!src/utilities/enum/**",
       "!src/utilities/fetch/Fetch.js",
       "!src/__tests__/test-data/**",
-      "!src/**/**.json"
+      "!src/**/*.json"
     ],
     "coverageThreshold": {
       "global": {
