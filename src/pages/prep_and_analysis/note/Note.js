@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Accordion, Divider, Header, Icon, Message, Segment } from 'semantic-ui-react'
 
 import { WorkbenchContext } from '../../../context/ContextProvider'
-import DeleteNote from './DeleteNote'
 
 class Note extends Component {
   static contextType = WorkbenchContext
@@ -60,9 +59,11 @@ class Note extends Component {
     this.setState({ accordionIndex: newIndex })
   }
 
+  // TODO
+  // Show overall paragraph status (see Zeppelin/jobs) on top
+  // Show individual paragraph status and run button for each paragraph
   render () {
-    const { loadNotes, user } = this.props
-    const { accordionIndex, error, note, noteurl, ready } = this.state
+    const { accordionIndex, error, note, ready } = this.state
 
     return (
       <Segment basic loading={!ready}>
@@ -76,23 +77,20 @@ class Note extends Component {
             subheader={`ID: ${note.id}`}
           />
 
-          <DeleteNote id={note.id} name={note.name} loadNotes={loadNotes} user={user} />
-
-          <a href={noteurl}
-             target='_blank' rel='noopener noreferrer'>
-            <Icon name='share' color='blue' />
-          </a>
-
           <Divider hidden />
 
           <Accordion fluid>
-            <Accordion.Title active={accordionIndex === 0} index={0} onClick={this.handleAccordionClick}>
-              <Icon name='dropdown' />
-              JSON
-            </Accordion.Title>
-            <Accordion.Content active={accordionIndex === 0}>
-              <pre>{JSON.stringify(note, null, 2)}</pre>
-            </Accordion.Content>
+            {note.paragraphs.map( (paragraph, index) =>
+              <Fragment key={paragraph.id}>
+                <Accordion.Title active={accordionIndex === index} index={index} onClick={this.handleAccordionClick}>
+                  <Icon name='dropdown' />
+                    {paragraph.title === undefined ? 'INGEN_TITTEL' : paragraph.title}
+                </Accordion.Title>
+                <Accordion.Content active={accordionIndex === index}>
+                  <pre>{paragraph.text}</pre>
+                </Accordion.Content>
+              </Fragment>
+            )}
           </Accordion>
         </>
         }

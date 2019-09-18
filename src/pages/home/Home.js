@@ -57,7 +57,7 @@ class Home extends Component {
         <TopMenu handleLogout={handleLogout} user={user} />
         <div style={{ height: '100vh' }}>
           <Sidebar.Pushable as={Container} fluid>
-            <Button style={{ position: 'fixed', top: '15px', left: '15px', zIndex: 3 }} fixed='top' icon
+            <Button style={{ position: 'fixed', top: '15px', left: '60px', zIndex: 3 }} fixed='top' icon
                     onClick={this.handleAnimationChange()} data-testid='leftMenu-show'>
               <Icon name='bars' />
             </Button>
@@ -70,10 +70,8 @@ class Home extends Component {
               user={user}
             />
             <Sidebar.Pusher dimmed={false}>
-              <Grid stretched centered style={{ paddingTop: '15px' }}>
+              <Grid stretched centered style={{ paddingTop: '15px', paddingLeft: '10px' }}>
                 <Grid.Row>  {/*Main row for layout*/}
-                  <Grid.Column floated='left' width={1}> {/*Left padding column*/}
-                  </Grid.Column>
                   <Grid.Column width={12}>
                     <AccessControlRoute user={user} path='/search' component={SearchPage} />
                     <AccessControlRoute user={user} path='/dataset/:id' component={DatasetPreview} />

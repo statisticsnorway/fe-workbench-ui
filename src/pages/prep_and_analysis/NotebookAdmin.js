@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { Treebeard } from 'react-treebeard'
-import { Divider, Grid, Header, Icon, Message, Segment } from 'semantic-ui-react'
+import { decorators, Treebeard } from 'react-treebeard'
+import { Confirm, Divider, Grid, Header as UiHeader, Icon, Message, Segment } from 'semantic-ui-react'
 import { WorkbenchContext } from '../../context/ContextProvider'
 import Note from './note/Note'
 import CreateNote from './note/CreateNote'
+import Header from "./note/TreeBeardNodeHeader"
+import { UI } from "../../utilities/enum/UI"
 
 const treebeardStyle = { // TODO move to css
   tree: {
@@ -83,18 +85,9 @@ const treebeardStyle = { // TODO move to css
   }
 }
 
-const decorator = {
-  Toggle: (props) => {
-    return (<div/>) // Do not display any arrows
-  },
-  Header: (props) => {
-    return (
-      props.node.name === '~Trash' ?
-        <><Icon name='trash alternate' />Trash</> :
-        <><Icon name='folder' />{props.node.name}</>
-    );
-  }
-};
+const Toggle = () => {
+  return (<div/>)
+}
 
 class NotebookAdmin extends Component {
   static contextType = WorkbenchContext
@@ -110,47 +103,57 @@ class NotebookAdmin extends Component {
     this.loadNotes()
   }
 
+  reloadNotes = () => {
+    this.loadNotes()
+  }
+
   loadNotes = () => {
     let context = this.context
     const { user } = this.props
+    const self = this
 
     context.notebookService.getNotes(user).then(notes => {
       const notebookTree = []
 
-      function addToTree (folders, notebook, id, children) {
+      function addToTree (folders, notebook, element, notebookTree) {
         if (folders.length > 0) {
           const node = {
             name: folders[0],
             toggled: false,
             children: [],
-            decorators: decorator
+            hover: false
           }
 
           folders.shift()
 
-          const existingFolder = children.filter(
+          const existingFolder = notebookTree.filter(
             element => element.name === node.name && element.children)
 
           if (existingFolder.length === 0) {
-            children.push(node)
-            addToTree(folders, notebook, id, node.children)
+            notebookTree.push(node)
+            addToTree(folders, notebook, element, node.children)
           } else {
-            addToTree(folders, notebook, id, existingFolder[0].children)
+            addToTree(folders, notebook, element, existingFolder[0].children)
           }
         } else {
-          children.push({
+          notebookTree.push({
             name: notebook,
-            id: id,
-            toggled: false
+            id: element.id,
+            toggled: false,
+            hover: true,
+            loadNotes: self.reloadNotes,
+            user: user,
+            noteurl: element.noteurl,
+            deleteCallback: (note) => self.setState({showConfirm: true, noteToDelete: note})
           })
         }
       }
 
       notes.body.forEach(element => {
         const folders = element.name.split('/').filter(element => element !== '')
-        const notes = folders.pop()
+        const note = folders.pop()
 
-        addToTree(folders, notes, element.id, notebookTree)
+        addToTree(folders, note, element, notebookTree)
       })
       notebookTree.sort(this.compareNoteNode)
       this.setState({
@@ -201,21 +204,50 @@ class NotebookAdmin extends Component {
     this.setState(({
       cursor: node,
       notebookTree: Object.assign([], notebookTree),
-      activeNote: node.hasOwnProperty('id') ? node.id : null
+      activeNote: node.hasOwnProperty('id') ? node.id : null,
+      deleted: false
     }))
   }
 
+  deleteNote = () => {
+    this.setState({
+      showConfirm: false
+    }, () => {
+      const { user } = this.props
+      const { noteToDelete } = this.state
+
+      let context = this.context
+
+      context.notebookService.deleteNote(noteToDelete.id, user).then(() => {
+        this.setState({
+          deleted: true,
+          message: `${noteToDelete.name} ${UI.NOTE_DELETED[context.languageCode]}`
+        })
+        this.loadNotes() // TODO remember folder collapsed status
+      }).catch(error => {
+        this.setState({
+          deleted: false,
+          error: true,
+          message: `${UI.NOTE_DELETED_ERROR[context.languageCode]} ${error})`
+        })
+      })
+    })
+  }
+
   render () {
-    const { activeNote, error, notebookTree, ready } = this.state
+    const { activeNote, error, notebookTree, ready, showConfirm, deleted, message, noteToDelete } = this.state
     const { user } = this.props
+    const context = this.context
 
     return (
       <Segment basic loading={!ready}>
-        {ready && error && <Message negative icon='warning' header='Error' content={error} />}
+        {ready && message && deleted &&
+          <Message floating onDismiss={() => this.setState({deleted: false})} positive={deleted} negative={!deleted} icon={deleted ? 'check' : 'warning'} content={message}/>}
+        {ready && error && <Message negative icon='warning' header='Error' content={message} />}
         {ready && !error &&
         <>
-          <Header as='h1' dividing icon={{ name: 'book', color: 'teal' }}
-                  content='Notes' subheader='Notes from Zeppelin you have access to' />
+          <UiHeader as='h1' dividing icon={{ name: 'book', color: 'teal' }}
+                  content={UI.NOTEBOOK_NOTES[context.languageCode]} subheader={UI.NOTEBOOK_ADMIN_HEADER[context.languageCode]} />
 
           <Grid>
             <Grid.Column width={5}>
@@ -225,10 +257,22 @@ class NotebookAdmin extends Component {
 
               <Icon link name='sync' color='blue' onClick={this.loadNotes} />
 
-              <Treebeard data={notebookTree} onToggle={this.notebookTreeOnToggle} style={treebeardStyle} />
+              <Treebeard data={notebookTree} onToggle={this.notebookTreeOnToggle} style={treebeardStyle}
+                decorators={{ ...decorators, Toggle, Header }}/>
             </Grid.Column>
             <Grid.Column width={8}>{activeNote && <Note id={activeNote} user={user} loadNotes={this.loadNotes} />}</Grid.Column>
           </Grid>
+          {noteToDelete &&
+          <Confirm open={showConfirm} onCancel={() => this.setState({showConfirm: false})} onConfirm={this.deleteNote}
+                   header={UI.NOTE_DELETE_DIALOG_HEADER[context.languageCode]}
+                   content={`${UI.NOTE_DELETE_DIALOG_CONTENT[context.languageCode]} \'${noteToDelete.name}\' (id: ${noteToDelete.id})?`}
+                   cancelButton={{
+                     color: 'red',
+                     content: UI.GENERIC_CANCEL[context.languageCode],
+                     icon: 'close',
+                     floated: 'left'
+                   }}
+                   confirmButton={{content: UI.GENERIC_CONFIRM[context.languageCode], icon: 'check'}}/>}
         </>
         }
       </Segment>

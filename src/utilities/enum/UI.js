@@ -59,12 +59,67 @@ export const UI = {
     en: 'Notes',
     nb: 'Notes'
   },
+  NOTEBOOK_ADMIN_HEADER: {
+    en: 'Notes you have access to',
+    nb: 'Notes du har tilgang til'
+  },
   NOTEBOOK_ERROR: {
     en: 'Unable to fetch notes: ',
     nb: 'Kunne ikke hente notes: '
+  },
+  NOTE_DELETE: {
+    en: 'Delete note',
+    nb: 'Slett note'
+  },
+  NOTE_DELETE_DIALOG_HEADER: {
+    en: 'Are you sure?',
+    nb: 'Er du sikker?'
+  },
+  NOTE_DELETE_DIALOG_CONTENT: {
+    en: 'Are you sure you want to delete ',
+    nb: 'Er du sikker på at du vil slette '
+  },
+  NOTE_CREATE_WITH_DATASET: {
+    en: 'Init with dataset?',
+    nb: 'Opprett med datasett?'
+  },
+  NOTE_SELECT_DATASET: {
+    en: 'Select dataset',
+    nb: 'Velg datasett'
+  },
+  NOTE_CREATE_NEW: {
+    en: 'Create new note',
+    nb: 'Opprett ny note'
+  },
+  NOTE_CREATE: {
+    en: 'Create',
+    nb: 'Opprett'
+  },
+  NOTE_OPEN: {
+    en: 'Open in external notebook',
+    nb: 'Åpne i ekstern notebook '
+  },
+  NOTE_DELETED: {
+    en: ' was deleted',
+    nb: ' ble slettet'
+  },
+  NOTE_DELETED_ERROR: {
+    en: 'Could not delete ',
+    nb: 'Kunne ikke slette '
+
   },
   GENERIC_ERROR: {
     en: 'An error has occured',
     nb: 'Det har oppstått en feil'
   },
+  GENERIC_CONFIRM: {
+    en: 'Confirm',
+    nb: 'Bekreft'
+  },
+  GENERIC_CANCEL: {
+    en: 'Cancel',
+    nb: 'Avbryt'
+  },
+
+
 }
