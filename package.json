@@ -33,7 +33,7 @@
     "start:dev": "export REACT_APP_ENV=development && chmod +x ./scripts/read_env_var.sh && ./scripts/read_env_var.sh && cp env-var.js ./public/ && react-scripts start",
     "build": "node ./node_modules/react-scripts/bin/react-scripts.js build",
     "test": "node ./node_modules/react-scripts/bin/react-scripts.js test --verbose=false",
-    "coverage": "node ./node_modules/react-scripts/bin/react-scripts.js test --coverage",
+    "coverage": "node ./node_modules/react-scripts/bin/react-scripts.js test --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
