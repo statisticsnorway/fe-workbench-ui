@@ -19,6 +19,7 @@ import UserPreferences from '../userconfig/UserPreferences'
 import { WorkbenchContext } from '../../context/ContextProvider'
 import { LANGUAGES } from '../../utilities/enum/LANGUAGES'
 import NotebookAdmin from '../prep_and_analysis/NotebookAdmin'
+import DatasetPreview from '../dataset/DatasetPreview'
 
 class Home extends Component {
   static contextType = WorkbenchContext
@@ -75,7 +76,8 @@ class Home extends Component {
                   </Grid.Column>
                   <Grid.Column width={12}>
                     <AccessControlRoute user={user} path='/search' component={SearchPage} />
-                    <AccessControlRoute user={user} path='/dataset/:id' component={DatasetView} />
+                    <AccessControlRoute user={user} path='/dataset/:id' component={DatasetPreview} />
+                    <AccessControlRoute user={user} path='/dataset/:id/data' component={DatasetView} />
                     <AccessControlRoute user={user} path='/collection/dashboard' component={Dashboard} />
                     <AccessControlRoute user={user} path='/collection/setup' component={CollectionSetup} />
                     <AccessControlRoute user={user} path='/prep/notebooks' component={NotebookAdmin} />
