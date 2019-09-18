@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Checkbox, Divider, Dropdown, Input, Message } from 'semantic-ui-react'
 
 import { WorkbenchContext } from '../../../context/ContextProvider'
+import { UI } from "../../../utilities/enum/UI"
 
 class CreateNote extends Component {
   static contextType = WorkbenchContext
@@ -87,29 +88,30 @@ class CreateNote extends Component {
 
   render () {
     const { dataset, datasetOptions, error, name, response, withDataset } = this.state
+    const context = this.context
 
     return (
       <>
         <Input fluid style={{'maxWidth':'350px'}} name='name'
-               placeholder='Create new Note' value={name} onChange={this.handleChange}
+               placeholder={UI.NOTE_CREATE_NEW[context.languageCode]} value={name} onChange={this.handleChange}
                action={{
                  color: 'teal',
                  labelPosition: 'right',
                  icon: 'file alternate outline',
-                 content: 'Create',
+                 content: UI.NOTE_CREATE[context.languageCode],
                  onClick: () => this.createNote()
                }}
         />
 
         <Divider fitted hidden />
 
-        <Checkbox label='Init with dataset?' onChange={this.toggleWithDataset} checked={withDataset} />
+        <Checkbox label={UI.NOTE_CREATE_WITH_DATASET[context.languageCode]} onChange={this.toggleWithDataset} checked={withDataset} />
 
         {withDataset &&
         <>
           <Divider fitted hidden />
-          <Dropdown name='dataset' placeholder='Select Dataset' fluid multiple search selection options={datasetOptions} value={dataset}
-                    onChange={this.handleChange}
+          <Dropdown name='dataset' placeholder={UI.NOTE_SELECT_DATASET[context.languageCode]} fluid multiple search
+                    selection options={datasetOptions} value={dataset} onChange={this.handleChange}
           />
         </>
         }

@@ -1,6 +1,12 @@
 {
   "data": {
     "UnitDataSetById": {
+      "name": [
+        {
+          "languageCode": "en",
+          "languageText": "PersonWithIncomeDataset"
+        }
+      ],
       "description": [
         {
           "languageCode": "en",
@@ -13,27 +19,35 @@
             {
               "node": {
                 "id": "f1b61f07-c403-43c5-80db-2a1bfdd1bb37",
-                "identifierComponents": {
+                "instanceVariables": {
                   "edges": [
                     {
                       "node": {
-                        "isUnique": true,
-                        "isComposite": false,
+                        "dataStructureComponentType": "IDENTIFIER",
                         "shortName": "PERSON_ID",
+                        "description": [
+                          {
+                            "languageCode": "en",
+                            "languageText": "National identifier number for person"
+                          }
+                        ],
                         "representedVariable": {
                           "substantiveValueDomain": {
                             "dataType": "STRING"
                           }
                         }
                       }
-                    }
-                  ]
-                },
-                "measureComponents": {
-                  "edges": [
+                    },
                     {
                       "node": {
+                        "dataStructureComponentType": "MEASURE",
                         "shortName": "INCOME",
+                        "description": [
+                          {
+                            "languageCode": "en",
+                            "languageText": "The person's annual income"
+                          }
+                        ],
                         "representedVariable": {
                           "substantiveValueDomain": {
                             "dataType": "INTEGER"
@@ -43,41 +57,65 @@
                     },
                     {
                       "node": {
-                        "shortName": "GENDER",
-                        "representedVariable": {
-                          "substantiveValueDomain": {
-                            "dataType": "STRING"
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "node": {
-                        "shortName": "MARITAL_STATUS",
-                        "representedVariable": {
-                          "substantiveValueDomain": {
-                            "dataType": "STRING"
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "node": {
-                        "shortName": "MUNICIPALITY",
-                        "representedVariable": {
-                          "substantiveValueDomain": {
-                            "dataType": "STRING"
-                          }
-                        }
-                      }
-                    }
-                  ]
-                },
-                "attributeComponents": {
-                  "edges": [
-                    {
-                      "node": {
+                        "dataStructureComponentType": "ATTRIBUTE",
                         "shortName": "DATA_QUALITY",
+                        "description": [
+                          {
+                            "languageCode": "en",
+                            "languageText": "Classification of the data quality."
+                          }
+                        ],
+                        "representedVariable": {
+                          "substantiveValueDomain": {
+                            "dataType": "STRING"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "node": {
+                        "dataStructureComponentType": "MEASURE",
+                        "shortName": "MARITAL_STATUS",
+                        "description": [
+                          {
+                            "languageCode": "en",
+                            "languageText": "The person's marital status"
+                          }
+                        ],
+                        "representedVariable": {
+                          "substantiveValueDomain": {
+                            "dataType": "STRING"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "node": {
+                        "dataStructureComponentType": "MEASURE",
+                        "shortName": "MUNICIPALITY",
+                        "description": [
+                          {
+                            "languageCode": "en",
+                            "languageText": "The person's residential municipality"
+                          }
+                        ],
+                        "representedVariable": {
+                          "substantiveValueDomain": {
+                            "dataType": "STRING"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "node": {
+                        "dataStructureComponentType": "MEASURE",
+                        "shortName": "GENDER",
+                        "description": [
+                          {
+                            "languageCode": "en",
+                            "languageText": "The person's gender"
+                          }
+                        ],
                         "representedVariable": {
                           "substantiveValueDomain": {
                             "dataType": "STRING"

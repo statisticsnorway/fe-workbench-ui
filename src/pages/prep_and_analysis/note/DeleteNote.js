@@ -1,84 +1,29 @@
-import React, { Component } from 'react'
-import { Confirm, Icon, Message, Popup } from 'semantic-ui-react'
+import React, { useContext, useState } from 'react'
+import { Icon, Popup } from 'semantic-ui-react'
 
 import { WorkbenchContext } from '../../../context/ContextProvider'
+import { UI } from "../../../utilities/enum"
 
-class DeleteNote extends Component {
-  static contextType = WorkbenchContext
+const DeleteNote = (props) => {
+  const context = useContext(WorkbenchContext)
 
-  state = {
-    deleted: false,
-    loading: false,
-    message: false,
-    showConfirm: false
-  }
+  const [ isDeleted ] = useState(false)
 
-  deleteNote = () => {
-    this.setState({
-      loading: true,
-      showConfirm: false
-    }, () => {
-      const { id, loadNotes, user } = this.props
-
-      let context = this.context
-
-      context.notebookService.deleteNote(id, user).then(() => {
-        this.setState({
-          deleted: true,
-          loading: false,
-          message: 'Was deleted'
-        })
-        loadNotes()
-      }).catch(error => {
-        this.setState({
-          loading: false,
-          message: `Could not delete (${error})`
-        })
-      })
-    })
-  }
-
-  showConfirm = () => {
-    this.setState({ showConfirm: true })
-  }
-
-  hideConfirm = () => {
-    this.setState({ showConfirm: false })
-  }
-
-  render () {
-    const { deleted, loading, message, showConfirm } = this.state
-    const { id, name } = this.props
-
-    return (
+  return (
+    <Popup basic flowing
+           trigger={
+             <span> {/*Popup does not work on <>*/}
+               <Icon data-testid='deleteNote' link name='trash alternate outline' color='red' size='large'
+                     disabled={isDeleted}
+                     onClick={() => props.deleteCallback({id: props.id, name: props.name})}/>
+             </span>
+           }>
       <>
-        <Popup basic flowing
-               trigger={
-                 <>
-                   <Icon link name='trash alternate outline' color='red' size='large' loading={loading}
-                         disabled={deleted}
-                         onClick={this.showConfirm} />
-                   <Confirm open={showConfirm} onCancel={this.hideConfirm} onConfirm={this.deleteNote}
-                            header='Sure?'
-                            content={`Are you sure? ${id} (${name})`}
-                            cancelButton={{
-                              color: 'red',
-                              content: 'Cancel',
-                              icon: 'close',
-                              floated: 'left'
-                            }}
-                            confirmButton={{ content: 'Confirm', icon: 'check' }} />
-                 </>
-               }>
-          <Icon color='blue' name='info circle' />
-          Deleted
-        </Popup>
-        {message !== false &&
-        <Message positive={deleted} negative={!deleted} icon={deleted ? 'check' : 'warning'} content={message} />
-        }
+        <Icon color='red' name='info circle'/>
+        {UI.NOTE_DELETE[context.languageCode]}
       </>
-    )
-  }
+    </Popup>
+  )
 }
 
 export default DeleteNote

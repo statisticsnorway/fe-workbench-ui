@@ -19,6 +19,7 @@ import UserPreferences from '../userconfig/UserPreferences'
 import { WorkbenchContext } from '../../context/ContextProvider'
 import { LANGUAGES } from '../../utilities/enum/LANGUAGES'
 import NotebookAdmin from '../prep_and_analysis/NotebookAdmin'
+import DatasetPreview from '../dataset/DatasetPreview'
 
 class Home extends Component {
   static contextType = WorkbenchContext
@@ -56,7 +57,7 @@ class Home extends Component {
         <TopMenu handleLogout={handleLogout} user={user} />
         <div style={{ height: '100vh' }}>
           <Sidebar.Pushable as={Container} fluid>
-            <Button style={{ position: 'fixed', top: '15px', left: '15px', zIndex: 3 }} fixed='top' icon
+            <Button style={{ position: 'fixed', top: '15px', left: '60px', zIndex: 3 }} fixed='top' icon
                     onClick={this.handleAnimationChange()} data-testid='leftMenu-show'>
               <Icon name='bars' />
             </Button>
@@ -69,13 +70,12 @@ class Home extends Component {
               user={user}
             />
             <Sidebar.Pusher dimmed={false}>
-              <Grid stretched centered style={{ paddingTop: '15px' }}>
+              <Grid stretched centered style={{ paddingTop: '15px', paddingLeft: '10px' }}>
                 <Grid.Row>  {/*Main row for layout*/}
-                  <Grid.Column floated='left' width={1}> {/*Left padding column*/}
-                  </Grid.Column>
                   <Grid.Column width={12}>
                     <AccessControlRoute user={user} path='/search' component={SearchPage} />
-                    <AccessControlRoute user={user} path='/dataset/:id' component={DatasetView} />
+                    <AccessControlRoute user={user} path='/dataset/:id' component={DatasetPreview} />
+                    <AccessControlRoute user={user} path='/dataset/:id/data' component={DatasetView} />
                     <AccessControlRoute user={user} path='/collection/dashboard' component={Dashboard} />
                     <AccessControlRoute user={user} path='/collection/setup' component={CollectionSetup} />
                     <AccessControlRoute user={user} path='/prep/notebooks' component={NotebookAdmin} />

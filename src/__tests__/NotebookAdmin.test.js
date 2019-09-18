@@ -1,20 +1,22 @@
 import React from 'react'
-import { cleanup, render } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
+import { cleanup, fireEvent, render, waitForElement } from '@testing-library/react'
 import { ContextProvider } from '../context/ContextProvider'
 import NotebookAdmin from '../pages/prep_and_analysis/NotebookAdmin'
 import NotebookServiceMock from '../services/NotebookServiceMock'
+import { UI } from "../utilities/enum/UI"
 
 afterEach(() => {
   cleanup()
 })
 
 const setup = () => {
-  const { queryAllByText, queryAllByDisplayValue, queryAllByRole, queryAllByPlaceholderText } = render(
+  const { queryAllByText, queryAllByRole, queryAllByPlaceholderText, getByText, queryAllByTestId } = render(
     <ContextProvider>
       <NotebookAdmin />
     </ContextProvider>)
 
-  return { queryAllByText, queryAllByDisplayValue, queryAllByRole, queryAllByPlaceholderText }
+  return { queryAllByText, queryAllByRole, queryAllByPlaceholderText, getByText, queryAllByTestId}
 }
 
 test('Notes list is parsed correctly', async () => {
@@ -23,7 +25,7 @@ test('Notes list is parsed correctly', async () => {
 
   await expect(spyGetNotes).toHaveBeenCalled()
 
-  expect(queryAllByPlaceholderText('Create new Note')).toHaveLength(1)
+  expect(queryAllByPlaceholderText(UI.NOTE_CREATE_NEW.nb)).toHaveLength(1)
 
   expect(queryAllByRole('button')).toHaveLength(1)
 
@@ -37,4 +39,18 @@ test('Notes list is parsed correctly', async () => {
   // Verify that folders are collapsed
   expect(queryAllByText('Test_div')).toHaveLength(0)
 
+})
+
+test('Delete and open is rendered on mouseover and not on mouseout', async () =>
+{
+  const { queryAllByTestId, getByText } = setup()
+  let note = await waitForElement(() => getByText('Bank Tutorial'))
+  expect(queryAllByTestId('deleteNote')).toHaveLength(0)
+  expect(queryAllByTestId('openNote')).toHaveLength(0)
+  fireEvent.mouseOver(note)
+  expect(queryAllByTestId('deleteNote')).toHaveLength(1)
+  expect(queryAllByTestId('openNote')).toHaveLength(1)
+  fireEvent.mouseOut(note)
+  expect(queryAllByTestId('deleteNote')).toHaveLength(0)
+  expect(queryAllByTestId('openNote')).toHaveLength(0)
 })

@@ -4,51 +4,63 @@
   "body": [
     {
       "name": "Zeppelin Tutorial/Basic Features (Spark)",
-      "id": "2A94M5J1Z"
+      "id": "2A94M5J1Z",
+      "noteurl": "http://localhost:8080/#notebook/2A94M5J1Z"
     },
     {
       "name": "Zeppelin Tutorial/Matplotlib (Python • PySpark)",
-      "id": "2C2AUG798"
+      "id": "2C2AUG798",
+      "noteurl": "http://localhost:8080/#notebook/2C2AUG798"
     },
     {
       "name": "Bank Tutorial",
-      "id": "2ED8BWRS5"
+      "id": "2ED8BWRS5",
+      "noteurl": "http://localhost:8080/#notebook/2ED8BWRS5"
     },
     {
       "name": "REST-test",
-      "id": "2EGESWETA"
+      "id": "2EGESWETA",
+      "noteurl": "http://localhost:8080/#notebook/2EGESWETA"
     },
     {
       "name": "Folder_2/Test_div",
-      "id": "2ECV3K89Q"
+      "id": "2ECV3K89Q",
+      "noteurl": "http://localhost:8080/#notebook/2ECV3K89Q"
     },
     {
       "name": "Folder_1/Folder_2/Folder3_/Test_div",
-      "id": "2ECV3K89Q"
+      "id": "2ECV3K89Q",
+      "noteurl": "http://localhost:8080/#notebook/2ECV3K89Q"
     },
     {
       "name": "Folder_1/Test_div",
-      "id": "2ECV3K89Q"
+      "id": "2ECV3K89Q",
+      "noteurl": "http://localhost:8080/#notebook/2ECV3K89Q"
     },
     {
       "name": "Zeppelin Tutorial/R (SparkR)",
-      "id": "2BWJFTXKJ"
+      "id": "2BWJFTXKJ",
+      "noteurl": "http://localhost:8080/#notebook/2BWJFTXKJ"
     },
     {
       "name": "Zeppelin Tutorial/Using Flink for batch processing",
-      "id": "2C35YU814"
+      "id": "2C35YU814",
+      "noteurl": "http://localhost:8080/#notebook/2C35YU814"
     },
     {
       "name": "Zeppelin Tutorial/Using Mahout",
-      "id": "2BYEZ5EVK"
+      "id": "2BYEZ5EVK",
+      "noteurl": "http://localhost:8080/#notebook/2BYEZ5EVK"
     },
     {
       "name": "Zeppelin Tutorial/Using Pig for querying data",
-      "id": "2C57UKYWR"
+      "id": "2C57UKYWR",
+      "noteurl": "http://localhost:8080/#notebook/2C57UKYWR"
     },
     {
       "name": "~Trash/Test_file_interpreter",
-      "id": "2EAN1TGXE"
+      "id": "2EAN1TGXE",
+      "noteurl": "http://localhost:8080/#notebook/2EAN1TGXE"
     }
   ]
 }

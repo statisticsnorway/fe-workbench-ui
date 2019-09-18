@@ -19,6 +19,7 @@ export const WorkbenchContext = React.createContext({
   datasetService: new DatasetServiceMock(),
   notebookService: new NotebookServiceMock(),
   setLanguage: () => { throw IllegalAccessError },
+  getLocalizedText: () => { throw IllegalAccessError },
   getLocalizedGsimObjectText: () => { throw IllegalAccessError }
 })
 
@@ -37,6 +38,14 @@ export class ContextProvider extends Component {
     }
   }
 
+  // Global search replace (regex) \{(.*)\.(.*)\[context\.languageCode\]\}
+  // with {context.getLocalizedText($1.$2)}
+  getLocalizedText (state) {
+    return (key) => {
+        return key[state.languageCode]
+    }
+  }
+
   getLocalizedGsimObjectText (state) {
     return (codeTextObj) => {
       let text = codeTextObj.find(name => name.languageCode === state.languageCode) || codeTextObj[0]
@@ -49,13 +58,14 @@ export class ContextProvider extends Component {
     return (
       <WorkbenchContext.Provider
         value={{
-          languageCode: this.state.languageCode,
-          backendService: this.state.backendService,
-          ldsService: this.state.ldsService,
-          datasetService: this.state.datasetService,
-          notebookService: this.state.notebookService,
-          setLanguage: this.setLanguage(this),
-          getLocalizedGsimObjectText: this.getLocalizedGsimObjectText(this.state)
+        languageCode: this.state.languageCode,
+        backendService: this.state.backendService,
+        ldsService: this.state.ldsService,
+        datasetService: this.state.datasetService,
+        notebookService: this.state.notebookService,
+        setLanguage: this.setLanguage(this),
+        getLocalizedText: this.getLocalizedText(this.state),
+        getLocalizedGsimObjectText: this.getLocalizedGsimObjectText(this.state)
         }}>
         {children}
       </WorkbenchContext.Provider>
