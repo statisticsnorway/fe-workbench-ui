@@ -6,7 +6,7 @@ import { DATASET_WITH_STRUCTURE, mapResult } from './graphql/DatasetQuery'
 import Properties from '../properties/properties'
 
 // see https://github.com/apollographql/apollo-client/issues/4843
-import ApolloClient, { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-boost/lib/index'
+import ApolloClient, { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-boost'
 
 // Some queries contain union or interface types, so Apollo Client's simple (heuristic) fragment matcher can not
 // be used. See https://www.apollographql.com/docs/react/advanced/fragments.html#fragment-matcher
