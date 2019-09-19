@@ -265,7 +265,7 @@ class NotebookAdmin extends Component {
           {noteToDelete &&
           <Confirm open={showConfirm} onCancel={() => this.setState({showConfirm: false})} onConfirm={this.deleteNote}
                    header={UI.NOTE_DELETE_DIALOG_HEADER[context.languageCode]}
-                   content={`${UI.NOTE_DELETE_DIALOG_CONTENT[context.languageCode]} \'${noteToDelete.name}\' (id: ${noteToDelete.id})?`}
+                   content={`${UI.NOTE_DELETE_DIALOG_CONTENT[context.languageCode]} '${noteToDelete.name}' (id: ${noteToDelete.id})?`}
                    cancelButton={{
                      color: 'red',
                      content: UI.GENERIC_CANCEL[context.languageCode],

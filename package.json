@@ -61,14 +61,15 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**",
-      "!src/index.js",
-      "!src/**/index.js",
       "!src/media/**",
       "!src/mocks/**",
+      "!src/properties/**",
       "!src/utilities/enum/**",
-      "!src/utilities/fetch/Fetch.js",
       "!src/__tests__/test-data/**",
-      "!src/**/*.json"
+      "!src/**/*.json",
+      "!src/index.js",
+      "!src/**/index.js",
+      "!src/utilities/fetch/Fetch.js"
     ],
     "coverageThreshold": {
       "global": {
