@@ -1,6 +1,6 @@
 {
   "name": "workbench-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/statisticsnorway/fe-workbench-ui"
@@ -73,10 +73,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 25,
-        "functions": 25,
-        "lines": 25,
-        "statements": 25
+        "branches": 45,
+        "functions": 35,
+        "lines": 40,
+        "statements": 45
       }
     }
   },
