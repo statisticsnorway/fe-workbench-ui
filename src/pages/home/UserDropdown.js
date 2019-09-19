@@ -22,7 +22,7 @@ class UserDropdown extends Component {
                          content={UI.LOGOUT[context.languageCode]} onClick={handleLogout} data-testid='logout-button' />
           <Dropdown.Divider />
           <Dropdown.Item as={List} horizontal divided link size='small'>
-            <List.Item as='a' href={`${process.env.REACT_APP_GIT_HUB}`} icon={{ fitted: true, name: 'github' }} />
+            <List.Item as='a' href={`${process.env.REACT_APP_SOURCE_URL}`} icon={{ fitted: true, name: 'github' }} />
             <List.Item content={`${UI.APP_VERSION[context.languageCode]}: ${process.env.REACT_APP_VERSION}`} />
           </Dropdown.Item>
         </Dropdown.Menu>
