@@ -22,9 +22,8 @@ class NotebookTree {
     })
   }
 
-  get tree () {
-    //TODO: Implement the following method by extracting code from NotebookAdmin.loadNotes() so that this code is reusable.
-  }
+  //TODO: Implement the following method by extracting code from NotebookAdmin.loadNotes() so that this code is reusable.
+  //get tree () {}
 
 }
 

@@ -7,6 +7,7 @@
   },
   "private": true,
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.1",
     "apollo-boost": "^0.4.3",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-client": "^2.6.3",
@@ -14,15 +15,14 @@
     "chart.js": "^2.8.0",
     "graphql": "^14.3.0",
     "graphql-tag": "^2.10.1",
-    "lodash": "4.17.11",
+    "lodash": "^4.17.11",
     "moment": "^2.23.0",
     "oidc-client": "^1.9.0",
     "react": "^16.6.3",
-    "react-apollo": "^2.5.8",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.6.3",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
+    "react-scripts": "3.1.1",
     "react-table": "^6.10.0",
     "react-treebeard": "^3.2.4",
     "semantic-ui-css": "^2.4.1",
@@ -31,9 +31,9 @@
   "scripts": {
     "start": "react-scripts start",
     "start:dev": "export REACT_APP_ENV=development && chmod +x ./scripts/read_env_var.sh && ./scripts/read_env_var.sh && cp env-var.js ./public/ && react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --verbose=false --watchAll=true",
-    "coverage": "react-scripts test --coverage",
+    "build": "node ./node_modules/react-scripts/bin/react-scripts.js build",
+    "test": "node ./node_modules/react-scripts/bin/react-scripts.js test --verbose=false --watchAll=true",
+    "coverage": "node ./node_modules/react-scripts/bin/react-scripts.js test --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -61,14 +61,15 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**",
-      "!src/index.js",
       "!src/media/**",
       "!src/mocks/**",
-      "!src/**/index.js",
+      "!src/properties/**",
       "!src/utilities/enum/**",
-      "!src/utilities/fetch/**",
       "!src/__tests__/test-data/**",
-      "!src/**/**.json"
+      "!src/**/*.json",
+      "!src/index.js",
+      "!src/**/index.js",
+      "!src/utilities/fetch/Fetch.js"
     ],
     "coverageThreshold": {
       "global": {

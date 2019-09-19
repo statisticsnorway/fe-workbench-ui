@@ -9,8 +9,8 @@
 
 # misc
 /.idea
-/yarn-error.log
+yarn-error.log
 
 # environment variable file
 /public/env-var.js
-/env-var.js
+env-var.js
