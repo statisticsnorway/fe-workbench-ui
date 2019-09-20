@@ -1,4 +1,8 @@
 export const UI = {
+  APP_VERSION: {
+    en: 'App version',
+    nb: 'App versjon'
+  },
   DATA_RESOURCE: {
     en: 'Data resource(s)',
     nb: 'Dataressurs(er)'
@@ -119,7 +123,5 @@ export const UI = {
   GENERIC_CANCEL: {
     en: 'Cancel',
     nb: 'Avbryt'
-  },
-
-
+  }
 }

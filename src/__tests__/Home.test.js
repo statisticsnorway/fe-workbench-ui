@@ -33,8 +33,9 @@ test('Home renders correctly', () => {
 
   expect(queryAllByText('SSB Logo')).toHaveLength(1)
   expect(queryAllByTestId('global-search')).toHaveLength(1)
-  expect(queryAllByText(`${UI.LANGUAGE.nb} (${UI.LANGUAGE_CHOICE.nb})`)).toHaveLength(1)
   expect(queryAllByText(UI.LOGOUT.nb)).toHaveLength(1)
+  expect(queryAllByText(UI.PREFERENCES.nb)).toHaveLength(1)
+  expect(queryAllByText(`${UI.APP_VERSION.nb}: ${process.env.REACT_APP_VERSION}`)).toHaveLength(1)
 })
 
 test('Chevron shows/hides top menu', async() => {
