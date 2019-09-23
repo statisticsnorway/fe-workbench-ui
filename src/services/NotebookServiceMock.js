@@ -1,4 +1,5 @@
 import Notes from '../__tests__/test-data/Notes'
+import Note from '../__tests__/test-data/Note'
 
 class NotebookServiceMock {
 
@@ -6,6 +7,16 @@ class NotebookServiceMock {
     // TODO get only notes available for given user
     console.info( '(MOCK) getting all notes')
     return Promise.resolve(Notes)
+  }
+
+  getNote(id) {
+    console.info('(MOCK) getting note ' + id)
+    return Promise.resolve(Note)
+  }
+
+  startJobs(id) {
+    console.info('(MOCK) starting job for note ' + id)
+    return Promise.resolve(200)
   }
 }
 

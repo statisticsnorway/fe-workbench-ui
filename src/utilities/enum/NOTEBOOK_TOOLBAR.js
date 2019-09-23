@@ -43,4 +43,32 @@ export const NOTEBOOK_TOOLBAR = {
     en: 'Save',
     nb: 'Lagre'
   },
+  PARAGRAPH_STATUS_SUCCESS: {
+    en: 'Success',
+    nb: 'Suksess'
+  },
+  PARAGRAPH_STATUS_ERROR: {
+    en: 'Error',
+    nb: 'Feil'
+  },
+  PARAGRAPH_STATUS_READY: {
+    en: 'Ready',
+    nb: 'Klar'
+  },
+  PARAGRAPH_STATUS_RUNNING: {
+    en: 'Running',
+    nb: 'Kjører'
+  },
+  PARAGRAPH_STATUS_FINISHED: {
+    en: 'Finished',
+    nb: 'Ferdig'
+  },
+  PARAGRAPH_RUN: {
+    en: 'Run this paragraph',
+    nb: 'Kjør denne paragrafen'
+  },
+  PARAGRAPH_RUN_ALL: {
+    en: 'Run all paragraphs',
+    nb: 'Kjør alle paragrafer'
+  }
 }

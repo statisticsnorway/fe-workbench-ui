@@ -63,6 +63,14 @@ class NotebookServiceImpl {
     })
   }
 
+  runParagraphSync = (noteId, paragraphId, user) => {
+    return new Promise((resolve, reject) => {
+      post(Properties.api.notebookService + 'notebook/run/' + noteId + '/' + paragraphId, null, this.getHeaders(user))
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    })
+  }
+
   postParagraph = (id, body, user) => {
     return new Promise((resolve, reject) => {
 
