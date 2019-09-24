@@ -1,16 +1,17 @@
 import React, { Component, Fragment } from 'react'
-import { Accordion, Divider, Header, Icon, Message, Segment } from 'semantic-ui-react'
+import { Accordion, Divider, Header, Icon, Segment } from 'semantic-ui-react'
 
 import { WorkbenchContext } from '../../../context/ContextProvider'
 import { PARAGRAPH_RUN_STATUS as Status_text } from "../../../utilities/enum/PARAGRAPH_RUN_STATUS"
 import { NOTEBOOK_TOOLBAR as Notes_text } from "../../../utilities/enum/NOTEBOOK_TOOLBAR"
+import { NOTIFICATION_TYPE } from "../../../utilities/enum/NOTIFICATION_TYPE"
+import { UI } from "../../../utilities/enum/UI"
 
 class Note extends Component {
   static contextType = WorkbenchContext
 
   state = {
     accordionIndex: null,
-    error: false,
     note: null,
     ready: false,
     running: false
@@ -28,20 +29,25 @@ class Note extends Component {
     const { user } = this.props
     if (id) {
       this.setState({
-        error: false,
+        notification: false,
         ready: false
       }, () => {
         let context = this.context
 
         context.notebookService.getNote(id, user).then(note => {
-          this.setState({
-            note: note.body,
-            noteurl: note.noteurl,
-            ready: true
-          })
+          if (note && note.length !== 0) {
+            this.setState({
+              note: note.body,
+              noteurl: note.noteurl,
+              ready: true
+            })
+          } else { // Note not found
+            this.setNotification(context.getLocalizedText(UI.NOTE_NOT_FOUND, id))
+            this.setState({ready: true})
+          }
         }).catch(error => {
+          this.setNotification(error.text)
           this.setState({
-            error: error,
             ready: true
           })
         })
@@ -61,13 +67,14 @@ class Note extends Component {
     this.setState({ready: false})
 
     context.notebookService.runParagraphSync(note.id, paragraphId, user)
-      .then(result => {
-        // TODO reload paragraph only
+      .then(() => {
+        // TODO reload and show running of paragraph only
         this.getNote(note.id)
-      this.setState({ready: true})
+        this.setState({ready: true})
       })
       .catch(error => {
-        // TODO handle error
+        this.setNotification(error.text)
+        this.getNote(note.id)
         this.setState({ready: true})
       })
   }
@@ -79,15 +86,21 @@ class Note extends Component {
     this.setState({running: true})
 
     context.notebookService.startJobs(note.id, user)
-      .then(result => {
+      .then(() => {
         this.getNote(note.id)
         this.setState({running: false})
       })
       .catch(error => {
-        // TODO handle error
-        this.setState({running: false})
-      })
+        this.setNotification(error.text)
+        this.getNote(note.id)
+      }
+      )
+  }
 
+  setNotification = (text) => {
+    const context = this.context
+    context.setNotification(true, NOTIFICATION_TYPE.ERROR, text)
+    this.setState({running: false})
   }
 
   handleAccordionClick = (e, titleProps) => {
@@ -102,13 +115,12 @@ class Note extends Component {
   }
 
   render () {
-    const { accordionIndex, error, note, ready, running } = this.state
+    const { accordionIndex, note, ready, running } = this.state
     let context = this.context
 
     return (
       <Segment basic loading={!ready}>
-        {ready && error && <Message negative icon='warning' header='Error' content={error} />}
-        {ready && !error &&
+        {ready && note &&
         <>
           <Header
             as='h2'
@@ -117,7 +129,7 @@ class Note extends Component {
             subheader={`ID: ${note.id}`}
           />
           {running === false ?
-            <Icon name='play' color='green' size='large' title={context.getLocalizedText(Notes_text.PARAGRAPH_RUN_ALL)}
+            <Icon style={{cursor: 'pointer'}} name='play' color='green' size='large' title={context.getLocalizedText(Notes_text.PARAGRAPH_RUN_ALL)}
                   onClick={this.runAlParagraphs} data-testid='runAllParagraphs'/>
             : <Icon name='circle notched' color='blue' loading />
           }

@@ -54,4 +54,4 @@ const Header = ({ node, style }) => {
   );
 };
 
-export default Header;
+export default Header

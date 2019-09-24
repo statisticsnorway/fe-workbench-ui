@@ -8,6 +8,7 @@ import DatasetServiceMock from '../services/DatasetServiceMock'
 import NotebookServiceMock from '../services/NotebookServiceMock'
 import NotebookServiceImpl from '../services/NotebookServiceImpl'
 import Properties from '../properties/properties'
+import { stringFormat } from "../utilities/common/StringHandling"
 
 const IllegalAccessError = new Error("Accessing context outside of WorkbenchContext")
 
@@ -18,6 +19,10 @@ export const WorkbenchContext = React.createContext({
   ldsService: LdsServiceMock,
   datasetService: new DatasetServiceMock(),
   notebookService: new NotebookServiceMock(),
+  notification: false,
+  notificationType: null,
+  notificationMessage: null,
+  setNotification: () => { throw IllegalAccessError },
   setLanguage: () => { throw IllegalAccessError },
   getLocalizedText: () => { throw IllegalAccessError },
   getLocalizedGsimObjectText: () => { throw IllegalAccessError }
@@ -29,7 +34,10 @@ export class ContextProvider extends Component {
     backendService: Properties.mock.backend === true ? new BackendServiceMock(): new BackendServiceImpl(),
     ldsService: Properties.mock.lds === true ? new LdsServiceMock(): new LdsServiceImpl(),
     datasetService: Properties.mock.datasetService === true ? new DatasetServiceMock(): new DatasetServiceImpl(),
-    notebookService: Properties.mock.notebookService === true ? new NotebookServiceMock(): new NotebookServiceImpl()
+    notebookService: Properties.mock.notebookService === true ? new NotebookServiceMock(): new NotebookServiceImpl(),
+    notification: false,
+    notificationType: null,
+    notificationMessage: null,
   }
 
   setLanguage (ref) {
@@ -41,8 +49,8 @@ export class ContextProvider extends Component {
   // Global search replace (regex) \{(.*)\.(.*)\[context\.languageCode\]\}
   // with {context.getLocalizedText($1.$2)}
   getLocalizedText (state) {
-    return (key) => {
-        return key[state.languageCode]
+    return (key, ...args) => {
+        return stringFormat(key[state.languageCode], ...args)
     }
   }
 
@@ -53,19 +61,33 @@ export class ContextProvider extends Component {
     }
   }
 
+  setNotification(ref) {
+    return (notification, notificationType, notificationMessage) => {
+      ref.setState({
+        notification: notification,
+        notificationType: notificationType,
+        notificationMessage: notificationMessage
+      })
+    }
+  }
+
   render () {
     const { children } = this.props
     return (
       <WorkbenchContext.Provider
         value={{
-        languageCode: this.state.languageCode,
-        backendService: this.state.backendService,
-        ldsService: this.state.ldsService,
-        datasetService: this.state.datasetService,
-        notebookService: this.state.notebookService,
-        setLanguage: this.setLanguage(this),
-        getLocalizedText: this.getLocalizedText(this.state),
-        getLocalizedGsimObjectText: this.getLocalizedGsimObjectText(this.state)
+          languageCode: this.state.languageCode,
+          backendService: this.state.backendService,
+          ldsService: this.state.ldsService,
+          datasetService: this.state.datasetService,
+          notebookService: this.state.notebookService,
+          notification: this.state.notification,
+          notificationType: this.state.notificationType,
+          notificationMessage: this.state.notificationMessage,
+          setNotification: this.setNotification(this),
+          setLanguage: this.setLanguage(this),
+          getLocalizedText: this.getLocalizedText(this.state),
+          getLocalizedGsimObjectText: this.getLocalizedGsimObjectText(this.state)
         }}>
         {children}
       </WorkbenchContext.Provider>

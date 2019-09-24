@@ -80,8 +80,8 @@ export const UI = {
     nb: 'Er du sikker?'
   },
   NOTE_DELETE_DIALOG_CONTENT: {
-    en: 'Are you sure you want to delete ',
-    nb: 'Er du sikker på at du vil slette '
+    en: 'Are you sure you want to delete \'{0}\' (ID: {1})',
+    nb: 'Er du sikker på at du vil slette \'{0}\' (ID: {1})'
   },
   NOTE_CREATE_WITH_DATASET: {
     en: 'Init with dataset?',
@@ -99,6 +99,18 @@ export const UI = {
     en: 'Create',
     nb: 'Opprett'
   },
+  NOTE_CREATED: {
+    en: 'Note with ID \'{0}\' ({1}) created',
+    nb: 'Note med ID \'{0}\' ({1}) opprettet'
+  },
+  NOTE_CREATED_WITH_DATASET: {
+    en: 'Note with ID \'{0}\' ({1}) created with dataset(s)',
+    nb: 'Note med ID \'{0}\' ({1}) opprettet med datasett '
+  },
+  NOTE_NOT_FOUND: {
+    en: 'Note with ID \'{0}\' not found',
+    nb: 'Note med ID \'{0}\' ble ikke funnet'
+  },
   NOTE_OPEN: {
     en: 'Open in external notebook',
     nb: 'Åpne i ekstern notebook '
@@ -110,11 +122,18 @@ export const UI = {
   NOTE_DELETED_ERROR: {
     en: 'Could not delete ',
     nb: 'Kunne ikke slette '
-
   },
   GENERIC_ERROR: {
     en: 'An error has occured',
     nb: 'Det har oppstått en feil'
+  },
+  GENERIC_INFO: {
+    en: 'Information',
+    nb: 'Informasjon'
+  },
+  GENERIC_WARNING: {
+    en: 'Warning',
+    nb: 'Advarsel'
   },
   GENERIC_CONFIRM: {
     en: 'Confirm',

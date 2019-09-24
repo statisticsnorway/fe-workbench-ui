@@ -31,7 +31,7 @@ class CreateNote extends Component {
       this.setState({ datasetOptions: datasetOptions })
     }).catch(error => {
       this.setState({
-        error: error
+        error: error.text
       })
     })
   }
@@ -57,8 +57,8 @@ class CreateNote extends Component {
       }]
     }
     context.notebookService.postNote(note, user, withDataset).then(response => {
-      let responseText = !withDataset ? `Note with id ${response.body} (${name}) created`
-        : `Note with id ${response.body} (${name}) created with initial datasets`
+      let responseText = !withDataset ? context.getLocalizedText(UI.NOTE_CREATED, response.body, name)
+        : context.getLocalizedText(UI.NOTE_CREATE_WITH_DATASET, response.body, name)
       this.setState({
         dataset: '',
         name: '',
@@ -72,7 +72,7 @@ class CreateNote extends Component {
       })
     }).catch(error => {
       this.setState({
-        error: error
+        error: error.text
       })
     })
   }

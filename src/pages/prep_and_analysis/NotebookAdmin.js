@@ -162,7 +162,7 @@ class NotebookAdmin extends Component {
       })
     }).catch(error => {
       this.setState({
-        error: error,
+        error: error.text,
         ready: true
       })
     })
@@ -228,7 +228,7 @@ class NotebookAdmin extends Component {
         this.setState({
           deleted: false,
           error: true,
-          message: `${UI.NOTE_DELETED_ERROR[context.languageCode]} ${error})`
+          message: `${UI.NOTE_DELETED_ERROR[context.languageCode]} ${error.text})`
         })
       })
     })
@@ -265,7 +265,7 @@ class NotebookAdmin extends Component {
           {noteToDelete &&
           <Confirm open={showConfirm} onCancel={() => this.setState({showConfirm: false})} onConfirm={this.deleteNote}
                    header={UI.NOTE_DELETE_DIALOG_HEADER[context.languageCode]}
-                   content={`${UI.NOTE_DELETE_DIALOG_CONTENT[context.languageCode]} '${noteToDelete.name}' (id: ${noteToDelete.id})?`}
+                   content={context.getLocalizedText(UI.NOTE_DELETE_DIALOG_CONTENT, noteToDelete.name, noteToDelete.id)}
                    cancelButton={{
                      color: 'red',
                      content: UI.GENERIC_CANCEL[context.languageCode],

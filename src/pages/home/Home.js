@@ -20,6 +20,7 @@ import { WorkbenchContext } from '../../context/ContextProvider'
 import { LANGUAGES } from '../../utilities/enum/LANGUAGES'
 import NotebookAdmin from '../prep_and_analysis/NotebookAdmin'
 import DatasetPreview from '../dataset/DatasetPreview'
+import NotificationPopup from "../../utilities/NotificationPopup"
 
 class Home extends Component {
   static contextType = WorkbenchContext
@@ -51,9 +52,14 @@ class Home extends Component {
   render () {
     const { handleLogout, ...user } = this.props
     const { animation, direction, visible } = this.state
+    const context = this.context
 
     return (
       <div>
+        {context.notification &&
+          <NotificationPopup open={context.notification}
+                           type={context.notificationType}
+                           text={context.notificationMessage}/>}
         <TopMenu handleLogout={handleLogout} user={user} />
         <div style={{ height: '100vh' }}>
           <Sidebar.Pushable as={Container} fluid>

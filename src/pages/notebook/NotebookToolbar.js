@@ -104,12 +104,12 @@ class NotebookToolbar extends Component {
         })
       }).catch(error => {
         this.setState({
-          error: error
+          error: error.text
         })
       })
     }).catch(error => {
       this.setState({
-        error: error
+        error: error.text
       })
     })
   }
@@ -137,7 +137,7 @@ class NotebookToolbar extends Component {
       })
     }).catch(error => {
       this.setState({
-        error: error
+        error: error.text
       })
     })
   }

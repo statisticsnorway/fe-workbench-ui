@@ -43,25 +43,33 @@ export const NOTEBOOK_TOOLBAR = {
     en: 'Save',
     nb: 'Lagre'
   },
-  PARAGRAPH_STATUS_SUCCESS: {
-    en: 'Success',
-    nb: 'Suksess'
-  },
-  PARAGRAPH_STATUS_ERROR: {
-    en: 'Error',
-    nb: 'Feil'
+  PARAGRAPH_STATUS_UNKNOWN: {
+    en: 'Job not found',
+    nb: 'Jobb ikke funnet'
   },
   PARAGRAPH_STATUS_READY: {
     en: 'Ready',
     nb: 'Klar'
+  },
+  PARAGRAPH_STATUS_PENDING: {
+    en: 'Pending',
+    no: 'Venter'
   },
   PARAGRAPH_STATUS_RUNNING: {
     en: 'Running',
     nb: 'Kjører'
   },
   PARAGRAPH_STATUS_FINISHED: {
-    en: 'Finished',
-    nb: 'Ferdig'
+    en: 'Run with success',
+    nb: 'Kjørt uten feil'
+  },
+  PARAGRAPH_STATUS_ERROR: {
+    en: 'Error',
+    nb: 'Feil'
+  },
+  PARAGRAPH_STATUS_ABORT: {
+    en: 'Job aborted',
+    nb: 'Kjøring avbrutt'
   },
   PARAGRAPH_RUN: {
     en: 'Run this paragraph',

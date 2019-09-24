@@ -58,6 +58,6 @@ const handleResponse  = (response, resolve, reject) => {
   } else if (response.status === 404) {
     resolve([])
   } else {
-    response.text().then(text => reject(text))
+    response.text().then(text => reject({text: text, status:response.status}))
   }
 }
