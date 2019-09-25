@@ -39,7 +39,7 @@ export const put = (url, body, headers) => {
   })
 }
 
-export const deleteData = (url, headers) => {
+export const del = (url, headers) => {
   return new Promise( (resolve, reject) => {
     fetch(url, {
       credentials: credentials,

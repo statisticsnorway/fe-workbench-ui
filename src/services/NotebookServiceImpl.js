@@ -1,4 +1,4 @@
-import { deleteData, get, post } from '../utilities/fetch/Fetch'
+import { del, get, post } from '../utilities/fetch/Fetch'
 import Properties from '../properties/properties'
 
 
@@ -65,6 +65,7 @@ class NotebookServiceImpl {
 
   runParagraphSync = (noteId, paragraphId, user) => {
     return new Promise((resolve, reject) => {
+
       post(Properties.api.notebookService + 'notebook/run/' + noteId + '/' + paragraphId, null, this.getHeaders(user))
         .then(response => resolve(response))
         .catch(error => reject(error))
@@ -80,10 +81,28 @@ class NotebookServiceImpl {
     })
   }
 
+  getParagraph = (noteId, paragraphId, user) => {
+    return new Promise( (resolve, reject ) => {
+
+      get(Properties.api.notebookService + 'notebook/' + noteId + '/paragraph/' + paragraphId, this.getHeaders(user))
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    })
+  }
+
+  stopParagraph = (noteId, paragraphId, user) => {
+    return new Promise( (resolve, reject ) => {
+
+      del(Properties.api.notebookService + 'notebook/' + noteId + '/paragraph/' + paragraphId, this.getHeaders(user))
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    })
+  }
+
   deleteNote = (id, user) => {
     return new Promise((resolve, reject) => {
 
-      deleteData(Properties.api.notebookService + 'notebook/' + id, this.getHeaders(user))
+      del(Properties.api.notebookService + 'notebook/' + id, this.getHeaders(user))
         .then(response => resolve(response))
         .catch(error => reject(error))
     })

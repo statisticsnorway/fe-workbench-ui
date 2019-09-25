@@ -3,7 +3,7 @@
   "message": "",
   "body": {
     "paragraphs": [{
-      "text": "%md\n\nIt works from Arbeidsbenken. Oh yeah! WWWWWWWWWWWWWWWWWWWWWWWWW",
+      "text": "%md\n\nIt works from Arbeidsbenken.",
       "user": "anonymous",
       "dateUpdated": "Sep 20, 2019 10:16:45 AM",
       "config": {
@@ -28,7 +28,7 @@
         "code": "SUCCESS",
         "msg": [{
           "type": "HTML",
-          "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eIt works from Arbeidsbenken. Oh yeah! WWWWWWWWWWWWWWWWWWWWWWWWW\u003c/p\u003e\n\u003c/div\u003e"
+          "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eIt works from Arbeidsbenken.\u003c/p\u003e\n\u003c/div\u003e"
         }
         ]
       },

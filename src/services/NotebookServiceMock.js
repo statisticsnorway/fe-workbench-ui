@@ -18,6 +18,11 @@ class NotebookServiceMock {
     console.info('(MOCK) starting job for note ' + id)
     return Promise.resolve(200)
   }
+
+  runParagraphSync(id) {
+    console.info( '(MOCK) running paragraph with id ' + id)
+    return Promise.resolve(200)
+  }
 }
 
 export default NotebookServiceMock

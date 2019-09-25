@@ -75,8 +75,24 @@ export const NOTEBOOK_TOOLBAR = {
     en: 'Run this paragraph',
     nb: 'Kjør denne paragrafen'
   },
+  PARAGRAPH_ABORT: {
+    en: 'Abort',
+    nb: 'Avbryt'
+  },
   PARAGRAPH_RUN_ALL: {
     en: 'Run all paragraphs',
     nb: 'Kjør alle paragrafer'
+  },
+  PARAGRAPH_SHOW_CODE: {
+    en: 'Show code',
+    nb: 'Vis kode'
+  },
+  PARAGRAPH_HIDE_CODE: {
+    en: 'Hide code',
+    nb: 'Skjul kode'
+  },
+  PARAGRAPH_RESULT: {
+    en: 'Result',
+    nb: 'Resultat'
   }
 }

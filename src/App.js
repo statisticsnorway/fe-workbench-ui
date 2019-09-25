@@ -55,7 +55,7 @@ class App extends Component {
 
 // Callback from UserManager
   onUserLoaded(user) {
-    console.log("User loaded", user)
+    console.log("User loaded", user.profile)
     this.setState({
       isAuthenticated: true,
       user : {
