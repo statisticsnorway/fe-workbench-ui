@@ -14,6 +14,10 @@ if (process.env.NODE_ENV === 'test') {
       properties = require('./properties-staging')
       break
     }
+    case 'staging-bip': {
+      properties = require('./properties-staging-bip')
+      break
+    }
     case 'production': {
       properties = require('./properties-production')
       break
