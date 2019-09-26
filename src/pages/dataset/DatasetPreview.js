@@ -87,7 +87,7 @@ class DatasetPreview extends Component {
                 content={this.context.getLocalizedGsimObjectText(this.state.name)}
                 subheader={this.context.getLocalizedGsimObjectText(this.state.description)} />
 
-          <NotebookToolbar dataset={dataset}/>
+          <NotebookToolbar user={this.props.user} dataset={dataset}/>
 
           <Table data-testid='dataset-table' sortable celled selectable fixed>
           <Table.Header>
