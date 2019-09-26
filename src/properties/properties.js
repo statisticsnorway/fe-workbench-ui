@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'test') {
       properties = require('./properties-staging')
       break
     }
-    case 'staging-bip': {
+    case 'staging_bip': {
       properties = require('./properties-staging-bip')
       break
     }
