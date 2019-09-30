@@ -21,6 +21,7 @@ import { LANGUAGES } from '../../utilities/enum/LANGUAGES'
 import NotebookAdmin from '../prep_and_analysis/NotebookAdmin'
 import DatasetPreview from '../dataset/DatasetPreview'
 import NotificationPopup from "../../utilities/NotificationPopup"
+import Variable from '../variable/Variable'
 
 class Home extends Component {
   static contextType = WorkbenchContext
@@ -90,6 +91,7 @@ class Home extends Component {
                 <Grid.Row>  {/*Main row for layout*/}
                   <Grid.Column width={12}>
                     <AccessControlRoute user={user} path='/search' component={SearchPage} />
+                    <AccessControlRoute user={user} path='/variable/:id' component={Variable} />
                     <AccessControlRoute user={user} path='/dataset/:id' component={DatasetPreview} />
                     <AccessControlRoute user={user} path='/dataset/:id/data' component={DatasetView} />
                     <AccessControlRoute user={user} path='/collection/dashboard' component={Dashboard} />

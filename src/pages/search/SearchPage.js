@@ -91,8 +91,8 @@ class SearchPage extends Component {
 
   render () {
     const { isLoading, value, results } = this.state
-    const datasetResults = results.datasets || []
-    const variableResults = results.variables || []
+    const datasetResults = results.filter(entry => entry.type !== 'RepresentedVariable')
+    const variableResults = results.filter(entry => entry.type === 'RepresentedVariable')
     let context = this.context
 
     return (
@@ -136,8 +136,8 @@ class SearchPage extends Component {
                   <Header>{METADATA.MATCHES_IN[context.languageCode]} {METADATA.TABLES[context.languageCode]}</Header>
                   <hr style={{ color: 'black', height: 0 }}/>
                   {
-                    datasetResults.length > 0 ? datasetResults.map((value, idx) =>
-                        <SearchResultDataset key={idx} result={value}/>
+                    datasetResults.length > 0 ? datasetResults.map(value =>
+                        <SearchResultDataset key={value.id} result={value}/>
                       )
                       : value.length > 1 && this.state.enterIsPressed ? '0 treff' : ''
                   }
@@ -147,8 +147,8 @@ class SearchPage extends Component {
                 <Grid.Column>
                   <Header>{METADATA.MATCHES_IN[context.languageCode]} {METADATA.VARIABLES[context.languageCode]}</Header>
                   <hr style={{ color: 'black', height: 0 }}/>
-                  {variableResults.length > 0 ? variableResults.map((value, idx) =>
-                      <SearchResultVariable key={idx} result={value}/>
+                  {variableResults.length > 0 ? variableResults.map(value =>
+                      <SearchResultVariable key={value.id} result={value}/>
                     )
                     : value.length > 1 && this.state.enterIsPressed ? '0 treff' : ''
                   }

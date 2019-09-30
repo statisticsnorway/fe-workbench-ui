@@ -4,12 +4,7 @@
       "edges": [
         {
           "node": {
-            "__typename": "RepresentedVariable"
-          }
-        },
-        {
-          "node": {
-            "__typename": "MeasureComponent"
+            "__typename": "Variable"
           }
         },
         {
@@ -19,14 +14,81 @@
         },
         {
           "node": {
-            "__typename": "Variable",
+            "__typename": "RepresentedVariable",
+            "id": "217a2c16-0a87-486c-b0c0-1580d9ad830a",
+            "variable": {
+              "id": "7f582f3a-8a84-436f-a8ff-14dcb35f96e7",
+              "name": [
+                {
+                  "languageCode": "en",
+                  "languageText": "Income"
+                }
+              ],
+              "description": [
+                {
+                  "languageCode": "en",
+                  "languageText": "The person's annual income"
+                }
+              ],
+              "validFrom": "1985-01-01T15:00:00.000Z",
+              "validUntil": null,
+              "subjectFields": {
+                "edges": [
+                  {
+                    "node": {
+                      "name": [
+                        {
+                          "languageCode": "en",
+                          "languageText": "Population"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": [
+                        {
+                          "languageCode": "en",
+                          "languageText": "IncomeAndWealth"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "unitType": {
+                "name": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Person"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Person"
+                  }
+                ],
+                "description": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Person, individual"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Enkeltmenneske, individ"
+                  }
+                ],
+                "typeOfStatisticalUnit": "PERSON"
+              }
+            },
             "name": [
               {
+                "languageCode": "en",
                 "languageText": "Income"
               }
             ],
             "description": [
               {
+                "languageCode": "en",
                 "languageText": "The person's annual income"
               }
             ]
@@ -44,12 +106,12 @@
         },
         {
           "node": {
-            "__typename": "SubjectField"
+            "__typename": "UnitDataStructure"
           }
         },
         {
           "node": {
-            "__typename": "UnitDataStructure"
+            "__typename": "SubjectField"
           }
         },
         {
@@ -59,32 +121,23 @@
         },
         {
           "node": {
-            "__typename": "UnitDataSet",
-            "id": "b9c10b86-5867-4270-b56e-ee7439fe381e",
-            "name": [
-              {
-                "languageText": "PersonWithIncomeDataset"
-              }
-            ],
-            "description": [
-              {
-                "languageText": "Persons with income in Norway per 2018-01-01"
-              }
-            ]
+            "__typename": "UnitDataStructure"
           }
         },
         {
           "node": {
             "__typename": "UnitDataSet",
-            "id": "d7f1a566-b906-4561-92cb-4758b766335c",
+            "id": "b9c10b86-5867-4270-b56e-ee7439fe381e",
             "name": [
               {
-                "languageText": "FamilyDataset"
+                "languageCode": "en",
+                "languageText": "PersonWithIncomeDataset"
               }
             ],
             "description": [
               {
-                "languageText": "Dataset for families in Norway per 2018-01-01"
+                "languageCode": "en",
+                "languageText": "Persons with income in Norway per 2018-01-01"
               }
             ]
           }

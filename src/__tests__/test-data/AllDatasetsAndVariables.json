@@ -1,0 +1,718 @@
+{
+  "data": {
+    "UnitDataSet": {
+      "edges": [
+        {
+          "node": {
+            "id": "b9c10b86-5867-4270-b56e-ee7439fe381e",
+            "name": [
+              {
+                "languageCode": "en",
+                "languageText": "PersonWithIncomeDataset"
+              }
+            ],
+            "description": [
+              {
+                "languageCode": "en",
+                "languageText": "Persons with income in Norway per 2018-01-01"
+              }
+            ],
+            "__typename": "UnitDataSet"
+          }
+        },
+        {
+          "node": {
+            "id": "d7f1a566-b906-4561-92cb-4758b766335c",
+            "name": [
+              {
+                "languageCode": "en",
+                "languageText": "FamilyDataset"
+              }
+            ],
+            "description": [
+              {
+                "languageCode": "en",
+                "languageText": "Dataset for families in Norway per 2018-01-01"
+              }
+            ],
+            "__typename": "UnitDataSet"
+          }
+        }
+      ]
+    },
+    "DimensionalDataSet": {
+      "edges": []
+    },
+    "RepresentedVariable": {
+      "edges": [
+        {
+          "node": {
+            "variable": {
+              "id": "7f582f3a-8a84-436f-a8ff-14dcb35f96e7",
+              "name": [
+                {
+                  "languageCode": "en",
+                  "languageText": "Income"
+                }
+              ],
+              "description": [
+                {
+                  "languageCode": "en",
+                  "languageText": "The person's annual income"
+                }
+              ],
+              "validFrom": "1985-01-01T15:00:00.000Z",
+              "validUntil": null,
+              "subjectFields": {
+                "edges": [
+                  {
+                    "node": {
+                      "name": [
+                        {
+                          "languageCode": "en",
+                          "languageText": "Population"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": [
+                        {
+                          "languageCode": "en",
+                          "languageText": "IncomeAndWealth"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "unitType": {
+                "name": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Person"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Person"
+                  }
+                ],
+                "description": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Person, individual"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Enkeltmenneske, individ"
+                  }
+                ],
+                "typeOfStatisticalUnit": "PERSON"
+              }
+            },
+            "id": "217a2c16-0a87-486c-b0c0-1580d9ad830a",
+            "name": [
+              {
+                "languageCode": "en",
+                "languageText": "Income"
+              }
+            ],
+            "description": [
+              {
+                "languageCode": "en",
+                "languageText": "The person's annual income"
+              }
+            ],
+            "__typename": "RepresentedVariable"
+          }
+        },
+        {
+          "node": {
+            "variable": {
+              "id": "dc10a644-c57b-41a1-b6df-ad91be3d25e6",
+              "name": [
+                {
+                  "languageCode": "en",
+                  "languageText": "Gender"
+                }
+              ],
+              "description": [
+                {
+                  "languageCode": "en",
+                  "languageText": "The person's gender"
+                }
+              ],
+              "validFrom": "1985-01-01T15:00:00.000Z",
+              "validUntil": null,
+              "subjectFields": {
+                "edges": [
+                  {
+                    "node": {
+                      "name": [
+                        {
+                          "languageCode": "en",
+                          "languageText": "Population"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "unitType": {
+                "name": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Person"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Person"
+                  }
+                ],
+                "description": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Person, individual"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Enkeltmenneske, individ"
+                  }
+                ],
+                "typeOfStatisticalUnit": "PERSON"
+              }
+            },
+            "id": "44246a25-fb7a-4464-846e-051e01e514f6",
+            "name": [
+              {
+                "languageCode": "en",
+                "languageText": "Gender"
+              }
+            ],
+            "description": [
+              {
+                "languageCode": "en",
+                "languageText": "The person's gender"
+              }
+            ],
+            "__typename": "RepresentedVariable"
+          }
+        },
+        {
+          "node": {
+            "variable": {
+              "id": "b3bb798c-602b-43b1-bd7f-0a16b73f702a",
+              "name": [
+                {
+                  "languageCode": "en",
+                  "languageText": "DataQuality"
+                }
+              ],
+              "description": [
+                {
+                  "languageCode": "en",
+                  "languageText": "Classification of the data quality."
+                }
+              ],
+              "validFrom": "1985-01-01T15:00:00.000Z",
+              "validUntil": null,
+              "subjectFields": {
+                "edges": []
+              },
+              "unitType": {
+                "name": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Quality"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Kvalitet"
+                  }
+                ],
+                "description": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Quality classification for incomming data"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Kvalitet på innsamlede data"
+                  }
+                ],
+                "typeOfStatisticalUnit": "NOT_APPLICABLE"
+              }
+            },
+            "id": "51d14a9d-cf08-4d12-a680-0e97a7288ef6",
+            "name": [
+              {
+                "languageCode": "en",
+                "languageText": "DataQuality"
+              }
+            ],
+            "description": [
+              {
+                "languageCode": "en",
+                "languageText": "Classification of the data quality."
+              }
+            ],
+            "__typename": "RepresentedVariable"
+          }
+        },
+        {
+          "node": {
+            "variable": {
+              "id": "0cbfbe23-5d4a-4503-9c3a-956e07574b65",
+              "name": [
+                {
+                  "languageCode": "en",
+                  "languageText": "NationalPersonIdentifier"
+                }
+              ],
+              "description": [
+                {
+                  "languageCode": "en",
+                  "languageText": "National identifier number for person"
+                }
+              ],
+              "validFrom": "1985-01-01T15:00:00.000Z",
+              "validUntil": null,
+              "subjectFields": {
+                "edges": [
+                  {
+                    "node": {
+                      "name": [
+                        {
+                          "languageCode": "en",
+                          "languageText": "Population"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "unitType": {
+                "name": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Person"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Person"
+                  }
+                ],
+                "description": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Person, individual"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Enkeltmenneske, individ"
+                  }
+                ],
+                "typeOfStatisticalUnit": "PERSON"
+              }
+            },
+            "id": "6cdecd72-c4a8-4b56-9c0a-9fd01c4fea56",
+            "name": [
+              {
+                "languageCode": "en",
+                "languageText": "NationalPersonIdentifier"
+              }
+            ],
+            "description": [
+              {
+                "languageCode": "en",
+                "languageText": "National identifier number for person"
+              }
+            ],
+            "__typename": "RepresentedVariable"
+          }
+        },
+        {
+          "node": {
+            "variable": {
+              "id": "b71083d2-81da-4f4b-b4dd-27930ca3f511",
+              "name": [
+                {
+                  "languageCode": "en",
+                  "languageText": "Municipality"
+                }
+              ],
+              "description": [
+                {
+                  "languageCode": "en",
+                  "languageText": "The person's residential municipality"
+                }
+              ],
+              "validFrom": "1985-01-01T15:00:00.000Z",
+              "validUntil": null,
+              "subjectFields": {
+                "edges": [
+                  {
+                    "node": {
+                      "name": [
+                        {
+                          "languageCode": "en",
+                          "languageText": "Population"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "unitType": {
+                "name": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Municipality"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Kommune"
+                  }
+                ],
+                "description": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Municipality, region"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Kommune, regional inndeling"
+                  }
+                ],
+                "typeOfStatisticalUnit": "MUNICIPALITY"
+              }
+            },
+            "id": "8a0e6412-0fb0-46ed-b2e9-e3294b05fa59",
+            "name": [
+              {
+                "languageCode": "en",
+                "languageText": "Municipality"
+              }
+            ],
+            "description": [
+              {
+                "languageCode": "en",
+                "languageText": "The person's residential municipality"
+              }
+            ],
+            "__typename": "RepresentedVariable"
+          }
+        },
+        {
+          "node": {
+            "variable": {
+              "id": "7f44975d-6100-43b0-a276-a0c6837195dc",
+              "name": [
+                {
+                  "languageCode": "en",
+                  "languageText": "FamilyIdentifier"
+                }
+              ],
+              "description": [
+                {
+                  "languageCode": "en",
+                  "languageText": "National identifier number for families"
+                }
+              ],
+              "validFrom": "1985-01-01T15:00:00.000Z",
+              "validUntil": null,
+              "subjectFields": {
+                "edges": [
+                  {
+                    "node": {
+                      "name": [
+                        {
+                          "languageCode": "en",
+                          "languageText": "FamilyAndChildren"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "unitType": {
+                "name": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Family"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Familie"
+                  }
+                ],
+                "description": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Family"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Familie"
+                  }
+                ],
+                "typeOfStatisticalUnit": "FAMILY"
+              }
+            },
+            "id": "950b417a-0b3c-4909-aa4b-5689a1378b8e",
+            "name": [
+              {
+                "languageCode": "en",
+                "languageText": "NationalFamilyIdentifier"
+              }
+            ],
+            "description": [
+              {
+                "languageCode": "en",
+                "languageText": "National identifier number for families"
+              }
+            ],
+            "__typename": "RepresentedVariable"
+          }
+        },
+        {
+          "node": {
+            "variable": {
+              "id": "7c05e24d-02d8-4ce9-a3ec-844106c4afc4",
+              "name": [
+                {
+                  "languageCode": "en",
+                  "languageText": "NumOfChildren"
+                }
+              ],
+              "description": [
+                {
+                  "languageCode": "en",
+                  "languageText": "Number of children"
+                }
+              ],
+              "validFrom": "1985-01-01T15:00:00.000Z",
+              "validUntil": null,
+              "subjectFields": {
+                "edges": [
+                  {
+                    "node": {
+                      "name": [
+                        {
+                          "languageCode": "en",
+                          "languageText": "Population"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": [
+                        {
+                          "languageCode": "en",
+                          "languageText": "FamilyAndChildren"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "unitType": {
+                "name": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Family"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Familie"
+                  }
+                ],
+                "description": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Family"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Familie"
+                  }
+                ],
+                "typeOfStatisticalUnit": "FAMILY"
+              }
+            },
+            "id": "d0dbb7eb-e0ca-44d3-909f-1dd7a9cb3249",
+            "name": [
+              {
+                "languageCode": "en",
+                "languageText": "NumOfChildren"
+              }
+            ],
+            "description": [
+              {
+                "languageCode": "en",
+                "languageText": "Number of children"
+              }
+            ],
+            "__typename": "RepresentedVariable"
+          }
+        },
+        {
+          "node": {
+            "variable": {
+              "id": "62af8455-9bbd-4822-b521-2c392d8666bd",
+              "name": [
+                {
+                  "languageCode": "en",
+                  "languageText": "FamilyType"
+                }
+              ],
+              "description": [
+                {
+                  "languageCode": "en",
+                  "languageText": "The classification describes the different types of families used in family statistics."
+                }
+              ],
+              "validFrom": "1985-01-01T15:00:00.000Z",
+              "validUntil": null,
+              "subjectFields": {
+                "edges": [
+                  {
+                    "node": {
+                      "name": [
+                        {
+                          "languageCode": "en",
+                          "languageText": "Population"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "node": {
+                      "name": [
+                        {
+                          "languageCode": "en",
+                          "languageText": "FamilyAndChildren"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "unitType": {
+                "name": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Family"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Familie"
+                  }
+                ],
+                "description": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Family"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Familie"
+                  }
+                ],
+                "typeOfStatisticalUnit": "FAMILY"
+              }
+            },
+            "id": "d3648cc7-4a62-4da0-a168-5287949fbf56",
+            "name": [
+              {
+                "languageCode": "en",
+                "languageText": "FamilyType"
+              }
+            ],
+            "description": [
+              {
+                "languageCode": "en",
+                "languageText": "The classification describes the different types of families used in family statistics"
+              }
+            ],
+            "__typename": "RepresentedVariable"
+          }
+        },
+        {
+          "node": {
+            "id": "e46ede82-cc41-441c-bd77-f1925afbd342",
+            "variable": {
+              "id": "f680664f-1eb0-47b5-970b-c21d81537581",
+              "name": [
+                {
+                  "languageCode": "en",
+                  "languageText": "Marital status"
+                }
+              ],
+              "description": [
+                {
+                  "languageCode": "en",
+                  "languageText": "The person's marital status"
+                }
+              ],
+              "validFrom": "1985-01-01T15:00:00.000Z",
+              "validUntil": null,
+              "subjectFields": {
+                "edges": [
+                  {
+                    "node": {
+                      "name": [
+                        {
+                          "languageCode": "en",
+                          "languageText": "Population"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "unitType": {
+                "name": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Person"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Person"
+                  }
+                ],
+                "description": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Person, individual"
+                  },
+                  {
+                    "languageCode": "nb",
+                    "languageText": "Enkeltmenneske, individ"
+                  }
+                ],
+                "typeOfStatisticalUnit": "PERSON"
+              }
+            },
+            "name": [
+              {
+                "languageCode": "en",
+                "languageText": "Marital status"
+              }
+            ],
+            "description": [
+              {
+                "languageCode": "en",
+                "languageText": "The person's marital status"
+              }
+            ],
+            "__typename": "RepresentedVariable"
+          }
+        }
+      ]
+    }
+  }
+}

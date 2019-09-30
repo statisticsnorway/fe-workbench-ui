@@ -34,5 +34,21 @@ export const METADATA = {
   CODELIST_URL: {
     en: 'Code list URL',
     nb: 'URL til kodeliste'
-  }
+  },
+  VARIABLE_DATASETS_LOAD: {
+    en: 'Fetch datasets for variable',
+    nb: 'Hent tilknyttede tabeller'
+  },
+  VARIABLE_DATASETS_EMPTY: {
+    en: 'No datasets found',
+    nb: 'Ingen tabeller funnet'
+  },
+  VARIABLE_DATASETS_SHOW: {
+    en: 'Show datasets for variable',
+    nb: 'Vis tilknyttede tabeller'
+  },
+  VARIABLE_DATASETS_HIDE: {
+    en: 'Hide datasets for variable',
+    nb: 'Skjul tilknyttede tabeller'
+  },
 }

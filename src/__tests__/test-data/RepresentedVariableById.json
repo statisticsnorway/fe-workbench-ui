@@ -1,0 +1,96 @@
+{
+  "data": {
+    "RepresentedVariableById": {
+      "name": [
+        {
+          "languageCode": "en",
+          "languageText": "Gender"
+        }
+      ],
+      "description": [
+        {
+          "languageCode": "en",
+          "languageText": "The person's gender"
+        }
+      ],
+      "variable": {
+        "id": "dc10a644-c57b-41a1-b6df-ad91be3d25e6",
+        "name": [
+          {
+            "languageCode": "en",
+            "languageText": "Gender"
+          }
+        ],
+        "description": [
+          {
+            "languageCode": "en",
+            "languageText": "The person's gender"
+          }
+        ],
+        "validFrom": "1985-01-01T15:00:00.000Z",
+        "validUntil": null,
+        "subjectFields": {
+          "edges": [
+            {
+              "node": {
+                "name": [
+                  {
+                    "languageCode": "en",
+                    "languageText": "Population"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "unitType": {
+          "name": [
+            {
+              "languageCode": "en",
+              "languageText": "Person"
+            },
+            {
+              "languageCode": "nb",
+              "languageText": "Person"
+            }
+          ],
+          "description": [
+            {
+              "languageCode": "en",
+              "languageText": "Person, individual"
+            },
+            {
+              "languageCode": "nb",
+              "languageText": "Enkeltmenneske, individ"
+            }
+          ],
+          "typeOfStatisticalUnit": "PERSON"
+        }
+      },
+      "substantiveValueDomain": {
+        "name": [
+          {
+            "languageCode": "nb",
+            "languageText": "Standard for kjønn"
+          },
+          {
+            "languageCode": "en",
+            "languageText": "Classification of sex"
+          }
+        ],
+        "description": [
+          {
+            "languageCode": "nb",
+            "languageText": "SSBs standardkoder for kjønn"
+          },
+          {
+            "languageCode": "en",
+            "languageText": "Statistics Norway's official sex codes."
+          }
+        ],
+        "dataType": "STRING",
+        "klassUrl": "https://www.ssb.no/klass/klassifikasjoner/2"
+      }
+    }
+  }
+}

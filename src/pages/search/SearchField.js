@@ -40,12 +40,20 @@ class SearchField extends Component {
       this.context.ldsService.searchDatasets(value).then(results => {
         this.setState({
           isLoading: false,
-          results: results
+          results: results.map(this.mapSearchResult)
         })
       })
 
     } else {
       this.setState({isLoading: false, value})
+    }
+  }
+
+  mapSearchResult = (obj) => {
+    return {
+      id: obj.id,
+      title: this.context.getLocalizedGsimObjectText(obj.name),
+      description: this.context.getLocalizedGsimObjectText(obj.description)
     }
   }
 
