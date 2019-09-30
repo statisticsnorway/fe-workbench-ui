@@ -27,7 +27,8 @@ class Home extends Component {
   state = {
     animation: 'push',
     direction: 'left',
-    visible: true
+    visible: true,
+    topMenuHeight: '238px'
   }
 
   // TODO see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html
@@ -49,9 +50,18 @@ class Home extends Component {
     return context.backendService.createOrUpdateUserPreferences(this.props.user, userPrefs)
   }
 
+  // TODO should be a better way to solve this (TopMenu is not considered in the size of the main
+  // component, but the size of the scrollbar is, which means that it is not possible to scroll to
+  // rock bottom without calculating the height on render
+  setTopMenuHeight = (visible) => {
+    this.setState({
+      topMenuHeight: visible ? '238px' : '36px'
+    })
+  }
+
   render () {
     const { handleLogout, ...user } = this.props
-    const { animation, direction, visible } = this.state
+    const { animation, direction, visible, topMenuHeight } = this.state
     const context = this.context
 
     return (
@@ -60,9 +70,9 @@ class Home extends Component {
           <NotificationPopup open={context.notification}
                            type={context.notificationType}
                            text={context.notificationMessage}/>}
-        <TopMenu handleLogout={handleLogout} user={user} />
-        <div style={{ height: '100vh' }}>
-          <Sidebar.Pushable as={Container} fluid>
+        <TopMenu handleLogout={handleLogout} user={user} setTopMenuHeightCallback={this.setTopMenuHeight}/>
+        <div style={{ height: `calc(100vh - ${topMenuHeight}` }}>
+          <Sidebar.Pushable as={Container} fluid >
             <Button style={{ position: 'fixed', top: '15px', left: '60px', zIndex: 3 }} fixed='top' icon
                     onClick={this.handleAnimationChange()} data-testid='leftMenu-show'>
               <Icon name='bars' />

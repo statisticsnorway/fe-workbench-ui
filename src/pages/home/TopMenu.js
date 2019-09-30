@@ -9,7 +9,11 @@ import { SSBLogo } from '../../media/Logo'
 class TopMenu extends Component {
   state = { visible: true }
 
-  toggleVisibility = () => this.setState({ visible: !this.state.visible })
+  toggleVisibility = () => {
+    const { setTopMenuHeightCallback } = this.props
+    setTopMenuHeightCallback(!this.state.visible)
+    this.setState({ visible: !this.state.visible })
+  }
 
   render () {
     const { handleLogout, user } = this.props

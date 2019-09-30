@@ -72,6 +72,23 @@ const NoteParagraph = (props) => {
     }
   }
 
+  const ResultComponent = (resultElement) => {
+    switch (resultElement.resultElement.type) {
+      case 'HTML': {
+        return (<span dangerouslySetInnerHTML={{__html: resultElement.resultElement.data}}/>)
+      }
+      case 'TABLE' : {
+        return (<pre>{resultElement.resultElement.data}</pre>)
+      }
+      default: {}
+      /* falls through */
+      case 'TEXT': {
+        return (<pre>{resultElement.resultElement.data}</pre>)
+      }
+    }
+  }
+
+  // TODO set max height for paragaph result
   return (
     <Accordion fluid>
       <Fragment key={paragraph.id}>
@@ -106,8 +123,7 @@ const NoteParagraph = (props) => {
               {displayCode && <div style={{background: 'lightgray'}}><pre>{paragraph.text}</pre></div>}
               <div>
                 {paragraph.results && paragraph.results.msg.map((element, index) =>
-                  <span key={paragraph.id + element.code + index}>
-                <span dangerouslySetInnerHTML={{__html: element.data}}/></span>)}
+                  <ResultComponent resultElement={element} key={paragraph.id + '_' + index}/>)}
               </div>
             </div>
           </div>
