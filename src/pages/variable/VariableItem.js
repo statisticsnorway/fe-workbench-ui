@@ -25,12 +25,12 @@ class VariableItem extends Component {
         <p style={{ marginBottom: 10 + 'px' }}>
           { representedVariable.id ?
             <Link to={{ 'pathname': '/variable/' + representedVariable.id }}>
-              <b>{METADATA.TITLE[context.languageCode]}:</b> {context.getLocalizedGsimObjectText(representedVariable.name)}
+              <b>{context.getLocalizedText(METADATA.TITLE)}:</b> {context.getLocalizedGsimObjectText(representedVariable.name)}
             </Link> :
-            <><b>{METADATA.TITLE[context.languageCode]}:</b> {context.getLocalizedGsimObjectText(representedVariable.name)}</>
+            <><b>{context.getLocalizedText(METADATA.TITLE)}:</b> {context.getLocalizedGsimObjectText(representedVariable.name)}</>
           }
           <br/>
-          <b>{METADATA.DESCRIPTION[context.languageCode]}:</b> {context.getLocalizedGsimObjectText(representedVariable.description)}
+          <b>{context.getLocalizedText(METADATA.DESCRIPTION)}:</b> {context.getLocalizedGsimObjectText(representedVariable.description)}
           <br/>
         </p>
         <SubjectFieldTags names={subjectFieldNames}/>

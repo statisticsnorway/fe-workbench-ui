@@ -49,7 +49,7 @@ class Status extends Component {
               )
             }
           }))} />
-          : <Message info icon='info' content={INFO.NOTHING_TO_SHOW[context.languageCode]} />}
+          : <Message info icon='info' content={context.getLocalizedText(INFO.NOTHING_TO_SHOW)} />}
       </div>
     )
   }

@@ -93,7 +93,7 @@ class CreateNote extends Component {
     return (
       <>
         <Input fluid style={{'maxWidth':'350px'}} name='name'
-               placeholder={UI.NOTE_CREATE_NEW[context.languageCode]} value={name} onChange={this.handleChange}
+               placeholder={context.getLocalizedText(UI.NOTE_CREATE_NEW)} value={name} onChange={this.handleChange}
                action={{
                  color: 'teal',
                  labelPosition: 'right',
@@ -105,12 +105,12 @@ class CreateNote extends Component {
 
         <Divider fitted hidden />
 
-        <Checkbox label={UI.NOTE_CREATE_WITH_DATASET[context.languageCode]} onChange={this.toggleWithDataset} checked={withDataset} />
+        <Checkbox label={context.getLocalizedText(UI.NOTE_CREATE_WITH_DATASET)} onChange={this.toggleWithDataset} checked={withDataset} />
 
         {withDataset &&
         <>
           <Divider fitted hidden />
-          <Dropdown name='dataset' placeholder={UI.NOTE_SELECT_DATASET[context.languageCode]} fluid multiple search
+          <Dropdown name='dataset' placeholder={context.getLocalizedText(UI.NOTE_SELECT_DATASET)} fluid multiple search
                     selection options={datasetOptions} value={dataset} onChange={this.handleChange}
           />
         </>

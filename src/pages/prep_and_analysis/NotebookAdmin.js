@@ -221,14 +221,14 @@ class NotebookAdmin extends Component {
       context.notebookService.deleteNote(noteToDelete.id, user).then(() => {
         this.setState({
           deleted: true,
-          message: `${noteToDelete.name} ${UI.NOTE_DELETED[context.languageCode]}`
+          message: `${noteToDelete.name} ${context.getLocalizedText(UI.NOTE_DELETED)}`
         })
         this.loadNotes() // TODO remember folder collapsed status
       }).catch(error => {
         this.setState({
           deleted: false,
           error: true,
-          message: `${UI.NOTE_DELETED_ERROR[context.languageCode]} ${error.text})`
+          message: `${context.getLocalizedText(UI.NOTE_DELETED_ERROR)} ${error.text})`
         })
       })
     })
@@ -247,7 +247,7 @@ class NotebookAdmin extends Component {
         {ready && !error &&
         <>
           <UiHeader as='h1' dividing icon={{ name: 'book', color: 'teal' }}
-                  content={UI.NOTEBOOK_NOTES[context.languageCode]} subheader={UI.NOTEBOOK_ADMIN_HEADER[context.languageCode]} />
+                  content={context.getLocalizedText(UI.NOTEBOOK_NOTES)} subheader={context.getLocalizedText(UI.NOTEBOOK_ADMIN_HEADER)} />
 
           <Grid>
             <Grid.Column width={5}>
@@ -264,7 +264,7 @@ class NotebookAdmin extends Component {
           </Grid>
           {noteToDelete &&
           <Confirm open={showConfirm} onCancel={() => this.setState({showConfirm: false})} onConfirm={this.deleteNote}
-                   header={UI.NOTE_DELETE_DIALOG_HEADER[context.languageCode]}
+                   header={context.getLocalizedText(UI.NOTE_DELETE_DIALOG_HEADER)}
                    content={context.getLocalizedText(UI.NOTE_DELETE_DIALOG_CONTENT, noteToDelete.name, noteToDelete.id)}
                    cancelButton={{
                      color: 'red',

@@ -110,7 +110,7 @@ class SearchPage extends Component {
             <Grid.Column width={12}>
               <Grid.Row>
                 <Grid.Column style={{ 'paddingBottom': '10px', 'textAlign': 'center' }}>
-                  <h1>{METADATA.SEARCH_RESULTS[context.languageCode]}</h1>
+                  <h1>{context.getLocalizedText(METADATA.SEARCH_RESULTS)}</h1>
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row style={{ 'paddingBottom': '30px', 'textAlign': 'center' }}>
@@ -133,7 +133,7 @@ class SearchPage extends Component {
               <Grid.Row style={{ 'paddingBottom': '30px' }}>
                 <Grid.Column>
                   {/* {this.state.enterIsPressed} TODO show headers only after an actual search has been performed */}
-                  <Header>{METADATA.MATCHES_IN[context.languageCode]} {METADATA.TABLES[context.languageCode]}</Header>
+                  <Header>{context.getLocalizedText(METADATA.MATCHES_IN)} {context.getLocalizedText(METADATA.TABLES)}</Header>
                   <hr style={{ color: 'black', height: 0 }}/>
                   {
                     datasetResults.length > 0 ? datasetResults.map(value =>
@@ -145,7 +145,7 @@ class SearchPage extends Component {
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column>
-                  <Header>{METADATA.MATCHES_IN[context.languageCode]} {METADATA.VARIABLES[context.languageCode]}</Header>
+                  <Header>{context.getLocalizedText(METADATA.MATCHES_IN)} {context.getLocalizedText(METADATA.VARIABLES)}</Header>
                   <hr style={{ color: 'black', height: 0 }}/>
                   {variableResults.length > 0 ? variableResults.map(value =>
                       <SearchResultVariable key={value.id} result={value}/>

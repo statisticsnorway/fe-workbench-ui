@@ -20,9 +20,9 @@ class SearchResultDataset extends Component {
         <Link to={{
           'pathname': '/dataset/' + result.id
         }}
-        ><b>{METADATA.TITLE[context.languageCode]}:</b> {context.getLocalizedGsimObjectText(result.name)} </Link><br />
-        <b>{METADATA.DESCRIPTION[context.languageCode]}:</b> {context.getLocalizedGsimObjectText(result.description)} <br />
-        <b>{METADATA.CREATED_DATE[context.languageCode]}:</b> {new Intl.DateTimeFormat(context.languageCode,
+        ><b>{context.getLocalizedText(METADATA.TITLE)}:</b> {context.getLocalizedGsimObjectText(result.name)} </Link><br />
+        <b>{context.getLocalizedText(METADATA.DESCRIPTION)}:</b> {context.getLocalizedGsimObjectText(result.description)} <br />
+        <b>{context.getLocalizedText(METADATA.CREATED_DATE)}:</b> {new Intl.DateTimeFormat(context.languageCode,
         {
           year: 'numeric',
           month: 'long',

@@ -37,14 +37,14 @@ class Login extends Component {
               <Form size='large' onSubmit={this.handleSubmit}>
                 { Properties.mock.auth &&
                   <Form.Input fluid icon='user' iconPosition='left' name='user' value={this.state.user} onChange={this.handleChange}
-                              placeholder={UI.USER[context.languageCode]} data-testid='user-input'/>
+                              placeholder={context.getLocalizedText(UI.USER)} data-testid='user-input'/>
                 }
-                <Button primary fluid size='large' content={UI.LOGIN[context.languageCode]} data-testid='login-button'
+                <Button primary fluid size='large' content={context.getLocalizedText(UI.LOGIN)} data-testid='login-button'
                 disabled={Properties.mock.auth && this.state.user.length === 0}/>
               </Form>
             </Segment>
             {error &&
-            <Label color='red'> {`${UI.GENERIC_ERROR[context.languageCode]}`} <Icon name='times circle outline'/></Label> }
+            <Label color='red'> {`${context.getLocalizedText(UI.GENERIC_ERROR)}`} <Icon name='times circle outline'/></Label> }
           </Grid.Column>
         </Grid>
       </div>

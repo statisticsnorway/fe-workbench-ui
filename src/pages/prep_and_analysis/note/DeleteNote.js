@@ -20,7 +20,7 @@ const DeleteNote = (props) => {
            }>
       <>
         <Icon color='red' name='info circle'/>
-        {UI.NOTE_DELETE[context.languageCode]}
+        {context.getLocalizedText(UI.NOTE_DELETE)}
       </>
     </Popup>
   )

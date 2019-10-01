@@ -123,26 +123,26 @@ class UserPreferences extends Component {
             }
             <Segment>
               <Form size='large'>
-                <Form.Select fluid name='role' placeholder={UI.ROLE[context.languageCode]} value={this.state.userPrefs.preferences.role}
+                <Form.Select fluid name='role' placeholder={context.getLocalizedText(UI.ROLE)} value={this.state.userPrefs.preferences.role}
                              options={!rolesReady ? [] : roleValues} onChange={this.handleChange}
-                             label={UI.ROLE[context.languageCode]} data-testid='role-dropdown'
+                             label={context.getLocalizedText(UI.ROLE)} data-testid='role-dropdown'
                              disabled={!rolesReady} loading={!rolesReady}/>
-                <Form.Select fluid name='dataResource' placeholder={UI.DATA_RESOURCE[context.languageCode]}
+                <Form.Select fluid name='dataResource' placeholder={context.getLocalizedText(UI.DATA_RESOURCE)}
                              defaultValue={this.state.userPrefs.preferences.dataResource}
                              options={!dataResourcesReady ? [] : dataResourceValues} onChange={this.handleChange} multiple
-                             label={UI.DATA_RESOURCE[context.languageCode]}
+                             label={context.getLocalizedText(UI.DATA_RESOURCE)}
                              disabled={!dataResourcesReady} loading={!rolesReady}/>
-                <Form.Select fluid name='language' placeholder={UI.LANGUAGE[context.languageCode]}
-                             value={this.state.userPrefs.preferences.language} label={UI.LANGUAGE[context.languageCode]}
+                <Form.Select fluid name='language' placeholder={context.getLocalizedText(UI.LANGUAGE)}
+                             value={this.state.userPrefs.preferences.language} label={context.getLocalizedText(UI.LANGUAGE)}
                              options={languages} onChange={this.handleChange} />
-                <Button primary fluid size='large' content={UI.SAVE[context.languageCode]} onClick={this.handleSubmit}
+                <Button primary fluid size='large' content={context.getLocalizedText(UI.SAVE)} onClick={this.handleSubmit}
                         data-testid='save-button' disabled={!formValidated}/>
               </Form>
             </Segment>
             {saved && !error &&
-            <Label color='green'> {`${UI.CHANGES_SAVED[context.languageCode]}`} <Icon name='check circle'/></Label> }
+            <Label color='green'> {`${context.getLocalizedText(UI.CHANGES_SAVED)}`} <Icon name='check circle'/></Label> }
             {error &&
-            <Label color='red'> {`${UI.GENERIC_ERROR[context.languageCode]}`} <Icon name='times circle outline'/></Label> }
+            <Label color='red'> {`${context.getLocalizedText(UI.GENERIC_ERROR)}`} <Icon name='times circle outline'/></Label> }
           </Grid.Column>
         </Grid>
       </div>

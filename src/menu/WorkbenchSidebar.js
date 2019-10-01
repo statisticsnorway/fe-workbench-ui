@@ -76,7 +76,7 @@ class WorkbenchSidebar extends Component {
           <Menu.Item style={{ textAlign: 'left' }}>
             <Accordion.Title
               active={activeIndex === 0}
-              content={MENU.COLLECTION[context.languageCode]}
+              content={context.getLocalizedText(MENU.COLLECTION)}
               index={0}
               onClick={this.handleClick}
             />
@@ -86,7 +86,7 @@ class WorkbenchSidebar extends Component {
           <Menu.Item style={{ textAlign: 'left' }}>
             <Accordion.Title
               active={activeIndex === 1}
-              content={MENU.PREP_AND_ANALYSIS[context.languageCode]}
+              content={context.getLocalizedText(MENU.PREP_AND_ANALYSIS)}
               index={1}
               onClick={this.handleClick}
             />
@@ -96,7 +96,7 @@ class WorkbenchSidebar extends Component {
           <Menu.Item style={{ textAlign: 'left' }}>
             <Accordion.Title
               active={activeIndex === 2}
-              content={MENU.METADATA[context.languageCode]}
+              content={context.getLocalizedText(MENU.METADATA)}
               index={2}
               onClick={this.handleClick}
             />
@@ -106,7 +106,7 @@ class WorkbenchSidebar extends Component {
           <Menu.Item style={{ textAlign: 'left' }}>
             <Accordion.Title
               active={activeIndex === 3}
-              content={MENU.DOCUMENTATION[context.languageCode]}
+              content={context.getLocalizedText(MENU.DOCUMENTATION)}
               index={3}
               onClick={this.handleClick}
             />
@@ -114,7 +114,7 @@ class WorkbenchSidebar extends Component {
           </Menu.Item>
 
           <Menu.Item style={{ textAlign: 'left', color: 'rgba(255,255,255,.9)' }} as={Link}
-                     to='/search'>{MENU.SEARCH[context.languageCode]}</Menu.Item>
+                     to='/search'>{context.getLocalizedText(MENU.SEARCH)}</Menu.Item>
         </Accordion>
       </Sidebar>
     )

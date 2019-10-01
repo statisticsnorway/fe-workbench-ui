@@ -91,7 +91,7 @@ class SearchField extends Component {
     return (
       <Search
         aligned={alignment}
-        placeholder={UI.SEARCH[context.languageCode]}
+        placeholder={context.getLocalizedText(UI.SEARCH)}
         onKeyPress={this.handleKeyPress}
         loading={isLoading}
         onResultSelect={this.handleResultSelect}
