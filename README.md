@@ -5,21 +5,14 @@ their work user and tasks related to their role in the organization will appear 
 As more tasks are defined for an employee at SSB through future projects, they will be implemented in this application.
 This way, in the end, this workbench will be the only tool needed for an employee to fullfill their tasks throughout the day.
 
-### Why ReactJS
-ReactJS is a JavaScript framework that makes it easy to build large and complex user interfaces as web applications. 
-It is based on a component philosophy in which each element in a web application is a React component and controls itelf 
-and its structure through state and props. For us this makes it easy to separate components into external libraries which 
-can be reused in any React application. This application will then work as a parent to all our libraries and lets us implement 
-them together in a way fit for purpose.
-
 ### Try it
-The first time you clone the repository, remember to run `yarn install`
+The first time you clone the repository, remember to run `yarn install`.
 
 ##### Linux / MacOS
-Run `yarn start:dev` and navigate to `http://localhost:3000/`
+Run `yarn start:dev` and navigate to `http://localhost:3000/`.
 
 ##### Windows
-Run the script `start_dev.sh`
+Run the script `start_dev.sh`.
 
 ### Properties / Configuration
 Properties for each environment (typically, URLs to APIs) are stored in .js files in the `properties` folder. Which file to used is decided by
@@ -34,6 +27,7 @@ file you want to use.
 `yarn test` runs all tests and `yarn coverage` calculates (rather unreliably) test coverage.
 
 ### Docker
-Build a docker image: `docker build -t workbench-ui .`
+Build a docker image: `docker build -t workbench-ui .`.
+
 Run the image: `docker run -p 3000:80 -t -e REACT_APP_ENV='<environment>' workbench-ui` where `<environment>` points to the properties file
-you want to use (see Properties / Configuration)
+you want to use (see Properties / Configuration).
