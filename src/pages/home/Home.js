@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
-import { Button, Container, Grid, Icon, Sidebar } from 'semantic-ui-react'
+
+import { Grid } from 'semantic-ui-react'
 
 import DatasetView from '../dataset/DatasetView'
-import TopMenu from './TopMenu'
 import SearchPage from '../search/SearchPage'
 import Dashboard from '../collection/Dashboard'
 import CollectionSetup from '../collection/CollectionSetup'
@@ -12,7 +12,6 @@ import PrepAnalysisSetup from '../prep_and_analysis/PrepAnalysisSetup'
 import MethodLibrary from '../prep_and_analysis/MethodLibrary'
 import Import from '../metadata/Import'
 import GsimBrowser from '../metadata/GsimBrowser'
-import WorkbenchSidebar from '../../menu/WorkbenchSidebar'
 import AccessControlRoute from '../../utilities/security/AccessControlRoute'
 import NoAccess from '../../utilities/security/NoAccess'
 import UserPreferences from '../userconfig/UserPreferences'
@@ -22,13 +21,16 @@ import NotebookAdmin from '../prep_and_analysis/NotebookAdmin'
 import DatasetPreview from '../dataset/DatasetPreview'
 import NotificationPopup from "../../utilities/NotificationPopup"
 import Variable from '../variable/Variable'
+import './homeStyles.css'
+import MenuComponent from "./menu/MenuComponent"
 
 class Home extends Component {
   static contextType = WorkbenchContext
   state = {
-    animation: 'push',
+    animation: 'scale down',
     direction: 'left',
-    visible: true,
+    leftMenuVisible: false,
+    topMenuVisible: true,
     topMenuHeight: '238px'
   }
 
@@ -42,8 +44,13 @@ class Home extends Component {
     document.body.style.overflow = 'hidden'
   }
 
-  handleAnimationChange = () => () => {
-    this.setState({ visible: !this.state.visible })
+  toggleLeftMenuVisibility = (visible) => {
+    this.setState({ leftMenuVisible: visible })
+  }
+
+  toggleTopMenuVisibility = (visible) => {
+    this.setState({ topMenuVisible: visible })
+    this.setTopMenuHeight(visible)
   }
 
   handleSubmit = (userPrefs) => {
@@ -62,55 +69,49 @@ class Home extends Component {
 
   render () {
     const { handleLogout, ...user } = this.props
-    const { animation, direction, visible, topMenuHeight } = this.state
+    const { topMenuVisible, leftMenuVisible, topMenuHeight } = this.state
     const context = this.context
 
     return (
       <div>
         {context.notification &&
-          <NotificationPopup open={context.notification}
+        <NotificationPopup open={context.notification}
                            type={context.notificationType}
                            text={context.notificationMessage}/>}
-        <TopMenu handleLogout={handleLogout} user={user} setTopMenuHeightCallback={this.setTopMenuHeight}/>
+        <MenuComponent
+          topMenuVisible={topMenuVisible}
+          leftMenuVisible={leftMenuVisible}
+          toggleTopMenuCallback={this.toggleTopMenuVisibility}
+          toggleLeftMenuCallback={this.toggleLeftMenuVisibility}
+          handleLogout={handleLogout}
+          user={user}
+        />
         <div style={{ height: `calc(100vh - ${topMenuHeight}` }}>
-          <Sidebar.Pushable as={Container} fluid >
-            <Button style={{ position: 'fixed', top: '15px', left: '60px', zIndex: 3 }} fixed='top' icon
-                    onClick={this.handleAnimationChange()} data-testid='leftMenu-show'>
-              <Icon name='bars' />
-            </Button>
-            <WorkbenchSidebar
-              style={{ zIndex: 4 }}
-              animation={animation}
-              direction={direction}
-              visible={visible}
-              closeCallback={this.handleAnimationChange()}
-              user={user}
-            />
-            <Sidebar.Pusher dimmed={false}>
-              <Grid stretched centered style={{ paddingTop: '15px', paddingLeft: '10px' }}>
-                <Grid.Row>  {/*Main row for layout*/}
-                  <Grid.Column width={12}>
-                    <AccessControlRoute user={user} path='/search' component={SearchPage} />
-                    <AccessControlRoute user={user} path='/variable/:id' component={Variable} />
-                    <AccessControlRoute user={user} path='/dataset/:id' component={DatasetPreview} />
-                    <AccessControlRoute user={user} path='/dataset/:id/data' component={DatasetView} />
-                    <AccessControlRoute user={user} path='/collection/dashboard' component={Dashboard} />
-                    <AccessControlRoute user={user} path='/collection/setup' component={CollectionSetup} />
-                    <AccessControlRoute user={user} path='/prep/notebooks' component={NotebookAdmin} />
-                    <AccessControlRoute user={user} path='/prep/analysis' component={PrepAnalsysis} />
-                    <AccessControlRoute user={user} path='/prep/setup' component={PrepAnalysisSetup} />
-                    <AccessControlRoute user={user} path='/prep/methodlibrary' component={MethodLibrary} />
-                    <AccessControlRoute user={user} path='/metadata/import' component={Import} />
-                    <AccessControlRoute user={user} path='/metadata/gsimbrowser' component={GsimBrowser} />
-                    <AccessControlRoute user={user} path='/preferences' component={UserPreferences} handleUpdate={this.handleSubmit}/>
-                    <Route user={user} path='/noaccess' component={NoAccess} />
-                  </Grid.Column>
-                  <Grid.Column floated='right' width={1}> {/*Right padding column*/}
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </Sidebar.Pusher>
-          </Sidebar.Pushable>
+          <div>
+            <Grid stretched centered style={{ paddingTop: '15px', paddingLeft: '10px' }}>
+              <Grid.Row>  {/*Main row for layout*/}
+                <Grid.Column style={{ transition: 'all 1s' }} width={16}>
+                  <AccessControlRoute user={user} path='/search' component={SearchPage}/>
+                  <AccessControlRoute user={user} path='/variable/:id' component={Variable}/>
+                  <AccessControlRoute user={user} path='/dataset/:id' component={DatasetPreview}/>
+                  <AccessControlRoute user={user} path='/dataset/:id/data' component={DatasetView}/>
+                  <AccessControlRoute user={user} path='/collection/dashboard' component={Dashboard}/>
+                  <AccessControlRoute user={user} path='/collection/setup' component={CollectionSetup}/>
+                  <AccessControlRoute user={user} path='/prep/notebooks' component={NotebookAdmin}/>
+                  <AccessControlRoute user={user} path='/prep/analysis' component={PrepAnalsysis}/>
+                  <AccessControlRoute user={user} path='/prep/setup' component={PrepAnalysisSetup}/>
+                  <AccessControlRoute user={user} path='/prep/methodlibrary' component={MethodLibrary}/>
+                  <AccessControlRoute user={user} path='/metadata/import' component={Import}/>
+                  <AccessControlRoute user={user} path='/metadata/gsimbrowser' component={GsimBrowser}/>
+                  <AccessControlRoute user={user} path='/preferences' component={UserPreferences}
+                                      handleUpdate={this.handleSubmit}/>
+                  <Route user={user} path='/noaccess' component={NoAccess}/>
+                </Grid.Column>
+                <Grid.Column floated='right' width={1}> {/*Right padding column*/}
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </div>
         </div>
       </div>
     )

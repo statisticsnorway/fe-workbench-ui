@@ -1,7 +1,7 @@
 export const UI = {
   APP_VERSION: {
     en: 'App version',
-    nb: 'App versjon'
+    nb: 'Appversjon'
   },
   DATA_RESOURCE: {
     en: 'Data resource(s)',

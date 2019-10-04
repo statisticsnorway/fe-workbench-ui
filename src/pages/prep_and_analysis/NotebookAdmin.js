@@ -250,7 +250,7 @@ class NotebookAdmin extends Component {
                   content={context.getLocalizedText(UI.NOTEBOOK_NOTES)} subheader={context.getLocalizedText(UI.NOTEBOOK_ADMIN_HEADER)} />
 
           <Grid>
-            <Grid.Column width={5}>
+            <Grid.Column width={4}>
               <CreateNote loadNotes={this.loadNotes} user={user}/>
 
               <Divider hidden />
@@ -260,7 +260,7 @@ class NotebookAdmin extends Component {
               <Treebeard data={notebookTree} onToggle={this.notebookTreeOnToggle} style={treebeardStyle}
                 decorators={{ ...decorators, Toggle, Header }}/>
             </Grid.Column>
-            <Grid.Column width={8}>{activeNote && <Note id={activeNote} user={user} loadNotes={this.loadNotes} />}</Grid.Column>
+            <Grid.Column width={12}>{activeNote && <Note id={activeNote} user={user} loadNotes={this.loadNotes} />}</Grid.Column>
           </Grid>
           {noteToDelete &&
           <Confirm open={showConfirm} onCancel={() => this.setState({showConfirm: false})} onConfirm={this.deleteNote}

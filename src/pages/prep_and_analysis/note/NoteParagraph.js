@@ -121,7 +121,7 @@ const NoteParagraph = (props) => {
                     data-testid='showCode'
               />
               {displayCode && <div style={{background: 'lightgray'}}><pre>{paragraph.text}</pre></div>}
-              <div>
+              <div style={{overflow: 'auto', maxHeight: '25vh', border: '1px dashed'}}>
                 {paragraph.results && paragraph.results.msg.map((element, index) =>
                   <ResultComponent resultElement={element} key={paragraph.id + '_' + index}/>)}
               </div>

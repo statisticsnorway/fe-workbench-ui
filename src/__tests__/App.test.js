@@ -96,15 +96,14 @@ describe('Test App routing logic', () =>
     fireEvent.change(getByPlaceholderText(UI.USER.nb), { target: {value: 'admin' } })
     fireEvent.click(getByTestId('login-button'))
 
-    // Wait for preferences to be resolved
-    await expect(queryAllByText('SSB Logo')).toHaveLength(1)
-
+    // Wait for preferences to be resolved (need two awaits for some reason)
+    await findAllByText('Skattestatistikk person')
+    await expect(queryAllByText('SSB Logo')).toHaveLength(2)
     // Wait for statustable to be resolved
-  await findAllByText('Skattestatistikk person')
+    await findAllByText('Skattestatistikk person')
 
     fireEvent.click(getByText(UI.LOGOUT.nb))
-
-    expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(1)
+    await expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(1)
     expect(queryAllByText(UI.LOGIN.nb)).toHaveLength(1)
     expect(queryAllByText(UI.LOGOUT.nb)).toHaveLength(0)
   })
