@@ -73,6 +73,7 @@ class LdsServiceMock {
   }
 
   getDatasetStructure() {
+    console.debug('Calling getDatasetStructure() from LdsServiceMock')
     return Promise.resolve(mapResult(dataset));
   }
 

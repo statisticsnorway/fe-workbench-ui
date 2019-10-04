@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { WorkbenchContext } from '../../context/ContextProvider'
 import { Header, Icon, Segment, Table } from 'semantic-ui-react'
@@ -20,76 +20,75 @@ const STYLES = {
   }
 }
 
-class DatasetPreview extends Component {
-  static contextType = WorkbenchContext
+const DatasetPreview = (props) => {
+  const context = useContext(WorkbenchContext)
+  const [name, setName] = useState(false)
+  const [description, setDescription] = useState(false)
+  const [structure, setStructure] = useState(false)
+  const { match, user } = props
 
-  componentDidMount () {
-    if (this.props.match.params.id) {
-      this.context.ldsService.getDatasetStructure(this.props.match.params.id).then(results => {
-        this.setState({
-          name: results.name,
-          description: results.description,
-          structure: results.structure,
-        })
+  useEffect(() => {
+    if (match.params.id) {
+      context.ldsService.getDatasetStructure(match.params.id).then(results => {
+        setName(results.name)
+        setDescription(results.description)
+        setStructure(results.structure)
       })
     }
+  }, [context.ldsService, match.params.id])
+
+  const DataTableRows = ({ columns }) => {
+    if (!columns) return <DataTableRowsEmpty/>
+    return columns.map((variable, idx) => (
+      <Table.Row key={idx}>
+        <Table.Cell key={'componentType' + idx} style={STYLES[variable.componentType].style}>
+          <Icon disabled name={STYLES[variable.componentType].icon}/>{variable.componentType}
+        </Table.Cell>
+        <Table.Cell key={'name' + idx}>
+          {variable.name}
+        </Table.Cell>
+        <Table.Cell key={'description' + idx}>
+          {context.getLocalizedGsimObjectText(variable.description)}
+        </Table.Cell>
+        <Table.Cell key={'datatype' + idx}>
+          {variable.dataType}
+        </Table.Cell>
+      </Table.Row>
+    ))
   }
 
-  render () {
-    let context = this.context
+  const DataTableRowsEmpty = ({ text }) => (
+    <Segment placeholder>
+      <Header icon>
+        <Icon name='table'/>
+        {text}
+      </Header>
+    </Segment>
+  )
 
-    const DataTableRows = ({ columns }) => {
-      if (!columns) return <DataTableRowsEmpty/>
-      return columns.map((variable, idx) => (
-        <Table.Row key={idx}>
-          <Table.Cell key={'componentType' + idx} style={STYLES[variable.componentType].style}>
-            <Icon disabled name={STYLES[variable.componentType].icon}/>{variable.componentType}
-          </Table.Cell>
-          <Table.Cell key={'name' + idx}>
-            {variable.name}
-          </Table.Cell>
-          <Table.Cell key={'description' + idx}>
-            {context.getLocalizedGsimObjectText(variable.description)}
-          </Table.Cell>
-          <Table.Cell key={'datatype' + idx}>
-            {variable.dataType}
-          </Table.Cell>
-        </Table.Row>
-      ))
-    }
+  const dataset = {
+    'id': match.params.id,
+    'name': name
+  }
 
-    const DataTableRowsEmpty = ({ text }) => (
-      <Segment placeholder>
-        <Header icon>
-          <Icon name='table'/>
-          {text}
-        </Header>
-      </Segment>
+  if (!structure) {
+    return (
+      <DataTableRowsEmpty text={context.getLocalizedText(DATASET_PREVIEW.DATASET_NOT_FOUND)}/>
     )
-
-    let structure = this.state ? this.state.structure : null
-    let dataset = {
-      'id' : this.props.match.params.id,
-      'name' : this.state ? this.state.name : null
-    }
-    if (!structure) {
-      return (
-        <DataTableRowsEmpty text={context.getLocalizedText(DATASET_PREVIEW.DATASET_NOT_FOUND)}/>
-      )
-    } else if (!structure.instanceVariables) {
-      return (
-        <DataTableRowsEmpty text={context.getLocalizedText(DATASET_PREVIEW.DATASET_EMPTY)}/>
-      )
-    } else {
-      return (
-        <>
+  } else if (!structure.instanceVariables) {
+    return (
+      <DataTableRowsEmpty text={context.getLocalizedText(DATASET_PREVIEW.DATASET_EMPTY)}/>
+    )
+  } else {
+    return (
+      <>
         <Header as='h1' dividing icon={{ name: 'table', color: 'teal' }}
-                content={this.context.getLocalizedGsimObjectText(this.state.name)}
-                subheader={this.context.getLocalizedGsimObjectText(this.state.description)} />
+                content={context.getLocalizedGsimObjectText(name)}
+                subheader={context.getLocalizedGsimObjectText(description)}/>
 
-          <NotebookToolbar user={this.props.user} dataset={dataset}/>
+        <NotebookToolbar user={user} dataset={dataset}/>
 
-          <Table data-testid='dataset-table' sortable celled selectable fixed>
+        <Table data-testid='dataset-table' sortable celled selectable fixed>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>{context.getLocalizedText(DATASET_PREVIEW.VARIABLE_TYPE)}</Table.HeaderCell>
@@ -102,9 +101,8 @@ class DatasetPreview extends Component {
             <DataTableRows columns={structure.instanceVariables}/>
           </Table.Body>
         </Table>
-        </>
-      )
-    }
+      </>
+    )
   }
 }
 

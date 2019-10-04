@@ -7,10 +7,6 @@ import { WorkbenchContext } from '../../context/ContextProvider'
 class SearchResultDataset extends Component {
   static contextType = WorkbenchContext
 
-  render2() {
-    return <></>
-  }
-
   render () {
     const { result } = this.props
     let context = this.context
