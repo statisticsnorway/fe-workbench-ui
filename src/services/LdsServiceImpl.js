@@ -24,11 +24,13 @@ const client = new ApolloClient({
 })
 
 const hasSearchSupport = () => {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     client.query({
       query: GET_QUERY_FIELDS
     }).then(result => {
       return resolve(hasSearchQueryField(result))
+    }).catch(error => {
+      return reject(error)
     })
   })
 }
@@ -66,6 +68,8 @@ class LdsServiceImpl {
           // Text search query is not supported. Fetch all datasets and variables and use text filtering instead
           return resolve(this.searchDatasetsAndVariables(variables.text))
         }
+      }).catch(error => {
+        reject(error)
       })
     })
   }

@@ -68,17 +68,13 @@ class SearchField extends Component {
         results: []
       })
       let pathname = '/search'
-      if (this.props.history.location.pathname === pathname) {
-        this.props.history.replace({
-          pathname: pathname,
-          search: '?query=' + value
-        })
-      } else {
-        this.props.history.push({
-          pathname: pathname,
-          search: '?query=' + value
-        })
-      }
+      this.props.history.push({
+        pathname: pathname,
+        search: '?query=' + value,
+        state: {
+          value: value
+        }
+      })
     }
   }
 
