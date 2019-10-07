@@ -23,4 +23,8 @@ export const DATASET_PREVIEW = {
     en: ' Datatype',
     nb: ' Datatype'
   },
+  COPY_ID_TOOLTIP: {
+    en: ' Click to copy ID to clipboard',
+    nb: ' Klikk for å kopiere ID til utklippstavlen'
+  },
 }
