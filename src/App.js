@@ -9,6 +9,7 @@ import UserPreferences from './pages/userconfig/UserPreferences'
 import Properties from './properties/properties'
 import { UserManager } from 'oidc-client'
 import OidcSettings from './utilities/security/OidcSettings'
+import { Segment } from "semantic-ui-react"
 
 class App extends Component {
   static contextType = WorkbenchContext
@@ -18,7 +19,8 @@ class App extends Component {
   state = {
     user: null,
     isAuthenticated: false,
-    error: false
+    error: false,
+    userPrefsReady: false
   }
 
   componentDidMount() {
@@ -103,7 +105,7 @@ class App extends Component {
     let prefs = context.backendService.searchUserPreferences(userId)
 
     prefs.then(resolved =>
-      this.setState({ userPrefs: resolved[0] })
+      this.setState({ userPrefs: resolved[0], userPrefsReady: true })
     ).catch( (error) => {
       console.error('Error logging in: ', error)
       this.setState({error: true})
@@ -133,14 +135,19 @@ class App extends Component {
       && userPrefs.preferences.language
       && userPrefs.preferences.role
       && userPrefs.preferences.dataResource
+      && userPrefs.preferences.lds
   }
 
   render() {
-    const { error, ...user } = this.state
+    const { error, userPrefsReady, ...user } = this.state
 
     if (!this.state.isAuthenticated || error) {
       return (
         <Login handleLogin={this.handleLogin} {...this.state} error={error}/>
+      )
+    } else if(!userPrefsReady) {
+      return (
+        <Segment basic loading style={{paddingTop: '500px'}} data-testid='userprefs-spinner'/>
       )
     } else if (!this.validateUserPrefs(user.userPrefs)) {
       return (

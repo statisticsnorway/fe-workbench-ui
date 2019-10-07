@@ -52,6 +52,7 @@ test('Error renders error field', async() => {
   fireEvent.click(getByText('Statistikkprodusent'))
   fireEvent.click(getByText('Strukturstatistikk'))
   fireEvent.click(getByText('Norsk'))
+  fireEvent.click(getByText('LDS-C'))
   fireEvent.click(getByTestId('save-button'))
 
   await expect(queryAllByText('SSB Logo')).toHaveLength(1)

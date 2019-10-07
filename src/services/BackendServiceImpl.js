@@ -10,7 +10,7 @@ class BackendServiceImpl {
 
   createOrUpdateUserPreferences = (username, prefs) => {
     return new Promise( (resolve, reject) => {
-      this.searchUserPreferences(username)
+      this.searchUserPreferences(username.id ? username.id : username)
         .then( result => {
           if (result.length > 0) { // User exists, update
             return resolve(put(backendurl + '/preferences/' + result[0].uuid, JSON.stringify(prefs)))

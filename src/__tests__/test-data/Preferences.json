@@ -8,7 +8,8 @@
       "dataResource": [
         "3a44047a-d760-42c3-9f8a-d5e544042908",
         "5e508083-49e6-4cae-a144-e4b575f9ac19"
-      ]
+      ],
+      "lds": "A"
     }
   },
   "user": {
@@ -19,7 +20,8 @@
       "role": "719c1dfe-fb73-48c5-81aa-aa55f2a665d2",
       "dataResource": [
         "5e508083-49e6-4cae-a144-e4b575f9ac19"
-      ]
+      ],
+      "lds": "B"
     }
   },
   "temp": {

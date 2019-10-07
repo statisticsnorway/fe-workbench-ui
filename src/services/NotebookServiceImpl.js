@@ -21,11 +21,16 @@ class NotebookServiceImpl {
     })
   }
 
+  getLDSInstance = (user) => {
+    const lds = user.userPrefs.preferences.lds
+    return lds ? "?lds=" + lds : ""
+  }
+
   getNotes = (user) => {
     return new Promise((resolve, reject) => {
 
       // TODO get only notes available for given user
-      get(Properties.api.notebookService + 'notebook', this.getHeaders(user))
+      get(Properties.api.notebookService + 'notebook' + this.getLDSInstance(user), this.getHeaders(user))
         .then(response => resolve(response))
         .catch(error => reject(error))
     })
@@ -34,7 +39,7 @@ class NotebookServiceImpl {
   getNote = (id, user) => {
     return new Promise((resolve, reject) => {
 
-      get(Properties.api.notebookService + 'notebook/' + id, this.getHeaders(user))
+      get(Properties.api.notebookService + 'notebook/' + id + this.getLDSInstance(user), this.getHeaders(user))
         .then(response => resolve(response))
         .catch(error => reject(error))
     })
@@ -43,7 +48,8 @@ class NotebookServiceImpl {
   postNote = (body, user, autostart = false) => {
     return new Promise((resolve, reject) => {
 
-      post(Properties.api.notebookService + 'notebook', JSON.stringify(body), this.getHeaders(user))
+      post(Properties.api.notebookService + 'notebook' + this.getLDSInstance(user),
+        JSON.stringify(body), this.getHeaders(user))
         .then(response => {
           if (autostart) {
             this.startJobs(response.body, user)
@@ -57,7 +63,8 @@ class NotebookServiceImpl {
   startJobs = (id, user) => {
     return new Promise((resolve, reject) => {
 
-      post(Properties.api.notebookService + 'notebook/job/' + id, null, this.getHeaders(user))
+      post(Properties.api.notebookService + 'notebook/job/' + id + this.getLDSInstance(user),
+        null, this.getHeaders(user))
         .then(response => resolve(response))
         .catch(error => reject(error))
     })
@@ -66,7 +73,8 @@ class NotebookServiceImpl {
   runParagraphSync = (noteId, paragraphId, user) => {
     return new Promise((resolve, reject) => {
 
-      post(Properties.api.notebookService + 'notebook/run/' + noteId + '/' + paragraphId, null, this.getHeaders(user))
+      post(Properties.api.notebookService + 'notebook/run/' + noteId + '/' + paragraphId + this.getLDSInstance(user),
+        null, this.getHeaders(user))
         .then(response => resolve(response))
         .catch(error => reject(error))
     })
@@ -75,7 +83,8 @@ class NotebookServiceImpl {
   postParagraph = (id, body, user) => {
     return new Promise((resolve, reject) => {
 
-      post(Properties.api.notebookService + 'notebook/' + id + '/paragraph', JSON.stringify(body), this.getHeaders(user))
+      post(Properties.api.notebookService + 'notebook/' + id + '/paragraph' + this.getLDSInstance(user),
+        JSON.stringify(body), this.getHeaders(user))
         .then(response => resolve(response))
         .catch(error => reject(error))
     })
@@ -84,7 +93,8 @@ class NotebookServiceImpl {
   getParagraph = (noteId, paragraphId, user) => {
     return new Promise( (resolve, reject ) => {
 
-      get(Properties.api.notebookService + 'notebook/' + noteId + '/paragraph/' + paragraphId, this.getHeaders(user))
+      get(Properties.api.notebookService + 'notebook/' + noteId + '/paragraph/' + paragraphId + this.getLDSInstance(user),
+        this.getHeaders(user))
         .then(response => resolve(response))
         .catch(error => reject(error))
     })
@@ -93,7 +103,8 @@ class NotebookServiceImpl {
   stopParagraph = (noteId, paragraphId, user) => {
     return new Promise( (resolve, reject ) => {
 
-      del(Properties.api.notebookService + 'notebook/' + noteId + '/paragraph/' + paragraphId, this.getHeaders(user))
+      del(Properties.api.notebookService + 'notebook/' + noteId + '/paragraph/' + paragraphId + this.getLDSInstance(user),
+        this.getHeaders(user))
         .then(response => resolve(response))
         .catch(error => reject(error))
     })
@@ -102,7 +113,7 @@ class NotebookServiceImpl {
   deleteNote = (id, user) => {
     return new Promise((resolve, reject) => {
 
-      del(Properties.api.notebookService + 'notebook/' + id, this.getHeaders(user))
+      del(Properties.api.notebookService + 'notebook/' + id + this.getLDSInstance(user), this.getHeaders(user))
         .then(response => resolve(response))
         .catch(error => reject(error))
     })

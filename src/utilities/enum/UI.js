@@ -15,6 +15,10 @@ export const UI = {
     en: 'Language',
     nb: 'Språk'
   },
+  LDS: {
+    en: 'LDS/Notebook instance',
+    nb: 'LDS-/Notebook-instans'
+  },
   LANGUAGE_CHOICE: {
     en: 'English',
     nb: 'Norsk'

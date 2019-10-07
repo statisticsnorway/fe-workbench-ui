@@ -5,6 +5,7 @@ import { WorkbenchContext } from '../../context/ContextProvider'
 import { SSBLogo } from '../../media/Logo'
 import { LANGUAGES, UI } from '../../utilities/enum'
 import _ from 'lodash'
+import { LDS_INSTANCES } from "../../utilities/enum/LDS_INSTANCES"
 
 class UserPreferences extends Component {
   static contextType = WorkbenchContext
@@ -21,6 +22,7 @@ class UserPreferences extends Component {
         role: _.get(this.props.user, 'userPrefs.preferences.role'),
         dataResource: _.get(this.props.user, 'userPrefs.preferences.dataResource'),
         language: _.get(this.props.user, 'userPrefs.preferences.language'),
+        lds: _.get(this.props.user, 'userPrefs.preferences.lds')
       }
     },
     handleSave: this.props.handleUpdate
@@ -32,11 +34,12 @@ class UserPreferences extends Component {
     prefs.preferences[name] = value
     this.setState(prevState => {
       return {
-        userPrefs: prefs,saved: false,
+        userPrefs: prefs, saved: false,
         formValidated: prevState.userPrefs.preferences.role
         && prevState.userPrefs.preferences.dataResource
         && prevState.userPrefs.preferences.dataResource.length  > 0
         && prevState.userPrefs.preferences.language
+        && prevState.userPrefs.preferences.lds
       }
     })
     if (name === 'language') {
@@ -99,7 +102,8 @@ class UserPreferences extends Component {
     let context = this.context
 
     const { location } = this.props
-    const { rolesReady, roles, dataResourcesReady, dataResources, formValidated, saved, error } = this.state
+    const { rolesReady, roles, dataResourcesReady, dataResources, formValidated,
+      saved, error, userPrefs } = this.state
 
     const roleValues = this.formatDropdownValues(rolesReady, roles)
     const dataResourceValues = this.formatDropdownValues(dataResourcesReady, dataResources)
@@ -109,6 +113,13 @@ class UserPreferences extends Component {
       text: UI.LANGUAGE_CHOICE[LANGUAGES[language].languageCode],
       value: language
     }))
+
+    const ldsInstances = Object.keys(LDS_INSTANCES).map(lds => ({
+        key: lds,
+        text: LDS_INSTANCES[lds][context.languageCode],
+        value: lds
+    })
+  )
 
     return (
       <div className='vertical-display'>
@@ -123,18 +134,34 @@ class UserPreferences extends Component {
             }
             <Segment>
               <Form size='large'>
-                <Form.Select fluid name='role' placeholder={context.getLocalizedText(UI.ROLE)} value={this.state.userPrefs.preferences.role}
-                             options={!rolesReady ? [] : roleValues} onChange={this.handleChange}
-                             label={context.getLocalizedText(UI.ROLE)} data-testid='role-dropdown'
+                <Form.Select fluid name='role'
+                             placeholder={context.getLocalizedText(UI.ROLE)}
+                             value={userPrefs.preferences.role}
+                             options={!rolesReady ? [] : roleValues}
+                             onChange={this.handleChange}
+                             label={context.getLocalizedText(UI.ROLE)}
+                             data-testid='role-dropdown'
                              disabled={!rolesReady} loading={!rolesReady}/>
-                <Form.Select fluid name='dataResource' placeholder={context.getLocalizedText(UI.DATA_RESOURCE)}
-                             defaultValue={this.state.userPrefs.preferences.dataResource}
-                             options={!dataResourcesReady ? [] : dataResourceValues} onChange={this.handleChange} multiple
+                <Form.Select fluid name='dataResource'
+                             placeholder={context.getLocalizedText(UI.DATA_RESOURCE)}
+                             defaultValue={userPrefs.preferences.dataResource}
+                             options={!dataResourcesReady ? [] : dataResourceValues}
+                             onChange={this.handleChange}
+                             multiple
                              label={context.getLocalizedText(UI.DATA_RESOURCE)}
                              disabled={!dataResourcesReady} loading={!rolesReady}/>
-                <Form.Select fluid name='language' placeholder={context.getLocalizedText(UI.LANGUAGE)}
-                             value={this.state.userPrefs.preferences.language} label={context.getLocalizedText(UI.LANGUAGE)}
-                             options={languages} onChange={this.handleChange} />
+                <Form.Select fluid name='language'
+                             placeholder={context.getLocalizedText(UI.LANGUAGE)}
+                             value={userPrefs.preferences.language}
+                             label={context.getLocalizedText(UI.LANGUAGE)}
+                             options={languages}
+                             onChange={this.handleChange} />
+                <Form.Select fluid name='lds'
+                             placeholder={context.getLocalizedText(UI.LDS)}
+                             value={userPrefs.preferences.lds}
+                             label={context.getLocalizedText(UI.LDS)}
+                             options={ldsInstances}
+                             onChange={this.handleChange} />
                 <Button primary fluid size='large' content={context.getLocalizedText(UI.SAVE)} onClick={this.handleSubmit}
                         data-testid='save-button' disabled={!formValidated}/>
               </Form>
