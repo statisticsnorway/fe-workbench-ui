@@ -6,6 +6,7 @@ export default {
   ...env,
   mock: {
     auth: true,
+    user: 'admin', // this will skip the login dialog
     backend: true,
     lds: true,
     datasetService: true,

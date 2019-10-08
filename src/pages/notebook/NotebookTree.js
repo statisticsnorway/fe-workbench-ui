@@ -8,6 +8,7 @@ class NotebookTree {
     // Returns a set of unique folder names
     return [...new Set(this.notes.body.map(element => element.name)
       .filter(name => name.includes('/'))
+      .map(this.trimLeadingBackslash)
       .map(name => name.substr(0, name.lastIndexOf('/')))
       .sort())]
   }
@@ -22,6 +23,13 @@ class NotebookTree {
     })
   }
 
+  trimLeadingBackslash = (name) => {
+    if (name.indexOf('/') === 0) {
+      return name.substr(1)
+    } else {
+      return name
+    }
+  }
   //TODO: Implement the following method by extracting code from NotebookAdmin.loadNotes() so that this code is reusable.
   //get tree () {}
 

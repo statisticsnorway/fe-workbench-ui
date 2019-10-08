@@ -14,6 +14,14 @@ class NotebookServiceMock {
     return Promise.resolve(Note)
   }
 
+  postNote(body) {
+    console.info('(MOCK) post note ' + body)
+    return Promise.resolve({
+      body: 'testId',
+      noteurl: 'testUrl'
+    })
+  }
+
   startJobs(id) {
     console.info('(MOCK) starting job for note ' + id)
     return Promise.resolve(200)

@@ -4,8 +4,16 @@ export const NOTEBOOK_TOOLBAR = {
     nb: 'Henter datasett fra LDS'
   },
   NOTE_CREATED_TEXT: {
-    en: 'Note \'$1\' created with initial dataset',
-    nb: 'Note \'$1\' er opprettet med datasett'
+    en: 'Note \'{0}\' created with initial dataset \'{1}\'.',
+    nb: 'Note \'{0}\' er opprettet med datasett \'{1}\'.'
+  },
+  NOTE_UPDATED_TEXT: {
+    en: 'Note \'{0}\' updated with dataset \'{1}\'.',
+    nb: 'Note \'{0}\' er oppdatert med datasett \'{1}\'.'
+  },
+  NOTE_LINK: {
+    en: 'Click here to open note.',
+    nb: 'Klikk her for å åpne note.'
   },
   PARAGRAPH_TEMPLATE_TEXT: {
     en: 'Fetching datataset $1. Alias for this dataset is',

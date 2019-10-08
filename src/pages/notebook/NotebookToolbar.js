@@ -7,13 +7,13 @@ import NotebookTree from './NotebookTree'
 
 const FolderToOptionsMapper = (folderName, index) => {
   let name = '/' + folderName + '/'
-  return { key: index, text: name, value: name}
+  return { key: index, text: name, value: name }
 }
 
-const RootFolderOption = {key: '/', text: '', value: ''}
+const RootFolderOption = { key: '/', text: '', value: '' }
 
 const FileToOptionsMapper = (file) => {
-  return { key: file.id, text: file.name, value: file.id}
+  return { key: file.id, text: file.name, value: file.id }
 }
 
 class NotebookToolbar extends Component {
@@ -68,14 +68,13 @@ class NotebookToolbar extends Component {
     const { user } = this.props
     const { selectedNote } = this.state
     let context = this.context
-    console.log("Selected note", selectedNote)
     context.notebookService.getNote(selectedNote, user).then(response => {
       // Parse existing paragraphs to find already used variable names
       let existingVariables = response.body.paragraphs
         .filter(p => p.text && p.text.includes('spark.read.format("no.ssb.gsim.spark")'))
         // Map each paragraph
         .map(p => Array.from(p.text.matchAll('val (.*) = spark.read.format\\(\\"no.ssb.gsim.spark\\"\\)'))
-          // The first group match (.*) is the variable name
+        // The first group match (.*) is the variable name
           .map(match => match[1]))
         // Flatten - as there may be more than one variable per paragraph
         .flat().sort()
@@ -88,6 +87,7 @@ class NotebookToolbar extends Component {
         newVar = 'ds1'
       }
       let datasetname = context.getLocalizedGsimObjectText(this.state.dataset.name)
+      let noteUrl = response.noteurl
       let body = {
         title: context.getLocalizedText(NOTEBOOK_TOOLBAR.PARAGRAPH_HEADER),
         text: this.paragraphTemplate(datasetname, newVar, this.state.dataset.id),
@@ -97,10 +97,11 @@ class NotebookToolbar extends Component {
         }
       }
       context.notebookService.postParagraph(selectedNote, body, user).then(response => {
-        let responseText = `Note ${selectedNote} updated with dataset ${datasetname}`
+        let responseText = context.getLocalizedText(NOTEBOOK_TOOLBAR.NOTE_UPDATED_TEXT, selectedNote, datasetname)
         this.setState({
           selectedNote: undefined,
-          response: responseText
+          response: responseText,
+          noteurl: noteUrl,
         })
       }).catch(error => {
         this.setState({
@@ -113,7 +114,6 @@ class NotebookToolbar extends Component {
       })
     })
   }
-
 
   createNote = () => {
     const { user } = this.props
@@ -130,10 +130,11 @@ class NotebookToolbar extends Component {
       }
     }]
     context.notebookService.postNote(note, user, true).then(response => {
-      let responseText = `Note with id ${response.body} (${name}) created with initial dataset ${datasetname}`
+      let responseText = context.getLocalizedText(NOTEBOOK_TOOLBAR.NOTE_CREATED_TEXT, name, datasetname)
       this.setState({
         name: '',
-        response: responseText
+        response: responseText,
+        noteurl: response.noteurl,
       })
     }).catch(error => {
       this.setState({
@@ -150,17 +151,18 @@ class NotebookToolbar extends Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
   render () {
-    const { createNote, updateNote, noteFolders, name, existingNotes, selectedNote, selectedFolder, response, error } = this.state
+    const { createNote, updateNote, noteFolders, name, existingNotes, selectedNote, selectedFolder, response,
+      noteurl, error } = this.state
     let context = this.context
     return (
       <>
         <div>
           <Popup flowing hoverable position='top left'
                  content={context.getLocalizedText(NOTEBOOK_TOOLBAR.CREATE_NOTE_TOOLTIP)} trigger={
-            <Label as='a' basic={!createNote} onClick={this.toggleCreateNote}>
+            <Label data-testid='toggleCreateNote' as='a' basic={!createNote} onClick={this.toggleCreateNote}>
               <Icon.Group size='large'>
-                <Icon link color='teal' name='file outline' />
-                <Icon color='black' corner name='plus' />
+                <Icon link color='teal' name='file outline'/>
+                <Icon color='black' corner name='plus'/>
               </Icon.Group>
               {context.getLocalizedText(NOTEBOOK_TOOLBAR.CREATE_NOTE_BUTTON)}
             </Label>
@@ -169,39 +171,43 @@ class NotebookToolbar extends Component {
                  content={context.getLocalizedText(NOTEBOOK_TOOLBAR.UPDATE_NOTE_TOOLTIP)} trigger={
             <Label as='a' basic={!updateNote} onClick={this.toggleUpdateNote}>
               <Icon.Group size='large'>
-                <Icon link color='teal' name='file alternate outline' />
-                <Icon color='black' corner name='reply' />
+                <Icon link color='teal' name='file alternate outline'/>
+                <Icon color='black' corner name='reply'/>
               </Icon.Group>
               {context.getLocalizedText(NOTEBOOK_TOOLBAR.UPDATE_NOTE_BUTTON)}
             </Label>
           }/>
         </div>
 
-        <Divider fitted hidden />
+        <Divider fitted hidden/>
 
         {createNote && <div>
           <Input label={<Dropdown name='selectedFolder' onChange={this.handleChange}
-                          selectOnNavigation={false} options={noteFolders} value={selectedFolder}/>}
-            style={{'maxWidth':'350px'}}
-            placeholder={context.getLocalizedText(NOTEBOOK_TOOLBAR.CREATE_NOTE_PLACEHOLDER)} name='name'
-            value={name} onChange={this.handleChange}/>
-          <Button color='teal' onClick={this.createNote}
+                                  selectOnNavigation={false} options={noteFolders} value={selectedFolder}/>}
+                 style={{ 'maxWidth': '350px' }}
+                 placeholder={context.getLocalizedText(NOTEBOOK_TOOLBAR.CREATE_NOTE_PLACEHOLDER)} name='name'
+                 value={name} onChange={this.handleChange}/>
+          <Button data-testid='createNote' color='teal' onClick={this.createNote}
                   content={context.getLocalizedText(NOTEBOOK_TOOLBAR.CREATE_NOTE_SUBMIT)}/>
 
-          </div>}
+        </div>}
         {updateNote && <div>
-            <Dropdown name='selectedNote' placeholder={context.getLocalizedText(NOTEBOOK_TOOLBAR.UPDATE_NOTE_PLACEHOLDER)}
-                      search selection options={existingNotes} value={selectedNote}
-                      selectOnNavigation={false} onChange={this.handleChange}
-                      />
-            <Button color='teal' onClick={this.updateNote}
-                    content={context.getLocalizedText(NOTEBOOK_TOOLBAR.UPDATE_NOTE_SUBMIT)}/>
-          </div>}
+          <Dropdown name='selectedNote' placeholder={context.getLocalizedText(NOTEBOOK_TOOLBAR.UPDATE_NOTE_PLACEHOLDER)}
+                    search selection options={existingNotes} value={selectedNote}
+                    selectOnNavigation={false} onChange={this.handleChange}
+          />
+          <Button color='teal' onClick={this.updateNote}
+                  content={context.getLocalizedText(NOTEBOOK_TOOLBAR.UPDATE_NOTE_SUBMIT)}/>
+        </div>}
 
-        {response && <Message positive icon='check' content={response}
-                              onClick={() => this.setState({'response': false})}/>}
+        {response && <Message positive icon onDismiss={() => this.setState({ 'response': false })}><Icon name='check'/>
+          <Message.Content>
+            <Message.Header>{response}</Message.Header>
+            {noteurl &&<a target='_blank' rel='noopener noreferrer' href={noteurl}>{context.getLocalizedText(NOTEBOOK_TOOLBAR.NOTE_LINK)}</a>}
+          </Message.Content>
+        </Message>}
         {error && <Message negative icon='warning' header='Error' content={error}
-                           onClick={() => this.setState({'error': false})}/>}
+                           onClick={() => this.setState({ 'error': false })}/>}
       </>
     )
   }

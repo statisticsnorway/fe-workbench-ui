@@ -27,6 +27,9 @@ class App extends Component {
     if (!Properties.mock.auth) {
       this.initAuthentication()
     }
+    if (Properties.mock.user) {
+      this.handleLogin(Properties.mock.user)
+    }
   }
 
   initAuthentication() {
