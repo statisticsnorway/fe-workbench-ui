@@ -86,7 +86,7 @@ class Home extends Component {
           handleLogout={handleLogout}
           user={user}
         />
-        <div style={{ height: `calc(100vh - ${topMenuHeight}` }}>
+        <div style={{ height: `calc(100vh - ${topMenuHeight}`, overflow: 'auto' }}>
           <div>
             <Grid stretched centered style={{ paddingTop: '15px', paddingLeft: '10px' }}>
               <Grid.Row>  {/*Main row for layout*/}
