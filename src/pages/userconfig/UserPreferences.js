@@ -29,7 +29,6 @@ class UserPreferences extends Component {
   }
 
   handleChange = (e, {name, value}) => {
-    let context = this.context
     let prefs = this.state.userPrefs
     prefs.preferences[name] = value
     this.setState(prevState => {
@@ -42,9 +41,6 @@ class UserPreferences extends Component {
         && prevState.userPrefs.preferences.lds
       }
     })
-    if (name === 'language') {
-      context.setLanguage(LANGUAGES[value].languageCode)
-    }
   }
 
   handleSubmit = () => {

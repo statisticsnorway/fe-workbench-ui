@@ -10,6 +10,7 @@ import Properties from './properties/properties'
 import { UserManager } from 'oidc-client'
 import OidcSettings from './utilities/security/OidcSettings'
 import { Segment } from "semantic-ui-react"
+import { LANGUAGES } from "./utilities/enum"
 
 class App extends Component {
   static contextType = WorkbenchContext
@@ -117,7 +118,12 @@ class App extends Component {
     let context = this.context
     return new Promise( (resolve, reject ) => {
       context.backendService.createOrUpdateUserPreferences(this.state.user.id, userPrefs)
-        .then( () => resolve(this.setState({userPrefs: userPrefs})))
+        .then( () => {
+          let context = this.context
+          // Update language
+          context.setLanguage(LANGUAGES[userPrefs.preferences.language].languageCode)
+          resolve(this.setState({userPrefs: userPrefs}))
+        })
         .catch((error) => reject(error))
     })
   }
