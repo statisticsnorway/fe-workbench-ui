@@ -14,8 +14,6 @@ import { Segment } from "semantic-ui-react"
 class App extends Component {
   static contextType = WorkbenchContext
 
-  handleLogin = this.handleLogin.bind(this)
-  onUserLoaded = this.onUserLoaded.bind(this)
   state = {
     user: null,
     isAuthenticated: false,
@@ -34,7 +32,7 @@ class App extends Component {
 
   initAuthentication() {
     this.userManager = new UserManager(OidcSettings)
-    this.userManager.events.addUserLoaded(this.onUserLoaded)
+    this.userManager.events.addUserLoaded(() => this.onUserLoaded)
     this.userManager.events.addUserUnloaded(this.onUserUnloaded)
     this.userManager.getUser().then((user) => {
       if (user !== null && user !== undefined && !user.expired) {
@@ -119,7 +117,7 @@ class App extends Component {
     let context = this.context
     return new Promise( (resolve, reject ) => {
       context.backendService.createOrUpdateUserPreferences(this.state.user.id, userPrefs)
-        .then( () => this.setState({userPrefs: userPrefs}))
+        .then( () => resolve(this.setState({userPrefs: userPrefs})))
         .catch((error) => reject(error))
     })
   }
@@ -146,7 +144,7 @@ class App extends Component {
 
     if (!this.state.isAuthenticated || error) {
       return (
-        <Login handleLogin={this.handleLogin} {...this.state} error={error}/>
+        <Login handleLogin={(username) => this.handleLogin(username)} {...this.state} error={error}/>
       )
     } else if(!userPrefsReady) {
       return (
@@ -158,7 +156,7 @@ class App extends Component {
         )
     } else {
       return (
-        <Home handleLogout={this.handleLogout} {...user} />
+        <Home handleLogout={this.handleLogout} handlePreferenceUpdate={this.handlePreferenceUpdate} {...user} />
       )
     }
   }

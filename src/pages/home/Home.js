@@ -53,11 +53,6 @@ class Home extends Component {
     this.setTopMenuHeight(visible)
   }
 
-  handleSubmit = (userPrefs) => {
-    let context = this.context
-    return context.backendService.createOrUpdateUserPreferences(this.props.user, userPrefs)
-  }
-
   // TODO should be a better way to solve this (TopMenu is not considered in the size of the main
   // component, but the size of the scrollbar is, which means that it is not possible to scroll to
   // rock bottom without calculating the height on render
@@ -68,7 +63,7 @@ class Home extends Component {
   }
 
   render () {
-    const { handleLogout, ...user } = this.props
+    const { handleLogout, handlePreferenceUpdate, ...user } = this.props
     const { topMenuVisible, leftMenuVisible, topMenuHeight } = this.state
     const context = this.context
 
@@ -104,7 +99,7 @@ class Home extends Component {
                   <AccessControlRoute user={user} path='/metadata/import' component={Import}/>
                   <AccessControlRoute user={user} path='/metadata/gsimbrowser' component={GsimBrowser}/>
                   <AccessControlRoute user={user} path='/preferences' component={UserPreferences}
-                                      handleUpdate={this.handleSubmit}/>
+                                      handleUpdate={handlePreferenceUpdate}/>
                   <Route user={user} path='/noaccess' component={NoAccess}/>
                 </Grid.Column>
                 <Grid.Column floated='right' width={1}> {/*Right padding column*/}
