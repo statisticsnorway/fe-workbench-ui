@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Checkbox, Divider, Dropdown, Input, Message } from 'semantic-ui-react'
+import { Checkbox, Divider, Dropdown, Input } from 'semantic-ui-react'
 
 import { WorkbenchContext } from '../../../context/ContextProvider'
 import { UI } from "../../../utilities/enum/UI"
+import { NOTIFICATION_TYPE } from '../../../utilities/enum/NOTIFICATION_TYPE'
 
 class CreateNote extends Component {
   static contextType = WorkbenchContext
@@ -10,9 +11,7 @@ class CreateNote extends Component {
   state = {
     dataset: '',
     datasetOptions: [],
-    error: false,
     name: '',
-    response: false,
     withDataset: false
   }
 
@@ -30,16 +29,13 @@ class CreateNote extends Component {
 
       this.setState({ datasetOptions: datasetOptions })
     }).catch(error => {
-      this.setState({
-        error: error.text
-      })
+      context.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text)
     })
   }
 
-  createNote = () => {
-    const { loadNotes, user } = this.props
+  onClick = () => {
+    const { createNote } = this.props
     const { dataset, datasetOptions, withDataset, name } = this.state
-    let context = this.context
     let note = { name: name }
     if (withDataset) {
       const selectedOptions = datasetOptions.filter(option => dataset.includes(option.key));
@@ -56,24 +52,11 @@ class CreateNote extends Component {
         }
       }]
     }
-    context.notebookService.postNote(note, user, withDataset).then(response => {
-      let responseText = !withDataset ? context.getLocalizedText(UI.NOTE_CREATED, response.body, name)
-        : context.getLocalizedText(UI.NOTE_CREATE_WITH_DATASET, response.body, name)
-      this.setState({
-        dataset: '',
-        name: '',
-        response: responseText,
-        withDataset: false
-      }, () => {
-        loadNotes()
-        setTimeout(() => {
-          this.setState({ response: false })
-        }, 4000)
-      })
-    }).catch(error => {
-      this.setState({
-        error: error.text
-      })
+    createNote(note, withDataset)
+    this.setState({
+      dataset: '',
+      name: '',
+      withDataset: false
     })
   }
 
@@ -87,7 +70,7 @@ class CreateNote extends Component {
   handleChange = (event, data) => this.setState({ [data.name]: data.value })
 
   render () {
-    const { dataset, datasetOptions, error, name, response, withDataset } = this.state
+    const { dataset, datasetOptions, name, withDataset } = this.state
     const context = this.context
 
     return (
@@ -99,7 +82,7 @@ class CreateNote extends Component {
                  labelPosition: 'right',
                  icon: 'file alternate outline',
                  content: UI.NOTE_CREATE[context.languageCode],
-                 onClick: () => this.createNote()
+                 onClick: () => this.onClick()
                }}
         />
 
@@ -116,8 +99,6 @@ class CreateNote extends Component {
         </>
         }
 
-        {response && <Message positive icon='check' content={response} />}
-        {error && <Message negative icon='warning' header='Error' content={error} />}
       </>
     )
   }

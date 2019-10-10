@@ -6,6 +6,7 @@ import Note from './note/Note'
 import CreateNote from './note/CreateNote'
 import Header from "./note/TreeBeardNodeHeader"
 import { UI } from "../../utilities/enum/UI"
+import NotebookTree from '../notebook/NotebookTree'
 
 const treebeardStyle = { // TODO move to css
   tree: {
@@ -95,15 +96,11 @@ class NotebookAdmin extends Component {
   state = {
     activeNote: null,
     error: false,
-    notebookTree: null,
+    notebookTreeStructure: null,
     ready: false
   }
 
   componentDidMount () {
-    this.loadNotes()
-  }
-
-  reloadNotes = () => {
     this.loadNotes()
   }
 
@@ -113,51 +110,12 @@ class NotebookAdmin extends Component {
     const self = this
 
     context.notebookService.getNotes(user).then(notes => {
-      const notebookTree = []
-
-      function addToTree (folders, notebook, element, notebookTree) {
-        if (folders.length > 0) {
-          const node = {
-            name: folders[0],
-            toggled: false,
-            children: [],
-            hover: false
-          }
-
-          folders.shift()
-
-          const existingFolder = notebookTree.filter(
-            element => element.name === node.name && element.children)
-
-          if (existingFolder.length === 0) {
-            notebookTree.push(node)
-            addToTree(folders, notebook, element, node.children)
-          } else {
-            addToTree(folders, notebook, element, existingFolder[0].children)
-          }
-        } else {
-          notebookTree.push({
-            name: notebook,
-            id: element.id,
-            toggled: false,
-            hover: true,
-            loadNotes: self.reloadNotes,
-            user: user,
-            noteurl: element.noteurl,
-            deleteCallback: (note) => self.setState({showConfirm: true, noteToDelete: note})
-          })
-        }
-      }
-
-      notes.body.forEach(element => {
-        const folders = element.name.split('/').filter(element => element !== '')
-        const note = folders.pop()
-
-        addToTree(folders, note, element, notebookTree)
+      this.notebookTree = new NotebookTree(notes, {
+        deleteCallback: (note) => self.setState({showConfirm: true, noteToDelete: note})
       })
-      notebookTree.sort(this.compareNoteNode)
+
       this.setState({
-        notebookTree: notebookTree,
+        notebookTreeStructure: this.notebookTree.tree,
         ready: true
       })
     }).catch(error => {
@@ -168,28 +126,32 @@ class NotebookAdmin extends Component {
     })
   }
 
-  /**
-   * Comparator for Notes and Folders. Sort by name, but Folders will sort before Notes.
-   * The folder with the name ~Trash will always be sorted last
-   * @param a element to compare
-   * @param b element to compare
-   */
-  compareNoteNode = (a, b) => {
-    if(a.name === '~Trash') {return 1} // Trash will always be at the bottom
-    if (
-      (a.children === undefined && b.children === undefined) || // Neither is a folder
-      (a.children !== undefined && b.children !== undefined) // Both are folders
-       // Neither is a folder
-    ) {
-      if (a.name.toUpperCase() > b.name.toUpperCase()) { return 1 }
-      else { return -1}
+  noteCreated = (note) => {
+    this.notebookTree.addElement(note)
+    this.notebookTree.sortTree()
+    const element = this.notebookTree.findElement(e => e.id === note.id)
+    // Set selected node
+    this.notebookTreeOnToggle(element, true)
+    // Expand all parent folders
+    let e = element.parent
+    while (e) {
+      e.toggled = true
+      e = e.parent
     }
-    if (a.children !== undefined && b.children === undefined) { return -1}
-    if (a.children === undefined && b.children !== undefined) { return 1}
+    this.setState({
+      notebookTreeStructure: this.notebookTree.tree,
+    })
+  }
+
+  noteDeleted = (noteId) => {
+    this.notebookTree.removeElement(noteId)
+    this.setState({
+      notebookTreeStructure: this.notebookTree.tree,
+    })
   }
 
   notebookTreeOnToggle = (node, toggled) => {
-    const { cursor, notebookTree } = this.state
+    const { cursor, notebookTreeStructure } = this.state
 
     if (cursor) {
       cursor.active = false
@@ -203,10 +165,29 @@ class NotebookAdmin extends Component {
 
     this.setState(({
       cursor: node,
-      notebookTree: Object.assign([], notebookTree),
+      notebookTreeStructure: Object.assign([], notebookTreeStructure),
       activeNote: node.hasOwnProperty('id') ? node.id : null,
-      deleted: false
     }))
+  }
+
+  createNote = (note, withDataset) => {
+    const { user } = this.props
+    let context = this.context
+
+    context.notebookService.postNote(note, user, withDataset).then(response => {
+      let responseText = !withDataset ? context.getLocalizedText(UI.NOTE_CREATED, response.body, note.name)
+        : context.getLocalizedText(UI.NOTE_CREATE_WITH_DATASET, response.body, note.name)
+      this.setState({
+        message: responseText,
+      }, () => {
+        this.noteCreated({name: note.name, id: response.body, noteurl: response.noteurl})
+      })
+    }).catch(error => {
+      this.setState({
+        error: true,
+        message: error.text
+      })
+    })
   }
 
   deleteNote = () => {
@@ -220,13 +201,11 @@ class NotebookAdmin extends Component {
 
       context.notebookService.deleteNote(noteToDelete.id, user).then(() => {
         this.setState({
-          deleted: true,
           message: `${noteToDelete.name} ${context.getLocalizedText(UI.NOTE_DELETED)}`
         })
-        this.loadNotes() // TODO remember folder collapsed status
+        this.noteDeleted(noteToDelete.id)
       }).catch(error => {
         this.setState({
-          deleted: false,
           error: true,
           message: `${context.getLocalizedText(UI.NOTE_DELETED_ERROR)} ${error.text})`
         })
@@ -235,29 +214,28 @@ class NotebookAdmin extends Component {
   }
 
   render () {
-    const { activeNote, error, notebookTree, ready, showConfirm, deleted, message, noteToDelete } = this.state
+    const { activeNote, error, notebookTreeStructure, ready, showConfirm, message, noteToDelete } = this.state
     const { user } = this.props
     const context = this.context
 
     return (
       <Segment basic loading={!ready}>
-        {ready && message && deleted &&
-          <Message floating onDismiss={() => this.setState({deleted: false})} positive={deleted} negative={!deleted} icon={deleted ? 'check' : 'warning'} content={message}/>}
-        {ready && error && <Message negative icon='warning' header='Error' content={message} />}
-        {ready && !error &&
+        {ready && message &&
+        <Message floating onDismiss={() => this.setState({error: false, message: null})} positive={!error} negative={error} icon={error ? 'warning' : 'check'} content={message}/>}
+        {ready &&
         <>
           <UiHeader as='h1' dividing icon={{ name: 'book', color: 'teal' }}
                   content={context.getLocalizedText(UI.NOTEBOOK_NOTES)} subheader={context.getLocalizedText(UI.NOTEBOOK_ADMIN_HEADER)} />
 
           <Grid>
             <Grid.Column width={4}>
-              <CreateNote loadNotes={this.loadNotes} user={user}/>
+              <CreateNote createNote={this.createNote} user={user}/>
 
               <Divider hidden />
 
               <Icon link name='sync' color='blue' onClick={this.loadNotes} />
 
-              <Treebeard data={notebookTree} onToggle={this.notebookTreeOnToggle} style={treebeardStyle}
+              <Treebeard data={notebookTreeStructure} onToggle={this.notebookTreeOnToggle} style={treebeardStyle}
                 decorators={{ ...decorators, Toggle, Header }}/>
             </Grid.Column>
             <Grid.Column width={12}>{activeNote && <Note id={activeNote} user={user} loadNotes={this.loadNotes} />}</Grid.Column>
