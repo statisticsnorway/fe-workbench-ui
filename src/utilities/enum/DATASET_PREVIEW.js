@@ -8,19 +8,19 @@ export const DATASET_PREVIEW = {
     nb: 'Datasettet er tomt.'
   },
   VARIABLE_TYPE: {
-    en: 'Variable',
-    nb: 'Variabel'
+    en: 'Variable type',
+    nb: 'Variabeltype'
   },
   VARIABLE_NAME: {
-    en: 'Name',
-    nb: 'Navn'
+    en: 'Variable name',
+    nb: 'Variabelnavn'
   },
   VARIABLE_DESCRIPTION: {
-    en: ' Description',
-    nb: ' Beskrivelse'
+    en: ' Variable description',
+    nb: ' Variabelbeskrivelse'
   },
   VARIABLE_DATATYPE: {
-    en: ' Datatype',
+    en: ' Data type',
     nb: ' Datatype'
   },
   COPY_ID_TOOLTIP: {
