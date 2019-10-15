@@ -1,15 +1,15 @@
 export const METADATA = {
-  SEARCH_RESULTS: {
-    en: 'Search results',
-    nb: 'Søkeresultater'
+  SEARCH_TITLE: {
+    en: 'Search',
+    nb: 'Søk'
   },
   MATCHES_IN: {
     en: 'Matches in',
     nb: 'Treff i'
   },
   TABLES: {
-    en: ' tables',
-    nb: ' tabeller'
+    en: ' data sets',
+    nb: ' datasett'
   },
   VARIABLES: {
     en: ' variables',

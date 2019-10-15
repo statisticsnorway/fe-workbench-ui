@@ -94,7 +94,7 @@ const SearchPage = (props) => {
           <Grid.Column width={12}>
             <Grid.Row>
               <Grid.Column style={{ 'paddingBottom': '10px', 'textAlign': 'center' }}>
-                <h1>{METADATA.SEARCH_RESULTS[context.languageCode]}</h1>
+                <h1>{METADATA.SEARCH_TITLE[context.languageCode]}</h1>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row style={{ 'paddingBottom': '30px', 'textAlign': 'center' }}>
