@@ -25,7 +25,8 @@ class UserPreferences extends Component {
         lds: _.get(this.props.user, 'userPrefs.preferences.lds')
       }
     },
-    handleSave: this.props.handleUpdate
+    handleSave: this.props.handleUpdate,
+    handleCancel: this.props.handleCancel
   }
 
   handleChange = (e, {name, value}) => {
@@ -97,9 +98,9 @@ class UserPreferences extends Component {
   render () {
     let context = this.context
 
-    const { location } = this.props
+    const { fullscreen } = this.props
     const { rolesReady, roles, dataResourcesReady, dataResources, formValidated,
-      saved, error, userPrefs } = this.state
+      saved, error, userPrefs, handleCancel } = this.state
 
     const roleValues = this.formatDropdownValues(rolesReady, roles)
     const dataResourceValues = this.formatDropdownValues(dataResourcesReady, dataResources)
@@ -114,18 +115,28 @@ class UserPreferences extends Component {
         key: lds,
         text: LDS_INSTANCES[lds][context.languageCode],
         value: lds
-    })
-  )
+    }))
+
+    const columnProps = (fullscreen) => {
+      if (fullscreen) {
+        return {
+          mobile: 16, tablet: 8, computer: 4
+        }
+      } else {
+        return {
+        }
+      }
+    }
 
     return (
       <div className='vertical-display'>
-        <style>{`body > div,body > div > div, body > div > div > div.vertical-display {height: 100%;}`}</style>
-        <Grid textAlign='center' style={{height: '100%'}} verticalAlign='middle'>
-          <Grid.Column mobile={16} tablet={8} computer={4}>
-            {location === undefined &&
-              <span>
+        <Grid textAlign='center' verticalAlign='middle'>
+          <Grid.Column {...columnProps(fullscreen)}>
+            {fullscreen &&
+            <span>
+              <Divider hidden/>
                 {SSBLogo('100%')}
-                <Divider hidden/>
+              <Divider hidden/>
               </span>
             }
             <Segment>
@@ -158,8 +169,10 @@ class UserPreferences extends Component {
                              label={context.getLocalizedText(UI.LDS)}
                              options={ldsInstances}
                              onChange={this.handleChange} />
-                <Button primary fluid size='large' content={context.getLocalizedText(UI.SAVE)} onClick={this.handleSubmit}
+                <Button primary size='large' content={context.getLocalizedText(UI.SAVE)} onClick={this.handleSubmit}
                         data-testid='save-button' disabled={!formValidated}/>
+                {handleCancel && <Button size='large' content={context.getLocalizedText(UI.CANCEL)} onClick={handleCancel}
+                        data-testid='cancel-button'/>}
               </Form>
             </Segment>
             {saved && !error &&

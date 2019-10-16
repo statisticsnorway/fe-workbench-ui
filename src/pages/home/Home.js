@@ -14,7 +14,6 @@ import Import from '../metadata/Import'
 import GsimBrowser from '../metadata/GsimBrowser'
 import AccessControlRoute from '../../utilities/security/AccessControlRoute'
 import NoAccess from '../../utilities/security/NoAccess'
-import UserPreferences from '../userconfig/UserPreferences'
 import { WorkbenchContext } from '../../context/ContextProvider'
 import { LANGUAGES } from '../../utilities/enum/LANGUAGES'
 import NotebookAdmin from '../prep_and_analysis/NotebookAdmin'
@@ -80,6 +79,7 @@ class Home extends Component {
           toggleLeftMenuCallback={this.toggleLeftMenuVisibility}
           handleLogout={handleLogout}
           user={user}
+          handlePreferenceUpdate={handlePreferenceUpdate}
         />
         <div style={{ height: `calc(100vh - ${topMenuHeight}`, overflow: 'auto' }}>
           <div>
@@ -98,8 +98,6 @@ class Home extends Component {
                   <AccessControlRoute user={user} path='/prep/methodlibrary' component={MethodLibrary}/>
                   <AccessControlRoute user={user} path='/metadata/import' component={Import}/>
                   <AccessControlRoute user={user} path='/metadata/gsimbrowser' component={GsimBrowser}/>
-                  <AccessControlRoute user={user} path='/preferences' component={UserPreferences}
-                                      handleUpdate={handlePreferenceUpdate}/>
                   <Route user={user} path='/noaccess' component={NoAccess}/>
                 </Grid.Column>
                 <Grid.Column floated='right' width={1}> {/*Right padding column*/}

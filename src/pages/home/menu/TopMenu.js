@@ -7,7 +7,7 @@ import SearchField from '../../search/SearchField'
 import { SSBLogo } from '../../../media/Logo'
 
 const TopMenu = (props) => {
-  const { handleLogout, toggleLeftMenuCallback, topMenuVisible, user } = props
+  const { handleLogout, toggleLeftMenuCallback, topMenuVisible, user, handlePreferenceUpdate } = props
 
   return (
       <Transition visible={topMenuVisible} animation='fade down' duration={200}>
@@ -17,7 +17,7 @@ const TopMenu = (props) => {
               <Status user={user} />
             </Grid.Column>
             <Grid.Column only='tablet computer' tablet={5} computer={3} textAlign='right'>
-              <UserDropdown handleLogout={handleLogout} user={user} />
+              <UserDropdown handleLogout={handleLogout} user={user} handlePreferenceUpdate={handlePreferenceUpdate}/>
               <Divider hidden />
               {SSBLogo('100%')}
               <Divider hidden />

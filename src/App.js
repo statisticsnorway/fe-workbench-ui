@@ -9,8 +9,8 @@ import UserPreferences from './pages/userconfig/UserPreferences'
 import Properties from './properties/properties'
 import { UserManager } from 'oidc-client'
 import OidcSettings from './utilities/security/OidcSettings'
-import { Segment } from "semantic-ui-react"
-import { LANGUAGES } from "./utilities/enum"
+import { Segment } from 'semantic-ui-react'
+import { LANGUAGES } from './utilities/enum'
 
 class App extends Component {
   static contextType = WorkbenchContext
@@ -22,7 +22,7 @@ class App extends Component {
     userPrefsReady: false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     if (!Properties.mock.auth) {
       this.initAuthentication()
     }
@@ -31,26 +31,26 @@ class App extends Component {
     }
   }
 
-  initAuthentication() {
+  initAuthentication () {
     this.userManager = new UserManager(OidcSettings)
     this.userManager.events.addUserLoaded(() => this.onUserLoaded)
     this.userManager.events.addUserUnloaded(this.onUserUnloaded)
     this.userManager.getUser().then((user) => {
       if (user !== null && user !== undefined && !user.expired) {
         this.onUserLoaded(user)
-      } else  {
+      } else {
         let hash = window.location.hash // returns a string
         hash = hash.length > 0 ? hash.substr(1) : '' // remove the # character
         let searchParams = new URLSearchParams(hash)
         if (searchParams.has('access_token')) {
           this.userManager.signinRedirectCallback().then(() => {
             this.props.history.replace({
-              pathname: "/",
+              pathname: '/',
             })
             // Go back to the previous url (before login)
             this.props.history.goBack()
           }).catch(function (err) {
-            console.log("Error signinRedirectCallback: ", err)
+            console.log('Error signinRedirectCallback: ', err)
           })
         }
       }
@@ -58,11 +58,11 @@ class App extends Component {
   }
 
 // Callback from UserManager
-  onUserLoaded(user) {
-    console.log("User loaded", user.profile)
+  onUserLoaded (user) {
+    console.log('User loaded', user.profile)
     this.setState({
       isAuthenticated: true,
-      user : {
+      user: {
         id: user.profile.sub,
         name: user.profile.name,
         access_token: user.access_token
@@ -71,7 +71,7 @@ class App extends Component {
     this.handleUserPreferences(this.state.user.id)
   }
 
-  onUserUnloaded() {
+  onUserUnloaded () {
     this.setState({
       isAuthenticated: false,
       user: null,
@@ -79,11 +79,11 @@ class App extends Component {
     })
   }
 
-  handleLogin(username) {
+  handleLogin (username) {
     if (Properties.mock.auth) {
       this.setState({
         isAuthenticated: true,
-        user : {
+        user: {
           id: username,
           name: username
         }
@@ -108,21 +108,21 @@ class App extends Component {
 
     prefs.then(resolved =>
       this.setState({ userPrefs: resolved[0], userPrefsReady: true })
-    ).catch( (error) => {
+    ).catch((error) => {
       console.error('Error logging in: ', error)
-      this.setState({error: true})
+      this.setState({ error: true })
     })
   }
 
   handlePreferenceUpdate = (userPrefs) => {
     let context = this.context
-    return new Promise( (resolve, reject ) => {
+    return new Promise((resolve, reject) => {
       context.backendService.createOrUpdateUserPreferences(this.state.user.id, userPrefs)
-        .then( () => {
+        .then(() => {
           let context = this.context
           // Update language
           context.setLanguage(LANGUAGES[userPrefs.preferences.language].languageCode)
-          resolve(this.setState({userPrefs: userPrefs}))
+          resolve(this.setState({ userPrefs: userPrefs }))
         })
         .catch((error) => reject(error))
     })
@@ -145,21 +145,21 @@ class App extends Component {
       && userPrefs.preferences.lds
   }
 
-  render() {
+  render () {
     const { error, userPrefsReady, ...user } = this.state
 
     if (!this.state.isAuthenticated || error) {
       return (
         <Login handleLogin={(username) => this.handleLogin(username)} {...this.state} error={error}/>
       )
-    } else if(!userPrefsReady) {
+    } else if (!userPrefsReady) {
       return (
-        <Segment basic loading style={{paddingTop: '500px'}} data-testid='userprefs-spinner'/>
+        <Segment basic loading style={{ paddingTop: '500px' }} data-testid='userprefs-spinner'/>
       )
     } else if (!this.validateUserPrefs(user.userPrefs)) {
       return (
-        <UserPreferences handleChange={this.handleChange} handleUpdate={this.handlePreferenceUpdate} user={user} />
-        )
+        <UserPreferences fullscreen={true} user={user} handleUpdate={this.handlePreferenceUpdate}/>
+      )
     } else {
       return (
         <Home handleLogout={this.handleLogout} handlePreferenceUpdate={this.handlePreferenceUpdate} {...user} />

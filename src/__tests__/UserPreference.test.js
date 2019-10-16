@@ -19,7 +19,7 @@ const setup = () => {
   }
   const { queryAllByText, getByText, getByTestId } = render(
     <ContextProvider>
-      <UserPreferences {...props} />
+      <UserPreferences fullscreen={true} {...props} />
     </ContextProvider>)
 
   return { queryAllByText, getByText, getByTestId }

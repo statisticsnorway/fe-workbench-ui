@@ -51,6 +51,10 @@ export const UI = {
     en: 'Username',
     nb: 'Brukernavn'
   },
+  CANCEL: {
+    en: 'Cancel',
+    nb: 'Avbryt'
+  },
   SAVE: {
     en: 'Save',
     nb: 'Lagre'
