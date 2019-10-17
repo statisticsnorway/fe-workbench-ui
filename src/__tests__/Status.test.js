@@ -26,8 +26,8 @@ const setup = () => {
     }
   }
   const { queryAllByText } = render(
-    <ContextProvider>
-      <Status {...props} />
+    <ContextProvider {...props}>
+      <Status />
     </ContextProvider>)
 
   return { queryAllByText }

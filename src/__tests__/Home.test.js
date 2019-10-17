@@ -19,7 +19,7 @@ const setup = () => {
   }
   const { getByTestId, queryAllByTestId, queryAllByText } = render(
     <MemoryRouter>
-      <ContextProvider>
+      <ContextProvider user={props.user}>
         <Home {...props} />
       </ContextProvider>
     </MemoryRouter>

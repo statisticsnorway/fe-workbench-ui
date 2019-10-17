@@ -22,6 +22,9 @@ export const WorkbenchContext = React.createContext({
   notification: false,
   notificationType: null,
   notificationMessage: null,
+  user: null,
+  setUser: () => { throw IllegalAccessError },
+  updateUserPrefs: () => { throw IllegalAccessError },
   setNotification: () => { throw IllegalAccessError },
   setLanguage: () => { throw IllegalAccessError },
   getLocalizedText: () => { throw IllegalAccessError },
@@ -38,6 +41,26 @@ export class ContextProvider extends Component {
     notification: false,
     notificationType: null,
     notificationMessage: null,
+    user: this.props.user
+  }
+
+  setUser (ref) {
+    return (user) => {
+      ref.setState({user: user})
+    }
+  }
+
+  updateUserPrefs (ref) {
+    return (userPrefs) => {
+      if (ref.state.user) {
+        this.setState(prevState => ({
+          user: {
+            ...prevState.user,
+            userPrefs: userPrefs
+          }
+        }))
+      }
+    }
   }
 
   setLanguage (ref) {
@@ -84,6 +107,9 @@ export class ContextProvider extends Component {
           notification: this.state.notification,
           notificationType: this.state.notificationType,
           notificationMessage: this.state.notificationMessage,
+          user: this.state.user,
+          setUser: this.setUser(this),
+          updateUserPrefs: this.updateUserPrefs(this),
           setNotification: this.setNotification(this),
           setLanguage: this.setLanguage(this),
           getLocalizedText: this.getLocalizedText(this.state),

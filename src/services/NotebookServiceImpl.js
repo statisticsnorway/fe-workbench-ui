@@ -17,7 +17,7 @@ class NotebookServiceImpl {
       new Headers({
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'X-Authorization': 'Bearer ' + user.user.access_token
+        'X-Authorization': 'Bearer ' + user.access_token
     })
   }
 

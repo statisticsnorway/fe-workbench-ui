@@ -10,6 +10,8 @@ import { LDS_INSTANCES } from "../../utilities/enum/LDS_INSTANCES"
 class UserPreferences extends Component {
   static contextType = WorkbenchContext
 
+  _isMounted = false
+
   state = {
     rolesReady: false,
     dataResourcesReady: false,
@@ -17,12 +19,12 @@ class UserPreferences extends Component {
     saved: false,
     error: this.props.error,
     userPrefs:{
-      uuid: _.get(this.props.user, 'userPrefs.uuid'),
+      uuid: _.get(this.context.user, 'userPrefs.uuid'),
       preferences: {
-        role: _.get(this.props.user, 'userPrefs.preferences.role'),
-        dataResource: _.get(this.props.user, 'userPrefs.preferences.dataResource'),
-        language: _.get(this.props.user, 'userPrefs.preferences.language'),
-        lds: _.get(this.props.user, 'userPrefs.preferences.lds')
+        role: _.get(this.context.user, 'userPrefs.preferences.role'),
+        dataResource: _.get(this.context.user, 'userPrefs.preferences.dataResource'),
+        language: _.get(this.context.user, 'userPrefs.preferences.language'),
+        lds: _.get(this.context.user, 'userPrefs.preferences.lds')
       }
     },
     handleSave: this.props.handleUpdate,
@@ -54,28 +56,38 @@ class UserPreferences extends Component {
   }
 
   componentDidMount () {
+    this._isMounted = true;
     let context = this.context
 
-    context.ldsService.getRoles().then(roles =>
-      this.setState({
-        rolesReady: true,
-        roles: roles
-      })
+    context.ldsService.getRoles().then(roles => {
+      if (this._isMounted) {
+        this.setState({
+          rolesReady: true,
+          roles: roles
+        })
+      }
+    }
     ).catch(error => {
       console.error('Error contacting LDS:', error)
       this.setState({rolesReady: true})
     })
-
-
     context.ldsService.getDataResources().then(dataResources => {
-      this.setState({
-        dataResourcesReady: true,
-        dataResources: dataResources
-      })
+      if (this._isMounted) {
+        this.setState({
+          dataResourcesReady: true,
+          dataResources: dataResources
+        })
+      }
     }).catch(error => {
       console.log(error)
-      this.setState({dataResourcesReady: true})
+      if (this._isMounted) {
+        this.setState({dataResourcesReady: true})
+      }
     })
+  }
+
+  componentWillUnmount () {
+    this._isMounted = false
   }
 
   formatDropdownValues (ready, values) {

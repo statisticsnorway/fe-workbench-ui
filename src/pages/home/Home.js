@@ -35,9 +35,11 @@ class Home extends Component {
 
   // TODO see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html
   UNSAFE_componentWillMount () {
+    const context = this.context
     // Set initial language based on user prefs
-    this.context.setLanguage(LANGUAGES[this.props.userPrefs !== undefined
-      ? this.props.userPrefs.preferences.language
+    const userPrefs = context.user.userPrefs
+    this.context.setLanguage(LANGUAGES[userPrefs !== undefined
+      ? userPrefs.preferences.language
       : this.context.languageCode].languageCode)
     // Prevent scrollbar for main window
     document.body.style.overflow = 'hidden'
@@ -62,7 +64,7 @@ class Home extends Component {
   }
 
   render () {
-    const { handleLogout, handlePreferenceUpdate, ...user } = this.props
+    const { handleLogout, handlePreferenceUpdate } = this.props
     const { topMenuVisible, leftMenuVisible, topMenuHeight } = this.state
     const context = this.context
 
@@ -78,7 +80,6 @@ class Home extends Component {
           toggleTopMenuCallback={this.toggleTopMenuVisibility}
           toggleLeftMenuCallback={this.toggleLeftMenuVisibility}
           handleLogout={handleLogout}
-          user={user}
           handlePreferenceUpdate={handlePreferenceUpdate}
         />
         <div style={{ height: `calc(100vh - ${topMenuHeight}`, overflow: 'auto' }}>
@@ -86,19 +87,19 @@ class Home extends Component {
             <Grid stretched centered style={{ paddingTop: '15px', paddingLeft: '10px' }}>
               <Grid.Row>  {/*Main row for layout*/}
                 <Grid.Column style={{ transition: 'all 1s' }} width={16}>
-                  <AccessControlRoute user={user} path='/search' component={SearchPage}/>
-                  <AccessControlRoute user={user} path='/variable/:id' component={Variable}/>
-                  <AccessControlRoute user={user} path='/dataset/:id' component={DatasetPreview}/>
-                  <AccessControlRoute user={user} path='/dataset/:id/data' component={DatasetView}/>
-                  <AccessControlRoute user={user} path='/collection/dashboard' component={Dashboard}/>
-                  <AccessControlRoute user={user} path='/collection/setup' component={CollectionSetup}/>
-                  <AccessControlRoute user={user} path='/prep/notebooks' component={NotebookAdmin}/>
-                  <AccessControlRoute user={user} path='/prep/analysis' component={PrepAnalsysis}/>
-                  <AccessControlRoute user={user} path='/prep/setup' component={PrepAnalysisSetup}/>
-                  <AccessControlRoute user={user} path='/prep/methodlibrary' component={MethodLibrary}/>
-                  <AccessControlRoute user={user} path='/metadata/import' component={Import}/>
-                  <AccessControlRoute user={user} path='/metadata/gsimbrowser' component={GsimBrowser}/>
-                  <Route user={user} path='/noaccess' component={NoAccess}/>
+                  <AccessControlRoute path='/search' component={SearchPage}/>
+                  <AccessControlRoute path='/variable/:id' component={Variable}/>
+                  <AccessControlRoute path='/dataset/:id' component={DatasetPreview}/>
+                  <AccessControlRoute path='/dataset/:id/data' component={DatasetView}/>
+                  <AccessControlRoute path='/collection/dashboard' component={Dashboard}/>
+                  <AccessControlRoute path='/collection/setup' component={CollectionSetup}/>
+                  <AccessControlRoute path='/prep/notebooks' component={NotebookAdmin}/>
+                  <AccessControlRoute path='/prep/analysis' component={PrepAnalsysis}/>
+                  <AccessControlRoute path='/prep/setup' component={PrepAnalysisSetup}/>
+                  <AccessControlRoute path='/prep/methodlibrary' component={MethodLibrary}/>
+                  <AccessControlRoute path='/metadata/import' component={Import}/>
+                  <AccessControlRoute path='/metadata/gsimbrowser' component={GsimBrowser}/>
+                  <Route path='/noaccess' component={NoAccess}/>
                 </Grid.Column>
                 <Grid.Column floated='right' width={1}> {/*Right padding column*/}
                 </Grid.Column>

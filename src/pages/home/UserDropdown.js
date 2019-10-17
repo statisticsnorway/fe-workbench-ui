@@ -14,14 +14,14 @@ class UserDropdown extends Component {
   }
 
   render () {
-    const { handleLogout, user, handlePreferenceUpdate } = this.props
+    const { handleLogout, handlePreferenceUpdate } = this.props
     const handleCancel = () => this.setState({showPreferences: false})
 
     let context = this.context
 
     return (
       <>
-        <Dropdown trigger={<span><Icon name='user' color='blue'/>{`${user.user.name}`}</span>}>
+        <Dropdown trigger={<span><Icon name='user' color='blue'/>{`${context.user.name}`}</span>}>
           <Dropdown.Menu direction='left'>
             <Dropdown.Item onClick={() => this.setState({showPreferences: true})}
                            icon={{ name: 'setting', color: 'blue', size: 'large' }}
@@ -39,7 +39,7 @@ class UserDropdown extends Component {
         <Modal open={this.state.showPreferences} closeIcon onClose={handleCancel} size='mini'>
           <Header icon='setting' color='blue' content='Brukerinstillinger' />
           <Modal.Content>
-            <UserPreferences user={user} handleCancel={handleCancel} handleUpdate={handlePreferenceUpdate}/>
+            <UserPreferences handleCancel={handleCancel} handleUpdate={handlePreferenceUpdate}/>
           </Modal.Content>
         </Modal>
       </>

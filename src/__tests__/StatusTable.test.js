@@ -23,8 +23,8 @@ const setup = () => {
     }
   }
   const { queryAllByText } = render(
-    <ContextProvider>
-      <StatusTable {...props} />
+    <ContextProvider {...props} >
+      <StatusTable statusType={props.statusType}/>
     </ContextProvider>)
 
   return { queryAllByText }

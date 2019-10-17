@@ -12,14 +12,15 @@ class StatusTable extends Component {
 
   state = {
     customStatus: {},
-    dataResource: this.props.user.userPrefs !== undefined ? this.props.user.userPrefs.preferences.dataResource[0] : [],
+    dataResource: this.context.user.userPrefs !== undefined ? this.context.user.userPrefs.preferences.dataResource[0] : [],
     staticStatus: {},
     dataResourcesOptions: null
   }
 
   componentDidMount () {
     let context = this.context
-    const { statusType, user } = this.props
+    const { statusType } = this.props
+    const user = context.user
 
     const customStatus = {}
     const staticStatus = {}

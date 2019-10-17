@@ -16,7 +16,6 @@ class App extends Component {
   static contextType = WorkbenchContext
 
   state = {
-    user: null,
     isAuthenticated: false,
     error: false,
     userPrefsReady: false
@@ -58,36 +57,39 @@ class App extends Component {
   }
 
 // Callback from UserManager
-  onUserLoaded (user) {
-    console.log('User loaded', user.profile)
+  onUserLoaded(user) {
+    const context = this.context
+    console.log("User loaded", user.profile)
     this.setState({
       isAuthenticated: true,
-      user: {
+    }, () => {
+      context.setUser({
         id: user.profile.sub,
         name: user.profile.name,
         access_token: user.access_token
-      }
+      })
+      this.handleUserPreferences(user.profile.sub)
     })
-    this.handleUserPreferences(this.state.user.id)
   }
 
-  onUserUnloaded () {
+  onUserUnloaded() {
+    const context = this.context
     this.setState({
       isAuthenticated: false,
-      user: null,
-      userPrefs: null
-    })
+      userPrefsReady: false
+    }, () =>
+      context.setUser(null))
   }
 
   handleLogin (username) {
     if (Properties.mock.auth) {
+      const context = this.context
       this.setState({
         isAuthenticated: true,
-        user: {
-          id: username,
-          name: username
-        }
-      })
+      }, () => context.setUser({
+        id: username,
+        name: username
+      }))
       this.handleUserPreferences(username)
     } else {
       this.userManager.signinRedirect().then(function () {
@@ -107,7 +109,8 @@ class App extends Component {
     let prefs = context.backendService.searchUserPreferences(userId)
 
     prefs.then(resolved =>
-      this.setState({ userPrefs: resolved[0], userPrefsReady: true })
+      this.setState({ userPrefsReady: true },
+        () => context.updateUserPrefs(resolved[0]))
     ).catch((error) => {
       console.error('Error logging in: ', error)
       this.setState({ error: true })
@@ -116,24 +119,24 @@ class App extends Component {
 
   handlePreferenceUpdate = (userPrefs) => {
     let context = this.context
-    return new Promise((resolve, reject) => {
-      context.backendService.createOrUpdateUserPreferences(this.state.user.id, userPrefs)
-        .then(() => {
+    return new Promise( (resolve, reject ) => {
+      context.backendService.createOrUpdateUserPreferences(context.user.id, userPrefs)
+        .then( () => {
           let context = this.context
           // Update language
           context.setLanguage(LANGUAGES[userPrefs.preferences.language].languageCode)
-          resolve(this.setState({ userPrefs: userPrefs }))
+          resolve(context.updateUserPrefs(userPrefs))
         })
         .catch((error) => reject(error))
     })
   }
 
   handleLogout = () => {
+    const context = this.context
     this.setState({
       isAuthenticated: false,
-      user: null,
-      userPrefs: null
-    })
+      userPrefsReady: false
+    }, () => context.setUser(null))
   }
 
   validateUserPrefs = (userPrefs) => {
@@ -145,8 +148,9 @@ class App extends Component {
       && userPrefs.preferences.lds
   }
 
-  render () {
-    const { error, userPrefsReady, ...user } = this.state
+  render() {
+    const context = this.context
+    const { error, userPrefsReady } = this.state
 
     if (!this.state.isAuthenticated || error) {
       return (
@@ -156,13 +160,13 @@ class App extends Component {
       return (
         <Segment basic loading style={{ paddingTop: '500px' }} data-testid='userprefs-spinner'/>
       )
-    } else if (!this.validateUserPrefs(user.userPrefs)) {
+    } else if (!this.validateUserPrefs(context.user.userPrefs)) {
       return (
-        <UserPreferences fullscreen={true} user={user} handleUpdate={this.handlePreferenceUpdate}/>
-      )
+        <UserPreferences fullscreen={true} handleUpdate={this.handlePreferenceUpdate}/>
+        )
     } else {
       return (
-        <Home handleLogout={this.handleLogout} handlePreferenceUpdate={this.handlePreferenceUpdate} {...user} />
+        <Home handleLogout={this.handleLogout} handlePreferenceUpdate={this.handlePreferenceUpdate} />
       )
     }
   }

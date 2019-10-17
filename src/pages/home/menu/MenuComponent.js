@@ -20,7 +20,7 @@ const MenuComponent = ( props ) => {
   return (
     <>
       {/*TODO make page slide up smoothly*/}
-      <TopMenu handleLogout={props.handleLogout} user={props.user} topMenuVisible={props.topMenuVisible}
+      <TopMenu handleLogout={props.handleLogout} topMenuVisible={props.topMenuVisible}
                handlePreferenceUpdate={props.handlePreferenceUpdate}
                toggleLeftMenuCallback={ () => props.toggleLeftMenuCallback(false) } />
       <Grid columns='equal'>

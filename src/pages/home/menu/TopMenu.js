@@ -7,17 +7,17 @@ import SearchField from '../../search/SearchField'
 import { SSBLogo } from '../../../media/Logo'
 
 const TopMenu = (props) => {
-  const { handleLogout, toggleLeftMenuCallback, topMenuVisible, user, handlePreferenceUpdate } = props
+  const { handleLogout, toggleLeftMenuCallback, topMenuVisible, handlePreferenceUpdate } = props
 
   return (
       <Transition visible={topMenuVisible} animation='fade down' duration={200}>
         <Segment data-testid='topMenu' style={{ marginBottom: 0 }} attached onMouseEnter={toggleLeftMenuCallback}>
           <Grid stackable reversed='mobile'>
             <Grid.Column only='tablet computer' tablet={11} computer={13}>
-              <Status user={user} />
+              <Status />
             </Grid.Column>
             <Grid.Column only='tablet computer' tablet={5} computer={3} textAlign='right'>
-              <UserDropdown handleLogout={handleLogout} user={user} handlePreferenceUpdate={handlePreferenceUpdate}/>
+              <UserDropdown handleLogout={handleLogout} handlePreferenceUpdate={handlePreferenceUpdate}/>
               <Divider hidden />
               {SSBLogo('100%')}
               <Divider hidden />
