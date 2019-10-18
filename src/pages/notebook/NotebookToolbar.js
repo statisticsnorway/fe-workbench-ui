@@ -37,7 +37,7 @@ class NotebookToolbar extends Component {
 
   loadExistingNotes = () => {
     let context = this.context
-    const { user } = this.props
+    const user = context.user
 
     context.notebookService.getNotes(user).then(notes => {
       let notebookTree = new NotebookTree(notes)
@@ -65,9 +65,9 @@ class NotebookToolbar extends Component {
   }
 
   updateNote = () => {
-    const { user } = this.props
     const { selectedNote } = this.state
     let context = this.context
+    const user = context.user
     context.notebookService.getNote(selectedNote, user).then(response => {
       // Parse existing paragraphs to find already used variable names
       let existingVariables = response.body.paragraphs
@@ -116,9 +116,9 @@ class NotebookToolbar extends Component {
   }
 
   createNote = () => {
-    const { user } = this.props
     const { name, selectedFolder } = this.state
     let context = this.context
+    const user = context.user
     let note = { name: selectedFolder + name }
     let datasetname = context.getLocalizedGsimObjectText(this.state.dataset.name)
     note.paragraphs = [{
