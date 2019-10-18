@@ -46,11 +46,11 @@ test('Error renders error field', async() => {
 
   await waitForElement(() => getByText('Statistikkprodusent'))
 
-  await waitForElement(() => getByText('Strukturstatistikk'))
+  await waitForElement(() => getByText('Test statistical program'))
 
   // Set preferences and save
   fireEvent.click(getByText('Statistikkprodusent'))
-  fireEvent.click(getByText('Strukturstatistikk'))
+  fireEvent.click(getByText('Test statistical program'))
   fireEvent.click(getByText('Norsk'))
   fireEvent.click(getByText('LDS-C'))
   fireEvent.click(getByTestId('save-button'))
