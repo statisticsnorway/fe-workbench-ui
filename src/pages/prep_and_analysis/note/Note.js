@@ -26,7 +26,7 @@ class Note extends Component {
   }
 
   loadNote = (id) => {
-    const { user } = this.props
+    const user = this.context.user
     if (id) {
       this.setState({
         notification: false,
@@ -62,7 +62,7 @@ class Note extends Component {
 
   runAllParagraphs = () => {
     let context = this.context
-    const { user } = this.props
+    const user = context.user
     const { note } = this.state
     this.setState({running: true})
 
@@ -81,7 +81,7 @@ class Note extends Component {
 
   stopAllParagraphs = () => {
     let context = this.context
-    const { user } = this.props
+    const user = context.user
     const { note } = this.state
 
     context.notebookService.stopAllParagraphs(note.id, user)
@@ -103,8 +103,8 @@ class Note extends Component {
 
   render () {
     const { note, ready, running } = this.state
-    const { user } = this.props
     let context = this.context
+    const user = context.user
 
     return (
       <Segment basic loading={!ready}>

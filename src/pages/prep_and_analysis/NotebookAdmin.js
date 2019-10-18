@@ -106,7 +106,7 @@ class NotebookAdmin extends Component {
 
   loadNotes = () => {
     let context = this.context
-    const { user } = this.props
+    const user = context.user
     const self = this
 
     context.notebookService.getNotes(user).then(notes => {
@@ -171,8 +171,8 @@ class NotebookAdmin extends Component {
   }
 
   createNote = (note, withDataset) => {
-    const { user } = this.props
     let context = this.context
+    const user = context.user
 
     context.notebookService.postNote(note, user, withDataset).then(response => {
       let responseText = !withDataset ? context.getLocalizedText(UI.NOTE_CREATED, response.body, note.name)
@@ -194,7 +194,7 @@ class NotebookAdmin extends Component {
     this.setState({
       showConfirm: false
     }, () => {
-      const { user } = this.props
+      const user = this.context.user
       const { noteToDelete } = this.state
 
       let context = this.context
@@ -215,8 +215,8 @@ class NotebookAdmin extends Component {
 
   render () {
     const { activeNote, error, notebookTreeStructure, ready, showConfirm, message, noteToDelete } = this.state
-    const { user } = this.props
     const context = this.context
+    const user = context.user
 
     return (
       <Segment basic loading={!ready}>
