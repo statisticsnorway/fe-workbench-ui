@@ -9,6 +9,7 @@ import NotebookServiceMock from '../services/NotebookServiceMock'
 import NotebookServiceImpl from '../services/NotebookServiceImpl'
 import Properties from '../properties/properties'
 import { stringFormat } from "../utilities/common/StringHandling"
+import { UI } from '../utilities/enum'
 
 const IllegalAccessError = new Error("Accessing context outside of WorkbenchContext")
 
@@ -79,8 +80,12 @@ export class ContextProvider extends Component {
 
   getLocalizedGsimObjectText (state) {
     return (codeTextObj) => {
-      let text = codeTextObj.find(name => name.languageCode === state.languageCode) || codeTextObj[0]
-      return text === undefined ? null : text.languageText
+      if (codeTextObj === undefined) {
+        return null
+      } else {
+        let text = codeTextObj.find(name => name.languageCode === state.languageCode) || codeTextObj[0]
+        return text === undefined ? null : text.languageText
+      }
     }
   }
 

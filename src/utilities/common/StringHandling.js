@@ -1,5 +1,3 @@
-import { UI } from '../enum'
-
 export const lowerCaseFirst = (string) => {
   if (typeof string === 'string') {
     return string.charAt(0).toLowerCase() + string.slice(1)
@@ -49,15 +47,5 @@ export const stringFormat = (template, ...params) => {
   } else {
 
     return false;
-  }
-}
-
-export const extractStringFromObject = (object, language) => {
-  if (typeof object === 'object' && object !== null) {
-    const nameObject = object.find(object => object.languageCode === language)
-
-    return `${nameObject === undefined ? object[0].languageText : nameObject.languageText}`
-  } else {
-    return UI.GENERIC_MISSING[language]
   }
 }
