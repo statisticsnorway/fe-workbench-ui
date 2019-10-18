@@ -6,6 +6,7 @@ import CustomStatus from './CustomStatus'
 import { WorkbenchContext } from '../../../context/ContextProvider'
 import { STATUS_TABLE } from '../../../utilities/enum'
 import { mockStatusData } from '../../../mocks/MockStatusData'
+import { extractStringFromObject } from '../../../utilities/common/StringHandling'
 
 class StatusTable extends Component {
   static contextType = WorkbenchContext
@@ -45,7 +46,7 @@ class StatusTable extends Component {
       let dataResourcesOptions = dataResources.filter(dataResource =>
         user.userPrefs.preferences.dataResource.includes(dataResource.id)).map(dataResource => ({
         key: dataResource.id,
-        text: dataResource.name.filter(name => name.languageCode === context.languageCode)[0].languageText,
+        text: extractStringFromObject(dataResource.name),
         value: dataResource.id
       }))
       this.setState({

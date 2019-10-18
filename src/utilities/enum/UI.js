@@ -150,5 +150,9 @@ export const UI = {
   GENERIC_CANCEL: {
     en: 'Cancel',
     nb: 'Avbryt'
+  },
+  GENERIC_MISSING: {
+    en: 'MANGLENDE_TEKST',
+    nb: 'MISSING_TEXT'
   }
 }

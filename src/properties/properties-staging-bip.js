@@ -10,7 +10,7 @@ export default {
     lds: ldsBaseUrl,
     backend: "https://workbench.staging-bip-app.ssb.no/be/workbench-backend/",
     role: ldsBaseUrl + "/ns/Role/",
-    dataResource: ldsBaseUrl + "/ns/DataResource/",
+    dataResource: ldsBaseUrl + "/ns/StatisticalProgram/",
     notebookService: 'https://workbench.staging-bip-app.ssb.no/be/workbench-backend/api/'
   },
   oauth: {

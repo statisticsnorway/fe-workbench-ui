@@ -1,74 +1,80 @@
 [
   {
-    "administrativeStatus": "OPEN",
     "createdBy": "Test user",
-    "createdDate": "2019-05-02T08:45:53.401Z",
-    "dataResourceType": "STATISTICAL_REGISTER_PERSONS",
-    "dataSets": ["/UnitDataSet/b9c10b86-5867-4270-b56e-ee7439fe381e", "/UnitDataSet/d7f1a566-b906-4561-92cb-4758b766335c"],
-    "id": "3a44047a-d760-42c3-9f8a-d5e544042908",
+    "createdDate": "2019-10-10T08:26:11.109Z",
+    "id": "2627fd32-5913-4fa4-8236-8648a8acddc8",
     "lastUpdatedBy": "Test user",
-    "lastUpdatedDate": "2019-05-02T08:45:53.401Z",
-    "name": [
-      {
-        "languageCode": "nb",
-        "languageText": "Skattestatistikk person"
-      },
+    "lastUpdatedDate": "2019-10-10T08:27:04.464Z",
+    "statisticalProgramStatus": "UNDER_DEVELOPMENT",
+    "validFrom": "2019-10-10T08:26:11.109Z",
+    "validUntil": "2020-10-10T08:27:04.464Z",
+    "version": "1.0.1",
+    "versionValidFrom": "2019-10-10T08:27:04.464Z",
+    "statisticalProgramCycles": [
+      "/StatisticalProgramCycle/651c6cd4-988e-4e5d-995b-699216d49841"
+    ],
+    "description": [
       {
         "languageCode": "en",
-        "languageText": "Person tax statistics"
+        "languageText": "Write something"
       }
     ],
-    "validFrom": "2019-05-02T08:45:53.401Z",
-    "validUntil": "2020-05-02T08:45:53.401Z",
-    "version": "1.0.0",
-    "versionValidFrom": "2019-05-02T08:45:53.401Z"
+    "history": [
+      {
+        "languageCode": "en",
+        "languageText": "A story"
+      }
+    ],
+    "name": [
+      {
+        "languageCode": "en",
+        "languageText": "Test without dependency bp"
+      }
+    ],
+    "subjectMatterDomains": [
+      {
+        "languageCode": "en",
+        "languageText": "Novella"
+      }
+    ]
   },
   {
-    "administrativeStatus": "OPEN",
     "createdBy": "Test user",
-    "createdDate": "2019-05-02T08:47:12.256Z",
-    "dataResourceType": "ETABLISHMENT_ENTERPRISE_REGISTER",
-    "dataSets": ["/UnitDataSet/d7f1a566-b906-4561-92cb-4758b766335c", "/UnitDataSet/b9c10b86-5867-4270-b56e-ee7439fe381e"],
-    "id": "5e508083-49e6-4cae-a144-e4b575f9ac19",
+    "createdDate": "2019-10-09T09:27:20.609Z",
+    "id": "99ce8940-400e-475f-90a2-204eca77886a",
     "lastUpdatedBy": "Test user",
-    "lastUpdatedDate": "2019-05-02T08:47:12.256Z",
-    "name": [
-      {
-        "languageCode": "nb",
-        "languageText": "Skattestatistikk næring"
-      },
+    "lastUpdatedDate": "2019-10-10T11:24:19.557Z",
+    "statisticalProgramStatus": "UNDER_DEVELOPMENT",
+    "validFrom": "2019-10-09T09:27:20.609Z",
+    "validUntil": "2020-10-10T11:24:19.557Z",
+    "version": "1.0.2",
+    "versionValidFrom": "2019-10-10T11:24:19.557Z",
+    "statisticalProgramCycles": [
+      "/StatisticalProgramCycle/8560b6c5-87ec-45df-b320-d1196c9573de"
+    ],
+    "description": [
       {
         "languageCode": "en",
-        "languageText": "Business tax statistics"
+        "languageText": "A descript..."
       }
     ],
-    "validFrom": "2019-05-02T08:47:12.256Z",
-    "validUntil": "2020-05-02T08:47:12.256Z",
-    "version": "1.0.0",
-    "versionValidFrom": "2019-05-02T08:47:12.256Z"
-  },
-  {
-    "administrativeStatus": "OPEN",
-    "createdBy": "Test user",
-    "createdDate": "2019-05-02T08:45:53.701Z",
-    "dataResourceType": "ETABLISHMENT_ENTERPRISE_REGISTER",
-    "dataSets": ["/UnitDataSet/b9c10b86-5867-4270-b56e-ee7439fe381e", "/UnitDataSet/d7f1a566-b906-4561-92cb-4758b766335c"],
-    "id": "3a44047a-d760-42c3-9f8a-d5e5440429aa",
-    "lastUpdatedBy": "Test user",
-    "lastUpdatedDate": "2019-05-02T08:45:53.701Z",
-    "name": [
-      {
-        "languageCode": "nb",
-        "languageText": "Strukturstatistikk"
-      },
+    "history": [
       {
         "languageCode": "en",
-        "languageText": "Structural business statistics"
+        "languageText": "And so it begins..."
       }
     ],
-    "validFrom": "2019-05-02T08:45:53.701Z",
-    "validUntil": "2020-05-02T08:45:53.701Z",
-    "version": "1.0.0",
-    "versionValidFrom": "2019-05-02T08:45:53.701Z"
+    "name": [
+      {
+        "languageCode": "en",
+        "languageText": "Test statistical program"
+      }
+    ],
+    "subjectMatterDomains": [
+      {
+        "languageCode": "en",
+        "languageText": "Testing"
+      }
+    ]
   }
 ]
