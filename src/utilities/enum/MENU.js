@@ -19,6 +19,10 @@ export const MENU = {
     en: 'Notebooks',
     nb: 'Notebooks'
   },
+  WORK_FLOW: {
+    en: 'Visualization of statistical production',
+    nb: 'Visualisering av statistikkproduksjon'
+  },
   PREP_ANALYSIS: {
     en: 'Preparation Analysis',
     nb: 'Klargjøringsanalyse'

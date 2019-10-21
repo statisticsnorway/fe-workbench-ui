@@ -22,6 +22,7 @@ import NotificationPopup from "../../utilities/NotificationPopup"
 import Variable from '../variable/Variable'
 import './homeStyles.css'
 import MenuComponent from "./menu/MenuComponent"
+import GraphVis from "../prep_and_analysis/GraphVis"
 
 class Home extends Component {
   static contextType = WorkbenchContext
@@ -94,6 +95,7 @@ class Home extends Component {
                   <AccessControlRoute path='/collection/dashboard' component={Dashboard}/>
                   <AccessControlRoute path='/collection/setup' component={CollectionSetup}/>
                   <AccessControlRoute path='/prep/notebooks' component={NotebookAdmin}/>
+                  <AccessControlRoute path='/prep/graph-vis' component={GraphVis}/>
                   <AccessControlRoute path='/prep/analysis' component={PrepAnalsysis}/>
                   <AccessControlRoute path='/prep/setup' component={PrepAnalysisSetup}/>
                   <AccessControlRoute path='/prep/methodlibrary' component={MethodLibrary}/>
