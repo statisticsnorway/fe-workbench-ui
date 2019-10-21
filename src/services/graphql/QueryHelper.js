@@ -28,7 +28,7 @@ export function filterByText(results, value) {
 }
 
 function flattenTexts(arr) {
-  return arr.map(value => value.languageText).join(' ');
+  return arr !== null ? arr.map(value => value.languageText).join(' ') : '';
 }
 
 // Collect all result entries (e.g. dataset types and variables) into one list
