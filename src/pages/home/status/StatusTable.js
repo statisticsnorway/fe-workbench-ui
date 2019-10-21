@@ -45,7 +45,7 @@ class StatusTable extends Component {
       let dataResourcesOptions = dataResources.filter(dataResource =>
         user.userPrefs.preferences.dataResource.includes(dataResource.id)).map(dataResource => ({
         key: dataResource.id,
-        text: dataResource.name.filter(name => name.languageCode === context.languageCode)[0].languageText,
+        text: context.getLocalizedGsimObjectText(dataResource.name),
         value: dataResource.id
       }))
       this.setState({

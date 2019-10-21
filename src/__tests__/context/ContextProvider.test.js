@@ -31,23 +31,22 @@ afterEach(() => {
   cleanup()
 })
 
-const includeProvider = () => {
+const includeProvider = (value) => {
   const { getByTestId } = render(
     <ContextProvider>
-      <Test value={gsimObject}/>
+      <Test value={value}/>
     </ContextProvider>)
   return { getByTestId }
 }
 
 const excludeProvider = () => {
-  const { getByTestId } = render(
-      <Test value={gsimObject}/>
-    )
+  const { getByTestId } = render(<Test value={gsimObject}/>)
   return { getByTestId }
 }
 
+
 test('Gsim object text renders correctly', () => {
-  const { getByTestId } = includeProvider()
+  const { getByTestId } = includeProvider(gsimObject)
   expect(getByTestId('testId')).toHaveTextContent('test-no')
   fireEvent.click(getByTestId('testId'))
   expect(getByTestId('testId')).toHaveTextContent('test-en')
@@ -55,4 +54,14 @@ test('Gsim object text renders correctly', () => {
 
 test('Accessing context outside of WorkbenchContext should throw error', () => {
   expect(() => excludeProvider()).toThrowError()
+})
+
+test('Returns null when empty object', () => {
+  const { getByTestId } = includeProvider([])
+  expect(getByTestId('testId')).toHaveTextContent('')
+})
+
+test('Returns null when undefined object', () => {
+  const { getByTestId } = includeProvider(undefined)
+  expect(getByTestId('testId')).toHaveTextContent('')
 })

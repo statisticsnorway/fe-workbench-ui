@@ -89,11 +89,11 @@ describe('Test App routing logic', () =>
     // for waitForElement to subscribe
     await waitForElement(() => getByText('Statistikkprodusent'))
 
-    await waitForElement(() => getByText('Strukturstatistikk'))
+    await waitForElement(() => getByText('Test statistical program'))
 
     // Set preferences and save
     fireEvent.click(getByText('Statistikkprodusent'))
-    fireEvent.click(getByText('Strukturstatistikk'))
+    fireEvent.click(getByText('Test statistical program'))
     fireEvent.click(getByText('Norsk'))
     fireEvent.click(getByText('LDS-C'))
     fireEvent.click(getByTestId('save-button'))
@@ -113,10 +113,10 @@ describe('Test App routing logic', () =>
     fireEvent.click(getByTestId('login-button'))
 
     // Wait for preferences to be resolved (need two awaits for some reason)
-    await findAllByText('Skattestatistikk person')
+    await findAllByText('Test statistical program')
     await expect(queryAllByText('SSB Logo')).toHaveLength(2)
     // Wait for statustable to be resolved
-    await findAllByText('Skattestatistikk person')
+    await findAllByText('Test statistical program')
 
     fireEvent.click(getByText(UI.LOGOUT.nb))
     await expect(queryAllByPlaceholderText(UI.USER.nb)).toHaveLength(1)

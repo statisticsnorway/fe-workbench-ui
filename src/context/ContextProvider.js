@@ -79,8 +79,12 @@ export class ContextProvider extends Component {
 
   getLocalizedGsimObjectText (state) {
     return (codeTextObj) => {
-      let text = codeTextObj.find(name => name.languageCode === state.languageCode) || codeTextObj[0]
-      return text === undefined ? null : text.languageText
+      if (codeTextObj === undefined) {
+        return null
+      } else {
+        let text = codeTextObj.find(name => name.languageCode === state.languageCode) || codeTextObj[0]
+        return text === undefined ? null : text.languageText
+      }
     }
   }
 
