@@ -4,6 +4,8 @@ import { UI } from '../utilities/enum/UI'
 import LdsServiceMock from '../services/LdsServiceMock'
 import UserPreferences from '../pages/userconfig/UserPreferences'
 import { ContextProvider } from '../context/ContextProvider'
+import Preferences from './test-data/Preferences'
+import { LDS_INSTANCES } from "../utilities/enum/LDS_INSTANCES"
 
 afterEach(() => {
   cleanup()
@@ -11,14 +13,18 @@ afterEach(() => {
 
 const setup = () => {
   const props = {
-    dataResource: [],
+    statisticalProgram: [],
     loggedIn: false,
     role: '',
     error: false,
+    user: {
+      username: 'admin',
+      userPrefs: Preferences.admin.preferences
+    },
     handleUpdate: () => Promise.reject()
   }
   const { queryAllByText, getByText, getByTestId } = render(
-    <ContextProvider>
+    <ContextProvider user={props.user}>
       <UserPreferences fullscreen={true} {...props} />
     </ContextProvider>)
 
@@ -27,15 +33,15 @@ const setup = () => {
 
 test('UserPreferences renders correctly', () => {
   const spyGetRoles = jest.spyOn(LdsServiceMock.prototype, 'getRoles')
-  const spyGetDataResources = jest.spyOn(LdsServiceMock.prototype, 'getDataResources')
+  const spyGetStatisticalPrograms = jest.spyOn(LdsServiceMock.prototype, 'getStatisticalPrograms')
 
   const { queryAllByText } = setup()
 
   expect(spyGetRoles).toHaveBeenCalled()
-  expect(spyGetDataResources).toHaveBeenCalled()
+  expect(spyGetStatisticalPrograms).toHaveBeenCalled()
   expect(queryAllByText('SSB Logo')).toHaveLength(1)
   expect(queryAllByText(UI.ROLE.nb)).toHaveLength(2)
-  expect(queryAllByText(UI.DATA_RESOURCE.nb)).toHaveLength(2)
+  expect(queryAllByText(UI.STATISTICAL_PROGRAM.nb)).toHaveLength(2)
 
   expect(queryAllByText(UI.SAVE.nb)).toHaveLength(1)
   expect(queryAllByText(UI.GENERIC_ERROR.nb)).toHaveLength(0)
@@ -46,13 +52,13 @@ test('Error renders error field', async() => {
 
   await waitForElement(() => getByText('Statistikkprodusent'))
 
-  await waitForElement(() => getByText('Test statistical program'))
+  await waitForElement(() => getByText('Test without dependency bp'))
 
   // Set preferences and save
   fireEvent.click(getByText('Statistikkprodusent'))
   fireEvent.click(getByText('Test statistical program'))
-  fireEvent.click(getByText('Norsk'))
-  fireEvent.click(getByText('LDS-C'))
+  fireEvent.click(getByText(UI.LANGUAGE_CHOICE.nb))
+  fireEvent.click(getByText(LDS_INSTANCES.C.nb))
   fireEvent.click(getByTestId('save-button'))
 
   await expect(queryAllByText('SSB Logo')).toHaveLength(1)

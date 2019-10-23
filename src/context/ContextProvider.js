@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import BackendServiceMock from '../services/BackendServiceMock'
 import BackendServiceImpl from '../services/BackendServiceImpl'
@@ -46,20 +47,41 @@ export class ContextProvider extends Component {
 
   setUser (ref) {
     return (user) => {
-      ref.setState({user: user})
+      ref.setState(
+        {
+          user: user,
+          ldsService: Properties.mock.lds === true ? new LdsServiceMock()
+            : new LdsServiceImpl(ref.getLdsUrl(_.get(user, 'userPrefs.preferences.lds')))
+        })
     }
   }
 
   updateUserPrefs (ref) {
-    return (userPrefs) => {
+    return (userPrefs, callback) => {
       if (ref.state.user) {
         this.setState(prevState => ({
           user: {
             ...prevState.user,
             userPrefs: userPrefs
-          }
+          },
+          ldsService: Properties.mock.lds === true ? new LdsServiceMock()
+            : new LdsServiceImpl(ref.getLdsUrl(userPrefs.preferences.lds))
         }))
       }
+      // TODO could this be used for refreshing current page?
+      if (callback) {
+        callback()
+      }
+    }
+  }
+
+  getLdsUrl (ldsInstance) {
+      switch (ldsInstance) {
+        default:
+        /* falls through */
+        case 'A': return Properties.api.lds
+        case 'B': return Properties.api.ldsB
+        case 'C': return Properties.api.ldsC
     }
   }
 

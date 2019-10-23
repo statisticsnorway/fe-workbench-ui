@@ -1,9 +1,9 @@
 export const STATUS_TABLE = {
-  DATA_RESOURCE: {
+  STATISTICAL_PROGRAM: {
     icon: 'database',
     text: {
-      en: 'Data resource',
-      nb: 'Dataressurs'
+      en: 'Statistcal program',
+      nb: 'Statistikkprogram'
     }
   },
   INFO: {

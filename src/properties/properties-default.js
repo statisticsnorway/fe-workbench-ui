@@ -10,9 +10,10 @@ export default {
   },
   api: {
     lds: "",
+    ldsB: "",
+    ldsC: "",
     backend: "",
-    role: "",
-    dataResource: "",
+    namespace: "",
     notebookService: ""
   },
   oauth: {

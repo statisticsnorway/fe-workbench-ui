@@ -1,6 +1,6 @@
 /*
 This data would be retrieved from different sources (both GSIM-objects and metadata from other services) for each
-dataResource and/or provisionAgreement or something else.
+statisticalProgram and/or provisionAgreement or something else.
 */
 
 const customData = {

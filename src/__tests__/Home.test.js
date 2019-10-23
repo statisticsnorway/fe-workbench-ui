@@ -13,7 +13,7 @@ afterEach(() => {
 
 const setup = () => {
   const props = {
-    dataResource: ['personTaxStatistics'],
+    statisticalProgram: ['personTaxStatistics'],
     role: 'ee9269d9-ec25-4d7d-9148-6d5c28353b24',
     user: 'test'
   }

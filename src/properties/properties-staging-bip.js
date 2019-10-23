@@ -2,15 +2,16 @@ import defaultProps from './properties-default'
 
 const env = defaultProps
 
-const ldsBaseUrl = "https://workbench.staging-bip-app.ssb.no/be/lds-c"
+const baseUrl = "https://workbench.staging-bip-app.ssb.no/be/"
 
 export default {
   ...env,
   api: {
-    lds: ldsBaseUrl,
-    backend: "https://workbench.staging-bip-app.ssb.no/be/workbench-backend/",
-    role: ldsBaseUrl + "/ns/Role/",
-    dataResource: ldsBaseUrl + "/ns/StatisticalProgram/",
+    lds: baseUrl + 'lds',
+    ldsB: baseUrl + 'lds-b',
+    ldsC: baseUrl + 'lds-c',
+    backend: baseUrl + 'workbench-backend/',
+    namespace: '/ns',
     notebookService: 'https://workbench.staging-bip-app.ssb.no/be/workbench-backend/api/'
   },
   oauth: {

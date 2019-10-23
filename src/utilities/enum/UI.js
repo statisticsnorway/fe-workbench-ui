@@ -3,9 +3,9 @@ export const UI = {
     en: 'App version',
     nb: 'Appversjon'
   },
-  DATA_RESOURCE: {
-    en: 'Data resource(s)',
-    nb: 'Dataressurs(er)'
+  STATISTICAL_PROGRAM: {
+    en: 'Statistical program(s)',
+    nb: 'Statistikkprogram'
   },
   ENGLISH: {
     en: 'English',

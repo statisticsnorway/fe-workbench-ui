@@ -10,10 +10,6 @@ if (process.env.NODE_ENV === 'test') {
       properties = require('./properties-development')
       break
     }
-    case 'staging': {
-      properties = require('./properties-staging')
-      break
-    }
     case 'staging_bip': {
       properties = require('./properties-staging-bip')
       break

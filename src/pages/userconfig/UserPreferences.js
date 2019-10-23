@@ -14,15 +14,16 @@ class UserPreferences extends Component {
 
   state = {
     rolesReady: false,
-    dataResourcesReady: false,
+    statisticalProgramsReady: false,
     formValidated: false,
     saved: false,
     error: this.props.error,
+    errorText: undefined,
     userPrefs:{
       uuid: _.get(this.context.user, 'userPrefs.uuid'),
       preferences: {
         role: _.get(this.context.user, 'userPrefs.preferences.role'),
-        dataResource: _.get(this.context.user, 'userPrefs.preferences.dataResource'),
+        statisticalProgram: _.get(this.context.user, 'userPrefs.preferences.statisticalProgram'),
         language: _.get(this.context.user, 'userPrefs.preferences.language'),
         lds: _.get(this.context.user, 'userPrefs.preferences.lds')
       }
@@ -38,8 +39,8 @@ class UserPreferences extends Component {
       return {
         userPrefs: prefs, saved: false,
         formValidated: prevState.userPrefs.preferences.role
-        && prevState.userPrefs.preferences.dataResource
-        && prevState.userPrefs.preferences.dataResource.length  > 0
+        && prevState.userPrefs.preferences.statisticalProgram
+        && prevState.userPrefs.preferences.statisticalProgram.length  > 0
         && prevState.userPrefs.preferences.language
         && prevState.userPrefs.preferences.lds
       }
@@ -51,7 +52,12 @@ class UserPreferences extends Component {
       this.setState({ formValidated: false, saved: true })
     ).catch((error) => {
       console.error('Error saving user preferences: ', error)
-      this.setState({ formValidated: true, saved: false, error: true })
+      this.setState({
+        formValidated: true,
+        saved: false,
+        error: true,
+        errorText: error ? error.text : UI.GENERIC_ERROR
+      })
     })
   }
 
@@ -60,28 +66,36 @@ class UserPreferences extends Component {
     let context = this.context
 
     context.ldsService.getRoles().then(roles => {
-      if (this._isMounted) {
-        this.setState({
-          rolesReady: true,
-          roles: roles
-        })
+        if (this._isMounted) {
+          this.setState({
+            rolesReady: true,
+            roles: roles
+          })
+        }
       }
-    }
     ).catch(error => {
       console.error('Error contacting LDS:', error)
-      this.setState({rolesReady: true})
+      this.setState({
+        rolesReady: true,
+        error: true,
+        errorText: error ? error.text : UI.GENERIC_ERROR
+      })
     })
-    context.ldsService.getDataResources().then(dataResources => {
+    context.ldsService.getStatisticalPrograms().then(statisticalPrograms => {
       if (this._isMounted) {
         this.setState({
-          dataResourcesReady: true,
-          dataResources: dataResources
+          statisticalProgramsReady: true,
+          statisticalPrograms: statisticalPrograms
         })
       }
     }).catch(error => {
       console.log(error)
       if (this._isMounted) {
-        this.setState({dataResourcesReady: true})
+        this.setState({
+          statisticalProgramsReady: true,
+          error: true,
+          errorText: error ? error.text : UI.GENERIC_ERROR
+        })
       }
     })
   }
@@ -111,11 +125,11 @@ class UserPreferences extends Component {
     let context = this.context
 
     const { fullscreen } = this.props
-    const { rolesReady, roles, dataResourcesReady, dataResources, formValidated,
+    const { rolesReady, roles, statisticalProgramsReady, statisticalPrograms, formValidated,
       saved, error, userPrefs, handleCancel } = this.state
 
     const roleValues = this.formatDropdownValues(rolesReady, roles)
-    const dataResourceValues = this.formatDropdownValues(dataResourcesReady, dataResources)
+    const statisticalProgramValues = this.formatDropdownValues(statisticalProgramsReady, statisticalPrograms)
 
     const languages = Object.keys(LANGUAGES).map( language => ({
       key: language,
@@ -161,14 +175,14 @@ class UserPreferences extends Component {
                              label={context.getLocalizedText(UI.ROLE)}
                              data-testid='role-dropdown'
                              disabled={!rolesReady} loading={!rolesReady}/>
-                <Form.Select fluid name='dataResource'
-                             placeholder={context.getLocalizedText(UI.DATA_RESOURCE)}
-                             defaultValue={userPrefs.preferences.dataResource}
-                             options={!dataResourcesReady ? [] : dataResourceValues}
+                <Form.Select fluid name='statisticalProgram'
+                             placeholder={context.getLocalizedText(UI.STATISTICAL_PROGRAM)}
+                             defaultValue={userPrefs.preferences.statisticalProgram}
+                             options={!statisticalProgramsReady ? [] : statisticalProgramValues}
                              onChange={this.handleChange}
                              multiple
-                             label={context.getLocalizedText(UI.DATA_RESOURCE)}
-                             disabled={!dataResourcesReady} loading={!rolesReady}/>
+                             label={context.getLocalizedText(UI.STATISTICAL_PROGRAM)}
+                             disabled={!statisticalProgramsReady} loading={!rolesReady}/>
                 <Form.Select fluid name='language'
                              placeholder={context.getLocalizedText(UI.LANGUAGE)}
                              value={userPrefs.preferences.language}

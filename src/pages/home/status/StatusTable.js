@@ -12,9 +12,10 @@ class StatusTable extends Component {
 
   state = {
     customStatus: {},
-    dataResource: this.context.user.userPrefs !== undefined ? this.context.user.userPrefs.preferences.dataResource[0] : [],
+    statisticalProgram: this.context.user.userPrefs !== undefined
+      ? this.context.user.userPrefs.preferences.statisticalProgram[0] : [],
     staticStatus: {},
-    dataResourcesOptions: null
+    statisticalProgramOptions: null
   }
 
   componentDidMount () {
@@ -26,7 +27,7 @@ class StatusTable extends Component {
     const staticStatus = {}
 
     Object.entries(mockStatusData).filter(statusData =>
-      user.userPrefs.preferences.dataResource.includes(statusData[1].id)).forEach(statusData => {
+      user.userPrefs.preferences.statisticalProgram.includes(statusData[1].id)).forEach(statusData => {
       Object.keys(mockStatusData[statusData[0]].customData[statusType]).forEach(status =>
           customStatus[status] = { data: mockStatusData[statusData[0]].customData[statusType][status], show: true }
       )
@@ -41,15 +42,15 @@ class StatusTable extends Component {
       staticStatus: staticStatus
     })
 
-    context.ldsService.getDataResources().then(dataResources => {
-      let dataResourcesOptions = dataResources.filter(dataResource =>
-        user.userPrefs.preferences.dataResource.includes(dataResource.id)).map(dataResource => ({
-        key: dataResource.id,
-        text: context.getLocalizedGsimObjectText(dataResource.name),
-        value: dataResource.id
+    context.ldsService.getStatisticalPrograms().then(statisticalPrograms => {
+      let statisticalProgramOptions = statisticalPrograms.filter(statisticalProgram =>
+        user.userPrefs.preferences.statisticalProgram.includes(statisticalProgram.id)).map(statisticalProgram => ({
+        key: statisticalProgram.id,
+        text: context.getLocalizedGsimObjectText(statisticalProgram.name),
+        value: statisticalProgram.id
       }))
       this.setState({
-        dataResourcesOptions: dataResourcesOptions
+        statisticalProgramOptions: statisticalProgramOptions
       })
     })
   }
@@ -71,7 +72,7 @@ class StatusTable extends Component {
   }
 
   render () {
-    const { customStatus, dataResource, staticStatus, dataResourcesOptions } = this.state
+    const { customStatus, statisticalProgram, staticStatus, statisticalProgramOptions } = this.state
 
     let context = this.context
 
@@ -105,10 +106,10 @@ class StatusTable extends Component {
         <Table.Body>
           <Table.Row>
             <Table.Cell>
-              <Dropdown name='dataResource' value={dataResource} options={dataResourcesOptions}
-                        onChange={this.handleChange} disabled={!dataResourcesOptions} loading={!dataResourcesOptions}/>
+              <Dropdown name='statisticalProgram' value={statisticalProgram} options={statisticalProgramOptions}
+                        onChange={this.handleChange} disabled={!statisticalProgramOptions} loading={!statisticalProgramOptions}/>
             </Table.Cell>
-            { dataResourcesOptions && dataResourcesOptions.length > 0 &&
+            { statisticalProgramOptions && statisticalProgramOptions.length > 0 &&
             <Fragment>
               <Table.Cell verticalAlign='top'><StaticStatus {...staticStatus} /></Table.Cell>
               <Table.Cell verticalAlign='top'><CustomStatus {...customStatus} /></Table.Cell>

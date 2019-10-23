@@ -7,7 +7,7 @@ import { filterByText } from './graphql/QueryHelper'
 import { mapSearchResult } from './graphql/SearchQuery'
 import _ from 'lodash'
 import dataset from '../__tests__/test-data/DatasetWithStructure'
-import DataResources from '../__tests__/test-data/DataResources'
+import StatisticalProgram from '../__tests__/test-data/StatisticalPrograms'
 import { mapResult } from './graphql/DatasetQuery'
 import {
   mapDatasetsByVariableIdResult,
@@ -42,9 +42,9 @@ class LdsServiceMock {
     return Promise.resolve(Roles)
   }
 
-  getDataResources() {
-    console.info('(MOCK) DataResources')
-    return Promise.resolve(DataResources)
+  getStatisticalPrograms() {
+    console.info('(MOCK) getting statistical programs')
+    return Promise.resolve(StatisticalProgram)
   }
 
   getDatasets() {

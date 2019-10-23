@@ -6,6 +6,8 @@ import { cleanup, fireEvent, render, waitForElement } from '@testing-library/rea
 import App from '../App'
 import { UI } from '../utilities/enum'
 import { ContextProvider } from '../context/ContextProvider'
+import Preferences from "./test-data/Preferences"
+import { LDS_INSTANCES } from "../utilities/enum/LDS_INSTANCES"
 
 afterEach(() => {
   cleanup()
@@ -14,7 +16,7 @@ afterEach(() => {
 const setup = (props) => {
   const { getByTestId, getByText, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText, findAllByText } = render(
     <MemoryRouter>
-      <ContextProvider>
+      <ContextProvider user={props ? props.user : undefined}>
         <App {...props} />
       </ContextProvider>
     </MemoryRouter>
@@ -53,7 +55,7 @@ describe('Test App routing logic', () =>
 
     await expect(queryAllByText('SSB Logo')).toHaveLength(1)
     expect(queryAllByText(UI.ROLE.nb)).toHaveLength(2)
-    expect(queryAllByText(UI.DATA_RESOURCE.nb)).toHaveLength(2)
+    expect(queryAllByText(UI.STATISTICAL_PROGRAM.nb)).toHaveLength(2)
     expect(queryAllByText(UI.GENERIC_ERROR.nb)).toHaveLength(0)
   })
 
@@ -75,7 +77,13 @@ describe('Test App routing logic', () =>
   })
 
   test('Save Preferences button directs to Home', async () => {
-    const { getByTestId, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText, getByText } = setup()
+    const props = {
+      user: {
+        username: 'admin',
+        userPrefs: Preferences.admin.preferences
+      }
+    }
+    const { getByTestId, queryAllByPlaceholderText, queryAllByText, getByPlaceholderText, getByText } = setup(props)
 
     // Set username and log in
     fireEvent.change(getByPlaceholderText(UI.USER.nb), { target: { value: 'noprefs' } })
@@ -94,8 +102,8 @@ describe('Test App routing logic', () =>
     // Set preferences and save
     fireEvent.click(getByText('Statistikkprodusent'))
     fireEvent.click(getByText('Test statistical program'))
-    fireEvent.click(getByText('Norsk'))
-    fireEvent.click(getByText('LDS-C'))
+    fireEvent.click(getByText(UI.LANGUAGE_CHOICE.nb))
+    fireEvent.click(getByText(LDS_INSTANCES.C.nb))
     fireEvent.click(getByTestId('save-button'))
 
     await expect(queryAllByText('SSB Logo')).toHaveLength(1)

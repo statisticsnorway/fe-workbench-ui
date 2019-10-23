@@ -100,17 +100,13 @@ class App extends Component {
     }
   }
 
-  handleChange = (event, data) => {
-    this.setState({ [data.name]: data.value })
-  }
-
   handleUserPreferences = (userId) => {
     let context = this.context
     let prefs = context.backendService.searchUserPreferences(userId)
 
     prefs.then(resolved =>
-      this.setState({ userPrefsReady: true },
-        () => context.updateUserPrefs(resolved[0]))
+      context.updateUserPrefs(resolved[0],
+        () => this.setState({ userPrefsReady: true }))
     ).catch((error) => {
       console.error('Error logging in: ', error)
       this.setState({ error: true })
@@ -144,7 +140,7 @@ class App extends Component {
       && userPrefs.preferences
       && userPrefs.preferences.language
       && userPrefs.preferences.role
-      && userPrefs.preferences.dataResource
+      && userPrefs.preferences.statisticalProgram
       && userPrefs.preferences.lds
   }
 

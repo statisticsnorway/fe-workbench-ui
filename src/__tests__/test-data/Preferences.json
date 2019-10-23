@@ -5,7 +5,7 @@
     "preferences": {
       "language": "nb",
       "role": "ee9269d9-ec25-4d7d-9148-6d5c28353b24",
-      "dataResource": [
+      "statisticalProgram": [
         "99ce8940-400e-475f-90a2-204eca77886a",
         "2627fd32-5913-4fa4-8236-8648a8acddc8"
       ],
@@ -18,7 +18,7 @@
     "preferences": {
       "language": "en",
       "role": "719c1dfe-fb73-48c5-81aa-aa55f2a665d2",
-      "dataResource": [
+      "statisticalProgram": [
         "2627fd32-5913-4fa4-8236-8648a8acddc8"
       ],
       "lds": "B"
