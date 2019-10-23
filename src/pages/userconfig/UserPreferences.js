@@ -76,7 +76,6 @@ class UserPreferences extends Component {
     ).catch(error => {
       console.error('Error contacting LDS:', error)
       this.setState({
-        rolesReady: true,
         error: true,
         errorText: error ? error.text : UI.GENERIC_ERROR
       })
@@ -92,7 +91,6 @@ class UserPreferences extends Component {
       console.log(error)
       if (this._isMounted) {
         this.setState({
-          statisticalProgramsReady: true,
           error: true,
           errorText: error ? error.text : UI.GENERIC_ERROR
         })

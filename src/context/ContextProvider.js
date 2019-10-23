@@ -65,7 +65,7 @@ export class ContextProvider extends Component {
             userPrefs: userPrefs
           },
           ldsService: Properties.mock.lds === true ? new LdsServiceMock()
-            : new LdsServiceImpl(ref.getLdsUrl(userPrefs.preferences.lds))
+            : new LdsServiceImpl(ref.getLdsUrl(userPrefs ? userPrefs.preferences.lds : ""))
         }))
       }
       // TODO could this be used for refreshing current page?
