@@ -11,7 +11,7 @@ const options = {
     hierarchical: {
       enabled: true,
       direction: 'LR',
-      sortMethod: 'hubsize',
+      sortMethod: 'directed',
       parentCentralization: true,
       levelSeparation: 300
     }
@@ -53,11 +53,17 @@ const GraphViS = () => {
   const context = useContext(WorkbenchContext)
 
   useEffect(() => {
+    //get('http://localhost:8000/api/graph/statisticalProgram/99ce8940-400e-475f-90a2-204eca77886a').then(graph => {
     get('https://workbench.staging-bip-app.ssb.no/be/workbench-graph-service/api/graph/statisticalProgram/c2a6b58a-d6df-4539-aba9-56d3eff46ef7?lds=C').then(graph => {
       setGraph({
         edges : graph.edges,
         nodes: graph.nodes.map(n => {
         if (n.type === 'ProcessStep') n.color = '#7be041'
+        if (n.type === 'StatisticalProgramCycle') {
+          n.color = 'orange'
+          n.shape = 'hexagon'
+          n.size = 30
+        }
         if (n.type === 'CodeBlock') {
           n.color = '#00000'
           n.shape = 'diamond'
