@@ -1,62 +1,65 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Graph from "react-graph-vis";
 import ProcessStepPopup from "./ProcessStepPopup"
 import { WorkbenchContext } from "../../context/ContextProvider"
 import { NOTIFICATION_TYPE } from "../../utilities/enum/NOTIFICATION_TYPE"
 import DatasetPopup from "./DatasetPopup"
-
-const nodes = [
-    { id: 1, label: 'Skatt', color: '#4881E0', type: 'UnitDataset', objectId: 'someUUID' },
-    { id: 2, label: 'Freg', color: '#4881E0', type: 'UnitDataset', objectId: 'someUUID' },
-    { id: 3, label: 'Prosessteg_1', color: '#7be041', type: 'ProcessStep', objectId: '2ERCTPFF5' },
-    { id: 4, label: 'Aggregert_1', color: '#4881E0', type: 'UnitDataset', objectId: 'someUUID' },
-    { id: 5, label: 'Aggregert_2', color: '#4881E0', type: 'UnitDataset', objectId: 'someUUID' },
-    { id: 6, label: 'Prosessteg_2', color: '#7be041', type: 'ProcessStep', objectId: '2ET8ANFY3' },
-    { id: 7, label: 'Aggregert_3', color: '#4881E0', type: 'UnitDataset', objectId: 'someUUID' },
-]
-
-const edges = [
-    { from: 1, to: 3 },
-    { from: 2, to: 3 },
-    { from: 3, to: 4 },
-    { from: 3, to: 5 },
-    { from: 5, to: 6 },
-    { from: 6, to: 7 },
-]
-
-const graph = {
-  nodes,edges
-};
+import { get } from '../../utilities/fetch/Fetch'
 
 const options = {
   layout: {
     hierarchical: {
       enabled: true,
       direction: 'LR',
-      sortMethod: 'directed',
-      parentCentralization: true
+      sortMethod: 'hubsize',
+      parentCentralization: true,
+      levelSeparation: 300
     }
+  },
+  nodes: {
+    shape: 'dot',
   },
   interaction: {
     dragNodes: false,
-    dragView: false
+    dragView: true
   },
   edges: {
     color: "#000000"
   }
-};
-
-
-
-const getNode = (nodeId) => {
-  return nodes.filter(node => node.id === nodeId)[0]
 }
+
 
 const GraphViS = () => {
   // TODO use one state variable for this
   const [ selectedNote, setSelectedNote ] = useState(null)
   const [ selectedDataset, setSelectedDataset ] = useState(null)
+  const [ graph, setGraph ] = useState(null)
   const context = useContext(WorkbenchContext)
+
+  useEffect(() => {
+    get('https://workbench.staging-bip-app.ssb.no/be/workbench-graph-service/api/graph/statisticalProgram/c2a6b58a-d6df-4539-aba9-56d3eff46ef7?lds=C').then(graph => {
+      setGraph({
+        edges : graph.edges,
+        nodes: graph.nodes.map(n => {
+        if (n.type === 'ProcessStep') n.color = '#7be041'
+        if (n.type === 'CodeBlock') {
+          n.color = '#00000'
+          n.shape = 'diamond'
+        }
+        if (n.type === 'UnitDataset') {
+          n.color = '#4881E0'
+          n.shape = 'square'
+        }
+        return n
+      })
+    })
+  })
+
+  }, [])
+
+  const getNode = (nodeId) => {
+    return graph.nodes.filter(node => node.id === nodeId)[0]
+  }
 
   const events = {
     select: (event) => {
@@ -100,7 +103,7 @@ const GraphViS = () => {
       <div>
         <h1>React graph vis</h1>
 
-        <Graph graph={graph} options={options} events={events} style={{ height: "640px" }} />
+        {graph && <Graph graph={graph} options={options} events={events} style={{ height: "840px", width: "100%" }} />}
       </div>
     </>
   )
