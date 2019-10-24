@@ -46,6 +46,10 @@ export const MENU = {
   KLASS: {
     en: 'KLASS',
     nb: 'KLASS'
+  },
+  INSTANCE_VARIABLE: {
+    en: 'Instance variables',
+    nb: 'Instansvariabler'
   }
   ,
   DOCUMENTATION: {

@@ -38,6 +38,7 @@ const LeftMenu = () => {
       <Menu.Item style={{textAlign:'left'}} as={Link} to='/metadata/import'>{MENU.IMPORT[context.languageCode]}</Menu.Item>
       <Menu.Item style={{textAlign:'left'}} as={Link} to='/metadata/gsimbrowser'>{MENU.GSIM_BROWSER[context.languageCode]}</Menu.Item>
       <Menu.Item style={{textAlign:'left'}} href='https://data.ssb.no' target='_blank'>{MENU.KLASS[context.languageCode]}</Menu.Item>
+      <Menu.Item style={{textAlign:'left'}} href='https://instance-variables.staging-bip-app.ssb.no' target='_blank'>{MENU.INSTANCE_VARIABLE[context.languageCode]}</Menu.Item>
     </Menu.Menu>
   )
 
