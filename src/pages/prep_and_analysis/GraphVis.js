@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Graph from "react-graph-vis";
-import ProcessStepPopup from "./ProcessStepPopup"
 import { WorkbenchContext } from "../../context/ContextProvider"
 import { NOTIFICATION_TYPE } from "../../utilities/enum/NOTIFICATION_TYPE"
-import DatasetPopup from "./DatasetPopup"
 import { get } from '../../utilities/fetch/Fetch'
+import NodeDetailsSidebar from "./NodeDetailsSidebar"
 
 const options = {
+  autoResize: true,
   layout: {
     hierarchical: {
       enabled: true,
@@ -19,6 +19,7 @@ const options = {
   nodes: {
     shape: 'dot',
   },
+  physics: false,
   interaction: {
     dragNodes: false,
     dragView: true
@@ -26,13 +27,28 @@ const options = {
   edges: {
     color: "#000000"
   }
+};
+
+const fullSizeStyle = {
+  height: "640px",
 }
+
+const showLeftPaneStyle = {
+  height: "640px",
+  float: 'left',
+  width: '80%'
+}
+
+// const getNode = (nodeId) => {
+//   return nodes.filter(node => node.id === nodeId)[0]
+// }
 
 
 const GraphViS = () => {
-  // TODO use one state variable for this
-  const [ selectedNote, setSelectedNote ] = useState(null)
-  const [ selectedDataset, setSelectedDataset ] = useState(null)
+  const [ selectedNote/*, setSelectedNote*/ ] = useState(null)
+  const [ selectedNode, setSelectedNode ] = useState(null)
+  const [ showSidePane ] = useState(true) // TODO do not show initially?
+  const [ network, setNetwork ] = useState(null)
   const [ graph, setGraph ] = useState(null)
   const context = useContext(WorkbenchContext)
 
@@ -61,49 +77,64 @@ const GraphViS = () => {
     return graph.nodes.filter(node => node.id === nodeId)[0]
   }
 
+  useEffect( () => {
+    if (network) {
+      network.fit()
+    }
+  }, [network])
+
   const events = {
     select: (event) => {
-      let { nodes, edges } = event;
-      let selectedNode = getNode(nodes[0])
-      switch (selectedNode.type) {
-        case 'ProcessStep':
-        {
-          context.notebookService.getNote(selectedNode.objectId, context.user) // TODO why does this return all notes?
-            .then(note => {
-              setSelectedNote(note)
-            })
-            .catch(error => context.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text))
-          break;
-        }
-        case 'UnitDataset':
-        {
-          setSelectedDataset(selectedNode)
-          break;
-        }
-        default:
-        {
-          context.setNotification(true, NOTIFICATION_TYPE.ERROR, 'Ugyldig type')
+      let { nodes } = event;
+      if (nodes[0]) {
+
+        const selectedNode = getNode(nodes[0])
+        setSelectedNode(selectedNode)
+        switch (selectedNode.type) {
+          case 'ProcessStep':
+          {
+            // TODO put noteID on node and fetch note details on select
+            // context.notebookService.getNote(selectedNode.objectId, context.user)
+            //   .then(note => {
+            //     setSelectedNote(note)
+            //   })
+            //   .catch(error => context.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text))
+            break;
+          }
+          case 'UnitDataset':
+          {
+            break;
+          }
+          case 'BusinessProcess':
+          {
+            break;
+          }
+          case 'CodeBlock':
+          {
+            break;
+          }
+          default:
+          {
+            context.setNotification(true, NOTIFICATION_TYPE.ERROR, 'Ugyldig type')
+          }
         }
       }
-
-      console.log("Selected nodes:");
-      console.log(nodes);
-      console.log("Selected edges:");
-      console.log(edges);
+      network.fit()
     }
   }
 
   return (
     <>
-      {/*TODO consider use same check and component for popups*/}
-      {selectedNote !== null && <ProcessStepPopup open={true} note={selectedNote}
-                                         onClose={ () => setSelectedNote(null)}/>}
-      {selectedDataset !== null && <DatasetPopup open={true} dataset={selectedDataset}
-                                                  onClose={ () => setSelectedDataset(null)}/>}
       <div>
         <h1>React graph vis</h1>
+        <div>
 
-        {graph && <Graph graph={graph} options={options} events={events} style={{ height: "840px", width: "100%" }} />}
+          <div style={showSidePane ? showLeftPaneStyle : fullSizeStyle}>
+            {graph && <Graph graph={graph} options={options} events={events} getNetwork={network => setNetwork(network)} />}
+          </div>
+          {showSidePane && <NodeDetailsSidebar node={selectedNode} note={selectedNote} style={{float: 'right'}}/>}
+        </div>
+
       </div>
     </>
   )
