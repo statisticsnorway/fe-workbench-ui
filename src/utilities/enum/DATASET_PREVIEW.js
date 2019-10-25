@@ -27,4 +27,8 @@ export const DATASET_PREVIEW = {
     en: ' Click to copy ID to clipboard',
     nb: ' Klikk for å kopiere ID til utklippstavlen'
   },
+  OPEN_IN_PREVIEW: {
+    en: 'Open in dataset view',
+    nb: 'Åpne i datasettvisning'
+  }
 }

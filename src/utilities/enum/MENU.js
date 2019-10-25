@@ -23,6 +23,10 @@ export const MENU = {
     en: 'Visualization of statistical production',
     nb: 'Visualisering av statistikkproduksjon'
   },
+  DATASET_FLOW: {
+    en: 'Dataset flow',
+    nb: 'Datasettflyt'
+  },
   PREP_ANALYSIS: {
     en: 'Preparation Analysis',
     nb: 'Klargjøringsanalyse'

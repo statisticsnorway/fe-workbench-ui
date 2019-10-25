@@ -39,12 +39,7 @@ const showLeftPaneStyle = {
   width: '80%'
 }
 
-// const getNode = (nodeId) => {
-//   return nodes.filter(node => node.id === nodeId)[0]
-// }
-
-
-const GraphViS = () => {
+const ProcessFlow = () => {
   const [ selectedNote/*, setSelectedNote*/ ] = useState(null)
   const [ selectedNode, setSelectedNode ] = useState(null)
   const [ showSidePane ] = useState(true) // TODO do not show initially?
@@ -146,4 +141,4 @@ const GraphViS = () => {
   )
 }
 
-export default GraphViS
+export default ProcessFlow
