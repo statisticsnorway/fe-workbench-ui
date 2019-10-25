@@ -3,9 +3,9 @@ import Graph from "react-graph-vis";
 import { WorkbenchContext } from "../../context/ContextProvider"
 import { NOTIFICATION_TYPE } from "../../utilities/enum/NOTIFICATION_TYPE"
 import { MENU } from "../../utilities/enum/MENU"
-import { edges, nodes } from "../../mocks/DatasetGraphMockData"
 import DatasetDetailsSidebar from "./DatasetDetailsSidebar"
 import { Grid } from "semantic-ui-react"
+import { get } from '../../utilities/fetch/Fetch'
 
 const options = {
   autoResize: true,
@@ -39,15 +39,17 @@ const DatasetFlow = () => {
   const context = useContext(WorkbenchContext)
 
   useEffect(() => {
-    const graph = {nodes, edges}
-    setGraph({
-      edges : graph.edges,
-      nodes: graph.nodes.map(n => {
-        if (n.type === 'UnitDataset') {
-          n.color = '#4881E0'
-          n.shape = 'dot'
-        }
-        return n
+    //get('http://localhost:8000/api/graph/statisticalProgram/99ce8940-400e-475f-90a2-204eca77886a?filter=datasets').then(graph => {
+      get('https://workbench.staging-bip-app.ssb.no/be/workbench-graph-service/api/graph/statisticalProgram/c2a6b58a-d6df-4539-aba9-56d3eff46ef7?lds=C&filter=datasets').then(graph => {
+      setGraph({
+        edges: graph.edges,
+        nodes: graph.nodes.map(n => {
+          if (n.type === 'UnitDataset') {
+            n.color = '#4881E0'
+            n.shape = 'dot'
+          }
+          return n
+        })
       })
     })
   }, [])
