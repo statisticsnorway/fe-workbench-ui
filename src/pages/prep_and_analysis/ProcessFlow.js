@@ -127,7 +127,7 @@ const ProcessFlow = () => {
   return (
     <>
       <div>
-        <h1>React graph vis</h1>
+        <h1>Visualisering av statistikkproduksjon</h1>
         <div>
 
           <div style={showSidePane ? showLeftPaneStyle : fullSizeStyle}>
