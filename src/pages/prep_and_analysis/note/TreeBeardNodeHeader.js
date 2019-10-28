@@ -46,7 +46,7 @@ const Header = ({ node, style }) => {
               </a>
             }>
               <Icon color='blue' name='info circle'/>
-              {context.getLocalizedText(UI.NOTE_OPEN)}
+              {context.getLocalizedText(UI.NOTE_OPEN_EXTERNAL)}
             </Popup>
           </>}
         </div>}

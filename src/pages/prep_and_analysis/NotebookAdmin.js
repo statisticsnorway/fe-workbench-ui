@@ -7,6 +7,7 @@ import CreateNote from './note/CreateNote'
 import Header from "./note/TreeBeardNodeHeader"
 import { UI } from "../../utilities/enum/UI"
 import NotebookTree from '../notebook/NotebookTree'
+import _ from 'lodash'
 
 const treebeardStyle = { // TODO move to css
   tree: {
@@ -97,7 +98,8 @@ class NotebookAdmin extends Component {
     activeNote: null,
     error: false,
     notebookTreeStructure: null,
-    ready: false
+    ready: false,
+    selectedNote: _.get(this.props.location, 'state.noteID')
   }
 
   componentDidMount () {
@@ -117,6 +119,13 @@ class NotebookAdmin extends Component {
       this.setState({
         notebookTreeStructure: this.notebookTree.tree,
         ready: true
+      }, () => {
+        // if opened from graph
+        if (this.state.selectedNote) {
+          const element = this.notebookTree.findElement(e => e.id === this.state.selectedNote)
+          // Set selected node
+          this.notebookTreeOnToggle(element, true)
+        }
       })
     }).catch(error => {
       this.setState({

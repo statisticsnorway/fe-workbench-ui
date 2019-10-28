@@ -13,7 +13,7 @@ const NodeDetailsSidebar = (props) => {
   const [ showVariablesList, setShowVariablesList ] = useState(false)
 
   return (
-    <div style={{ paddingLeft: '10px' }}>
+    <div style={props.style}>
       {showVariablesPopup &&
         <Modal open={showVariablesPopup} closeIcon onClose={() => setShowVariablesPopup(false)} size='large'
         >s

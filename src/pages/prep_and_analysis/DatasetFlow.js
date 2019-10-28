@@ -4,7 +4,6 @@ import { WorkbenchContext } from "../../context/ContextProvider"
 import { NOTIFICATION_TYPE } from "../../utilities/enum/NOTIFICATION_TYPE"
 import { MENU } from "../../utilities/enum/MENU"
 import DatasetDetailsSidebar from "./DatasetDetailsSidebar"
-import { Grid } from "semantic-ui-react"
 import { get } from '../../utilities/fetch/Fetch'
 
 const options = {
@@ -30,6 +29,12 @@ const options = {
     color: "#000000"
   }
 };
+
+const showLeftPaneStyle = {
+  height: "640px",
+  float: 'left',
+  width: '80%'
+}
 
 const DatasetFlow = () => {
   const [ selectedDataset, setSelectedDataset ] = useState(null)
@@ -78,7 +83,6 @@ const DatasetFlow = () => {
         })
           .catch(error => context.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text))
       }
-      network.fit()
     }
   }
 
@@ -87,14 +91,14 @@ const DatasetFlow = () => {
       <style>{`.vis-network {outline-color: white}`}</style>
       <div>
         <h1>{MENU.DATASET_FLOW[context.languageCode]}</h1>
-        <Grid columns="equal">
-          <Grid.Column width={12}>
+        <div>
+
+          <div style={showLeftPaneStyle}>
             {graph && <Graph graph={graph} options={options} events={events} getNetwork={network => setNetwork(network)} />}
-          </Grid.Column>
-          <Grid.Column>
-            {showSidePane && <DatasetDetailsSidebar dataset={selectedDataset} />}
-          </Grid.Column>
-        </Grid>
+          </div>
+          {showSidePane && <DatasetDetailsSidebar dataset={selectedDataset}
+                                                  style={{float: 'right', width: '20%', paddingLeft: '2px', overflowX: 'auto'}}/>}
+        </div>
       </div>
     </>
   )

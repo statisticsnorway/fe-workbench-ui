@@ -40,7 +40,7 @@ const showLeftPaneStyle = {
 }
 
 const ProcessFlow = () => {
-  const [ selectedNote/*, setSelectedNote*/ ] = useState(null)
+  const [ selectedNote, setSelectedNote ] = useState(null)
   const [ selectedNode, setSelectedNode ] = useState(null)
   const [ showSidePane ] = useState(true) // TODO do not show initially?
   const [ network, setNetwork ] = useState(null)
@@ -94,12 +94,13 @@ const ProcessFlow = () => {
         switch (selectedNode.type) {
           case 'ProcessStep':
           {
-            // TODO put noteID on node and fetch note details on select
-            // context.notebookService.getNote(selectedNode.objectId, context.user)
-            //   .then(note => {
-            //     setSelectedNote(note)
-            //   })
-            //   .catch(error => context.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text))
+            if (selectedNode.technicalID) {
+              context.notebookService.getNote(selectedNode.technicalID, context.user)
+                .then(note => {
+                  setSelectedNote(note)
+                })
+                .catch(error => context.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text))
+            }
             break;
           }
           case 'UnitDataset':
@@ -120,7 +121,6 @@ const ProcessFlow = () => {
           }
         }
       }
-      network.fit()
     }
   }
 
@@ -134,7 +134,8 @@ const ProcessFlow = () => {
           <div style={showSidePane ? showLeftPaneStyle : fullSizeStyle}>
             {graph && <Graph graph={graph} options={options} events={events} getNetwork={network => setNetwork(network)} />}
           </div>
-          {showSidePane && <NodeDetailsSidebar node={selectedNode} note={selectedNote} style={{float: 'right'}}/>}
+          {showSidePane && <NodeDetailsSidebar node={selectedNode} note={selectedNote}
+                                               style={{float: 'right', width: '20%', paddingLeft: '2px', overflowX: 'auto'}}/>}
         </div>
 
       </div>
