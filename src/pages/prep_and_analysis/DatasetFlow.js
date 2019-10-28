@@ -84,6 +84,7 @@ const DatasetFlow = () => {
 
   return (
     <>
+      <style>{`.vis-network {outline-color: white}`}</style>
       <div>
         <h1>{MENU.DATASET_FLOW[context.languageCode]}</h1>
         <Grid columns="equal">

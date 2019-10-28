@@ -126,6 +126,7 @@ const ProcessFlow = () => {
 
   return (
     <>
+      <style>{`.vis-network {outline-color: white}`}</style>
       <div>
         <h1>Visualisering av statistikkproduksjon</h1>
         <div>
