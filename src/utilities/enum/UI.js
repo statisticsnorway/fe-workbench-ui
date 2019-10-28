@@ -72,6 +72,10 @@ export const UI = {
     nb: 'Notes'
   },
   NOTEBOOK_ADMIN_HEADER: {
+    en: 'Person Tax Statistics',
+    nb: 'Skattestatistikk for personer'
+  },
+  NOTEBOOK_ADMIN_SUB_HEADER: {
     en: 'Notes you have access to',
     nb: 'Notes du har tilgang til'
   },
