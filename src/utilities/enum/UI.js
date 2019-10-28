@@ -120,6 +120,10 @@ export const UI = {
     nb: 'Note med ID \'{0}\' ble ikke funnet'
   },
   NOTE_OPEN: {
+    en: 'Open',
+    nb: 'Åpne'
+  },
+  NOTE_OPEN_EXTERNAL: {
     en: 'Open in external notebook',
     nb: 'Åpne i ekstern notebook '
   },
