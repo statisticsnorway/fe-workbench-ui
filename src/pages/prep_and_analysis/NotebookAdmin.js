@@ -224,8 +224,9 @@ class NotebookAdmin extends Component {
         <Message floating onDismiss={() => this.setState({error: false, message: null})} positive={!error} negative={error} icon={error ? 'warning' : 'check'} content={message}/>}
         {ready &&
         <>
+          {/*TODO The header text should not be static. Get from LDS (StatisticalProgram?) */}
           <UiHeader as='h1' dividing icon={{ name: 'book', color: 'teal' }}
-                  content={context.getLocalizedText(UI.NOTEBOOK_NOTES)} subheader={context.getLocalizedText(UI.NOTEBOOK_ADMIN_HEADER)} />
+                    content={context.getLocalizedText(UI.NOTEBOOK_ADMIN_HEADER)} subheader={context.getLocalizedText(UI.NOTEBOOK_ADMIN_SUB_HEADER)} />
 
           <Grid>
             <Grid.Column width={4}>
