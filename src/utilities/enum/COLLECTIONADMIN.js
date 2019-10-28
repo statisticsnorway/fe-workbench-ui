@@ -66,6 +66,18 @@ export const COLLECTION_UI = {
       en: 'Stop converter',
       nb: 'Stopp konvertering'
     }
+  },
+  NUMBER_CONVERTED: {
+    en: 'Number converted',
+    nb: 'Antall konverterte'
+  },
+  NUMBER_FAILED: {
+    en: 'Number failed',
+    nb: 'Antall feilet'
+  },
+  ENVIRONMENT: {
+    en: 'environment',
+    nb: 'miljø'
   }
 }
 
@@ -76,7 +88,10 @@ export const COLLECTORS = {
       en: 'FREG',
       nb: 'FREG'
     },
-    converterUrl: 'https://freg-converter.staging-bip-app.ssb.no/',
+    converterUrl: {
+      staging: 'https://rawdata-converter-app-freg.staging-bip-app.ssb.no/',
+      develop: 'http://localhost:18081'
+    },
     collectorSpec: 'skeFregPlaygroundSpec'
   },
   SKATT: {
@@ -85,7 +100,10 @@ export const COLLECTORS = {
       en: 'Skatteetaten.',
       nb: 'Skatteetaten'
     },
-    converterUrl: 'https://sirius-converter.staging-bip-app.ssb.no/',
+    converterUrl: {
+      staging: 'https://rawdata-converter-app-sirius.staging-bip-app.ssb.no',
+      develop: 'http://localhost:18083'
+    },
     collectorSpec: 'skeSiriusPersonFastsattSpec'
   },
   TVINN: {
@@ -94,7 +112,10 @@ export const COLLECTORS = {
       en: 'Tvinn',
       nb: 'Tvinn'
     },
-    converterUrl: 'https://tvinn-converter.staging-bip-app.ssb.no/',
+    converterUrl: {
+      staging: 'https://rawdata-converter-app-tvinn.staging-bip-app.ssb.no',
+      develop: 'http://localhost:18085'
+    },
     collectorSpec: 'tollTvinnTestSpec'
   }
 }
