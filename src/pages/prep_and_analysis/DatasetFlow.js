@@ -6,6 +6,8 @@ import { MENU } from "../../utilities/enum/MENU"
 import DatasetDetailsSidebar from "./DatasetDetailsSidebar"
 import { get } from '../../utilities/fetch/Fetch'
 
+const canvasHeight = '800px'
+
 const options = {
   autoResize: true,
   layout: {
@@ -31,7 +33,7 @@ const options = {
 };
 
 const showLeftPaneStyle = {
-  height: "640px",
+  height: canvasHeight,
   float: 'left',
   width: '80%'
 }
@@ -97,7 +99,7 @@ const DatasetFlow = () => {
             {graph && <Graph graph={graph} options={options} events={events} getNetwork={network => setNetwork(network)} />}
           </div>
           {showSidePane && <DatasetDetailsSidebar dataset={selectedDataset}
-                                                  style={{float: 'right', width: '20%', paddingLeft: '2px', overflowX: 'auto'}}/>}
+                                                  style={{float: 'right', width: '20%', paddingLeft: '2px', maxHeight: canvasHeight, overflow: 'auto'}}/>}
         </div>
       </div>
     </>
