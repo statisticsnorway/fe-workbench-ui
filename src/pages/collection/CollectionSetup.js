@@ -1,21 +1,27 @@
 import React, { Component } from 'react'
-import { Segment, Grid, Header, Button, Input, Select, Icon, TextArea} from 'semantic-ui-react'
+import { Segment, Grid, Header, Button, Input, Select, Icon, TextArea, Label} from 'semantic-ui-react'
 import { COLLECTION_UI, COLLECTORS } from '../../utilities/enum/COLLECTIONADMIN'
 import { WorkbenchContext } from '../../context/ContextProvider'
-import { get, put, post } from '../../utilities/fetch/Fetch'
+import { get, put, post, del } from '../../utilities/fetch/Fetch'
 import skeFregPlaygroundSpec  from '../../mocks/collectorSpecs/skeFregPlaygroundSpec'
 import skeSiriusPersonFastsattSpec  from '../../mocks/collectorSpecs/skeSiriusPersonFastsattSpec'
 import tollTvinnTestSpec  from '../../mocks/collectorSpecs/tollTvinnTestSpec'
 
+// const GET = 'GET'
 const PUT = 'PUT'
 const POST = 'POST'
-const environments = [{key: '1', text: 'develop', value: 'develop'},{key: '2', text: 'staging', value: 'staging'}]
-const collectorStart = {
-  staging: 'https://data-collector.staging-bip-app.ssb.no/task', develop: 'http://localhost:18080/task'
+const DELETE = 'DELETE'
+const environments = [{key: '1', text: 'development', value: 'development'},{key: '2', text: 'staging', value: 'staging'}]
+
+const collectorServerConf = {
+  staging: '/be/data-collector', development: 'http://localhost:18080'
 }
-const converterStartEndpoint = 'rawdata-converter/start'
-const converterStopEndpoint = 'rawdata-converter/stop'
-const converterMetricsEndpoint = 'rawdata-converter/metrics'
+
+const converterStartEndpoint = '/start'
+const converterStopEndpoint = '/stop'
+const converterMetricsEndpoint = '/metrics'
+const collectorEndpoint = '/tasks'
+
 
 
 class CollectionSetup extends Component {
@@ -26,12 +32,16 @@ class CollectionSetup extends Component {
     collectorid: '',
     numberConverted: '',
     numberConvertFailed: '',
-    showSpec: false
+    showSpec: false,
+    activeTasks: [],
+    activetask: '',
+    guiUpdateInterval: 2000
   }
 
   componentDidMount () {
-    this.setMetrics();
-    this.interval = setInterval(() => {this.setMetrics()}, 5000)
+    this.setMetricsAndActiveTasks();
+    this.interval = setInterval(() => {
+      this.setMetricsAndActiveTasks()}, this.state.guiUpdateInterval)
   }
 
   componentWillUnmount () {clearInterval(this.interval)}
@@ -48,40 +58,49 @@ class CollectionSetup extends Component {
   }
 
 
-  onButtonClick = (url, verb, converterSpec) => {
-    console.log(verb + ' : ' +  url + ' converterSpec: ' +  converterSpec)
+  onButtonClick = (url, verb, collectorSpec) => {
+    console.log(verb + ' : ' +  url + ' collectorSpec: ' +  collectorSpec)
 
-    return( verb === PUT ? put(url, converterSpec) :
-      (verb === POST ? post(url, converterSpec) :
-        (get(url, converterSpec)))
-    ).then(data => {
-      console.log(data, 'onButtonClick')
+    return( verb === PUT ? put(url, collectorSpec) :
+      (verb === POST ? post(url, collectorSpec) :
+        (verb === DELETE ? del(url, collectorSpec) :
+          get(url, collectorSpec))))
+      .then(data => {
+        console.log(data, 'onButtonClick')
     })
   }
 
-  getConverterSpecFromFile (converterSpecFile) {
-    return converterSpecFile === 'skeFregPlaygroundSpec' ? skeFregPlaygroundSpec :
-        (converterSpecFile === 'skeSiriusPersonFastsattSpec' ? skeSiriusPersonFastsattSpec :
-            (converterSpecFile === 'tollTvinnTestSpec' ? tollTvinnTestSpec : {spec: 'ingen spec'})
+  getCollectorSpecFromFile (collectorSpecFile) {
+    return collectorSpecFile === 'skeFregPlaygroundSpec' ? skeFregPlaygroundSpec :
+        (collectorSpecFile === 'skeSiriusPersonFastsattSpec' ? skeSiriusPersonFastsattSpec :
+            (collectorSpecFile === 'tollTvinnTestSpec' ? tollTvinnTestSpec : {spec: 'ingen spec'})
         )
   }
 
-  setMetrics = () => {
+  setMetricsAndActiveTasks = () => {
     if (this.state.collector) {
-      return get(this.state.collector.converterUrl + converterMetricsEndpoint).then(data => {
-        this.setState({ numberConverted: data['converter-metrics'].converted, numberConvertFailed: data['converter-metrics'].failed })
+      Promise.all([
+        get(this.state.collector.converterUrl + converterMetricsEndpoint),
+        get(collectorServerConf[this.state.environment] + collectorEndpoint)
+      ]).then(response => {
+        this.setState({
+          numberConverted: response[0]['converter-metrics'].converted,
+          numberConvertFailed: response[0]['converter-metrics'].failed,
+          activeTasks: response[1]
+        })
       })
     } else {
-      this.setState({numberConverted: '', numberConvertFailed: ''})
+      this.setState({numberConverted: '', numberConvertFailed: '', activeTasks: []})
     }
     console.log(this.state.numberConverted, 'setMetrics')
   }
 
   handleShowSpecClick = () => this.setState((prevState) => ({showSpec: !prevState.showSpec}))
 
+
   render () {
     let context = this.context
-    const {environment, collectorid, collector, numberConverted, numberConvertFailed, showSpec} = this.state
+    const {environment, collectorid, collector, numberConverted, numberConvertFailed, showSpec, activeTasks, activetask, guiUpdateInterval} = this.state
 
     const collectors = Object.keys(COLLECTORS).map(collector => ({
       key: COLLECTORS[collector].id,
@@ -89,28 +108,50 @@ class CollectionSetup extends Component {
       value: COLLECTORS[collector].id
     }))
 
+    const activetaskscollection = Object.keys(activeTasks).map(task => ({
+      key: activeTasks[task]['task-id'],
+      text: activeTasks[task]['specification-id'],
+      value: activeTasks[task]['task-id']
+    }))
+
+    const collectorSpec = collector ? this.getCollectorSpecFromFile(collector.collectorSpec)  : ''
+    const collectorIdFromSpec = collectorSpec.id || ''
+    const activeCollectorTask = activeTasks.filter(t => t['specification-id'] === collectorIdFromSpec)[0]
+    const activeCollectorTaskId = activeCollectorTask ? activeCollectorTask['task-id'] : ''
 
     const converterStart = collector ? collector.converterUrl[environment] + converterStartEndpoint : ''
     const converterStop = collector ? collector.converterUrl[environment] + converterStopEndpoint : ''
-    const converterSpec = collector ? this.getConverterSpecFromFile(collector.collectorSpec)  : ''
+    const collectorStart = collectorServerConf[environment] + collectorEndpoint
+    const collectorStop = collectorServerConf[environment] + collectorEndpoint + '/' + (activeCollectorTaskId || activetask)
+
+
+    // const ActiveTaskList = () =>
+    //   <List>
+    //     {activeTasks.map((item) => ActiveTasksListItem(item))}
+    //   </List>
+    // const ActiveTasksListItem = item =>
+    //   <List.Item>
+    //     <List.Content>{item['specification-id']}</List.Content>
+    //   </List.Item>
+
 
     return (
       <Segment basic>
         <Segment.Group horizontal>
           <Segment>
-            <Grid style={{width: 700}}>
+            <Grid style={{width: 800}}>
               <Grid.Row>
                 <Header>
                   <Icon name={'database'} color={'blue'}/>
                   <Header.Content>{context.getLocalizedText(COLLECTION_UI.COLLECTION_HEADER)} for</Header.Content>
                 </Header>
                 <Select fluid
-                             style={{width: `${(8 * collectors.length) + 100}px`}}
-                             name='collector'
-                             placeholder={context.getLocalizedText(COLLECTION_UI.COLLECTORS)}
-                             value={collectorid}
-                             options={collectors}
-                             onChange={this.handleCollectorChange}/>
+                        style={{width: `${(8 * collectors.length) + 100}px`}}
+                        name='collector'
+                        placeholder={context.getLocalizedText(COLLECTION_UI.COLLECTORS)}
+                        value={collectorid}
+                        options={collectors}
+                        onChange={this.handleCollectorChange}/>
                 <Select fluid
                         style={{width: `${(8 * collectors.length) + 100}px`}}
                         name='environment'
@@ -118,51 +159,77 @@ class CollectionSetup extends Component {
                         value={environment}
                         options={environments}
                         onChange={this.handleChange}/>
+                <Button icon={(showSpec ? 'hide':'unhide')} onClick={this.handleShowSpecClick} disabled={!collector}/>
               </Grid.Row>
               <Grid.Row>
-                {collector ? '(' + collector.converterUrl[environment] + ')' : ''}
-              </Grid.Row>
-              <Grid.Row>
-                <Grid>
-                  <Grid.Row>
-                    <Segment basic>
+                <Grid.Column width={10}>
+                    <Segment>
+                      <Label attached={'top'}>{context.getLocalizedText(COLLECTION_UI.COLLECTOR)}</Label>
+
                       <Button name='startcollector'
-                              onClick={() => this.onButtonClick(collectorStart, PUT, converterSpec)}
+                              onClick={() => this.onButtonClick(collectorServerConf.start, PUT, collectorSpec)}
                               disabled={!collector}>
                         {context.getLocalizedText(COLLECTION_UI.BUTTON_START_COLLECTOR_FROM_BEGINNING.label)}
                       </Button>
+                      <Button name='stopcollector'
+                              onClick={() => this.onButtonClick(collectorStop, DELETE, null)}
+                              disabled={!collector || !(activeCollectorTaskId || activetask)}>
+                        {context.getLocalizedText(COLLECTION_UI.BUTTON_STOP_COLLECTOR.label)} {collectorIdFromSpec}
+                      </Button>
+                      {!collectorIdFromSpec && activetaskscollection.length > 0 &&
+                      <Select style={{width: `${(8 * activetaskscollection.length) + 100}px`}}
+                              name='activetask'
+                              placeholder={context.getLocalizedText(COLLECTION_UI.COLLECTORS)}
+                              value={activetask}
+                              options={activetaskscollection}
+                              onChange={this.handleChange}/>
+                      }
+                    </Segment>
+                </Grid.Column>
+                <Grid.Column width={6}>
+                    <Segment>
+                      <Label attached={'top'}>{context.getLocalizedText(COLLECTION_UI.CONVERTER)}</Label>
                       <Button name='startconverter'
-                                   onClick={() => this.onButtonClick(converterStart, POST, converterSpec)}
+                                   onClick={() => this.onButtonClick(converterStart, POST, null)}
                                    disabled={!collector}>
                         {context.getLocalizedText(COLLECTION_UI.BUTTON_START_CONVERTER.label)}
                       </Button>
-                        <Button icon={(showSpec ? 'hide':'unhide')} onClick={this.handleShowSpecClick} disabled={!collector}/>
                       <Button name='stopconverter'
-                                   onClick={() => this.onButtonClick(converterStop, POST, converterSpec)}
+                                   onClick={() => this.onButtonClick(converterStop, POST, null)}
                                    disabled={!collector}>
                         {context.getLocalizedText(COLLECTION_UI.BUTTON_STOP_CONVERTER.label)}
                       </Button>
                     </Segment>
-                  </Grid.Row>
+                </Grid.Column>
+
+
                   <Grid.Row>
                     <Segment basic>
-                      <Input label={context.getLocalizedText(COLLECTION_UI.NUMBER_CONVERTED)} type="text" value={numberConverted} />
-                      <Input label={context.getLocalizedText(COLLECTION_UI.NUMBER_FAILED)} type="text" value={numberConvertFailed} />
+                      <Input label={context.getLocalizedText(COLLECTION_UI.NUMBER_CONVERTED)}
+                             type="text" value={numberConverted}
+                             style={{width: 300}}/>
+                      <Input label={context.getLocalizedText(COLLECTION_UI.NUMBER_FAILED)}
+                             type="text" value={numberConvertFailed}
+                             style={{width: 300}} />
+                      <Input label={context.getLocalizedText(COLLECTION_UI.GUI_UPDATE_INTERVAL)}
+                             type="text" name='guiUpdateInterval' value={guiUpdateInterval}
+                             style={{width: 90}}
+                             onChange={this.handleChange}
+                      />
                     </Segment>
                   </Grid.Row>
-                </Grid>
               </Grid.Row>
             </Grid>
           </Segment>
           {collector && showSpec &&
             <Segment basic>
-              <TextArea value={JSON.stringify(converterSpec, null, 2)} style={{width: 800}} rows={40}/>
+              <TextArea value={JSON.stringify(collectorSpec, null, 2)} style={{width: 800}} rows={40}/>
             </Segment>
           }
         </Segment.Group>
+        {collector && environment ? '(' + collectorStart + ',  ' + collectorStop + ',  ' + converterStart + ')' : ''}
       </Segment>
     )
   }
 }
-
 export default CollectionSetup

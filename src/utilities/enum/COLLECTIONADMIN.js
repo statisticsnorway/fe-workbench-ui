@@ -7,10 +7,26 @@ export const COLLECTION_UI = {
     en: 'Collectors',
     nb: 'Innsamlinger'
   },
+  COLLECTOR: {
+    en: 'Collector',
+    nb: 'Innsamler'
+  },
+  CONVERTER: {
+    en: 'Converter',
+    nb: 'Konverterer'
+  },
+  START: {
+    en: 'Start',
+    nb: 'Start'
+  },
+  STOP: {
+    en: 'Stop',
+    nb: 'Stopp'
+  },
   BUTTON_START_COLLECTOR_FROM_BEGINNING: {
     label: {
-      en: 'Start collector from beginning',
-      nb: 'Start innsamling fra begynnelsen'
+      en: 'Start from beginning',
+      nb: 'Start fra begynnelsen'
     },
     hint: {
       en: 'Start collector from beginning',
@@ -33,8 +49,8 @@ export const COLLECTION_UI = {
       nb: 'Start fra forrige'
     },
     hint: {
-      en: 'Start from last',
-      nb: 'Start fra forrige'
+      en: 'Start collector from last',
+      nb: 'Start innsamling fra forrige'
     }
   },
   BUTTON_STOP_COLLECTOR: {
@@ -49,8 +65,8 @@ export const COLLECTION_UI = {
   },
   BUTTON_START_CONVERTER: {
     label: {
-      en: 'Start converter',
-      nb: 'Start konvertering'
+      en: 'Start',
+      nb: 'Start'
     },
     hint: {
       en: 'Start converter',
@@ -59,8 +75,8 @@ export const COLLECTION_UI = {
   },
   BUTTON_STOP_CONVERTER: {
     label: {
-      en: 'Stop converter',
-      nb: 'Stopp konvertering'
+      en: 'Stop',
+      nb: 'Stopp'
     },
     hint: {
       en: 'Stop converter',
@@ -78,7 +94,12 @@ export const COLLECTION_UI = {
   ENVIRONMENT: {
     en: 'environment',
     nb: 'miljø'
+  },
+  GUI_UPDATE_INTERVAL: {
+    en: 'update interval',
+    nb: 'oppdateringsinterval'
   }
+
 }
 
 export const COLLECTORS = {
@@ -89,20 +110,20 @@ export const COLLECTORS = {
       nb: 'FREG'
     },
     converterUrl: {
-      staging: 'https://rawdata-converter-app-freg.staging-bip-app.ssb.no/',
-      develop: 'http://localhost:18081'
+      staging: '/be/rawdata-converter-freg',
+      development: 'http://localhost:18081/freg'
     },
     collectorSpec: 'skeFregPlaygroundSpec'
   },
   SKATT: {
     id: 2,
     name: {
-      en: 'Skatteetaten.',
-      nb: 'Skatteetaten'
+      en: 'Sirius',
+      nb: 'Sirius'
     },
     converterUrl: {
-      staging: 'https://rawdata-converter-app-sirius.staging-bip-app.ssb.no',
-      develop: 'http://localhost:18083'
+      staging: '/be/rawdata-converter-sirius',
+      development: 'http://localhost:18083/sirius'
     },
     collectorSpec: 'skeSiriusPersonFastsattSpec'
   },
@@ -113,8 +134,8 @@ export const COLLECTORS = {
       nb: 'Tvinn'
     },
     converterUrl: {
-      staging: 'https://rawdata-converter-app-tvinn.staging-bip-app.ssb.no',
-      develop: 'http://localhost:18085'
+      staging: '/be/rawdata-converter-tvinn',
+      developmnet: 'http://localhost:18085/tvinn'
     },
     collectorSpec: 'tollTvinnTestSpec'
   }
