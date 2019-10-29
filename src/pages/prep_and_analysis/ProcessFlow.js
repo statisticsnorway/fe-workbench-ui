@@ -5,6 +5,8 @@ import { NOTIFICATION_TYPE } from "../../utilities/enum/NOTIFICATION_TYPE"
 import { get } from '../../utilities/fetch/Fetch'
 import NodeDetailsSidebar from "./NodeDetailsSidebar"
 
+const canvasHeight = '800px'
+
 const options = {
   autoResize: true,
   layout: {
@@ -30,7 +32,7 @@ const options = {
 };
 
 const fullSizeStyle = {
-  height: "640px",
+  height: canvasHeight,
 }
 
 const showLeftPaneStyle = {
@@ -87,6 +89,7 @@ const ProcessFlow = () => {
   const events = {
     select: (event) => {
       let { nodes } = event;
+      setSelectedNote(null)
       if (nodes[0]) {
 
         const selectedNode = getNode(nodes[0])
@@ -97,7 +100,9 @@ const ProcessFlow = () => {
             if (selectedNode.technicalID) {
               context.notebookService.getNote(selectedNode.technicalID, context.user)
                 .then(note => {
-                  setSelectedNote(note)
+                  if (note && note.body) {
+                    setSelectedNote(note)
+                  }
                 })
                 .catch(error => context.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text))
             }
@@ -112,6 +117,10 @@ const ProcessFlow = () => {
             break;
           }
           case 'CodeBlock':
+          {
+            break;
+          }
+          case 'StatisticalProgramCycle':
           {
             break;
           }
@@ -135,7 +144,7 @@ const ProcessFlow = () => {
             {graph && <Graph graph={graph} options={options} events={events} getNetwork={network => setNetwork(network)} />}
           </div>
           {showSidePane && <NodeDetailsSidebar node={selectedNode} note={selectedNote}
-                                               style={{float: 'right', width: '20%', paddingLeft: '2px', overflowX: 'auto'}}/>}
+                                               style={{float: 'right', width: '20%', paddingLeft: '2px', maxHeight: canvasHeight, overflow: 'auto'}}/>}
         </div>
 
       </div>
