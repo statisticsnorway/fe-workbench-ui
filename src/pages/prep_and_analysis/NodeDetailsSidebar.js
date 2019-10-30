@@ -3,11 +3,18 @@ import { WorkbenchContext } from "../../context/ContextProvider"
 import { UI } from "../../utilities/enum/UI"
 import { Link } from "react-router-dom"
 import { Label } from "semantic-ui-react"
-
+import { GRAPH_NODES } from "../../utilities/enum/GRAPH_NODES"
 
 const NodeDetailsSidebar = (props) => {
   const { node, note } = props
   const context = useContext(WorkbenchContext)
+  const getLocalizedTypeName = (type) => {
+    const node = GRAPH_NODES[type]
+    if (node) {
+      return node[context.languageCode] || type
+    }
+    return type
+  }
 
   return(
     <div style={props.style}>
@@ -16,10 +23,10 @@ const NodeDetailsSidebar = (props) => {
             <b>{node.label}</b>
           </p>
           <p>
-            <i>{node.id}</i>
+            <b>ID:</b> <i>{node.id}</i>
           </p>
           <p>
-            Type: {node.type}
+            <b>Type:</b> {getLocalizedTypeName(node.type)}
           </p>
         </>}
       {note && <>
