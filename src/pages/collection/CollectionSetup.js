@@ -167,7 +167,7 @@ class CollectionSetup extends Component {
                       <Label attached={'top'}>{context.getLocalizedText(COLLECTION_UI.COLLECTOR)}</Label>
 
                       <Button name='startcollector'
-                              onClick={() => this.onButtonClick(collectorServerConf.start, PUT, collectorSpec)}
+                              onClick={() => this.onButtonClick(collectorServerConf.start, PUT, JSON.stringify(collectorSpec))}
                               disabled={!collector}>
                         {context.getLocalizedText(COLLECTION_UI.BUTTON_START_COLLECTOR_FROM_BEGINNING.label)}
                       </Button>
