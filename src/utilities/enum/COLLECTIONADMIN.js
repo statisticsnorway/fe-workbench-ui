@@ -110,7 +110,7 @@ export const COLLECTORS = {
       nb: 'FREG'
     },
     converterUrl: {
-      staging: 'https://workbench.staging-bip-app.ssb.no/be/rawdata-converter-freg',
+      staging_bip: 'https://workbench.staging-bip-app.ssb.no/be/rawdata-converter-freg',
       development: 'http://localhost:18081/freg'
     },
     collectorSpec: 'skeFregPlaygroundSpec'
@@ -122,7 +122,7 @@ export const COLLECTORS = {
       nb: 'Sirius'
     },
     converterUrl: {
-      staging: 'https://workbench.staging-bip-app.ssb.no/be/rawdata-converter-sirius',
+      staging_bip: 'https://workbench.staging-bip-app.ssb.no/be/rawdata-converter-sirius',
       development: 'http://localhost:18083/sirius'
     },
     collectorSpec: 'skeSiriusPersonFastsattSpec'
@@ -134,7 +134,7 @@ export const COLLECTORS = {
       nb: 'Tvinn'
     },
     converterUrl: {
-      staging: 'https://workbench.staging-bip-app.ssb.no/be/rawdata-converter-tvinn',
+      staging_bip: 'https://workbench.staging-bip-app.ssb.no/be/rawdata-converter-tvinn',
       developmnet: 'http://localhost:18085/tvinn'
     },
     collectorSpec: 'tollTvinnTestSpec'

@@ -11,10 +11,10 @@ import tollTvinnTestSpec  from '../../mocks/collectorSpecs/tollTvinnTestSpec'
 const PUT = 'PUT'
 const POST = 'POST'
 const DELETE = 'DELETE'
-const environments = [{key: '1', text: 'development', value: 'development'},{key: '2', text: 'staging', value: 'staging'}]
+const environments = [{key: '1', text: 'development', value: 'development'},{key: '2', text: 'staging', value: 'staging_bip'}]
 
 const collectorServerConf = {
-  staging: 'https://workbench.staging-bip-app.ssb.no/be/data-collector',
+  staging_bip: 'https://workbench.staging-bip-app.ssb.no/be/data-collector',
   development: 'http://localhost:9990'
 }
 
