@@ -14,14 +14,14 @@ const DELETE = 'DELETE'
 const environments = [{key: '1', text: 'development', value: 'development'},{key: '2', text: 'staging', value: 'staging'}]
 
 const collectorServerConf = {
-  staging: '/be/data-collector',
+  staging: 'https://workbench.staging-bip-app.ssb.no/be/data-collector',
   development: 'http://localhost:9990'
 }
 
+const collectorEndpoint = '/tasks'
 const converterStartEndpoint = '/start'
 const converterStopEndpoint = '/stop'
 const converterMetricsEndpoint = '/metrics'
-const collectorEndpoint = '/tasks'
 
 
 
@@ -36,13 +36,15 @@ class CollectionSetup extends Component {
     showSpec: false,
     activeTasks: [],
     activetask: '',
-    guiUpdateInterval: 2000
+    guiUpdateInterval: 3000
   }
 
   componentDidMount () {
+    console.log(this.state.environment, 'miljø')
     this.setMetricsAndActiveTasks();
     this.interval = setInterval(() => {
       this.setMetricsAndActiveTasks()}, this.state.guiUpdateInterval)
+
   }
 
   componentWillUnmount () {clearInterval(this.interval)}
@@ -50,6 +52,11 @@ class CollectionSetup extends Component {
   handleChange = (event, data) => {
     this.setState({ [data.name]: data.value })
   }
+
+  // handleIntervalChange = (event, data) => {
+  //   this.setState({ [data.name]: data.value })
+  //   this.setInterval(data.value)
+  // }
 
   handleCollectorChange = (event, data) => {
     this.setState({
@@ -61,7 +68,6 @@ class CollectionSetup extends Component {
 
   onButtonClick = (url, verb, collectorSpec) => {
     console.log(verb + ' : ' +  url + ' collectorSpec: ' +  collectorSpec)
-
     return( verb === PUT ? put(url, collectorSpec) :
       (verb === POST ? post(url, collectorSpec) :
         (verb === DELETE ? del(url, collectorSpec) :
@@ -79,9 +85,11 @@ class CollectionSetup extends Component {
   }
 
   setMetricsAndActiveTasks = () => {
+    // console.log(this.state.collector ? this.state.collector.converterUrl[this.state.environment] + converterMetricsEndpoint :'', 'call converter-metrics')
+    // console.log(collectorServerConf[this.state.environment] + collectorEndpoint, 'call collector active tasks')
     if (this.state.collector) {
       Promise.all([
-        get(this.state.collector.converterUrl + converterMetricsEndpoint),
+        get(this.state.collector.converterUrl[this.state.environment] + converterMetricsEndpoint),
         get(collectorServerConf[this.state.environment] + collectorEndpoint)
       ]).then(response => {
         this.setState({
@@ -125,7 +133,6 @@ class CollectionSetup extends Component {
     const collectorStart = collectorServerConf[environment] + collectorEndpoint
     const collectorStop = collectorServerConf[environment] + collectorEndpoint + '/' + (activeCollectorTaskId || activetask)
 
-
     // const ActiveTaskList = () =>
     //   <List>
     //     {activeTasks.map((item) => ActiveTasksListItem(item))}
@@ -168,7 +175,7 @@ class CollectionSetup extends Component {
                       <Label attached={'top'}>{context.getLocalizedText(COLLECTION_UI.COLLECTOR)}</Label>
 
                       <Button name='startcollector'
-                              onClick={() => this.onButtonClick(collectorServerConf.staging, PUT, JSON.stringify(collectorSpec))}
+                              onClick={() => this.onButtonClick(collectorStart, PUT, JSON.stringify(collectorSpec))}
                               disabled={!collector}>
                         {context.getLocalizedText(COLLECTION_UI.BUTTON_START_COLLECTOR_FROM_BEGINNING.label)}
                       </Button>
@@ -215,7 +222,8 @@ class CollectionSetup extends Component {
                       <Input label={context.getLocalizedText(COLLECTION_UI.GUI_UPDATE_INTERVAL)}
                              type="text" name='guiUpdateInterval' value={guiUpdateInterval}
                              style={{width: 90}}
-                             onChange={this.handleChange}
+                             disabled={true}
+                             // onChange={this.handleIntervalChange}
                       />
                     </Segment>
                   </Grid.Row>
