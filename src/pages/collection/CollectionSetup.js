@@ -73,7 +73,7 @@ class CollectionSetup extends Component {
         (verb === DELETE ? del(url, collectorSpec) :
           get(url, collectorSpec))))
       .then(data => {
-        data.json(json => console.log(json))
+        console.log(data)
     })
   }
 
@@ -92,7 +92,7 @@ class CollectionSetup extends Component {
         get(this.state.collector.converterUrl[this.state.environment] + converterMetricsEndpoint),
         get(collectorServerConf[this.state.environment] + collectorEndpoint)
       ]).then(response => {
-        response.json(json => console.log(json))
+        console.log(response)
         this.setState({
           numberConverted: response[0]['converter-metrics'].converted,
           numberConvertFailed: response[0]['converter-metrics'].failed,
