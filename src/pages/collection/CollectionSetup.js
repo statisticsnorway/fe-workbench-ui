@@ -14,7 +14,8 @@ const DELETE = 'DELETE'
 const environments = [{key: '1', text: 'development', value: 'development'},{key: '2', text: 'staging', value: 'staging'}]
 
 const collectorServerConf = {
-  staging: '/be/data-collector', development: 'http://localhost:18080'
+  staging: '/be/data-collector',
+  development: 'http://localhost:9990'
 }
 
 const converterStartEndpoint = '/start'
@@ -167,7 +168,7 @@ class CollectionSetup extends Component {
                       <Label attached={'top'}>{context.getLocalizedText(COLLECTION_UI.COLLECTOR)}</Label>
 
                       <Button name='startcollector'
-                              onClick={() => this.onButtonClick(collectorServerConf.start, PUT, JSON.stringify(collectorSpec))}
+                              onClick={() => this.onButtonClick(collectorServerConf.staging, PUT, JSON.stringify(collectorSpec))}
                               disabled={!collector}>
                         {context.getLocalizedText(COLLECTION_UI.BUTTON_START_COLLECTOR_FROM_BEGINNING.label)}
                       </Button>
