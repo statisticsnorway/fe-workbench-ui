@@ -19,9 +19,9 @@ const collectorServerConf = {
 }
 
 const collectorEndpoint = '/tasks'
-const converterStartEndpoint = '/start'
-const converterStopEndpoint = '/stop'
-const converterMetricsEndpoint = '/metrics'
+const converterStartEndpoint = '/rawdata-converter/start'
+const converterStopEndpoint = '/rawdata-converter/stop'
+const converterMetricsEndpoint = '/rawdata-converter/metrics'
 
 
 
