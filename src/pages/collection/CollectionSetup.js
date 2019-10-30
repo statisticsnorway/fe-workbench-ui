@@ -73,7 +73,7 @@ class CollectionSetup extends Component {
         (verb === DELETE ? del(url, collectorSpec) :
           get(url, collectorSpec))))
       .then(data => {
-        console.log(data, 'onButtonClick')
+        data.json(json => console.log(json))
     })
   }
 
@@ -85,13 +85,14 @@ class CollectionSetup extends Component {
   }
 
   setMetricsAndActiveTasks = () => {
-    // console.log(this.state.collector ? this.state.collector.converterUrl[this.state.environment] + converterMetricsEndpoint :'', 'call converter-metrics')
-    // console.log(collectorServerConf[this.state.environment] + collectorEndpoint, 'call collector active tasks')
+    console.log(this.state.collector ? this.state.collector.converterUrl[this.state.environment] + converterMetricsEndpoint :'', 'call converter-metrics')
+    console.log(collectorServerConf[this.state.environment] + collectorEndpoint, 'call collector active tasks')
     if (this.state.collector) {
       Promise.all([
         get(this.state.collector.converterUrl[this.state.environment] + converterMetricsEndpoint),
         get(collectorServerConf[this.state.environment] + collectorEndpoint)
       ]).then(response => {
+        response.json(json => console.log(json))
         this.setState({
           numberConverted: response[0]['converter-metrics'].converted,
           numberConvertFailed: response[0]['converter-metrics'].failed,
