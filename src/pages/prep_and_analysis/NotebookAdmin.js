@@ -125,6 +125,12 @@ class NotebookAdmin extends Component {
           const element = this.notebookTree.findElement(e => e.id === this.state.selectedNote)
           // Set selected node
           this.notebookTreeOnToggle(element, true)
+          // Expand all parent folders
+          let e = element.parent
+          while (e) {
+            e.toggled = true
+            e = e.parent
+          }
         }
       })
     }).catch(error => {
