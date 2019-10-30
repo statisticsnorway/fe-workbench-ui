@@ -12,7 +12,8 @@ const options = {
   physics: false,
   interaction: {
     dragNodes: false,
-    dragView: false
+    dragView: false,
+    zoomView: false
   }
 };
 
