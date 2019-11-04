@@ -1,4 +1,6 @@
 # workbench-ui
+[![Build Status](https://drone.prod-bip-ci.ssb.no/api/badges/statisticsnorway/fe-workbench-ui/status.svg?ref=refs/heads/develop)](https://drone.prod-bip-ci.ssb.no/statisticsnorway/fe-workbench-ui)
+
 The longterm goal of this application is to function as the work tool for employees in SSB. It will let them login with 
 their work user and tasks related to their role in the organization will appear to them.
 

@@ -1,10 +1,13 @@
 FROM nginx:alpine
+
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY /build /usr/share/nginx/html
+
 EXPOSE 80
 
 # Copy env script to container
 WORKDIR /usr/share/nginx/html
+
 COPY ./scripts/read_env_var.sh .
 
 # Add bash
