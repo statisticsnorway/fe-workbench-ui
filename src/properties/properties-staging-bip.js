@@ -12,7 +12,8 @@ export default {
     ldsC: baseUrl + 'lds-c',
     backend: baseUrl + 'workbench-backend/',
     namespace: '/ns',
-    notebookService: 'https://workbench.staging-bip-app.ssb.no/be/workbench-backend/api/'
+    notebookService: 'https://workbench.staging-bip-app.ssb.no/be/workbench-backend/api/',
+    graphService: 'https://workbench.staging-bip-app.ssb.no/be/workbench-graph-service/api/'
   },
   oauth: {
     authority: 'https://accounts.google.com',

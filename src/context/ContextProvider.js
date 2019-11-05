@@ -8,6 +8,8 @@ import DatasetServiceImpl from '../services/DatasetServiceImpl'
 import DatasetServiceMock from '../services/DatasetServiceMock'
 import NotebookServiceMock from '../services/NotebookServiceMock'
 import NotebookServiceImpl from '../services/NotebookServiceImpl'
+import GraphServiceMock from '../services/GraphServiceMock'
+import GraphServiceImpl from '../services/GraphServiceImpl'
 import Properties from '../properties/properties'
 import { stringFormat } from "../utilities/common/StringHandling"
 
@@ -39,6 +41,7 @@ export class ContextProvider extends Component {
     ldsService: Properties.mock.lds === true ? new LdsServiceMock(): new LdsServiceImpl(),
     datasetService: Properties.mock.datasetService === true ? new DatasetServiceMock(): new DatasetServiceImpl(),
     notebookService: Properties.mock.notebookService === true ? new NotebookServiceMock(): new NotebookServiceImpl(),
+    graphService: Properties.mock.graphService === true ? new GraphServiceMock(): new GraphServiceImpl(),
     notification: false,
     notificationType: null,
     notificationMessage: null,
@@ -133,6 +136,7 @@ export class ContextProvider extends Component {
           notification: this.state.notification,
           notificationType: this.state.notificationType,
           notificationMessage: this.state.notificationMessage,
+          graphService: this.state.graphService,
           user: this.state.user,
           setUser: this.setUser(this),
           updateUserPrefs: this.updateUserPrefs(this),

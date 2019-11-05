@@ -9,6 +9,7 @@ export default {
     backend: true,
     lds: true,
     datasetService: true,
-    notebookService: true
+    notebookService: true,
+    graphService: true
   }
 }

@@ -6,7 +6,8 @@ export default {
     backend: false,
     lds: false,
     datasetService: false,
-    notebookService: false
+    notebookService: false,
+    graphService: false
   },
   api: {
     lds: "",
@@ -14,7 +15,8 @@ export default {
     ldsC: "",
     backend: "",
     namespace: "",
-    notebookService: ""
+    notebookService: "",
+    graphService: ""
   },
   oauth: {
     authority: "",

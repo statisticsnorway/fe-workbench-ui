@@ -23,7 +23,6 @@ import Variable from '../variable/Variable'
 import './homeStyles.css'
 import MenuComponent from "./menu/MenuComponent"
 import ProcessFlow from "../prep_and_analysis/ProcessFlow"
-import DatasetFlow from "../prep_and_analysis/DatasetFlow"
 
 class Home extends Component {
   static contextType = WorkbenchContext
@@ -97,7 +96,6 @@ class Home extends Component {
                   <AccessControlRoute path='/collection/setup' component={CollectionSetup}/>
                   <AccessControlRoute path='/prep/notebooks' component={NotebookAdmin}/>
                   <AccessControlRoute path='/prep/processgraph' component={ProcessFlow}/>
-                  <AccessControlRoute path='/prep/datasetgraph' component={DatasetFlow}/>
                   <AccessControlRoute path='/prep/analysis' component={PrepAnalsysis}/>
                   <AccessControlRoute path='/prep/setup' component={PrepAnalysisSetup}/>
                   <AccessControlRoute path='/prep/methodlibrary' component={MethodLibrary}/>
