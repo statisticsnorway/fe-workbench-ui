@@ -6,7 +6,7 @@ class GraphServiceMock {
 
   getGraph = (user, statisticalProgramId, filters) => {
     console.info('(MOCK) getting graph for ' + statisticalProgramId)
-    return Promise.resolve(filters ? DataGraph : ProcessGraph)
+    return Promise.resolve(filters && filters.length > 0 ? DataGraph : ProcessGraph)
   }
 }
 

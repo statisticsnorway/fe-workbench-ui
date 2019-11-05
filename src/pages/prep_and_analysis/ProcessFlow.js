@@ -96,22 +96,20 @@ const ProcessFlow = () => {
           })
           const legendGraph = getLegendNodes(nodes, mutableContext.languageCode)
           setLegend(legendGraph)
+
+          if (network) {
+            network.fit()
+          }
         }
       })
         .catch(error => mutableContext.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text))
 
     }
-  }, [mutableContext, statisticalProgram, datasetsOnly])
+  }, [mutableContext, statisticalProgram, datasetsOnly, network])
 
   const getNode = (nodeId) => {
     return graph.nodes.filter(node => node.id === nodeId)[0]
   }
-
-  useEffect(() => {
-    if (network) {
-      network.fit()
-    }
-  }, [network])
 
   const events = {
     select: (event) => {
