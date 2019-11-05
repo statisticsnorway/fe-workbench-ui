@@ -20,7 +20,7 @@ class GraphServiceImpl {
       queryStr.push(...filters)
     }
 
-    return filters.length > 0 ? '?' + filters.join(',') : ''
+    return queryStr.length > 0 ? '?' + queryStr.join(',') : ''
   }
 }
 
