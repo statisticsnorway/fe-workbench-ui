@@ -8,7 +8,6 @@ class GraphServiceMock {
     console.info('(MOCK) getting graph for ' + statisticalProgramId)
     return Promise.resolve(filters ? DataGraph : ProcessGraph)
   }
-
 }
 
 export default GraphServiceMock
