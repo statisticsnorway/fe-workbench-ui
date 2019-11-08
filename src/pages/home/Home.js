@@ -30,8 +30,8 @@ class Home extends Component {
     animation: 'scale down',
     direction: 'left',
     leftMenuVisible: false,
-    topMenuVisible: true,
-    topMenuHeight: '238px'
+    topMenuVisible: localStorage.getItem('topMenuVisible') !== 'false',
+    topMenuHeight: localStorage.getItem('topMenuVisible') === 'true' ? '238px' : '36px'
   }
 
   // TODO see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html
@@ -53,6 +53,7 @@ class Home extends Component {
   toggleTopMenuVisibility = (visible) => {
     this.setState({ topMenuVisible: visible })
     this.setTopMenuHeight(visible)
+    localStorage.setItem('topMenuVisible', visible)
   }
 
   // TODO should be a better way to solve this (TopMenu is not considered in the size of the main
