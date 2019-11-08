@@ -11,6 +11,10 @@ export const PROCESS_GRAPH = {
     en: 'Could not find process flow for the selected Statistical Program',
     nb: 'Fant ingen prosessflyt for valgt statistikkprogram'
   },
+  FILTERS: {
+    en: 'Use filters',
+    nb: 'Filtrer visning'
+  },
   DATASET_ONLY: {
     en: 'Show datasets only',
     nb: 'Vis kun datasett'

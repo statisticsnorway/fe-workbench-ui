@@ -7,28 +7,30 @@ import { PROCESS_GRAPH } from '../../utilities/enum/PROCESS_GRAPH'
 import DatasetDetailsSidebar from './DatasetDetailsSidebar'
 import Legend from './Legend'
 import { getGraphNode, getLegendNodes } from '../../utilities/common/GraphUtils'
-import { Checkbox, Select } from 'semantic-ui-react'
+import { Checkbox, Dropdown, Select } from 'semantic-ui-react'
 import NodeDetailsSidebar from './NodeDetailsSidebar'
+import { GRAPH_NODES } from '../../utilities/enum/GRAPH_NODES'
 
-const canvasHeight = '640px'
+const canvasHeight = '750px'
 
 const options = {
   autoResize: true,
   layout: {
+    improvedLayout: true,
     hierarchical: {
       enabled: true,
       direction: 'LR',
       sortMethod: 'directed',
       parentCentralization: true,
-      levelSeparation: 300
+      levelSeparation: 300,
     }
   },
   nodes: {
     shape: 'dot',
   },
-  physics: false,
+  physics: true,
   interaction: {
-    dragNodes: false,
+    dragNodes: true,
     dragView: true
   },
   edges: {
@@ -54,6 +56,15 @@ const sidebarStyle = {
   overflow: 'auto'
 }
 
+const getQueryFilter = (filterObj) => {
+  if (filterObj) {
+    const filterStr = Object.entries(filterObj).filter(e => e[1]).map(e => e[0]).join(',')
+    return ['filter=' + filterStr]
+  } else {
+    return undefined
+  }
+}
+
 const ProcessFlow = () => {
   const [selectedNote, setSelectedNote] = useState(null)
   const [selectedNode, setSelectedNode] = useState(null)
@@ -64,7 +75,13 @@ const ProcessFlow = () => {
   const [legend, setLegend] = useState(null)
   const [statisticalProgram, setStatisticalProgram] = useState(null)
   const [statisticalPrograms, setStatisticalPrograms] = useState(null)
-  const [datasetsOnly, setDatasetsOnly] = useState(undefined)
+  const [showFilters, setShowFilters] = useState(null)
+  const [filters, setFilters] = useState({
+    'BusinessProcess': true,
+    'ProcessStep': true,
+    'UnitDataset': true,
+    'CodeBlock': false,
+  })
   const context = useContext(WorkbenchContext)
   const mutableContext = useRef(context).current
 
@@ -82,8 +99,7 @@ const ProcessFlow = () => {
 
   useEffect(() => {
     if (statisticalProgram) {
-      const filter = datasetsOnly ? ['filter=datasets'] : []
-      mutableContext.graphService.getGraph(mutableContext.user, statisticalProgram, filter).then(graph => {
+      mutableContext.graphService.getGraph(mutableContext.user, statisticalProgram, getQueryFilter(filters)).then(graph => {
         if (!graph.nodes) {
           mutableContext.setNotification(true, NOTIFICATION_TYPE.ERROR, mutableContext.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM_NOT_FOUND))
         } else {
@@ -103,9 +119,8 @@ const ProcessFlow = () => {
         }
       })
         .catch(error => mutableContext.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text))
-
     }
-  }, [mutableContext, statisticalProgram, datasetsOnly, network])
+  }, [mutableContext, statisticalProgram, filters, network])
 
   const getNode = (nodeId) => {
     return graph.nodes.filter(node => node.id === nodeId)[0]
@@ -170,8 +185,37 @@ const ProcessFlow = () => {
     }
   }
 
-  const toggleDatasetsOnly = () => {
-    setDatasetsOnly(!datasetsOnly)
+  const toggleFilters = (e, { name, checked }) => {
+    const newFilter = Object.assign([], filters)
+    newFilter[name] = checked
+    setFilters(newFilter)
+  }
+
+  const Filters = () => {
+    return (
+        <Dropdown open={showFilters} onMouseEnter={() => setShowFilters(true)} onMouseLeave={() => setShowFilters(false)}
+                  className='button icon' text={context.getLocalizedText(PROCESS_GRAPH.FILTERS) + ' '}
+                  simple item >
+          <Dropdown.Menu>
+            <Dropdown.Item>
+              <Checkbox name='BusinessProcess' label={context.getLocalizedText(GRAPH_NODES.BusinessProcess)}
+                        checked={filters['BusinessProcess']} onChange={toggleFilters}/>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Checkbox name='ProcessStep' label={context.getLocalizedText(GRAPH_NODES.ProcessStep)}
+                        checked={filters['ProcessStep']} onChange={toggleFilters}/>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Checkbox name='UnitDataset' label={context.getLocalizedText(GRAPH_NODES.UnitDataset)}
+                        checked={filters['UnitDataset']} onChange={toggleFilters}/>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Checkbox name='CodeBlock' label={context.getLocalizedText(GRAPH_NODES.CodeBlock)}
+                        checked={filters['CodeBlock']} onChange={toggleFilters}/>
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+    )
   }
 
   const defaultStatisticalProgram = statisticalPrograms && statisticalPrograms.length === 1 ? statisticalPrograms[0] : null
@@ -186,7 +230,7 @@ const ProcessFlow = () => {
                 options={statisticalPrograms || []}
                 onChange={(event, data) => setStatisticalProgram(data.value)}
                 label={context.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM) + ':'}/>
-        <Checkbox label={context.getLocalizedText(PROCESS_GRAPH.DATASET_ONLY)} onChange={toggleDatasetsOnly}/>
+        <Filters/>
         <div>
 
           <div style={showSidebar ? showSidebarStyle : fullSizeStyle}>
