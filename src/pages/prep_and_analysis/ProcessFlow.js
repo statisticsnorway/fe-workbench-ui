@@ -7,7 +7,7 @@ import { PROCESS_GRAPH } from '../../utilities/enum/PROCESS_GRAPH'
 import DatasetDetailsSidebar from './DatasetDetailsSidebar'
 import Legend from './Legend'
 import { getGraphNode, getLegendNodes } from '../../utilities/common/GraphUtils'
-import { Checkbox, Dropdown, Select } from 'semantic-ui-react'
+import { Button, Checkbox, Dropdown, Select } from 'semantic-ui-react'
 import NodeDetailsSidebar from './NodeDetailsSidebar'
 import { GRAPH_NODES } from '../../utilities/enum/GRAPH_NODES'
 
@@ -72,6 +72,7 @@ const ProcessFlow = () => {
   const [showSidebar] = useState(true) // TODO do not show initially?
   const [network, setNetwork] = useState(null)
   const [graph, setGraph] = useState(null)
+  const [refresh, setRefresh] = useState(null)
   const [legend, setLegend] = useState(null)
   const [statisticalProgram, setStatisticalProgram] = useState(null)
   const [statisticalPrograms, setStatisticalPrograms] = useState(null)
@@ -120,7 +121,12 @@ const ProcessFlow = () => {
       })
         .catch(error => mutableContext.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text))
     }
-  }, [mutableContext, statisticalProgram, filters, network])
+    setRefresh(false)
+  }, [mutableContext, statisticalProgram, filters, network, refresh])
+
+  const reloadGraph = () => {
+    setRefresh(true)
+  }
 
   const getNode = (nodeId) => {
     return graph.nodes.filter(node => node.id === nodeId)[0]
@@ -231,6 +237,7 @@ const ProcessFlow = () => {
                 onChange={(event, data) => setStatisticalProgram(data.value)}
                 label={context.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM) + ':'}/>
         <Filters/>
+        <Button icon='refresh' onClick={reloadGraph}/>
         <div>
 
           <div style={showSidebar ? showSidebarStyle : fullSizeStyle}>
