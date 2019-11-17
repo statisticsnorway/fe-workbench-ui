@@ -3,9 +3,17 @@ export const PROCESS_GRAPH = {
     en: 'Statistical program',
     nb: 'Statistikkprogram'
   },
+  STATISTICAL_PROGRAM_CYCLE: {
+    en: 'Årgang',
+    nb: 'Year'
+  },
   STATISTICAL_PROGRAM_PLACEHOLDER: {
     en: 'Select Statistical Program',
     nb: 'Velg statistikkprogram'
+  },
+  STATISTICAL_PROGRAM_CYCLE_PLACEHOLDER: {
+    en: 'Select year',
+    nb: 'Velg årgang'
   },
   STATISTICAL_PROGRAM_NOT_FOUND: {
     en: 'Could not find process flow for the selected Statistical Program',

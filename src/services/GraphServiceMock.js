@@ -4,7 +4,7 @@ import DataGraph from '../__tests__/test-data/statisticalProgramSkattDataGraph'
 
 class GraphServiceMock {
 
-  getGraph = (user, statisticalProgramId, filters) => {
+  getGraph = (user, statisticalProgramId, cycleId, filters) => {
     console.info('(MOCK) getting graph for ' + statisticalProgramId)
     return Promise.resolve(filters && filters.length > 0 ? DataGraph : ProcessGraph)
   }

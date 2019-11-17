@@ -8,6 +8,7 @@ import { mapSearchResult } from './graphql/SearchQuery'
 import _ from 'lodash'
 import dataset from '../__tests__/test-data/DatasetWithStructure'
 import StatisticalProgram from '../__tests__/test-data/StatisticalPrograms'
+import StatisticalProgramCycle from '../__tests__/test-data/StatisticalProgramCycle'
 import { mapResult } from './graphql/DatasetQuery'
 import {
   mapDatasetsByVariableIdResult,
@@ -45,6 +46,11 @@ class LdsServiceMock {
   getStatisticalPrograms() {
     console.info('(MOCK) getting statistical programs')
     return Promise.resolve(StatisticalProgram)
+  }
+
+  getStatisticalProgramCycle(id) {
+    console.info('(MOCK) getting statistical program cycles')
+    return Promise.resolve(StatisticalProgramCycle)
   }
 
   getDatasets() {

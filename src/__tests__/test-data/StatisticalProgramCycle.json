@@ -1,0 +1,22 @@
+{
+  "createdBy": "Test user",
+  "createdDate": "2019-10-09T09:27:50.392Z",
+  "id": "8560b6c5-87ec-45df-b320-d1196c9573de",
+  "lastUpdatedBy": "Test user",
+  "lastUpdatedDate": "2019-10-09T12:56:31.634Z",
+  "referencePeriodEnd": "2020-10-08T22:00:00.000Z",
+  "referencePeriodStart": "2019-10-08T22:00:00.000Z",
+  "validFrom": "2019-10-09T09:27:50.392Z",
+  "validUntil": "2020-10-09T12:56:31.634Z",
+  "version": "1.0.2",
+  "versionValidFrom": "2019-10-09T12:56:31.634Z",
+  "businessProcesses": [
+    "/BusinessProcess/010bfa55-bd1c-4e7e-ae30-b8014c9fe623"
+  ],
+  "name": [
+    {
+      "languageCode": "en",
+      "languageText": "Statistical Program Cycle example"
+    }
+  ]
+}

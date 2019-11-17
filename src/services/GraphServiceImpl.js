@@ -3,9 +3,10 @@ import Properties from '../properties/properties'
 
 class GraphServiceImpl {
 
-  getGraph = (user, statisticalProgramId, filters) => {
+  getGraph = (user, statisticalProgramId, cycleId, filters) => {
     return new Promise((resolve, reject) => {
-      get(Properties.api.graphService + 'graph/statisticalProgram/' + statisticalProgramId + this.getQueryString(user, filters))
+      get(Properties.api.graphService + 'graph/statisticalProgram/' + statisticalProgramId + '/' + cycleId +
+        this.getQueryString(user, filters))
         .then(response => resolve(response))
         .catch(error => reject(error))
     })

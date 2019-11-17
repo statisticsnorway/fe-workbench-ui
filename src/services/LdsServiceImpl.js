@@ -91,6 +91,10 @@ class LdsServiceImpl {
     return get(this.ldsUrl + Properties.api.namespace + '/StatisticalProgram')
   }
 
+  getStatisticalProgramCycle = (id) => {
+    return get(this.ldsUrl + Properties.api.namespace + '/StatisticalProgramCycle/' + id)
+  }
+
   getDatasets = () => this.client.query({
     query: ALL_DATASETS
   })

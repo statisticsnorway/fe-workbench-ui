@@ -76,6 +76,8 @@ const ProcessFlow = () => {
   const [legend, setLegend] = useState(null)
   const [statisticalProgram, setStatisticalProgram] = useState(null)
   const [statisticalPrograms, setStatisticalPrograms] = useState(null)
+  const [statisticalProgramCycle, setStatisticalProgramCycle] = useState(null)
+  const [statisticalProgramCycles, setStatisticalProgramCycles] = useState(null)
   const [showFilters, setShowFilters] = useState(null)
   const [filters, setFilters] = useState({
     'BusinessProcess': true,
@@ -88,19 +90,27 @@ const ProcessFlow = () => {
 
   useEffect(() => {
     mutableContext.ldsService.getStatisticalPrograms().then(statisticalPrograms => {
-      setStatisticalPrograms(statisticalPrograms.map(value => {
-        return ({
-          key: value.id,
-          text: mutableContext.getLocalizedGsimObjectText(value.name),
-          value: value.id
-        })
-      }))
+      setStatisticalPrograms(statisticalPrograms)
     })
   }, [mutableContext])
 
   useEffect(() => {
     if (statisticalProgram) {
-      mutableContext.graphService.getGraph(mutableContext.user, statisticalProgram, getQueryFilter(filters)).then(graph => {
+      const statisticalProgramObj = statisticalPrograms.find(e => e.id === statisticalProgram)
+      Promise.all(
+        statisticalProgramObj.statisticalProgramCycles.map(path => {
+          return mutableContext.ldsService.getStatisticalProgramCycle(path.split('/')[2])
+        })
+      ).then(statisticalProgramCycles => {
+        setStatisticalProgramCycles(statisticalProgramCycles)
+      })
+    }
+  }, [mutableContext, statisticalProgram, statisticalPrograms])
+
+  useEffect(() => {
+    if (statisticalProgram && statisticalProgramCycle) {
+      mutableContext.graphService.getGraph(mutableContext.user, statisticalProgram, statisticalProgramCycle,
+        getQueryFilter(filters)).then(graph => {
         if (!graph.nodes) {
           mutableContext.setNotification(true, NOTIFICATION_TYPE.ERROR, mutableContext.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM_NOT_FOUND))
         } else {
@@ -122,7 +132,7 @@ const ProcessFlow = () => {
         .catch(error => mutableContext.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text))
     }
     setRefresh(false)
-  }, [mutableContext, statisticalProgram, filters, network, refresh])
+  }, [mutableContext, statisticalProgram, statisticalProgramCycle, filters, network, refresh])
 
   const reloadGraph = () => {
     setRefresh(true)
@@ -199,32 +209,46 @@ const ProcessFlow = () => {
 
   const Filters = () => {
     return (
-        <Dropdown open={showFilters} onMouseEnter={() => setShowFilters(true)} onMouseLeave={() => setShowFilters(false)}
-                  className='button icon' text={context.getLocalizedText(PROCESS_GRAPH.FILTERS) + ' '}
-                  simple item >
-          <Dropdown.Menu>
-            <Dropdown.Item>
-              <Checkbox name='BusinessProcess' label={context.getLocalizedText(GRAPH_NODES.BusinessProcess)}
-                        checked={filters['BusinessProcess']} onChange={toggleFilters}/>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <Checkbox name='ProcessStep' label={context.getLocalizedText(GRAPH_NODES.ProcessStep)}
-                        checked={filters['ProcessStep']} onChange={toggleFilters}/>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <Checkbox name='UnitDataset' label={context.getLocalizedText(GRAPH_NODES.UnitDataset)}
-                        checked={filters['UnitDataset']} onChange={toggleFilters}/>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <Checkbox name='CodeBlock' label={context.getLocalizedText(GRAPH_NODES.CodeBlock)}
-                        checked={filters['CodeBlock']} onChange={toggleFilters}/>
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+      <Dropdown open={showFilters} onMouseEnter={() => setShowFilters(true)} onMouseLeave={() => setShowFilters(false)}
+                className='button icon' text={context.getLocalizedText(PROCESS_GRAPH.FILTERS) + ' '}
+                simple item>
+        <Dropdown.Menu>
+          <Dropdown.Item>
+            <Checkbox name='BusinessProcess' label={context.getLocalizedText(GRAPH_NODES.BusinessProcess)}
+                      checked={filters['BusinessProcess']} onChange={toggleFilters}/>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <Checkbox name='ProcessStep' label={context.getLocalizedText(GRAPH_NODES.ProcessStep)}
+                      checked={filters['ProcessStep']} onChange={toggleFilters}/>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <Checkbox name='UnitDataset' label={context.getLocalizedText(GRAPH_NODES.UnitDataset)}
+                      checked={filters['UnitDataset']} onChange={toggleFilters}/>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <Checkbox name='CodeBlock' label={context.getLocalizedText(GRAPH_NODES.CodeBlock)}
+                      checked={filters['CodeBlock']} onChange={toggleFilters}/>
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
     )
   }
 
-  const defaultStatisticalProgram = statisticalPrograms && statisticalPrograms.length === 1 ? statisticalPrograms[0] : null
+  const statisticalProgramOptions = statisticalPrograms ? statisticalPrograms.map(value => {
+    return ({
+      key: value.id,
+      text: mutableContext.getLocalizedGsimObjectText(value.name),
+      value: value.id
+    })
+  }) : []
+  const statisticalProgramCycleOptions = statisticalProgramCycles ? statisticalProgramCycles.map(value => {
+    return ({
+      key: value.id,
+      text: mutableContext.getLocalizedGsimObjectText(value.name),
+      value: value.id
+    })
+  }) : []
+
   return (
     <>
       <style>{`.vis-network {outline-color: white}`}</style>
@@ -232,10 +256,14 @@ const ProcessFlow = () => {
         <h1>{MENU.WORK_FLOW[context.languageCode]}</h1>
         <Select name='statisticalProgram'
                 placeholder={context.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM_PLACEHOLDER)}
-                defaultValue={defaultStatisticalProgram}
-                options={statisticalPrograms || []}
+                options={statisticalProgramOptions}
                 onChange={(event, data) => setStatisticalProgram(data.value)}
                 label={context.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM) + ':'}/>
+        <Select name='statisticalProgramCycle'
+                placeholder={context.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM_CYCLE_PLACEHOLDER)}
+                options={statisticalProgramCycleOptions}
+                onChange={(event, data) => setStatisticalProgramCycle(data.value)}
+                label={context.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM_CYCLE) + ':'}/>
         <Filters/>
         <Button icon='refresh' onClick={reloadGraph}/>
         <div>
