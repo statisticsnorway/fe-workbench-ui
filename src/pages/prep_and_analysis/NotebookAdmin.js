@@ -162,6 +162,8 @@ class NotebookAdmin extends Component {
     this.notebookTree.removeElement(noteId)
     this.setState({
       notebookTreeStructure: this.notebookTree.tree,
+      selectedNote: null,
+      activeNote: null
     })
   }
 
