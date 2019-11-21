@@ -4,6 +4,7 @@ import LeftMenu from "./LeftMenu"
 import { Button, Grid } from "semantic-ui-react"
 import FlipTransition from "./FlipTransition"
 import { SSBLogo } from '../../../media/Logo'
+import SearchField from "../../search/SearchField"
 
 const MenuComponent = ( props ) => {
 
@@ -35,11 +36,16 @@ const MenuComponent = ( props ) => {
           </span>
           </FlipTransition>
         </Grid.Column>
+        <Grid.Column width={2}>
+        </Grid.Column>
         <Grid.Column width={8} textAlign='center'>
           {/*TODO transition on logo, but need to still occupy the space while hidden to prevent page content from jumping*/}
           <div style={{visibility: `${props.topMenuVisible ? 'hidden' : 'visible'}`}}>{SSBLogo('21%')}</div>
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column width={2}>
+          {!props.topMenuVisible && <SearchField style={{float: 'right'}}/>}
+        </Grid.Column>
+        <Grid.Column width={1}>
           <Button style={{ float: 'right' }} basic icon={props.topMenuVisible ? 'chevron up' : 'chevron down'}  color='teal'
                   onClick={() => props.toggleTopMenuCallback(!props.topMenuVisible)} data-testid='topMenu-toggle'/>
         </Grid.Column>
