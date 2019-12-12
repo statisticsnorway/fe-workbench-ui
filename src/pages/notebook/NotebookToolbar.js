@@ -4,6 +4,7 @@ import { NOTEBOOK_TOOLBAR } from '../../utilities/enum/NOTEBOOK_TOOLBAR'
 
 import { WorkbenchContext } from '../../context/ContextProvider'
 import NotebookTree from './NotebookTree'
+import { Link } from "react-router-dom"
 
 const FolderToOptionsMapper = (folderName, index) => {
   let name = '/' + folderName + '/'
@@ -96,7 +97,7 @@ class NotebookToolbar extends Component {
           editorHide: true
         }
       }
-      context.notebookService.postParagraph(selectedNote, body, user).then(response => {
+      context.notebookService.postParagraph(selectedNote, body, user).then( () => {
         let responseText = context.getLocalizedText(NOTEBOOK_TOOLBAR.NOTE_UPDATED_TEXT, selectedNote, datasetname)
         this.setState({
           selectedNote: undefined,
@@ -152,7 +153,7 @@ class NotebookToolbar extends Component {
 
   render () {
     const { createNote, updateNote, noteFolders, name, existingNotes, selectedNote, selectedFolder, response,
-      noteurl, error } = this.state
+      noteurl, error, dataset } = this.state
     let context = this.context
     return (
       <>
@@ -175,6 +176,16 @@ class NotebookToolbar extends Component {
                 <Icon color='black' corner name='reply'/>
               </Icon.Group>
               {context.getLocalizedText(NOTEBOOK_TOOLBAR.UPDATE_NOTE_BUTTON)}
+            </Label>
+          }/>
+          <Popup flowing hoverable position='top left'
+                 content={context.getLocalizedText(NOTEBOOK_TOOLBAR.SHOW_DATASET_IN_GRAPH_TOOLTIP)} trigger={
+            <Label as={Link} basic={!updateNote} to={{pathname: '/prep/processgraph', state: {dataset: dataset}}}>
+              <Icon.Group size='large'>
+                <Icon link color='teal' name='file alternate outline'/>
+                <Icon color='black' corner name='reply'/>
+              </Icon.Group>
+              {context.getLocalizedText(NOTEBOOK_TOOLBAR.SHOW_DATASET_IN_GRAPH_BUTTON)}
             </Label>
           }/>
         </div>

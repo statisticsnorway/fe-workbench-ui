@@ -51,6 +51,14 @@ export const NOTEBOOK_TOOLBAR = {
     en: 'Save',
     nb: 'Lagre'
   },
+  SHOW_DATASET_IN_GRAPH_BUTTON: {
+    en: 'Show in graph',
+    nb: 'Vis i graf'
+  },
+  SHOW_DATASET_IN_GRAPH_TOOLTIP: {
+    en: 'Show dataset in visualisation graph',
+    nb: 'Vis datasett i visualiseringsgraf'
+  },
   PARAGRAPH_STATUS_UNKNOWN: {
     en: 'Job not found',
     nb: 'Jobb ikke funnet'

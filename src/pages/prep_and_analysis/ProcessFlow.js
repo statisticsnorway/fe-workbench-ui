@@ -7,9 +7,10 @@ import { PROCESS_GRAPH } from '../../utilities/enum/PROCESS_GRAPH'
 import DatasetDetailsSidebar from './DatasetDetailsSidebar'
 import Legend from './Legend'
 import { getGraphNode, getLegendNodes } from '../../utilities/common/GraphUtils'
-import { Button, Checkbox, Dropdown, Select } from 'semantic-ui-react'
+import { Button, Checkbox, Dropdown, Popup, Select } from 'semantic-ui-react'
 import NodeDetailsSidebar from './NodeDetailsSidebar'
 import { GRAPH_NODES } from '../../utilities/enum/GRAPH_NODES'
+import _ from 'lodash'
 
 const canvasHeight = '750px'
 
@@ -65,10 +66,14 @@ const getQueryFilter = (filterObj) => {
   }
 }
 
-const ProcessFlow = () => {
+const getNode = (graphToSearch, nodeId) => {
+  return graphToSearch.nodes.filter(node => node.id === nodeId)[0]
+}
+
+const ProcessFlow = (props) => {
   const [selectedNote, setSelectedNote] = useState(null)
   const [selectedNode, setSelectedNode] = useState(null)
-  const [selectedDataset, setSelectedDataset] = useState(null)
+  const [selectedDataset, setSelectedDataset] = useState(_.get(props.location, 'state.dataset'))
   const [showSidebar] = useState(true) // TODO do not show initially?
   const [network, setNetwork] = useState(null)
   const [graph, setGraph] = useState(null)
@@ -97,13 +102,20 @@ const ProcessFlow = () => {
   useEffect(() => {
     if (statisticalProgram) {
       const statisticalProgramObj = statisticalPrograms.find(e => e.id === statisticalProgram)
-      Promise.all(
-        statisticalProgramObj.statisticalProgramCycles.map(path => {
-          return mutableContext.ldsService.getStatisticalProgramCycle(path.split('/')[2])
+      if (statisticalProgramObj) {
+        Promise.all(
+          statisticalProgramObj.statisticalProgramCycles.map(path => {
+            return mutableContext.ldsService.getStatisticalProgramCycle(path.split('/')[2])
+          })
+        ).then(statisticalProgramCycles => {
+          // If not found, an empty array is returned
+          if (statisticalProgramCycles[0].length !== 0) {
+            setStatisticalProgramCycles(statisticalProgramCycles)
+          } else {
+            setStatisticalProgramCycle(null)
+          }
         })
-      ).then(statisticalProgramCycles => {
-        setStatisticalProgramCycles(statisticalProgramCycles)
-      })
+      }
     }
   }, [mutableContext, statisticalProgram, statisticalPrograms])
 
@@ -130,16 +142,29 @@ const ProcessFlow = () => {
         }
       })
         .catch(error => mutableContext.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text))
+    } else { // reset graph
+      setGraph(null)
     }
     setRefresh(false)
   }, [mutableContext, statisticalProgram, statisticalProgramCycle, filters, network, refresh])
 
+  useEffect( () => {
+    if (selectedDataset) {
+      if (statisticalPrograms && !statisticalProgram) {
+        // TODO get StatisticalProgam and Cycle based on datasetId
+        setStatisticalProgram(statisticalPrograms[1].id)
+      }
+      if (statisticalProgramCycles && !statisticalProgramCycle) {
+        setStatisticalProgramCycle(statisticalProgramCycles[0].id)
+      }
+      if (graph) {
+        setSelectedNode(getNode(graph, selectedDataset.id))
+      }
+    }
+  }, [selectedDataset, statisticalProgram, statisticalProgramCycle, statisticalPrograms, statisticalProgramCycles, graph])
+
   const reloadGraph = () => {
     setRefresh(true)
-  }
-
-  const getNode = (nodeId) => {
-    return graph.nodes.filter(node => node.id === nodeId)[0]
   }
 
   const events = {
@@ -148,7 +173,7 @@ const ProcessFlow = () => {
       setSelectedNote(null)
       if (nodes[0]) {
 
-        const selectedNode = getNode(nodes[0])
+        const selectedNode = getNode(graph, nodes[0])
         setSelectedNode(selectedNode)
         switch (selectedNode.type) {
           case 'ProcessStep': {
@@ -234,6 +259,15 @@ const ProcessFlow = () => {
     )
   }
 
+  const setStatisticalProgamAndReset = (value) => {
+    setStatisticalProgramCycle(null)
+    setStatisticalProgramCycles(null)
+    // setSelectedNode(null)
+    // setSelectedNote(null)
+    // setSelectedDataset(null)
+    setStatisticalProgram(value)
+  }
+
   const statisticalProgramOptions = statisticalPrograms ? statisticalPrograms.map(value => {
     return ({
       key: value.id,
@@ -257,13 +291,27 @@ const ProcessFlow = () => {
         <Select name='statisticalProgram'
                 placeholder={context.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM_PLACEHOLDER)}
                 options={statisticalProgramOptions}
-                onChange={(event, data) => setStatisticalProgram(data.value)}
+                value={statisticalProgram}
+                onChange={(event, data) => setStatisticalProgamAndReset(data.value)}
                 label={context.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM) + ':'}/>
-        <Select name='statisticalProgramCycle'
-                placeholder={context.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM_CYCLE_PLACEHOLDER)}
-                options={statisticalProgramCycleOptions}
-                onChange={(event, data) => setStatisticalProgramCycle(data.value)}
-                label={context.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM_CYCLE) + ':'}/>
+        {statisticalProgram && statisticalProgramCycleOptions.length === 0 ?
+          <Popup flowing hoverable position='top left'
+                 content={context.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM_CYCLE_NOT_FOUND)} trigger={
+                 <span>
+                    <Select name='statisticalProgramCyclePlaceholder'
+                            placeholder='Ingen årgang funnet'
+                            options={[]}
+                            disabled={true}
+                            style={{border: '1px solid red'}}/>
+                 </span>}/>
+          :
+          <Select name='statisticalProgramCycle'
+                  placeholder={context.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM_CYCLE_PLACEHOLDER)}
+                  options={statisticalProgramCycleOptions}
+                  value={statisticalProgramCycle}
+                  onChange={(event, data) => setStatisticalProgramCycle(data.value)}
+                  label={context.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM_CYCLE) + ':'}/>
+        }
         <Filters/>
         <Button icon='refresh' onClick={reloadGraph}/>
         <div>

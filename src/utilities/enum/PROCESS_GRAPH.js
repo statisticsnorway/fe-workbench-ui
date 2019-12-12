@@ -19,6 +19,10 @@ export const PROCESS_GRAPH = {
     en: 'Could not find process flow for the selected Statistical Program',
     nb: 'Fant ingen prosessflyt for valgt statistikkprogram'
   },
+  STATISTICAL_PROGRAM_CYCLE_NOT_FOUND: {
+    en: 'Could not find year for the selected Statistical Program',
+    nb: 'Fant ingen årgang for valgt statistikkprogram'
+  },
   FILTERS: {
     en: 'Use filters',
     nb: 'Filtrer visning'
