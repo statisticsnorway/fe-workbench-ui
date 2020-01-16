@@ -112,6 +112,7 @@ class NotebookAdmin extends Component {
     const self = this
 
     context.notebookService.getNotes(user).then(notes => {
+      console.log(notes)
       this.notebookTree = new NotebookTree(notes, {
         deleteCallback: (note) => self.setState({showConfirm: true, noteToDelete: note})
       })

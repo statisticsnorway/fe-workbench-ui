@@ -1,14 +1,19 @@
 import { get } from '../utilities/fetch/Fetch'
 import Properties from '../properties/properties'
 
+
 class GraphServiceImpl {
 
   getGraph = (user, statisticalProgramId, cycleId, filters) => {
+    console.log(Properties.api.graphService + 'graph/statisticalProgram/' + statisticalProgramId + '/' + cycleId + this.getQueryString(user, filters))
+    // return Promise.resolve(get(Properties.api.graphService + 'graph/statisticalProgram/' + statisticalProgramId + '/' + cycleId + this.getQueryString(user, filters)))
     return new Promise((resolve, reject) => {
-      get(Properties.api.graphService + 'graph/statisticalProgram/' + statisticalProgramId + '/' + cycleId +
-        this.getQueryString(user, filters))
+      get(Properties.api.graphService + 'graph/statisticalProgram/' + statisticalProgramId + '/' + cycleId + this.getQueryString(user, filters))
         .then(response => resolve(response))
-        .catch(error => reject(error))
+        .catch(error => {
+          console.log(error)
+          reject(error)
+        })
     })
   }
 

@@ -1,4 +1,4 @@
-import { get } from '../utilities/fetch/Fetch'
+import { get } from '../utilities/fetch/FetchOrMock'
 import { FULL_TEXT_SEARCH, GET_QUERY_FIELDS, hasSearchQueryField, mapSearchResult } from './graphql/SearchQuery'
 import { ALL_DATASETS } from './graphql/AllDatasetsQuery'
 import {
@@ -10,6 +10,11 @@ import introspectionQueryResultData from './graphql/fragmentTypes.json'
 import { DATASET_WITH_STRUCTURE, mapResult } from './graphql/DatasetQuery'
 import { filterByText } from './graphql/QueryHelper'
 import Properties from '../properties/properties'
+import Roles from '../__tests__/test-data/Roles'
+import StatisticalProgram from '../__tests__/test-data/StatisticalPrograms'
+import StatisticalProgramCycle from '../__tests__/test-data/StatisticalProgramCycle'
+
+
 
 // see https://github.com/apollographql/apollo-client/issues/4843
 import ApolloClient, { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-boost'
@@ -18,6 +23,8 @@ import ApolloClient, { InMemoryCache, IntrospectionFragmentMatcher } from 'apoll
 // be used. See https://www.apollographql.com/docs/react/advanced/fragments.html#fragment-matcher
 const fragmentMatcher = new IntrospectionFragmentMatcher({ introspectionQueryResultData })
 const cache = new InMemoryCache({ fragmentMatcher })
+
+const mockparameter = 'lds'
 
 class LdsServiceImpl {
 
@@ -60,6 +67,9 @@ class LdsServiceImpl {
   }).then(result => Promise.resolve(mapDatasetsByVariableIdResult(result)))
 
   searchDatasetsFullText = (variables) => {
+    console.log('client.query searchDatasetsFullText ')
+    console.log(FULL_TEXT_SEARCH)
+    console.log(variables)
     return new Promise((resolve, reject) => {
       this.hasSearchSupport().then(hasSearch => {
         if (hasSearch) {
@@ -78,26 +88,29 @@ class LdsServiceImpl {
     })
   }
 
-  getDatasetStructure = (id) => this.client.query({
-    query: DATASET_WITH_STRUCTURE,
-    variables: { id: id }
-  }).then(result => Promise.resolve(mapResult(result)))
+  getDatasetStructure (id) {
+    this.client.query({
+      query: DATASET_WITH_STRUCTURE,
+      variables: { id: id }
+    }).then(result => Promise.resolve(mapResult(result)))
+  }
 
   getRoles = () => {
-    return get(this.ldsUrl + Properties.api.namespace + '/Role')
+    return get(this.ldsUrl + Properties.api.namespace + '/Role', mockparameter, Roles)
   }
 
   getStatisticalPrograms = () => {
-    return get(this.ldsUrl + Properties.api.namespace + '/StatisticalProgram')
+    return get(this.ldsUrl + Properties.api.namespace + '/StatisticalProgram', mockparameter, StatisticalProgram)
   }
 
   getStatisticalProgramCycle = (id) => {
-    return get(this.ldsUrl + Properties.api.namespace + '/StatisticalProgramCycle/' + id)
+    return get(this.ldsUrl + Properties.api.namespace + '/StatisticalProgramCycle/' + id, mockparameter, StatisticalProgramCycle)
   }
 
   getDatasets = () => this.client.query({
     query: ALL_DATASETS
   })
+
 }
 
 export default LdsServiceImpl

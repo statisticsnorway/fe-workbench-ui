@@ -34,11 +34,14 @@ const SearchPage = (props) => {
 
     const doSearch = (value) => {
       console.log('Start search')
+      console.log(value)
       setLoading(true)
 
       if (value.length < 1) return resetComponent()
 
+      console.log(context.ldsService)
       context.ldsService.searchDatasetsFullText({ text: value }).then(results => {
+        console.log(results)
         setLoading(false)
         setResults(results)
       }).catch(error => {

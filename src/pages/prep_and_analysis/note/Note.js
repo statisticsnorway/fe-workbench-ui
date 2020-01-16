@@ -26,6 +26,7 @@ class Note extends Component {
   }
 
   loadNote = (id) => {
+    console.log('load note with id ' + id)
     const user = this.context.user
     if (id) {
       this.setState({

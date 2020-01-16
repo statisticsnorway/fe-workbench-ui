@@ -15,6 +15,7 @@ const NoteParagraph = (props) => {
   const { noteId, user } = props
 
   const runParagraph = () => {
+    console.log('run paragraph for noteId ' + noteId + ' and paragraph ' + paragraph.id)
 
     setLoading(true)
     context.notebookService.runParagraphSync(noteId, paragraph.id, user)
@@ -34,6 +35,7 @@ const NoteParagraph = (props) => {
   }
 
   const loadParagraph = () => {
+    console.log('load paragraph')
     context.notebookService.getParagraph(noteId, paragraph.id, user)
       .then( result => {
         setLoading(false)
@@ -50,6 +52,7 @@ const NoteParagraph = (props) => {
   }
 
   const stopParagraph = () => {
+    console.log('stop paragraph')
     context.notebookService.stopParagraph(noteId, paragraph.id, user)
       .then( result => {
         if (result.status === 'OK') {

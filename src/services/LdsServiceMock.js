@@ -59,27 +59,27 @@ class LdsServiceMock {
   }
 
   getDatasetsFromVariable() {
-    console.info('Calling getDatasetsFromVariable() from LdsServiceMock')
+    console.info('(MOCK) Calling getDatasetsFromVariable() from LdsServiceMock')
     return Promise.resolve(mapDatasetsByVariableIdResult(DatasetsFromVariable))
   }
 
   getVariable() {
-    console.info('Calling getVariable() from LdsServiceMock')
+    console.info('(MOCK) Calling getVariable() from LdsServiceMock')
     return Promise.resolve(mapVariableByIdResult(RepresentedVariableById))
   }
 
   searchDatasets(value) {
-    console.debug('Calling searchDatasets() from LdsServiceMock')
+    console.info('(MOCK) Calling searchDatasets() from LdsServiceMock')
     return Promise.resolve(filterByText(UnitDatasets, value));
   }
 
   searchDatasetsFullText(query) {
-    console.debug('Calling searchDatasetsFullText() from LdsServiceMock')
+    console.info('(MOCK) Calling searchDatasetsFullText() from LdsServiceMock with query ' + query.text)
     return Promise.resolve(mapSearchResult(simpleMockSearch(DatasetSearchResults, query.text)));
   }
 
   getDatasetStructure() {
-    console.debug('Calling getDatasetStructure() from LdsServiceMock')
+    console.info('(MOCK) Calling getDatasetStructure() from LdsServiceMock')
     return Promise.resolve(mapResult(dataset));
   }
 

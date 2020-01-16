@@ -77,6 +77,7 @@ const DataTable = (props) => {
   if (!props.data && !props.loading) {
     return <DataTableRowsEmpty/>
   }
+  console.log(props.columns, 'columns')
   // Normalize columns.
   const columnOrder = [props.columns.identifiers, props.columns.measures, props.columns.attributes].flat()
   return (

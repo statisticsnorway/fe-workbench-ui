@@ -32,7 +32,7 @@ class DatasetView extends Component {
   }
 
   loadData (pageInfo) {
-    this.setState({ loading: true })
+    // this.setState({ loading: true })
     const current = this.state.pageInfo
     Object.keys(current).forEach(function (element) {
       if (!(element in pageInfo)) {
@@ -46,7 +46,10 @@ class DatasetView extends Component {
         totalCount: results.totalCount,
         pageInfo: pageInfo
       })
+      console.log(this.state, 'state')
     })
+    console.log('load data ferdig')
+    console.log(this.state)
   }
 
   onPageChange = (event, data) => {
@@ -83,9 +86,12 @@ class DatasetView extends Component {
   }
 
   render () {
+    console.log('DatasetView render')
+    console.log(this.state)
     if (this.props.match.params.id !== undefined) {
       let structure = this.state ? this.state.structure : null
       let data = this.state ? this.state.data : null
+      console.log(data, 'data')
 
       return (
         <DataTable
@@ -98,7 +104,8 @@ class DatasetView extends Component {
           limit={this.state.pageInfo.limit}
           sort={this.state.pageInfo.sort}
           sortOrder={this.directionConverter(this.state.pageInfo.order)}
-          columns={structure} data={data}/>
+          columns={structure}
+          data={data}/>
       )
     } else {
       return (

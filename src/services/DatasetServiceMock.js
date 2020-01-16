@@ -11,9 +11,14 @@ class DatasetServiceMock {
     await this.stall()
     const start = (page - 1) * limit
     let result = dataset
+    console.log(sort, 'sort in getdataset')
+    console.log(result, 'result in getdataset')
+    console.log(start, 'start in getdataset')
+    console.log(limit, 'limit in getdataset')
     if (sort) {
       result.sort(this.sortBy(sort, order !== 'asc'))
     }
+    console.log(result.slice(start, start + limit), 'result in getdataset')
     return {
       data: result.slice(start, start + limit),
       totalCount: dataset.length

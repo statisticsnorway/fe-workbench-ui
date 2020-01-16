@@ -21,7 +21,7 @@ export const WorkbenchContext = React.createContext({
   backendService: BackendServiceMock,
   ldsService: LdsServiceMock,
   datasetService: new DatasetServiceMock(),
-  notebookService: new NotebookServiceMock(),
+  notebookService: new NotebookServiceImpl(),
   notification: false,
   notificationType: null,
   notificationMessage: null,
@@ -37,11 +37,11 @@ export const WorkbenchContext = React.createContext({
 export class ContextProvider extends Component {
   state = {
     languageCode: 'nb',
-    backendService: Properties.mock.backend === true ? new BackendServiceMock(): new BackendServiceImpl(),
+    backendService: new BackendServiceImpl(),
     ldsService: Properties.mock.lds === true ? new LdsServiceMock(): new LdsServiceImpl(),
     datasetService: Properties.mock.datasetService === true ? new DatasetServiceMock(): new DatasetServiceImpl(),
-    notebookService: Properties.mock.notebookService === true ? new NotebookServiceMock(): new NotebookServiceImpl(),
-    graphService: Properties.mock.graphService === true ? new GraphServiceMock(): new GraphServiceImpl(),
+    notebookService: new NotebookServiceImpl(),
+    graphService: new GraphServiceImpl(),
     notification: false,
     notificationType: null,
     notificationMessage: null,
@@ -53,6 +53,7 @@ export class ContextProvider extends Component {
       ref.setState(
         {
           user: user,
+          // ldsService: new LdsServiceImpl(ref.getLdsUrl(_.get(user, 'userPrefs.preferences.lds')))
           ldsService: Properties.mock.lds === true ? new LdsServiceMock()
             : new LdsServiceImpl(ref.getLdsUrl(_.get(user, 'userPrefs.preferences.lds')))
         })
@@ -67,6 +68,7 @@ export class ContextProvider extends Component {
             ...prevState.user,
             userPrefs: userPrefs
           },
+          // ldsService: new LdsServiceImpl(ref.getLdsUrl(userPrefs ? userPrefs.preferences.lds : ""))
           ldsService: Properties.mock.lds === true ? new LdsServiceMock()
             : new LdsServiceImpl(ref.getLdsUrl(userPrefs ? userPrefs.preferences.lds : ""))
         }))

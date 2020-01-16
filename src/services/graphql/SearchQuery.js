@@ -55,16 +55,7 @@ export const FULL_TEXT_SEARCH = gql`
                             }
                             validFrom
                             validUntil
-                            subjectFields {
-                                edges {
-                                    node {
-                                        name {
-                                            languageCode
-                                            languageText
-                                        }
-                                    }
-                                }
-                            }
+
                             unitType {
                                 name {
                                     languageCode

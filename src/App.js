@@ -11,6 +11,8 @@ import { UserManager } from 'oidc-client'
 import OidcSettings from './utilities/security/OidcSettings'
 import { Segment } from 'semantic-ui-react'
 import { LANGUAGES } from './utilities/enum'
+// import http from 'http'
+// import mockserver from 'mockserver'
 
 class App extends Component {
   static contextType = WorkbenchContext
@@ -28,6 +30,8 @@ class App extends Component {
     if (Properties.mock.user) {
       this.handleLogin(Properties.mock.user)
     }
+
+    // http.createServer(mockserver('C:/mockserver/test/mocks')).listen(9001)
   }
 
   initAuthentication () {
@@ -103,6 +107,7 @@ class App extends Component {
   handleUserPreferences = (userId) => {
     let context = this.context
     let prefs = context.backendService.searchUserPreferences(userId)
+    console.log(prefs)
 
     prefs.then(resolved =>
       context.updateUserPrefs(resolved[0],

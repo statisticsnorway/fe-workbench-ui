@@ -109,8 +109,10 @@ const ProcessFlow = () => {
 
   useEffect(() => {
     if (statisticalProgram && statisticalProgramCycle) {
-      mutableContext.graphService.getGraph(mutableContext.user, statisticalProgram, statisticalProgramCycle,
-        getQueryFilter(filters)).then(graph => {
+      mutableContext.graphService.getGraph(mutableContext.user, statisticalProgram, statisticalProgramCycle, getQueryFilter(filters))
+      .then(graph => {
+        console.log('har returnert getGraph')
+        console.log(graph)
         if (!graph.nodes) {
           mutableContext.setNotification(true, NOTIFICATION_TYPE.ERROR, mutableContext.getLocalizedText(PROCESS_GRAPH.STATISTICAL_PROGRAM_NOT_FOUND))
         } else {
@@ -129,7 +131,9 @@ const ProcessFlow = () => {
           }
         }
       })
-        .catch(error => mutableContext.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text))
+      .catch(error => { console.log(error)
+        mutableContext.setNotification(true, NOTIFICATION_TYPE.ERROR, error.text)
+    })
     }
     setRefresh(false)
   }, [mutableContext, statisticalProgram, statisticalProgramCycle, filters, network, refresh])
