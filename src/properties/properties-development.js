@@ -9,7 +9,7 @@ export default {
     user: 'admin', // this will skip the login dialog
     backend: false,
     lds: true,
-    datasetService: true,
+    datasetService: false,
     notebookService: false, // Set to false for the time being because mocking creating and deleting notes is to much work when working on a PoC for integration with Zeppelin
     graphService: false
   },

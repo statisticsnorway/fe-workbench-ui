@@ -14,12 +14,14 @@ const DataTableHeaderCell = (name, style, icon, props) => (
 const DataTableHeader = (props) => (
   <Table.Header>
     <Table.Row>
-      {props.columns.identifiers.map(structure =>
-        DataTableHeaderCell(structure.name, { color: '#0063ad' }, 'tag', props))}
-      {props.columns.measures.map(structure =>
-        DataTableHeaderCell(structure.name, { color: '#ff5b36' }, 'area graph', props))}
-      {props.columns.attributes.map(structure =>
-        DataTableHeaderCell(structure.name, { color: '#00ad11' }, 'sticky note outline', props))}
+      {props.columns.map(variable =>
+        DataTableHeaderCell(variable.name, { color: '#0063ad' }, 'tag', props))}
+      {/*{props.columns.identifiers.map(structure =>*/}
+      {/*  DataTableHeaderCell(structure.name, { color: '#0063ad' }, 'tag', props))}*/}
+      {/*{props.columns.measures.map(structure =>*/}
+      {/*  DataTableHeaderCell(structure.name, { color: '#ff5b36' }, 'area graph', props))}*/}
+      {/*{props.columns.attributes.map(structure =>*/}
+      {/*  DataTableHeaderCell(structure.name, { color: '#00ad11' }, 'sticky note outline', props))}*/}
     </Table.Row>
   </Table.Header>
 )
@@ -55,6 +57,8 @@ const DataTableRowsLoading = ({ numColumns = 3, numRows = 3 }) => (
 )
 
 const DataTableRows = ({ columns, data }) => {
+  console.log(columns, 'columns')
+  console.log(data, 'data')
   if (!data) return <DataTableRowsEmpty/>
   return data.map((datum, idx) => (
     <Table.Row key={idx}>
@@ -69,7 +73,7 @@ const DataTableRows = ({ columns, data }) => {
 
 const DataTable = (props) => {
 
-  if (!props.columns) {
+  if (!props.columns || !props.data) {
     return (
       <React.Fragment/>
     )
@@ -77,12 +81,14 @@ const DataTable = (props) => {
   if (!props.data && !props.loading) {
     return <DataTableRowsEmpty/>
   }
-  console.log(props.columns, 'columns')
+  console.log(props.columns, 'columns i DataTable')
   // Normalize columns.
-  const columnOrder = [props.columns.identifiers, props.columns.measures, props.columns.attributes].flat()
+  // const columnOrder = [props.columns.identifiers, props.columns.measures, props.columns.attributes].flat()
+  const columnOrder = props.columns.structure.instanceVariables
+  console.log(props.columns.structure.instanceVariables, 'props to DataTableHeader')
   return (
     <Table data-testid='dataset-table' sortable celled selectable fixed>
-      <DataTableHeader columns={props.columns} sort={props.sort} sortOrder={props.sortOrder}
+      <DataTableHeader columns={props.columns.structure.instanceVariables} sort={props.sort} sortOrder={props.sortOrder}
                        onSortChange={props.onSortChange}/>
       <Table.Body>
         {props.loading

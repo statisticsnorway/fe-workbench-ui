@@ -26,6 +26,7 @@ class DatasetView extends Component {
         this.setState({
           structure: results,
         })
+        console.log(this.state.structure, ' state.structure')
       })
       this.loadData(this.state.pageInfo)
     }
