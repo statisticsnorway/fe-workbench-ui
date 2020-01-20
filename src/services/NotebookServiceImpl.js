@@ -10,13 +10,15 @@ class NotebookServiceImpl {
   // If the backend is mocked and the application calls a local Zeppelin instance directly, skip the custom X-Authorization header
   getHeaders = (user) => {
     console.log(user, 'user i getHeaders i NotebookService')
-    return Properties.mock.backend === true ?
-      undefined :
-      new Headers({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-Authorization': 'Bearer ' + user.access_token
-    })
+    return undefined
+    //TODO: use headers. When collecting from mockserver, header has to be undefined (or something mockserver accepts)
+    // return Properties.mock.backend === true ?
+    //   undefined :
+    //   new Headers({
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //     'X-Authorization': 'Bearer ' + user.access_token
+    // })
   }
 
   getLDSInstance = (user) => {

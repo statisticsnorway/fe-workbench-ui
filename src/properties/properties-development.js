@@ -8,7 +8,8 @@ export default {
     auth: true,
     user: 'admin', // this will skip the login dialog
     backend: false,
-    lds: true,
+    lds: false,
+    ldsGraphql: true,
     datasetService: false,
     notebookService: false, // Set to false for the time being because mocking creating and deleting notes is to much work when working on a PoC for integration with Zeppelin
     graphService: false

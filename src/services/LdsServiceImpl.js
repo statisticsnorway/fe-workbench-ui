@@ -1,4 +1,5 @@
-import { get } from '../utilities/fetch/FetchOrMock'
+import { get } from '../utilities/fetch/Fetch'
+import { request } from 'graphql-request'
 import { FULL_TEXT_SEARCH, GET_QUERY_FIELDS, hasSearchQueryField, mapSearchResult } from './graphql/SearchQuery'
 import { ALL_DATASETS } from './graphql/AllDatasetsQuery'
 import {
@@ -6,40 +7,33 @@ import {
   GET_DATASETS_FROM_VARIABLE, GET_VARIABLE,
   mapDatasetsByVariableIdResult, mapVariableByIdResult
 } from './graphql/AllDatasetsAndVariablesQuery'
-import introspectionQueryResultData from './graphql/fragmentTypes.json'
 import { DATASET_WITH_STRUCTURE, mapResult } from './graphql/DatasetQuery'
 import { filterByText } from './graphql/QueryHelper'
 import Properties from '../properties/properties'
-import Roles from '../__tests__/test-data/Roles'
-import StatisticalProgram from '../__tests__/test-data/StatisticalPrograms'
-import StatisticalProgramCycle from '../__tests__/test-data/StatisticalProgramCycle'
+import QueryGraphql from '../utilities/graphql/QueryGraphql'
+import UnitDatasets from '../__tests__/test-data/AllDatasets'
+import AllDatasetsAndVariables from '../__tests__/test-data/AllDatasetsAndVariables'
+import RepresentedVariableById from '../__tests__/test-data/RepresentedVariableById'
+import DatasetsFromVariable from '../__tests__/test-data/GetDatasetByVariable'
+import Dataset from '../__tests__/test-data/DatasetWithStructure'
+import AllQueryFields from '../__tests__/test-data/AllQueryFields'
 
 
-
-// see https://github.com/apollographql/apollo-client/issues/4843
-import ApolloClient, { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-boost'
-
-// Some queries contain union or interface types, so Apollo Client's simple (heuristic) fragment matcher can not
-// be used. See https://www.apollographql.com/docs/react/advanced/fragments.html#fragment-matcher
-const fragmentMatcher = new IntrospectionFragmentMatcher({ introspectionQueryResultData })
-const cache = new InMemoryCache({ fragmentMatcher })
-
-const mockparameter = 'lds'
+const mockparameter = 'ldsGraphql'
+const queryGraph = QueryGraphql
 
 class LdsServiceImpl {
 
+
   constructor(ldsUrl) {
-    this.client = new ApolloClient({
-      uri: ldsUrl + '/graphql',
-      cache: cache
-    })
+    this.queryGraph = new QueryGraphql(ldsUrl)
     this.ldsUrl = ldsUrl
+    this.mockparameter = 'ldsGraphql'
 
     this.hasSearchSupport = () => {
       return new Promise((resolve, reject) => {
-        this.client.query({
-          query: GET_QUERY_FIELDS
-        }).then(result => {
+       this.queryGraph.graphqlSearch(GET_QUERY_FIELDS, this.mockparameter, AllQueryFields)
+          .then(result => {
           return resolve(hasSearchQueryField(result))
         }).catch(error => {
           return reject(error)
@@ -47,37 +41,29 @@ class LdsServiceImpl {
       })
     }
   }
+  searchDatasets = (value) =>
+    this.queryGraph.graphqlSearch(ALL_DATASETS, mockparameter, UnitDatasets)
+      .then(result => Promise.resolve(filterByText(result, value)))
 
-  searchDatasets = (value) => this.client.query({
-    query: ALL_DATASETS
-  }).then(result => Promise.resolve(filterByText(result, value)))
+  searchDatasetsAndVariables = (value) =>
+    this.queryGraph.graphqlSearch(ALL_DATASETS_AND_VARIABLES, mockparameter, AllDatasetsAndVariables)
+      .then(result => Promise.resolve(filterByText(result, value)))
 
-  searchDatasetsAndVariables = (value) => this.client.query({
-    query: ALL_DATASETS_AND_VARIABLES
-  }).then(result => Promise.resolve(filterByText(result, value)))
+  getVariable = (varibleId) =>
+    this.queryGraph.graphqlSearchParam(GET_VARIABLE, { id: varibleId }, mockparameter, RepresentedVariableById)
+      .then(result => Promise.resolve(mapVariableByIdResult(result)))
 
-  getVariable = (varibleId) => this.client.query({
-    query: GET_VARIABLE,
-    variables: { id: varibleId }
-  }).then(result => Promise.resolve(mapVariableByIdResult(result)))
-
-  getDatasetsFromVariable = (varibleId) => this.client.query({
-    query: GET_DATASETS_FROM_VARIABLE,
-    variables: { id: varibleId }
-  }).then(result => Promise.resolve(mapDatasetsByVariableIdResult(result)))
+  getDatasetsFromVariable = (varibleId) =>
+    this.queryGraph.graphqlSearchParam(GET_VARIABLE, { id: varibleId }, mockparameter, DatasetsFromVariable)
+      .then(result => Promise.resolve(mapDatasetsByVariableIdResult(result)))
 
   searchDatasetsFullText = (variables) => {
-    console.log('client.query searchDatasetsFullText ')
-    console.log(FULL_TEXT_SEARCH)
-    console.log(variables)
     return new Promise((resolve, reject) => {
       this.hasSearchSupport().then(hasSearch => {
         if (hasSearch) {
           // Perform a text search query
-          this.client.query({
-            query: FULL_TEXT_SEARCH,
-            variables: variables
-          }).then(result => resolve(mapSearchResult(result)))
+          this.queryGraph.graphqlSearchParam(FULL_TEXT_SEARCH, variables, mockparameter, UnitDatasets)
+            .then(result => resolve(mapSearchResult(result)))
         } else {
           // Text search query is not supported. Fetch all datasets and variables and use text filtering instead
           return resolve(this.searchDatasetsAndVariables(variables.text))
@@ -89,28 +75,28 @@ class LdsServiceImpl {
   }
 
   getDatasetStructure (id) {
-    this.client.query({
-      query: DATASET_WITH_STRUCTURE,
-      variables: { id: id }
-    }).then(result => Promise.resolve(mapResult(result)))
+    this.queryGraph.graphqlSearchParam(DATASET_WITH_STRUCTURE, { id: id }, mockparameter, Dataset)
+      .then(result => Promise.resolve(mapResult(result)))
   }
 
+  getDatasets = () =>
+    this.queryGraph.graphqlSearch(DATASET_WITH_STRUCTURE, mockparameter, UnitDatasets)
+
+
+
   getRoles = () => {
-    return get(this.ldsUrl + Properties.api.namespace + '/Role', mockparameter, Roles)
+    return get(this.ldsUrl + Properties.api.namespace + '/Role')
   }
 
   getStatisticalPrograms = () => {
-    return get(this.ldsUrl + Properties.api.namespace + '/StatisticalProgram', mockparameter, StatisticalProgram)
+    return get(this.ldsUrl + Properties.api.namespace + '/StatisticalProgram')
   }
 
   getStatisticalProgramCycle = (id) => {
-    return get(this.ldsUrl + Properties.api.namespace + '/StatisticalProgramCycle/' + id, mockparameter, StatisticalProgramCycle)
+    return get(this.ldsUrl + Properties.api.namespace + '/StatisticalProgramCycle/' + id)
   }
-
-  getDatasets = () => this.client.query({
-    query: ALL_DATASETS
-  })
 
 }
 
 export default LdsServiceImpl
+

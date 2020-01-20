@@ -18,9 +18,9 @@ const IllegalAccessError = new Error("Accessing context outside of WorkbenchCont
 // Creating default context
 export const WorkbenchContext = React.createContext({
   languageCode: 'nb',
-  backendService: BackendServiceMock,
-  ldsService: LdsServiceMock,
-  datasetService: new DatasetServiceMock(),
+  backendService: BackendServiceImpl,
+  ldsService: LdsServiceImpl,
+  datasetService: DatasetServiceImpl,
   notebookService: new NotebookServiceImpl(),
   notification: false,
   notificationType: null,
@@ -38,8 +38,8 @@ export class ContextProvider extends Component {
   state = {
     languageCode: 'nb',
     backendService: new BackendServiceImpl(),
-    ldsService: Properties.mock.lds === true ? new LdsServiceMock(): new LdsServiceImpl(),
-    datasetService: Properties.mock.datasetService === true ? new DatasetServiceMock(): new DatasetServiceImpl(),
+    ldsService: new LdsServiceImpl(),
+    datasetService: new DatasetServiceImpl(),
     notebookService: new NotebookServiceImpl(),
     graphService: new GraphServiceImpl(),
     notification: false,

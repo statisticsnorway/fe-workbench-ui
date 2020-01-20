@@ -1,0 +1,369 @@
+{
+  "data": {
+    "__type": {
+      "name": "Query",
+      "fields": [
+        {
+          "name": "About"
+        },
+        {
+          "name": "AboutById"
+        },
+        {
+          "name": "AdministrativeRegister"
+        },
+        {
+          "name": "AdministrativeRegisterById"
+        },
+        {
+          "name": "Agent"
+        },
+        {
+          "name": "AgentById"
+        },
+        {
+          "name": "AgentInRole"
+        },
+        {
+          "name": "AgentInRoleById"
+        },
+        {
+          "name": "Assessment"
+        },
+        {
+          "name": "AssessmentById"
+        },
+        {
+          "name": "BusinessCase"
+        },
+        {
+          "name": "BusinessCaseById"
+        },
+        {
+          "name": "BusinessFunction"
+        },
+        {
+          "name": "BusinessFunctionById"
+        },
+        {
+          "name": "BusinessProcess"
+        },
+        {
+          "name": "BusinessProcessById"
+        },
+        {
+          "name": "BusinessService"
+        },
+        {
+          "name": "BusinessServiceById"
+        },
+        {
+          "name": "ChangeDefinition"
+        },
+        {
+          "name": "ChangeDefinitionById"
+        },
+        {
+          "name": "DataHarvesting"
+        },
+        {
+          "name": "DataHarvestingById"
+        },
+        {
+          "name": "DataResource"
+        },
+        {
+          "name": "DataResourceById"
+        },
+        {
+          "name": "DescribedValueDomain"
+        },
+        {
+          "name": "DescribedValueDomainById"
+        },
+        {
+          "name": "DimensionalDataSet"
+        },
+        {
+          "name": "DimensionalDataSetById"
+        },
+        {
+          "name": "DimensionalDataStructure"
+        },
+        {
+          "name": "DimensionalDataStructureById"
+        },
+        {
+          "name": "EnumeratedValueDomain"
+        },
+        {
+          "name": "EnumeratedValueDomainById"
+        },
+        {
+          "name": "EnvironmentChange"
+        },
+        {
+          "name": "EnvironmentChangeById"
+        },
+        {
+          "name": "InformationRequest"
+        },
+        {
+          "name": "InformationRequestById"
+        },
+        {
+          "name": "InstanceVariable"
+        },
+        {
+          "name": "InstanceVariableById"
+        },
+        {
+          "name": "InstanceVariableRelationship"
+        },
+        {
+          "name": "InstanceVariableRelationshipById"
+        },
+        {
+          "name": "LogicalRecord"
+        },
+        {
+          "name": "LogicalRecordById"
+        },
+        {
+          "name": "MappingRawDataToInputData"
+        },
+        {
+          "name": "MappingRawDataToInputDataById"
+        },
+        {
+          "name": "MeasurementType"
+        },
+        {
+          "name": "MeasurementTypeById"
+        },
+        {
+          "name": "MeasurementUnit"
+        },
+        {
+          "name": "MeasurementUnitById"
+        },
+        {
+          "name": "OutputSpecification"
+        },
+        {
+          "name": "OutputSpecificationById"
+        },
+        {
+          "name": "ParameterInput"
+        },
+        {
+          "name": "ParameterInputById"
+        },
+        {
+          "name": "Population"
+        },
+        {
+          "name": "PopulationById"
+        },
+        {
+          "name": "Presentation"
+        },
+        {
+          "name": "PresentationById"
+        },
+        {
+          "name": "ProcessControl"
+        },
+        {
+          "name": "ProcessControlById"
+        },
+        {
+          "name": "ProcessControlDesign"
+        },
+        {
+          "name": "ProcessControlDesignById"
+        },
+        {
+          "name": "ProcessDesign"
+        },
+        {
+          "name": "ProcessDesignById"
+        },
+        {
+          "name": "ProcessExecutionLog"
+        },
+        {
+          "name": "ProcessExecutionLogById"
+        },
+        {
+          "name": "ProcessInputSpecification"
+        },
+        {
+          "name": "ProcessInputSpecificationById"
+        },
+        {
+          "name": "ProcessMethod"
+        },
+        {
+          "name": "ProcessMethodById"
+        },
+        {
+          "name": "ProcessMetric"
+        },
+        {
+          "name": "ProcessMetricById"
+        },
+        {
+          "name": "ProcessOutputSpecification"
+        },
+        {
+          "name": "ProcessOutputSpecificationById"
+        },
+        {
+          "name": "ProcessPattern"
+        },
+        {
+          "name": "ProcessPatternById"
+        },
+        {
+          "name": "ProcessStep"
+        },
+        {
+          "name": "ProcessStepById"
+        },
+        {
+          "name": "ProcessStepInstance"
+        },
+        {
+          "name": "ProcessStepInstanceById"
+        },
+        {
+          "name": "ProcessSupportInput"
+        },
+        {
+          "name": "ProcessSupportInputById"
+        },
+        {
+          "name": "Product"
+        },
+        {
+          "name": "ProductById"
+        },
+        {
+          "name": "Protocol"
+        },
+        {
+          "name": "ProtocolById"
+        },
+        {
+          "name": "ProvisionAgreement"
+        },
+        {
+          "name": "ProvisionAgreementById"
+        },
+        {
+          "name": "Questionnaire"
+        },
+        {
+          "name": "QuestionnaireById"
+        },
+        {
+          "name": "RecordRelationship"
+        },
+        {
+          "name": "RecordRelationshipById"
+        },
+        {
+          "name": "RepresentedVariable"
+        },
+        {
+          "name": "RepresentedVariableById"
+        },
+        {
+          "name": "Role"
+        },
+        {
+          "name": "RoleById"
+        },
+        {
+          "name": "Rule"
+        },
+        {
+          "name": "RuleById"
+        },
+        {
+          "name": "StatisticalProgram"
+        },
+        {
+          "name": "StatisticalProgramById"
+        },
+        {
+          "name": "StatisticalProgramCycle"
+        },
+        {
+          "name": "StatisticalProgramCycleById"
+        },
+        {
+          "name": "StatisticalProgramDesign"
+        },
+        {
+          "name": "StatisticalProgramDesignById"
+        },
+        {
+          "name": "StatisticalSupportProgram"
+        },
+        {
+          "name": "StatisticalSupportProgramById"
+        },
+        {
+          "name": "SubjectField"
+        },
+        {
+          "name": "SubjectFieldById"
+        },
+        {
+          "name": "TransformableInput"
+        },
+        {
+          "name": "TransformableInputById"
+        },
+        {
+          "name": "TransformedOutput"
+        },
+        {
+          "name": "TransformedOutputById"
+        },
+        {
+          "name": "UnitDataSet"
+        },
+        {
+          "name": "UnitDataSetById"
+        },
+        {
+          "name": "UnitDataStructure"
+        },
+        {
+          "name": "UnitDataStructureById"
+        },
+        {
+          "name": "UnitType"
+        },
+        {
+          "name": "UnitTypeById"
+        },
+        {
+          "name": "Universe"
+        },
+        {
+          "name": "UniverseById"
+        },
+        {
+          "name": "Variable"
+        },
+        {
+          "name": "VariableById"
+        }
+      ]
+    }
+  }
+}
