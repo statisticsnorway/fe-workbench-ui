@@ -198,7 +198,7 @@ export const GET_VARIABLE = gql`
                         languageText
                     }
                     dataType
-                    klassUrl
+                    klassUrn
                 }
             }
         }
