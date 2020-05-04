@@ -7,9 +7,7 @@ const baseUrl = "https://workbench.staging-bip-app.ssb.no/be/"
 export default {
   ...env,
   api: {
-    lds: baseUrl + 'lds',
-    ldsB: baseUrl + 'lds-b',
-    ldsC: baseUrl + 'lds-c',
+    lds: baseUrl + 'lds-gsim',
     backend: baseUrl + 'workbench-backend/',
     namespace: '/ns',
     notebookService: 'https://workbench.staging-bip-app.ssb.no/be/workbench-backend/api/',

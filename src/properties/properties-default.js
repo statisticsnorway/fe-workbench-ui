@@ -11,8 +11,6 @@ export default {
   },
   api: {
     lds: "",
-    ldsB: "",
-    ldsC: "",
     backend: "",
     namespace: "",
     notebookService: "",

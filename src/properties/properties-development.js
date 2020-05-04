@@ -17,8 +17,6 @@ export default {
     notebookService: 'http://localhost:8080/api/',
     graphService: 'http://localhost:8000/api/',
     namespace: '/ns',
-    lds: 'http://localhost:29091',
-    ldsB: 'http://localhost:9090',
-    ldsC: 'http://localhost:9090',
+    lds: 'http://localhost:29091'
   }
 }

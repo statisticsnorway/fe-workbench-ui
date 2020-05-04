@@ -83,8 +83,6 @@ export class ContextProvider extends Component {
         default:
         /* falls through */
         case 'A': return Properties.api.lds
-        case 'B': return Properties.api.ldsB
-        case 'C': return Properties.api.ldsC
     }
   }
 
